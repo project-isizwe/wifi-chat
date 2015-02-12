@@ -1,8 +1,7 @@
-skeleton-project
-================
+WiFi-Chat
+=========
 
-A skeleton project for starting to build XMPP projects using XMPP-FTW
-
+Buddycloud-channels for the WiFi-Chat project
 
 setup:
 ------
