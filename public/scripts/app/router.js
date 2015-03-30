@@ -5,9 +5,11 @@ define(function (require) {
     var $         = require('jquery'),
         Backbone  = require('backbone'),
         LoginView = require('app/views/Login'),
-
+        PageSlider  = require('app/utils/pageslider'),
+        slider = new PageSlider($('body')),
+        
         loginView = new LoginView()
-
+        
     return Backbone.Router.extend({
 
         routes: {

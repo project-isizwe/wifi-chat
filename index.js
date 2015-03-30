@@ -1,4 +1,5 @@
 var express      = require('express')
+  , serveStatic  = require('serve-static')
   , errorHandler = require('errorhandler')
   , Emitter      = require('primus-emitter')
   , Primus       = require('primus')
@@ -21,7 +22,7 @@ var server = app.listen(3000, function() {
 })
 
 app.disable('x-powered-by')
-app.use(express.static(__dirname + '/public'))
+app.use(serveStatic(__dirname + '/public'))
 app.use(errorHandler({
   dumpExceptions: ('development' === environment),
   showStack: ('development' === environment)
