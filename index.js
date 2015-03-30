@@ -4,12 +4,16 @@ var express    = require('express')
   , engine     = require('ejs-locals')
   , xmpp       = require('xmpp-ftw')
   , Buddycloud = require('xmpp-ftw-buddycloud')
+  , helmet     = require('helmet')
 
 var app = express()
+
+helmet.defaults(app)
 
 app.get('/', function(req, res){
     res.render('index')
 })
+
 
 var server = app.listen(3000, function() {
     console.log('Listening on port %d', server.address().port)
