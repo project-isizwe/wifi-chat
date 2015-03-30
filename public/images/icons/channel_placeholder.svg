@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="144px" height="144px" viewBox="0 0 144 144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>channel_placeholder</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="A4" sketch:type="MSArtboardGroup" transform="translate(-144.000000, 0.000000)" fill="#FFFFFF">
+            <g id="channel_placeholder" sketch:type="MSLayerGroup" transform="translate(180.000000, 40.000000)">
+                <path d="M59,53 C60.5764307,54.7538375 63,53.7500461 63,52 L63,38 L61,40 L65,40 C68.9865203,40.4966173 72,37.4771712 72,34 L72,7 C72,3.01549084 68.9905278,0 65,0 L25,0 C21.0134797,0 18,3.01944606 18,7 L18,34 C18,37.4811264 21.0094722,40.4966173 25,40 L47,40 L46,40 L59,53 Z" id="Rectangle-727" sketch:type="MSShapeGroup"></path>
+                <path d="M10,18 L7,18 C2.96210744,18 0,21.0154908 0,25 L0,52 C0,55.4771712 2.96605188,58.4966173 7,58 L9,58 L9,70 C9.0212766,71.7500461 11.243779,72.7538375 13,71 L26,58 L24,58 L47,58 C49.18528,58.414689 51.9046375,56.5243941 52.74241,53.74241 L46,47 L48,47 L19,47 C13.9011676,47.495615 10,43.5866454 10,39 L10,18 Z" id="Rectangle-735" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>
