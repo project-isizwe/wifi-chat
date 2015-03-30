@@ -1,55 +1,47 @@
 define(function (require) {
+  
+  'use strict';
 
-    'use strict';
-
-    var $         = require('jquery'),
-        Backbone  = require('backbone'),
-        LoginView = require('app/views/Login'),
-        PageSlider  = require('app/utils/pageslider'),
-        slider = new PageSlider($('body')),
+  var $         = require('jquery')
+    , Backbone  = require('backbone')
+    , LoginView = require('app/views/Login')
+    , DiscoveryView = require('app/views/Discovery')
+    , PageSlider  = require('app/utils/pageslider')
+    , slider = new PageSlider($('body'))
         
-        loginView = new LoginView()
-        
-    return Backbone.Router.extend({
+    return new Backbone.Router.extend({
 
-        routes: {
-            '': 'home',
-            'channels': 'channelList',
-            'channel/:jid': 'channelContent',
-            'profile/:jid': 'userProfile'
-        },
-
-        home: function () {
-            loginView.delegateEvents()
-            slider.slidePage(loginView.$el)
-        },
+      routes: {
+        '': 'showHome',
+        'discovery': 'showDiscovery',
+        'channels': 'channelList',
+        'channel/:jid': 'channelContent',
+        'profile/:jid': 'userProfile'
+      },
       
-        channelList: function() {
-          
-        },
+      showHome: function () {
+        var loginView = new LoginView({ router: this })
+        this.showView(loginView)
+      },
+      
+      showDiscovery: function() {
+        var discoveryView = new DiscoveryView({ router: this })
+        this.showView(discoveryView)  
+      },
 
-        channelContent: function (id) {
-            require(['app/models/thread', 'app/views/Channels'], function (models, EmployeeView) {
-                var employee = new models.Employee({id: id})
-                employee.fetch({
-                    success: function (data) {
-                        slider.slidePage(new EmployeeView({ model: data }).$el)
-                    }
-                })
-            })
-        },
-
-        userProfile: function (id) {
-            require(['app/models/employee', 'app/views/Reports'], function (models, ReportsView) {
-                var employee = new models.Employee({id: id})
-                employee.fetch({
-                    success: function (data) {
-                        slider.slidePage(new ReportsView({ model: data }).$el)
-                    }
-                })
-            })
-        }
-
-    })
+      
+      showView: function(view) {
+        this.closeView()
+        view.delegateEvents()
+        slider.slidePage(view.$el)
+        this.currentView = view
+      },
+      
+      closeView: function() {
+        if (!this.currentView) return
+        this.currentView.close()
+        this.currentView.remove()
+      }
+    })()
 
 })

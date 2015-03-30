@@ -1,32 +1,34 @@
 require.config({
-    baseUrl: 'scripts/lib',
-    paths: {
-        app: '../app',
-        tpl: '../tpl'
-    },
-    map: {
-        '*': {
-            'app/models/employee': 'app/models/memory/employee'
-        }
-    },
-    shim: {
-        'backbone': {
-            deps: ['underscore', 'jquery'],
-            exports: 'Backbone'
-        },
-        'underscore': {
-            exports: '_'
-        }
+  baseUrl: 'scripts/lib',
+  paths: {
+    app: '../app',
+    tpl: '../templates'
+  },
+  map: {
+    '*': {
+      'app/models/employee': 'app/models/memory/employee'
     }
+  },
+  shim: {
+    backbone: {
+      deps: ['underscore', 'jquery'],
+      exports: 'Backbone'
+    },
+    underscore: {
+      exports: '_'
+    }
+  }
 })
 
-require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
+require(['jquery', 'backbone', 'app/router'], function ($, Backbone, router) {
 
-    var router = new Router()
+  localStorage.andlogKey = 'wifiDebug'
 
-    $("body").on("click", ".back-button", function (event) {
-        event.preventDefault()
-        window.history.back()
-    })
-    Backbone.history.start()
+  $('body').on('click', '.js-back-button', function(event) {
+    event.preventDefault()
+    window.history.back()
+  })
+  
+  Backbone.history.start()
+  
 })
