@@ -4,7 +4,7 @@
 
 body {
   font: 16px "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
-  background: hsl(220,9%,89%);
+  background: hsl(220,9%,87%);
   color: hsl(220,9%,20%);
 }
 
@@ -54,19 +54,18 @@ p {
   height: 46px;
   left: 0;
   top: 0;
-  background: hsl(221,35%,45%);
-  border-bottom: 1px solid hsl(221,33%,35%);
+  background: linear-gradient(hsl(221,3%,96%), hsl(221,3%,98%));
+  border-bottom: 1px solid hsl(221,5%,90%);
   display: flex;
   align-items: center;
   text-align: center;
-  color: white;
 }
 
 .screen-header .btn {
   flex: 1 1 25%;
   text-align: left;
   color: inherit;
-  font-weight: 200;
+  font-weight: normal;
   font-size: 14px;
 }
 
@@ -99,16 +98,18 @@ p {
   justify-content: center;
 }
 
-.btn.login-forgotPassword {
-  padding: 14px;
-}
-
-.login-signup {
+.bottom-controls {
+  display: flex;
   position: absolute;
   bottom: 14px;
-  left: 0;
-  width: 100%;
-  text-align: center;
+  left: 14px;
+  right: 14px;
+}
+.bottom-controls .btn {
+  padding: 14px;
+}
+.bottom-controls .btn:last-child {
+  margin-left: auto;
 }
 
 .login .screen-textContent {
@@ -129,8 +130,8 @@ p {
   justify-content: center;
 }
 
-.channelList-items {
-  border-bottom: 1px solid hsl(232,8%,90%);
+.channelList-item {
+  border-bottom: 1px solid hsl(232,8%,95%);
   display: flex;
   align-items: center;
   padding: 9px 14px;
@@ -154,12 +155,71 @@ p {
   background: hsl(232,8%,90%);
 }
 
+.private-count {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  color: white;
+  background: hsl(25,89%,56%);
+  border-radius: 18px;
+  padding: 0 6px;
+  line-height: 18px;
+  font-size: 12px;
+}
+
+.channel {
+  background: hsl(223,8%,93%);
+  padding-top: 0;
+}
+
+.channel-header {
+  margin-bottom: 10px;
+  border-bottom: 1px solid hsl(223,8%,90%);
+}
+
+.channel-controls {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  padding-bottom: 14px;
+  background: linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,0));
+}
+
+.channel-controls .btn {
+  padding: 14px;
+  font-size: 14px;
+  font-weight: normal;
+  color: white;
+  text-shadow: 0 1px 1px hsla(223,8%,41%,.2);
+}
+
+.channel-controls .btn:last-child:not(:only-child) {
+  margin-left: auto;
+}
+
+.channel-banner {
+  height: 166px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid hsl(223,8%,91%);
+}
+
+.channel-title {
+  padding: 14px 0;
+  text-align: center;
+  font-weight: 500;
+  background: white;
+}
+
 .topic {
-  border-bottom: 1px solid hsl(232,8%,80%);
+  border-top: 1px solid hsl(232,8%,89%);
+  border-bottom: 1px solid hsl(232,8%,91%);
+  margin-bottom: 14px;
 }
 
 .post {
   padding: 14px;
+  background: white;
 }
 
 .posts .post {
@@ -181,10 +241,10 @@ p {
 .post-actions {
   display: none;
 }
-.post-actions-items {
+.post-actions-item {
   flex: 1;
 }
-.post-actions-items + .post-actions-items {
+.post-actions-item + .post-actions-item {
   margin-left: 9px;
 }
 .post p:last-of-type {
@@ -208,7 +268,7 @@ p {
   height: 44px;
   border-radius: 100%;
   display: inline-block;
-  background: hsl(221,33%,93%) url(../images/icons/avatar_placeholder.svg);
+  background: hsl(221,33%,93%) url(../images/icons/avatar_placeholder.svg) center;
   background-size: cover;
   position: relative;
 }
@@ -223,22 +283,10 @@ p {
   height: 128px;
 }
 
-.private-count {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  color: white;
-  background: hsl(25,89%,56%);
-  border-radius: 18px;
-  padding: 0 6px;
-  line-height: 18px;
-  font-size: 12px;
-}
-
 .btn {
   padding: 12px 12px 11px;
-  color: hsl(221,5%,55%);
-  border: 1px solid hsl(221,5%,75%);
+  background: hsl(221,33%,43%);
+  color: white;
   border-radius: 3px;
   text-align: center;
   cursor: pointer;
@@ -248,14 +296,13 @@ p {
 }
 
 .btn--small {
+  background: hsl(221,3%,83%);
   padding: 7px;
   font-size: 12px;
-  border-color: currentColor;
-  color: hsl(221,5%,50%);
 }
 
 .btn--secondary {
-  border: none;
+  background: none;
   padding-left: 0;
   padding-right: 0;
   color: hsl(221,5%,50%);
@@ -305,24 +352,24 @@ input + .btn {
   position: absolute;
   right: 5px;
   top: 45px;
-  box-shadow: 0 1px 5px rgba(0,0,0,.5);
+  box-shadow: 0 1px 10px hsla(221,5%,25%,.2);
 }
 
 .menu-item {
   text-align: left;
   width: 140px;
   padding: 11px 14px;
-  background: hsl(223,36%,55%);
+  background: hsl(240,11%,98%);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   box-shadow: 0 1px rgba(255,255,255,.05) inset;
-  border-bottom: 1px solid rgba(0,0,0,.2);
+  border-bottom: 1px solid rgba(0,0,0,.08);
 }
 
 .menu-item:hover,
 .menu-item:active {
-  background: hsl(223,40%,60%);
+  background: hsl(240,11%,96%);
 }
 
 .optionsList {

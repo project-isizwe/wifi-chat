@@ -14,9 +14,11 @@
       <input type="text" id="login-username" placeholder="Wifi Chat Username">
       <input type="password" id="login-password" placeholder="Password">
       <div class="btn login-continue js-login">Continue</div>
-      <div class="btn btn--secondary btn--small login-forgotPassword js-forgotPassword">Forgot your password?</div>
     </form>
-    <div class="btn btn--secondary login-signup js-signup">Sign Up for Wifi Chat</div>
+    <div class="bottom-controls">
+      <div class="btn btn--secondary btn--small login-signup js-signup">Not on Wifi Chat?</div>
+      <div class="btn btn--secondary btn--small login-forgotPassword js-forgotPassword">Forgot Password</div>
+    </div>
   </div>
 </div>
 
@@ -118,7 +120,7 @@
     </div>
   </header>
   <div class="channelList">
-    <div class="channelList-items">
+    <div class="channelList-item">
       <div class="channelIcon">
         <div class="private-count">5</div>
       </div>
@@ -126,31 +128,42 @@
       <div class="channelList-unreadCount">20</div>
       <div class="arrow right icon"></div>
     </div>
-    <div class="channelList-items">
+    <div class="channelList-item">
       <div class="channelIcon"></div>
       <div class="channelList-title">WiFi TV</div>
       <div class="channelList-unreadCount">0</div>
       <div class="arrow right icon"></div>
     </div>
-    <div class="channelList-items">
+    <div class="channelList-item">
       <div class="channelIcon"></div>
       <div class="channelList-title">WiFi Support</div>
       <div class="channelList-unreadCount">0</div>
+      <div class="arrow right icon"></div>
+    </div>
+    <div class="channelList-item">
+      <div class="channelIcon" style="background-image: url(tshwane.jpg)">
+        <div class="private-count">5</div>
+      </div>
+      <div class="channelList-title">City of Tshwane</div>
+      <div class="channelList-unreadCount">5</div>
       <div class="arrow right icon"></div>
     </div>
   </div>
 </div>
 
 <div class="channel screen">
-  <header class="screen-header">
-    <div class="btn btn--secondary js-back">
-      <div class="arrow left icon"></div>
-      Channels
+  <header class="channel-header">
+    <div class="channel-controls">
+      <div class="btn btn--secondary js-back">
+        <div class="arrow left icon"></div>
+        Close
+      </div>
+      <div class="btn btn--secondary js-menu">
+        Menu
+      </div>
     </div>
-    <div class="screen-title">WiFi Drive-in</div>
-    <div class="btn btn--secondary js-menu">
-      Menu
-    </div>
+    <div class="channel-banner" style="background-image: url(tshwane.jpg)"></div>
+    <div class="channel-title">City of Tshwane</div>
   </header>
   <article class="topic post">
     <div class="post-meta">
@@ -169,10 +182,10 @@
         </div>
         <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
         <div class="post-actions">
-          <div class="post-actions-items btn btn--small js-delete">
+          <div class="post-actions-item btn btn--small js-delete">
             <span class="delete icon"></span>Delete comment
           </div>
-          <div class="post-actions-items btn btn--small js-mute">
+          <div class="post-actions-item btn btn--small js-mute">
             <span class="mute icon"></span>Mute user
           </div>
         </div>
