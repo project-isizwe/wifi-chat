@@ -20,7 +20,7 @@ require.config({
   }
 })
 
-require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
+require(['jquery', 'backbone', 'app/Router'], function ($, Backbone, Router) {
 
   localStorage.andlogKey = 'wifiDebug'
   

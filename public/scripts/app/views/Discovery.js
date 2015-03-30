@@ -11,24 +11,35 @@ define(function(require) {
 
     return Backbone.View.extend({
 
-        initialize: function () {
-          this.performDiscovery()
-          this.render()
+        initialize: function (options) {
+          this.router = options.router
+          if (!localStorage.getItem('terms')) {
+            this.title = 'Terms and Conditions'
+            this.template = _.template(noTermsTpl)
+          } else {
+            this.title = 'Finding server...'
+            this.template = _.template(hasTermsTpl)
+          }
+          if (this.router.isLoggedIn()) {
+            this.performDiscovery()
+            this.render()
+          }
         },
       
         performDiscovery: function() {
-          socket.send('xmpp.buddycloud.discovery', function(error, server) {
+          log('Performing discovery')
+          var self = this
+          socket.send('xmpp.buddycloud.discover', function(error, server) {
+            log('Discovery response', error, server)
             if (error) {
-              alert('ERROR', error)
+              return alert('ERROR', error)
             }
-            router.showFeed()
+            self.options.router.showFeed()
           })
         },
 
         render: function () {
-            var template = (!localStorage.getItem('terms')) ?
-              _.template(noTermsTpl) : _.template(hasTermsTpl)
-            this.$el.html(template())
+            this.$el.html(this.template())
             return this
         },
 

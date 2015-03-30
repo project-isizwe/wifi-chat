@@ -38,6 +38,14 @@
     "xmpp-ftw-buddycloud": "1.x"
   },
   "devDependencies": {
-    "fb-flo": "^0.4.0"
+    "fb-flo": "^0.4.0",
+    "grunt": "^0.4.5",
+    "grunt-autoprefixer": "^2.2.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-jshint": "^0.11.1",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-mocha-cli": "^1.12.0",
+    "grunt-nsp-package": "0.0.5",
+    "grunt-svg-sprite": "^1.0.20"
   }
 }

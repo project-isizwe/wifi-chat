@@ -28,9 +28,8 @@ module.exports = function(grunt) {
         requirejs: {
             javascript: {
                 options: {
-                    baseUrl: './public/js',
-                    mainConfigFile: './public/js/main.js',
-                    name: 'main',
+                    baseUrl: './public/scripts',
+                    mainConfigFile: './public/scripts/app.js',
                     out: './public/app.min.js',
                     generateSourceMaps: true,
                     preserveLicenseComments: false,
@@ -57,8 +56,7 @@ module.exports = function(grunt) {
         svg_sprite: {
           src: [ 'images/icons/*.svg' ],
           cwd: 'public',
-          dest: 'sprites',
-          options : {},
+          dest: 'sprites/'
         },
         clean: {
             'post-release': [
@@ -71,6 +69,12 @@ module.exports = function(grunt) {
                 '!test/screenshots/.gitkeep',
                 'test/screenshots/*'
             ]
+        },
+        autoprefixer: {
+          options: {
+            src: 'public/app.min.css',
+            dest: 'public/app.min.css'
+          }
         }
     }
 
@@ -86,6 +90,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean')
     grunt.loadNpmTasks('grunt-nsp-package')
     grunt.loadNpmTasks('grunt-svg-sprite')
+    grunt.loadNpmTasks('grunt-autoprefixer')
 
     // Configure tasks
     grunt.registerTask('default', ['test'])
@@ -95,6 +100,6 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['clean', 'build', 'mochacli'/*, 'jshint'*/, 'validate-package'])
     grunt.registerTask('mocha', ['mochacli'])
     grunt.registerTask('dev-throttle', ['concurrent:devThrottle'])
-    grunt.registerTask('build', [ 'requirejs:javascript', 'requirejs:css' ])
+    grunt.registerTask('build', [ 'svg_sprite', 'autoprefixer', 'requirejs:javascript', 'requirejs:css' ])
     grunt.registerTask('release', [ 'clean', /*'shrinkwrap',*/ 'build', 'compress', 'copy', 'clean:post-release' ])
 }

@@ -13,33 +13,41 @@ define(function(require) {
     return Backbone.View.extend({
 
         initialize: function (options) {
-            this.router = options.router
-            this.render()
+          this.router = options.router
+          this.registerEvents()
+          this.render()
         },
+      
+        title: 'Login',
 
         render: function () {
-            this.$el.html(template())
-            return this
+          this.$el.html(template())
+          return this
         },
 
         events: {
-            'submit': 'login'
+          'submit': 'login'
+        },
+      
+        registerEvents: function() {
+          var self = this
+          socket.on('xmpp.connection', function(data) {
+            log('Connected as', data.jid)
+            self.router.setLoggedIn().showDiscovery()
+          })
+          socket.on('xmpp.error', function() {
+            log('Bad username / password combination')
+            alert('Bad username / password combo')
+            $(self.el).find('button').attr('disabled', false)
+          })
         },
 
-        login: function (event) {
-          
-            var username = $('.username').val()
-            var password = $('.password').val()
-            socket.send('xmpp.login', { jid: username, password: password })
-            var self = this
-            socket.on('xmpp.connection', function(data) {
-              log('Connected as', data.jid)
-              self.router.showDiscovery()
-            })
-            socket.on('xmpp.error', function() {
-              log('Bad username / password combination')
-              alert('Bad username / password combo')
-            })
+        login: function(event) {
+          event.preventDefault()
+          $(this.el).find('button').attr('disabled', 'disabled')
+          var username = $('input[name="login-username"]').val()
+          var password = $('input[name="login-password"]').val()
+          socket.send('xmpp.login', { jid: username, password: password })
         }
 
     })
