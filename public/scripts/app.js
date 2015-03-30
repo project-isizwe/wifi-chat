@@ -20,9 +20,11 @@ require.config({
   }
 })
 
-require(['jquery', 'backbone', 'app/router'], function ($, Backbone, router) {
+require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
 
   localStorage.andlogKey = 'wifiDebug'
+  
+  var router = new Router()
 
   $('body').on('click', '.js-back-button', function(event) {
     event.preventDefault()

@@ -31,9 +31,10 @@ define(function(require) {
             var username = $('.username').val()
             var password = $('.password').val()
             socket.send('xmpp.login', { jid: username, password: password })
+            var self = this
             socket.on('xmpp.connection', function(data) {
               log('Connected as', data.jid)
-              router.showDiscovery()
+              self.router.showDiscovery()
             })
             socket.on('xmpp.error', function() {
               log('Bad username / password combination')

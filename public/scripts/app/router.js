@@ -9,7 +9,7 @@ define(function (require) {
     , PageSlider  = require('app/utils/pageslider')
     , slider = new PageSlider($('body'))
         
-    return new Backbone.Router.extend({
+    return Backbone.Router.extend({
 
       routes: {
         '': 'showHome',
@@ -39,9 +39,9 @@ define(function (require) {
       
       closeView: function() {
         if (!this.currentView) return
-        this.currentView.close()
+        this.currentView.stopListening()
         this.currentView.remove()
       }
-    })()
+    })
 
 })
