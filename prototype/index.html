@@ -1,6 +1,8 @@
 <!doctype html>
 <title>Wifi Chat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../public/css/style.css">
+<link rel="stylesheet" href="../public/css/spinner.css">
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 
 
@@ -8,10 +10,26 @@
   <div class="screen-textContent">
     <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
     <h1>WiFi Chat</h1>
-    <input type="text" id="login-username" placeholder="Wifi Chat Username">
-    <input type="password" id="login-password" placeholder="Password">
-    <div class="btn js-login">Continue</div>
-    <div class="btn btn--secondary login-signup">Sign Up for Wifi Chat</div>
+    <form>
+      <input type="text" id="login-username" placeholder="Wifi Chat Username">
+      <input type="password" id="login-password" placeholder="Password">
+      <div class="btn login-continue js-login">Continue</div>
+      <div class="btn btn--secondary btn--small login-forgotPassword js-forgotPassword">Forgot your password?</div>
+    </form>
+    <div class="btn btn--secondary login-signup js-signup">Sign Up for Wifi Chat</div>
+  </div>
+</div>
+
+<div class="loading screen">
+  <header class="screen-header">
+    <div class="btn btn--secondary js-back">
+      <div class="back arrow icon"></div>
+      Back
+    </div>
+  </header>
+  <div class="spinner">
+    <div class="spinner-outer"></div>
+    <div class="spinner-inner"></div>
   </div>
 </div>
 
@@ -22,14 +40,13 @@
       Back
     </div>
     <div class="screen-title">Sign Up</div>
-    <div class="btn btn--secondary"></div>
   </header>
-  <div class="screen-textContent">
+  <form class="screen-textContent">
     <input type="text" id="signup-username" placeholder="Wifi Chat Username">
     <input type="password" id="signup-password" placeholder="Password">
     <input type="email" id="signup-email" placeholder="E-Mail">
     <div class="btn js-signup">Sign Up to WiFi Chat</div>
-  </div>
+  </form>
 </div>
 
 <div class="rules screen">
@@ -94,10 +111,14 @@
     <div class="screen-title">Channels</div>
     <div class="btn btn--secondary js-menu">
       Menu
+      <div class="menu">
+        <div class="menu-item js-topic">New Topic</div>
+        <div class="menu-item js-settings">Settings</div>
+      </div>
     </div>
   </header>
   <div class="channelList">
-    <div class="channelList-entry">
+    <div class="channelList-items">
       <div class="channel avatar">
         <div class="private-count">5</div>
       </div>
@@ -105,13 +126,13 @@
       <div class="channelList-unreadCount">20</div>
       <div class="arrow right icon"></div>
     </div>
-    <div class="channelList-entry">
+    <div class="channelList-items">
       <div class="channel avatar"></div>
       <div class="channelList-title">WiFi TV</div>
       <div class="channelList-unreadCount">0</div>
       <div class="arrow right icon"></div>
     </div>
-    <div class="channelList-entry">
+    <div class="channelList-items">
       <div class="channel avatar"></div>
       <div class="channelList-title">WiFi Support</div>
       <div class="channelList-unreadCount">0</div>
@@ -138,7 +159,9 @@
     </div>
     <p>We need your help. We're planning the new Wifi-Drive-in film but can't decide what to pick. Right now we have three choices: Out of Movie A, B and C, which would you like to see next?</p>
     <section class="posts">
-      <div class="posts-showMore btn">show 49 more comments</div>
+      <div class="post post--showMore">
+        <div class="btn btn--small">Show 49 more comments</div>
+      </div>
       <div class="post">
         <div class="post-meta">
           <div class="post-author">mattheu_matshaya</div>
@@ -146,10 +169,10 @@
         </div>
         <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
         <div class="post-actions">
-          <div class="post-actions-entry btn js-delete">
+          <div class="post-actions-items btn btn--small js-delete">
             <span class="delete icon"></span>Delete comment
           </div>
-          <div class="post-actions-entry btn js-mute">
+          <div class="post-actions-items btn btn--small js-mute">
             <span class="mute icon"></span>Mute user
           </div>
         </div>
@@ -162,7 +185,7 @@
         <p>I agree with Mattheu. C is a good film. Especially with Brad Pit!!!</p>
       </div>
       <div class="post post--add">
-        <div class="btn js-addComment">
+        <div class="btn btn--small js-addComment">
           <span class="plus icon"></span> Add a comment
         </div>
       </div>
@@ -190,5 +213,21 @@
     <div class="avatar avatar--big"></div>
     <p>A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</p>
     <p class="profile-meta">member since 2 weeks</p>
+  </div>
+</div>
+
+<div class="settings screen">
+  <header class="screen-header">
+    <div class="btn btn--secondary js-back">
+      <div class="left arrow icon"></div>
+      Back
+    </div>
+    <div class="screen-title">Settings</div>
+  </header>
+  <div class="optionsList">
+    <div class="optionsList-item">Help</div>
+    <div class="optionsList-item">Profile</div>
+    <div class="optionsList-item">Rules</div>
+    <div class="optionsList-item">Chat Settings</div>
   </div>
 </div>
