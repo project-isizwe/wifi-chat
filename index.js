@@ -30,12 +30,12 @@ app.configure(function() {
 })
 
 var options = {
-    transformer: 'socket.io',
+    transformer: 'engine.io',
     parser: 'JSON',
     transports: [
-        'websocket',
-        'htmlfile',
+        /* 'websocket', */
         'xhr-polling',
+        'htmlfile',
         'jsonp-polling'
     ]
 }
