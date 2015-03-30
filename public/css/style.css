@@ -70,7 +70,7 @@ p {
   font-size: 14px;
 }
 
-.screen-header .btn:last-child {
+.screen-header .btn:last-child:not(:only-child) {
   text-align: right;
 }
 
@@ -121,6 +121,12 @@ p {
 
 .login .logo {
   align-self: center;
+}
+
+.loading.screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .channelList-items {
@@ -310,6 +316,19 @@ input + .btn {
 .menu-item:hover,
 .menu-item:active {
   background: hsl(223,40%,60%);
+}
+
+.optionsList {
+  padding: 0 28px;
+}
+
+.optionsList-item {
+  padding: 22px;
+  border-bottom: 1px solid hsl(232,8%,90%);
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media (max-width: 600px) {
