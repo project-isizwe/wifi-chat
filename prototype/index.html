@@ -1,0 +1,194 @@
+<!doctype html>
+<title>Wifi Chat</title>
+<link rel="stylesheet" href="../public/css/style.css">
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+
+
+<div class="login screen">
+  <div class="screen-textContent">
+    <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
+    <h1>WiFi Chat</h1>
+    <input type="text" id="login-username" placeholder="Wifi Chat Username">
+    <input type="password" id="login-password" placeholder="Password">
+    <div class="btn js-login">Continue</div>
+    <div class="btn btn--secondary login-signup">Sign Up for Wifi Chat</div>
+  </div>
+</div>
+
+<div class="signup screen">
+  <header class="screen-header">
+    <div class="btn btn--secondary js-back">
+      <div class="back arrow icon"></div>
+      Back
+    </div>
+    <div class="screen-title">Sign Up</div>
+    <div class="btn btn--secondary"></div>
+  </header>
+  <div class="screen-textContent">
+    <input type="text" id="signup-username" placeholder="Wifi Chat Username">
+    <input type="password" id="signup-password" placeholder="Password">
+    <input type="email" id="signup-email" placeholder="E-Mail">
+    <div class="btn js-signup">Sign Up to WiFi Chat</div>
+  </div>
+</div>
+
+<div class="rules screen">
+  <header class="screen-header">
+    <div class="btn btn--secondary js-back">
+      <div class="back arrow icon"></div>
+      Back
+    </div>
+    <div class="screen-title">Rules</div>
+  </header>
+  <div class="screen-textContent">
+    <p>By clicking "Start using WiFi Chat" you're accepting the following set of rules:</p>
+    <ul class="accordion">
+      <li>
+        <p class="accordion-title">
+          1. Respect others.
+          <span class="accordion-arrow">
+            <span class="arrow left icon"></span>
+          </span>
+        </p>
+        <p class="accordion-hidden">
+          You might not always agree with others comments. But please respect their right to have an opinion and treat them with respect.
+        </p>
+      <li>
+        <p class="accordion-title">
+          2. Don't spam.
+          <span class="accordion-arrow">
+            <span class="arrow left icon"></span>
+          </span>
+        </p>
+        <p class="accordion-hidden">
+          Don't post the same comment repeatedly in multiple chats.
+        </p>
+      <li>
+        <p class="accordion-title">
+          3. Don't post personal information.
+          <span class="accordion-arrow">
+            <span class="arrow left icon"></span>
+          </span>
+        </p>
+        <p class="accordion-hidden">
+          Don't post the full name, employer, or other real-life details of another WiFi Chat user.
+        </p>
+      <li>
+        <p class="accordion-title">
+          4. No pornography or sexually suggestive content.
+        </p>
+      <li>
+        <p class="accordion-title">
+          5. Don't break the site or do anything that interferes with normal use of the site.
+        </p>
+    </ul>
+    <div class="btn js-start">Start using WiFi Chat</div>
+  </div>
+</div>
+
+<div class="channels screen">
+  <header class="screen-header">
+    <div class="btn btn--secondary js-logout">
+      Logout
+    </div>
+    <div class="screen-title">Channels</div>
+    <div class="btn btn--secondary js-menu">
+      Menu
+    </div>
+  </header>
+  <div class="channelList">
+    <div class="channelList-entry">
+      <div class="channel avatar">
+        <div class="private-count">5</div>
+      </div>
+      <div class="channelList-title">WiFi Drive-in</div>
+      <div class="channelList-unreadCount">20</div>
+      <div class="arrow right icon"></div>
+    </div>
+    <div class="channelList-entry">
+      <div class="channel avatar"></div>
+      <div class="channelList-title">WiFi TV</div>
+      <div class="channelList-unreadCount">0</div>
+      <div class="arrow right icon"></div>
+    </div>
+    <div class="channelList-entry">
+      <div class="channel avatar"></div>
+      <div class="channelList-title">WiFi Support</div>
+      <div class="channelList-unreadCount">0</div>
+      <div class="arrow right icon"></div>
+    </div>
+  </div>
+</div>
+
+<div class="channel screen">
+  <header class="screen-header">
+    <div class="btn btn--secondary js-back">
+      <div class="arrow left icon"></div>
+      Channels
+    </div>
+    <div class="screen-title">WiFi Drive-in</div>
+    <div class="btn btn--secondary js-menu">
+      Menu
+    </div>
+  </header>
+  <article class="topic post">
+    <div class="post-meta">
+      <div class="post-author"><span class="admin icon"></span>daniele54</div>
+      <div class="post-time">5 hours ago</div>
+    </div>
+    <p>We need your help. We're planning the new Wifi-Drive-in film but can't decide what to pick. Right now we have three choices: Out of Movie A, B and C, which would you like to see next?</p>
+    <section class="posts">
+      <div class="posts-showMore btn">show 49 more comments</div>
+      <div class="post">
+        <div class="post-meta">
+          <div class="post-author">mattheu_matshaya</div>
+          <div class="post-time">4 hours ago</div>
+        </div>
+        <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
+        <div class="post-actions">
+          <div class="post-actions-entry btn js-delete">
+            <span class="delete icon"></span>Delete comment
+          </div>
+          <div class="post-actions-entry btn js-mute">
+            <span class="mute icon"></span>Mute user
+          </div>
+        </div>
+      </div>
+      <div class="post">
+        <div class="post-meta">
+          <div class="post-author">letsiemogorosi3</div>
+          <div class="post-time">3 hours ago</div>
+        </div>
+        <p>I agree with Mattheu. C is a good film. Especially with Brad Pit!!!</p>
+      </div>
+      <div class="post post--add">
+        <div class="btn js-addComment">
+          <span class="plus icon"></span> Add a comment
+        </div>
+      </div>
+    </section>
+  </article>
+  <article class="topic post">
+    <div class="post-meta">
+      <div class="post-author"><span class="admin icon"></span>p16thembe</div>
+      <div class="post-time">yesterday</div>
+    </div>
+    <p>Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</p>
+  </article>
+</div>
+
+<div class="profile screen">
+  <header class="screen-header">
+    <div class="btn btn--secondary js-back">
+      <div class="left arrow icon"></div>
+      Back
+    </div>
+    <div class="screen-title">mattheu_matshaya</div>
+    <div class="btn btn--secondary js-edit">Edit</div>
+  </header>
+  <div class="screen-textContent">
+    <div class="avatar avatar--big"></div>
+    <p>A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</p>
+    <p class="profile-meta">member since 2 weeks</p>
+  </div>
+</div>
