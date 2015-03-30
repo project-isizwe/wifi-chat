@@ -23,13 +23,16 @@
     "url": "https://github.com/xmpp-ftw/skeleton-project/issues"
   },
   "dependencies": {
+    "colors": "^1.0.3",
     "ejs-locals": "~1.0.2",
     "engine.io": "^1.5.1",
     "engine.io-client": "^1.5.1",
     "express": "~3.5.0",
     "helmet": "^0.7.1",
+    "identicon": "^2.0.0",
     "primus": "~2.0.4",
     "primus-emitter": "~3.0.0",
+    "serve-favicon": "^2.2.0",
     "xmpp-ftw": "1.x",
     "xmpp-ftw-buddycloud": "1.x"
   }

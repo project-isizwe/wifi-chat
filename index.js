@@ -5,6 +5,10 @@ var express    = require('express')
   , xmpp       = require('xmpp-ftw')
   , Buddycloud = require('xmpp-ftw-buddycloud')
   , helmet     = require('helmet')
+  , favicon    = require('serve-favicon')
+  , identicon  = require('identicon')
+  , getAvatar  = require('./src/routes/avatar-get')
+require('colors')
 
 var app = express()
 
@@ -19,19 +23,23 @@ var server = app.listen(3000, function() {
     console.log('Listening on port %d', server.address().port)
 })
 
-app.configure(function() {
-    app.use(express.static(__dirname + '/public'))
-    app.set('views', __dirname + '/views')
-    app.set('view engine', 'ejs')
-    app.use(express.bodyParser())
-    app.use(express.methodOverride())
-    app.use(express.logger)
-    app.use(express.errorHandler({
-        dumpExceptions: true,
-        showStack: true
-    }))
-    app.engine('ejs', engine)
-})
+app.disable('x-powered-by')
+app.use(express.static(__dirname + '/public'))
+app.set('views', __dirname + '/views')
+app.set('view engine', 'ejs')
+app.use(express.bodyParser())
+app.use(express.methodOverride())
+app.use(express.logger)
+app.use(express.errorHandler({
+    dumpExceptions: true,
+    showStack: true
+}))
+app.engine('ejs', engine)
+app.use(favicon(__dirname + '/public/img/favicon.ico'))
+
+var router = express.Router()
+router.get('/avatar/:channel', getAvatar)
+
 
 var options = {
     transformer: 'engine.io',
