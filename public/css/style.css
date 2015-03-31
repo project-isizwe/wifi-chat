@@ -314,10 +314,20 @@ p {
 }
 
 .post-meta {
+  margin: -7px -14px -6px;
   display: flex;
   font-size: 12px;
   color: #afb0bb;
-  margin-bottom: 3px;
+}
+
+.post-meta .btn,
+.post-time {
+  padding: 7px 14px 9px;
+}
+
+.post-meta.post-meta--bottom {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .post-time {
@@ -398,6 +408,14 @@ p {
   padding-right: 0;
   color: hsl(221,5%,50%);
   width: auto;
+}
+
+.btn--text {
+  color: inherit;
+  width: auto;
+  display: inline-block;
+  padding: 0;
+  background: none;
 }
 
 input {
