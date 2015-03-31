@@ -446,12 +446,21 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
   user-select: none;
+  outline: none;
+}
+
+.btn:active {
+  background: hsl(221,33%,36%);
 }
 
 .btn--small {
   background: hsl(221,3%,75%);
   padding: 7px;
   font-size: 12px;
+}
+
+.btn--small:active {
+  background: hsl(221,3%,68%);
 }
 
 .btn--secondary {
@@ -462,11 +471,19 @@ p {
   width: auto;
 }
 
+.btn--secondary:active {
+  background: none;
+}
+
 .btn--text {
   color: inherit;
   width: auto;
   display: inline-block;
   padding: 0;
+  background: none;
+}
+
+.btn--text:active {
   background: none;
 }
 
@@ -522,6 +539,10 @@ input + .btn {
 .profile--edit .screen-textContent {
   background: white;
   padding-bottom: 0;
+}
+
+form:invalid .btn:not(.btn--text) {
+  background: hsl(223,6%,85%);
 }
 
 .form-controls {
