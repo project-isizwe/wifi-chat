@@ -102,20 +102,21 @@ p {
   margin: 0 auto 14px;
 }
 
-.accordion {
-  list-style: none;
+.ruleList {
   margin: 0 0 1em;
   border: 1px solid hsl(232,8%,90%);
   border-radius: 3px;
   padding: 0;
+  list-style-position: inside;
 }
 
-.accordion li {
+.ruleList li {
   padding: 1em 1em 0;
-  border-top: 1px solid hsl(232,8%,90%);
+  border-top: 1px solid;
+  border-color: inherit;
 }
 
-.accordion li:first-child {
+.ruleList li:first-child {
   border: none;
 }
 
