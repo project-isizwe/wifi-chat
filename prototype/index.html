@@ -2,7 +2,6 @@
 <title>Wifi Chat</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../public/css/style.css">
-<link rel="stylesheet" href="../public/css/spinner.css">
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 
 
@@ -22,16 +21,55 @@
   </div>
 </div>
 
-<div class="loading screen">
-  <header class="screen-header">
-    <div class="btn btn--secondary js-back">
-      <div class="back arrow icon"></div>
-      Back
+<div class="login screen">
+  <div class="modal">
+    <div class="modal-background js-dismiss"></div>
+    <div class="modal-body">
+      <div class="modal-content">
+        <div class="spinner"></div>
+        <div class="system">Connecting</div>
+      </div>
     </div>
-  </header>
-  <div class="spinner">
-    <div class="spinner-outer"></div>
-    <div class="spinner-inner"></div>
+  </div>
+  <div class="screen-textContent">
+    <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
+    <h1>WiFi Chat</h1>
+    <form>
+      <input type="text" id="login-username" placeholder="Wifi Chat Username" value="mattheu_matshaya">
+      <input type="password" id="login-password" placeholder="Password" value="mattheu_matshaya">
+      <div class="btn login-continue js-login">Continue</div>
+    </form>
+    <div class="bottom-controls">
+      <div class="btn btn--secondary btn--small login-signup js-signup">Not on Wifi Chat?</div>
+      <div class="btn btn--secondary btn--small login-forgotPassword js-forgotPassword">Forgot Password</div>
+    </div>
+  </div>
+</div>
+
+<div class="login screen">
+  <div class="modal">
+    <div class="modal-background js-dismiss"></div>
+    <div class="modal-body">
+      <div class="modal-content">
+        <div class="system">Invalid Password/Username</div>
+      </div>
+      <div class="modal-controls">
+        <div class="btn btn--small js-dismiss">Close</div>
+      </div>
+    </div>
+  </div>
+  <div class="screen-textContent">
+    <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
+    <h1>WiFi Chat</h1>
+    <form>
+      <input type="text" id="login-username" placeholder="Wifi Chat Username" value="mattheu_matshaya">
+      <input type="password" id="login-password" placeholder="Password" value="mattheu_matshaya">
+      <div class="btn login-continue js-login">Continue</div>
+    </form>
+    <div class="bottom-controls">
+      <div class="btn btn--secondary btn--small login-signup js-signup">Not on Wifi Chat?</div>
+      <div class="btn btn--secondary btn--small login-forgotPassword js-forgotPassword">Forgot Password</div>
+    </div>
   </div>
 </div>
 
