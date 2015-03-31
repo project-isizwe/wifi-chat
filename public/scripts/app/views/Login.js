@@ -25,12 +25,30 @@ define(function(require) {
           var self = this
           socket.on('xmpp.connection', function(data) {
             log('Connected as', data.jid)
-            self.router.setLoggedIn().showDiscovery()
+            self.performDiscovery()
           })
           socket.on('xmpp.error', function() {
             log('Bad username / password combination')
             alert('Bad username / password combo')
-            $(self.el).find('button').attr('disabled', false)
+            self.enableLoginButton()
+          })
+        },
+      
+        enableLoginButton: function() {
+          this.$el.find('button').attr('disabled', false)
+        },
+       
+        performDiscovery: function() {
+          log('Performing discovery')
+          var self = this
+          var options = {}
+          socket.send('xmpp.buddycloud.discover', options, function(error, server) {
+            log('Discovery response', error, server)
+            if (error) {
+              self.enableLoginButton()
+              return alert('DISCOVERY ERROR', error)
+            }
+            self.router.setLoggedIn().showTermsAndConditions()
           })
         },
       

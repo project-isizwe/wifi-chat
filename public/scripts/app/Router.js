@@ -5,7 +5,7 @@ define(function (require) {
   var $         = require('jquery')
     , Backbone  = require('backbone')
     , LoginView = require('app/views/Login')
-    , DiscoveryView = require('app/views/Discovery')
+    , TermsAndConditionsView = require('app/views/TermsAndConditions')
     , SignupView = require('app/views/Signup')
     , ChannelListView = require('app/views/ChannelList')
     , log = require('app/utils/bows.min')('Router')
@@ -22,9 +22,13 @@ define(function (require) {
         '': 'showChannelList',
         '/login': 'showLogin',
         '/signup': 'showSignup',
-        '/discovery': 'showDiscovery',
+        '/terms-and-conditions': 'showTermsAndConditions',
         '/channel/:jid': 'channelContent',
         '/profile/:jid': 'userProfile'
+      },
+      
+      initialize: function() {
+        log('Application initialized')
       },
       
       showLogin: function() {
@@ -32,9 +36,9 @@ define(function (require) {
         this.showView(loginView, '/login')
       },
       
-      showDiscovery: function() {
-        var discoveryView = new DiscoveryView({ router: this })
-        this.showView(discoveryView, '/discovery')  
+      showTermsAndConditions: function() {
+        var termsAndConditionsView = new TermsAndConditionsView({ router: this })
+        this.showView(termsAndConditionsView, '/terms-and-conditions')  
       },
       
       showSignup: function() {
@@ -50,13 +54,14 @@ define(function (require) {
       showView: function(view, url) {
         this.closeView()
         view.delegateEvents()
-        
+
         window.document.title = view.title
-        this.navigate(url, { trigger: true })
         if (view.requiresLogin && !this.loggedIn) {
           return this.showLogin()
         }
+        this.navigate(url, { trigger: true })
         this.currentView = view
+
         this.el.html(view.el)
         view.registerEvents()
         view.render()
