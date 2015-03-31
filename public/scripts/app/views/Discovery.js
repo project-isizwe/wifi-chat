@@ -11,19 +11,31 @@ define(function(require) {
 
     return Backbone.View.extend({
 
+        termsSigned: false,
+        discovered: false,
+      
+        events: {
+          'click .js-terms': 'setTerms'
+        },
+      
         initialize: function (options) {
           this.router = options.router
+          
+          if (!this.router.isLoggedIn()) {
+            return
+          }
+          
           if (!localStorage.getItem('terms')) {
             this.title = 'Terms and Conditions'
             this.template = _.template(noTermsTpl)
           } else {
             this.title = 'Finding server...'
             this.template = _.template(hasTermsTpl)
+            this.termsSigned = true
           }
-          if (this.router.isLoggedIn()) {
-            this.performDiscovery()
-            this.render()
-          }
+          
+          this.performDiscovery()
+          this.render()
         },
       
         performDiscovery: function() {
@@ -34,11 +46,26 @@ define(function(require) {
             if (error) {
               return alert('ERROR', error)
             }
-            self.options.router.showFeed()
+            self.discovered = true
+            self.complete()
           })
         },
+      
+        setTerms: function() {
+          this.termsSigned = false
+          if ($(this.el).find('.js-terms').is(':checked')) {
+            this.termsSigned = true
+          }
+          this.complete()
+        },
+      
+        complete: function() {
+          if (this.discovered && this.termsSigned) {
+            this.options.router.showFeed()
+          }
+        },          
 
-        render: function () {
+        render: function() {
             this.$el.html(this.template())
             return this
         },
