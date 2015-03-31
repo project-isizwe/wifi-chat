@@ -2,7 +2,7 @@ define(function(require) {
 
     'use strict';
   
-    var MessageModal = require('app/models/modal/Base')
+    var MessageModel = require('app/models/modal/Base')
 
     return MessageModel.extend({
       defaults: {

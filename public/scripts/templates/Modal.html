@@ -1,11 +1,11 @@
 <div class="modal-background js-close"></div>
 <div class="modal-body">
   <div class="modal-content">
-    <!-- content here -->
+    <%= message %>
   </div>
-  <!-- if close button (and later maybe more controls)
+  <% if (showClose) { %>
   <div class="modal-controls">
     <div class="btn btn--small js-close">Close</div>
   </div>
-  -->
+  <% } %>
 </div>

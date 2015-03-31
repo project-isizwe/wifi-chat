@@ -69,7 +69,7 @@ define(function (require) {
         this.currentView = view
 
         this.el.html(view.el)
-        view.registerEvents()
+        view.delegateEvents()
         view.render()
       },
       

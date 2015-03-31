@@ -16,7 +16,7 @@ define(function(require) {
       className: 'modal',
 
       events: {
-        'js-close': 'close'
+        'click div': 'close'
       },
       
       initialize: function(options) {
@@ -26,19 +26,22 @@ define(function(require) {
       },
       
       render: function() {
-        this.$el.html(this.template, this.model)
-        log(this.model)
-        if (this.model && ('spinner' === this.model.get('type'))) {
+        if (!this.model.has('message')) {
+          this.model.set('message', 'Error')
+        }
+        this.$el.html(this.template(this.model.toJSON()))
+        if ('spinner' === this.model.get('type')) {
           this.$el.find('.modal-body').html(this.spinnerView.render().$el)
-          log('Loading spinner content')
         }
         return this
       },
 
       close: function(event) {
         event.preventDefault()
-        // fire close event
-        // destroy
+        event.stopPropagation()
+        if (this.model.get('showClose')) {
+          this.trigger('close')
+        }
       }
 
     })

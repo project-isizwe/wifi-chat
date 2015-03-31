@@ -8,8 +8,8 @@ define(function(require) {
       , socket      = require('app/utils/socket')
       , log         = require('app/utils/bows.min')('Views:Login')
       , ModalView   = require('app/views/Modal')
-      , Spinner     = require('app/models/Spinner')
-      , Error       = require('app/models/Error')
+      , Spinner     = require('app/models/modal/Spinner')
+      , Error       = require('app/models/modal/Error')
 
     return Base.extend({
 
@@ -28,6 +28,7 @@ define(function(require) {
           this.options = options
           this.router = options.router
           this.modal = new ModalView(options)
+          this.registerEvents()
         },
       
         registerEvents: function() {
@@ -38,7 +39,17 @@ define(function(require) {
           })
           socket.on('xmpp.error', function(error) {
             log('Login failed', error)
-            self.showError(error)
+            var message =  'We\'re sorry but the system is down!'
+            if ('login-fail' === error.condition) {
+              message = 'Whoops! Username / password combination incorrect' 
+            } else if ('unknown' === error.condition) {
+              message = 'Oh no! Bad username, please check!'
+            }
+            self.showError(new Error({
+              type: 'error',
+              showClose: true,
+              message: message
+            }))
             self.enableLoginButton()
           })
         },
@@ -52,12 +63,15 @@ define(function(require) {
           var self = this
           var options = {}
           socket.send('xmpp.buddycloud.discover', options, function(error, server) {
-            self.closeSpinner()
             log('Discovery response', error, server)
             if (error) {
               self.enableLoginButton()
-              self.showError(error)
-              return alert('DISCOVERY ERROR', error)
+              var errorModel = new Error({
+                type: 'error',
+                message: 'We\'re sorry but the system is down!',
+                showClose: true
+              })
+              return self.showError(errorModel)
             }
             self.router.setLoggedIn().showTermsAndConditions()
           })
@@ -76,19 +90,28 @@ define(function(require) {
           this.showSpinner()
         },
       
+        showError: function(model) {
+          this.closeSubView('modal')
+          this.modal.model = model
+          this.showSubView('modal', this.modal)
+          this.modal.on('close', function() {
+            this.closeSubView('modal')
+          }, this)
+        },
+      
         showSpinner: function() {
           log('Showing spinner')
-          this.modal.model = new Spinner()
+          this.modal.model = new Spinner({
+            type: 'spinner',
+            message: '',
+            showClose: false
+          })
           this.showSubView('modal', this.modal)
         },
       
         closeSpinner: function() {
           log('Closing spinner')
-      //    this.closeSubView('modal')
-        },
-      
-        showError: function() {
-          this.closeSpinner()
+          this.closeSubView('modal')
         }
 
     })

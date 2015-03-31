@@ -2,9 +2,9 @@ define(function(require) {
 
     'use strict';
   
-    var Backbone = require('backbone')
+    var MessageModel = require('app/models/modal/Base')
 
-    return Backbone.Model.extend({
+    return MessageModel.extend({
       defaults: {
         type: 'spinner'
       }

@@ -45,7 +45,7 @@ define(function(require) {
           this.subViews = {}
         }
         this.subViews[name] = view
-        view.registerEvents()
+        view.delegateEvents()
         this.$el.append(view.render().$el)
       }
 
