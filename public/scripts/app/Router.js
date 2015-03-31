@@ -8,6 +8,7 @@ define(function (require) {
     , TermsAndConditionsView = require('app/views/TermsAndConditions')
     , SignupView = require('app/views/Signup')
     , ChannelListView = require('app/views/ChannelList')
+    , SpinnerView = require('app/views/Spinner')
     , log = require('app/utils/bows.min')('Router')
         
     return Backbone.Router.extend({
@@ -29,6 +30,11 @@ define(function (require) {
       
       initialize: function() {
         log('Application initialized')
+      },
+      
+      showSpinner: function() {
+        var spinnerView = new SpinnerView({ router: this })
+        this.showView(spinnerView, '/spinner')
       },
       
       showLogin: function() {
@@ -69,8 +75,7 @@ define(function (require) {
       
       closeView: function() {
         if (!this.currentView) return
-        this.currentView.stopListening()
-        this.currentView.remove()
+        this.currentView.closeView()
       },
       
       setLoggedIn: function() {
