@@ -11,6 +11,8 @@ define(function (require) {
     return Backbone.Router.extend({
 
       el: $('body'),
+      
+      class: 'signup screen',
     
       loggedIn: false, 
       
