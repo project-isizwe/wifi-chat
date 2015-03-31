@@ -40,9 +40,9 @@ define(function(require) {
 
         login: function(event) {
           event.preventDefault()
-          $(this.el).find('button').attr('disabled', 'disabled')
-          var username = $('input[name="login-username"]').val()
-          var password = $('input[name="login-password"]').val()
+          this.$el.find('button').attr('disabled', 'disabled')
+          var username = this.$el.find('input[name="login-username"]').val()
+          var password = this.$el.find('input[name="login-password"]').val()
           socket.send('xmpp.login', { jid: username, password: password })
         }
 

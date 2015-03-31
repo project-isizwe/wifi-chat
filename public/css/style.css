@@ -46,8 +46,12 @@ p {
   animation: clockwise .75s linear infinite;
 }
 
+.spinner.silent {
+  animation: none;
+}
+
 @keyframes clockwise {
-  to { transform: rotate(1turn) translateZ(0); }
+  to { transform: rotate(1turn); }
 }
 
 .modal,
@@ -64,6 +68,7 @@ p {
   align-items: center;
   justify-content: center;
   z-index: 1;
+  padding: 28px;
 }
 
 .modal-background {
@@ -72,19 +77,25 @@ p {
 }
 
 .modal-body {
+  max-width: 320px;
+  max-height: 100%;
   background: white;
   position: relative;
   border-radius: 3px;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-content {
   padding: 14px;
+  overflow: auto;
 }
 
 .modal-controls {
   border-top: 1px solid hsl(221,5%,90%);
   display: flex;
   padding: 14px;
+  flex-shrink: 0;
 }
 
 .modal .spinner {
@@ -434,6 +445,7 @@ input + .btn {
   right: 5px;
   top: 45px;
   box-shadow: 0 1px 10px hsla(221,5%,25%,.2);
+  display: none;
 }
 
 .menu-item {
