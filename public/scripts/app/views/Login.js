@@ -12,6 +12,8 @@ define(function(require) {
 
     return Backbone.View.extend({
 
+        className: 'login screen',
+
         initialize: function (options) {
           this.router = options.router
           this.registerEvents()

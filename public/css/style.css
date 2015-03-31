@@ -11,6 +11,7 @@ body {
   background: hsl(220,9%,87%);
   color: hsl(220,9%,20%);
   height: 100%;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,6 +55,7 @@ p {
   padding-top: 46px;
   margin: 0 10px 10px 0;
   float: left;
+  box-shadow: 0 1px 10px hsl(232,8%,80%);
 }
 
 .screen-header {
@@ -107,20 +109,6 @@ p {
   justify-content: center;
 }
 
-.bottom-controls {
-  display: flex;
-  position: absolute;
-  bottom: 14px;
-  left: 14px;
-  right: 14px;
-}
-.bottom-controls .btn {
-  padding: 14px;
-}
-.bottom-controls .btn:last-child {
-  margin-left: auto;
-}
-
 .login .screen-textContent {
   justify-self: center;
   display: flex;
@@ -131,6 +119,20 @@ p {
 
 .login .logo {
   align-self: center;
+}
+
+.bottom-controls {
+  display: flex;
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+}
+.bottom-controls .btn {
+  padding: 14px;
+}
+.bottom-controls .btn:last-child {
+  margin-left: auto;
 }
 
 .loading.screen {
@@ -306,6 +308,7 @@ p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  user-select: none;
 }
 
 .btn--small {
@@ -399,12 +402,10 @@ input + .btn {
 }
 
 @media (max-width: 600px) {
-  body {
-    margin: 0;
-  }
   .screen {
-    margin: 0 0 20px;
+    margin: 0;
     height: 100vh;
     width: 100%;
+    box-shadow: none;
   }
 }
