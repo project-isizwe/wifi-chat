@@ -255,21 +255,21 @@ p {
 }
 
 .channel {
-  background: hsl(223,8%,93%);
+  background: hsl(240,11%,98%);
   padding-top: 0;
 }
 
 .channel-header {
   margin-bottom: 10px;
-  border-bottom: 1px solid hsl(223,8%,90%);
+  border-bottom: 1px solid hsl(240,11%,95%);
 }
 
 .channel-controls {
   position: absolute;
   width: 100%;
   display: flex;
-  padding-bottom: 14px;
-  background: linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,0));
+  padding-bottom: 7px;
+  background: linear-gradient(hsla(240,14%,50%,.3), hsla(240,14%,50%,0));
 }
 
 .channel-controls .btn {
@@ -299,19 +299,14 @@ p {
 }
 
 .topic {
-  border-top: 1px solid hsl(232,8%,89%);
-  border-bottom: 1px solid hsl(232,8%,91%);
+  border-top: 1px solid hsl(240,11%,93%);
+  border-bottom: 1px solid hsl(240,11%,95%);
   margin-bottom: 14px;
 }
 
 .post {
   padding: 14px;
   background: white;
-}
-
-.posts .post {
-  padding-right: 0;
-  padding-bottom: 0;
 }
 
 .post-meta {
@@ -357,6 +352,32 @@ p {
   font-size: 14px;
   color: hsl(232,8%,75%);
   text-align: center;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment + .comment {
+  padding-top: 0;
+}
+
+.posts {
+  flex: 1;
+  overflow: auto;
+}
+
+.writeComment {
+  background: hsl(240,11%,98%);
+  padding: 7px 14px 3px;
+  display: flex;
+  border-top: 1px solid hsl(240,11%,95%);
+}
+.writeComment [name=comment] {
+  flex: 1 0 80%;
+  margin-right: 7px;
+  max-height: 240px;
 }
 
 .avatar,
@@ -419,7 +440,8 @@ p {
   background: none;
 }
 
-input {
+input,
+textarea {
   width: 100%;
   appearance: none;
   font-family: inherit;
@@ -429,8 +451,11 @@ input {
   border-bottom: 1px solid hsl(221,5%,75%);
   margin-bottom: 7px;
   position: relative;
+  background: none;
+  resize: none;
 }
-input:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border-color: #496090;
 }
