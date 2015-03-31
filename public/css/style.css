@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  font: 16px "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+  font: 14px Roboto, Helvetica, Arial, Verdana, sans-serif;
   background: hsl(220,9%,87%);
   color: hsl(220,9%,20%);
   height: 100%;
@@ -25,7 +25,70 @@ h1 {
 
 p {
   margin: 0 0 14px;
-  line-height: 1.33;
+  line-height: 1.5;
+}
+
+.system {
+  font-size: 15px;
+}
+
+.spinner {
+  height: 60px;
+  width: 60px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: 
+    rgb(130, 130, 130) 
+    rgb(230, 230, 230) 
+    rgb(230, 230, 230) 
+    rgb(230, 230, 230);
+  border-radius: 100%;
+  animation: clockwise .75s linear infinite;
+}
+
+@keyframes clockwise {
+  to { transform: rotate(1turn) translateZ(0); }
+}
+
+.modal,
+.modal-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.modal-background {
+  background: radial-gradient(rgba(0,0,0,.34), rgba(0,0,0,.55));
+  cursor: pointer;
+}
+
+.modal-body {
+  background: white;
+  position: relative;
+  border-radius: 3px;
+}
+
+.modal-content {
+  padding: 14px;
+}
+
+.modal-controls {
+  border-top: 1px solid hsl(221,5%,90%);
+  display: flex;
+  padding: 14px;
+}
+
+.modal .spinner {
+  margin: 0 auto 14px;
 }
 
 .accordion {
@@ -91,7 +154,7 @@ p {
   text-overflow: ellipsis;
   text-align: center;
   white-space: nowrap;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .screen-title:last-child {
@@ -105,6 +168,7 @@ p {
 .login {
   padding: 0;
   display: flex;
+  min-height: 480px;
   flex-direction: column;
   justify-content: center;
 }
@@ -129,7 +193,7 @@ p {
   right: 0;
 }
 .bottom-controls .btn {
-  padding: 14px;
+  padding: 14px 28px;
 }
 .bottom-controls .btn:last-child {
   margin-left: auto;
@@ -218,7 +282,7 @@ p {
 .channel-title {
   padding: 14px 0;
   text-align: center;
-  font-weight: 500;
+  font-weight: bold;
   background: white;
 }
 
@@ -312,7 +376,7 @@ p {
 }
 
 .btn--small {
-  background: hsl(221,3%,83%);
+  background: hsl(221,3%,75%);
   padding: 7px;
   font-size: 12px;
 }
@@ -322,6 +386,7 @@ p {
   padding-left: 0;
   padding-right: 0;
   color: hsl(221,5%,50%);
+  width: auto;
 }
 
 input {
@@ -406,6 +471,7 @@ input + .btn {
     margin: 0;
     height: 100vh;
     width: 100%;
+    min-width: 320px;
     box-shadow: none;
   }
 }
