@@ -50,6 +50,10 @@ p {
   animation: none;
 }
 
+.spinner + .system {
+  margin-top: 14px;
+}
+
 @keyframes clockwise {
   to { transform: rotate(1turn); }
 }
@@ -113,7 +117,7 @@ p {
 }
 
 .modal .spinner {
-  margin: 0 auto 14px;
+  margin: 0 auto;
 }
 
 .ruleList {
@@ -440,7 +444,7 @@ p {
   bottom: 0;
   line-height: 128px;
   text-align: center;
-  font-size: 6em;
+  font-size: 8em;
   color: white;
   border-radius: inherit;
   background: hsla(221,11%,50%,.3);
@@ -474,7 +478,7 @@ p {
   outline: none;
 }
 
-form:invalid .btn:not(.btn--text) {
+form :invalid ~ .btn:not(.btn--text) {
   background: hsl(221,3%,85%);
 }
 
