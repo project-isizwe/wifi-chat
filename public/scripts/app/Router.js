@@ -52,7 +52,7 @@ define(function (require) {
         view.delegateEvents()
         
         window.document.title = view.title
-        window.history.pushState('wifi-chat', view.title || 'Wifi-Chat', url)
+        this.navigate(url, { trigger: true })
         if (view.requiresLogin && !this.loggedIn) {
           return this.showLogin()
         }

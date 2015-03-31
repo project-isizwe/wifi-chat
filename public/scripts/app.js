@@ -26,11 +26,11 @@ require(['jquery', 'backbone', 'app/Router'], function ($, Backbone, Router) {
   
   var router = new Router()
 
-  $('body').on('click', '.js-back-button', function(event) {
+  $('body').on('click', '.js-back', function(event) {
     event.preventDefault()
     window.history.back()
   })
   
-  Backbone.history.start()
+  Backbone.history.start({ pushState: true })
   
 })
