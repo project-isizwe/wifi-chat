@@ -18,6 +18,8 @@ define(function(require) {
         events: {
           'click .js-terms': 'setTerms'
         },
+
+        className: 'rules screen',
       
         initialize: function (options) {
           this.router = options.router
