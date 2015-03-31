@@ -410,6 +410,12 @@ p {
   margin-top: 3px;
 }
 
+.profile-name {
+  font-weight: bold;
+  margin: 1em 0;
+  text-align: center;
+}
+
 .avatar,
 .channelIcon {
   width: 44px;
