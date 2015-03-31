@@ -17,7 +17,7 @@ var server = flo(
     {
         port: 8888,
         verbose: false,
-        glob: [ 'js/**/*', 'css/**/*', 'images/**/*', 'avatar/**/*', 'sounds/**/*' ]
+        glob: [ 'js/**/*', 'app.min.css', 'images/**/*', 'avatar/**/*', 'sounds/**/*' ]
     },
     resolver
 )

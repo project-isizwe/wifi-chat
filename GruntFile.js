@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
   
     var version = require('./package.json').version
+    var environment = process.env.NODE_ENV || 'production'
     
     var configuration = {
         pkg: grunt.file.readJSON('package.json'),
@@ -54,9 +55,16 @@ module.exports = function(grunt) {
             }
         },
         svg_sprite: {
-          src: [ 'images/icons/*.svg' ],
-          cwd: 'public',
-          dest: 'sprites/'
+          options: {
+            src: [ 'images/icons/**/*.svg' ],
+            cwd: 'public'
+          },
+          spriteit: {
+            src: [ 'images/icons/**/*.svg' ],
+            dest: 'sprites',
+            cwd: 'public',
+            options: {}
+          }
         },
         clean: {
             'post-release': [
@@ -71,15 +79,28 @@ module.exports = function(grunt) {
             ]
         },
         autoprefixer: {
-          options: {
+          prefixit: {
             src: 'public/app.min.css',
-            dest: 'public/app.min.css'
+            browsers: ['> 50%']
           }
-        }
+        },
+      watch: {
+        scripts: {
+          files: ['public/scripts/**/*.js', 'public/css/**/*.css', 'public/images/**/*' ],
+          tasks: ['build'],
+          options: {
+            spawn: false,
+          },
+        },
+      }
     }
 
-    if (process.env.GREP)
+    if (process.env.GREP) {
         configuration.mochacli.options.grep = process.env.GREP
+    }
+    if ('development' === environment) {
+      configuration.requirejs.css.options.optimizeCss = 'none'
+    }
 
     grunt.initConfig(configuration)
 
@@ -91,6 +112,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nsp-package')
     grunt.loadNpmTasks('grunt-svg-sprite')
     grunt.loadNpmTasks('grunt-autoprefixer')
+    grunt.loadNpmTasks('grunt-contrib-watch')
 
     // Configure tasks
     grunt.registerTask('default', ['test'])
@@ -100,6 +122,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['clean', 'build', 'mochacli'/*, 'jshint'*/, 'validate-package'])
     grunt.registerTask('mocha', ['mochacli'])
     grunt.registerTask('dev-throttle', ['concurrent:devThrottle'])
-    grunt.registerTask('build', [ 'svg_sprite', 'autoprefixer', 'requirejs:javascript', 'requirejs:css' ])
-    grunt.registerTask('release', [ 'clean', /*'shrinkwrap',*/ 'build', 'compress', 'copy', 'clean:post-release' ])
+    grunt.registerTask('build-dev', [ 'requirejs:css', 'autoprefixer:prefixit', 'svg_sprite:spriteit' ])
+    grunt.registerTask('build', ['build-dev', 'requirejs:javascript' ])
+    grunt.registerTask('release', [ 'clean', 'build', 'compress', 'copy', 'clean:post-release' ])
 }
