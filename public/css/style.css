@@ -403,24 +403,32 @@ p {
 
 .avatar--uploadMode {
   position: relative;
-  cursor: pointer;
-  opacity: 0.5;
 }
 
-.avatar--uploadMode:after {
+.avatar--uploadMode:before {
   content: "+";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px dashed hsl(223,6%,75%);
+  line-height: 128px;
+  text-align: center;
+  font-size: 5em;
+  color: hsl(221,33%,43%);
+  border-radius: inherit;
+  background: linear-gradient(hsla(221,3%,96%,.5), hsla(221,3%,98%,.5));
+}
+
+.avatar--uploadMode input[type=file] {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  border: 1px dashed hsl(221,11%,20%);
-  line-height: 128px;
-  text-align: center;
-  font-size: 5em;
-  color: hsl(221,11%,60%);
-  border-radius: inherit;
-  background: linear-gradient(hsla(221,3%,96%,.3), hsla(221,3%,98%,.3));
+  opacity: 0;
+  cursor: pointer;
 }
 
 .btn {
