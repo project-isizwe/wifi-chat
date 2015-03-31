@@ -3,22 +3,16 @@ define(function(require) {
     'use strict';
 
     var _        = require('underscore')
-      , Backbone = require('backbone')
-      , tpl      = require('text!tpl/ChannelList.html')
+      , Base     = require('app/views/Base')
       , socket   = require('app/utils/socket')
       , log     = require('app/utils/bows.min')('Views:ChannelList')
 
-    return Backbone.View.extend({
+    return Base.extend({
+      
+        template: _.template(require('text!tpl/ChannelList.html')),
       
         requiresLogin: true,
-      
-        events: {},
-      
-        initialize: function (options) {
-          log('ChannelList')
-          this.router = options.router
-        },
-      
+
         performDiscovery: function() {
           log('Performing discovery')
           var self = this
@@ -44,13 +38,8 @@ define(function(require) {
           if (this.discovered && this.termsSigned) {
             this.options.router.showFeed()
           }
-        },          
-
-        render: function() {
-            this.$el.html(this.template())
-            return this
-        },
-
+        }
+      
     })
 
 })

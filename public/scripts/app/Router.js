@@ -19,7 +19,7 @@ define(function (require) {
       loggedIn: false, 
       
       routes: {
-        '': 'channelList',
+        '': 'showChannelList',
         '/login': 'showLogin',
         '/signup': 'showSignup',
         '/discovery': 'showDiscovery',
@@ -42,7 +42,7 @@ define(function (require) {
         this.showView(signupView, '/signup')
       },
       
-      channelList: function() {
+      showChannelList: function() {
         var channelList = new ChannelListView({ router: this })
         this.showView(channelList, '/')
       },
@@ -51,9 +51,7 @@ define(function (require) {
         this.closeView()
         view.delegateEvents()
         
-        if (view.title) {
-          window.document.title = view.title
-        }
+        window.document.title = view.title
         window.history.pushState('wifi-chat', view.title || 'Wifi-Chat', url)
         if (view.requiresLogin && !this.loggedIn) {
           return this.showLogin()
@@ -61,7 +59,6 @@ define(function (require) {
         this.currentView = view
         this.el.html(view.el)
         view.registerEvents()
-        log('Rendering')
         view.render()
       },
       

@@ -4,25 +4,15 @@ define(function(require) {
 
     var $          = require('jquery')
       , _          = require('underscore')
-      , Backbone   = require('backbone')
-      , tpl        = require('text!tpl/Modal.html')
+      , Base       = require('app/views/Base')
       , socket     = require('app/utils/socket')
       , log        = require('app/utils/bows.min')('Views:Modal')
-      , template   = _.template(tpl)
 
-    return Backbone.View.extend({
+    return Base.extend({
 
+        template: _.template(require('text!tpl/Modal.html')),
+      
         className: 'modal',
-
-        initialize: function (options) {
-          this.render()
-        },
-
-        render: function () {
-          // hand over options.tmpl to render inside of modal-content
-          this.$el.html(template())
-          return this
-        },
 
         events: {
           'js-close': 'close'

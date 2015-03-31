@@ -4,26 +4,17 @@ define(function(require) {
 
     var $          = require('jquery')
       , _          = require('underscore')
-      , Backbone   = require('backbone')
-      , tpl        = require('text!tpl/Register.html')
+      , Base       = require('app/views/Base')
       , socket     = require('app/utils/socket')
       , log        = require('app/utils/bows.min')('Views:Register')
-      , template   = _.template(tpl)
 
-    return Backbone.View.extend({
+    return Base.extend({
 
+        template: _.template(require('text!tpl/Register.html')),
+      
         className: 'signup screen',
-
-        initialize: function (options) {
-          this.router = options.router
-        },
       
         title: 'Signup',
-
-        render: function () {
-          this.$el.html(template())
-          return this
-        },
 
         events: {
           'submit': 'signup',

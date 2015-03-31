@@ -3,13 +3,13 @@ define(function(require) {
     'use strict';
 
     var _           = require('underscore')
-      , Backbone    = require('backbone')
+      , Base        = require('app/views/Base')
       , hasTermsTpl = require('text!tpl/Discovery.html')
       , noTermsTpl  = require('text!tpl/TermsAndConditions.html')
       , socket      = require('app/utils/socket')
       , log         = require('app/utils/bows.min')('Views:Discovery')
 
-    return Backbone.View.extend({
+    return Base.extend({
 
         requiresLogin: true,
       
@@ -42,7 +42,8 @@ define(function(require) {
         performDiscovery: function() {
           log('Performing discovery')
           var self = this
-          socket.send('xmpp.buddycloud.discover', function(error, server) {
+          var options = {}
+          socket.send('xmpp.buddycloud.discover', options, function(error, server) {
             log('Discovery response', error, server)
             if (error) {
               return alert('ERROR', error)
@@ -62,15 +63,10 @@ define(function(require) {
       
         complete: function() {
           if (this.discovered && this.termsSigned) {
-            this.options.router.showFeed()
+            this.router.showChannelList()
           }
-        },          
-
-        render: function() {
-            this.$el.html(this.template())
-            return this
-        },
-
+        }
+      
     })
 
 })
