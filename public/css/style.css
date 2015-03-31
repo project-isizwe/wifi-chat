@@ -434,6 +434,7 @@ input + .btn {
   right: 5px;
   top: 45px;
   box-shadow: 0 1px 10px hsla(221,5%,25%,.2);
+  display: none;
 }
 
 .menu-item {

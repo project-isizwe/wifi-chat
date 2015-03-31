@@ -13,6 +13,8 @@ define(function(require) {
         requiresLogin: true,
       
         events: {},
+
+        className: 'channels screen',
       
         initialize: function (options) {
           log('ChannelList')
