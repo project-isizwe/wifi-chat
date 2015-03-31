@@ -16,13 +16,11 @@ define(function(require) {
 
         initialize: function (options) {
           this.router = options.router
-          this.registerEvents()
-          this.render()
         },
       
         title: 'Login',
 
-        render: function () {
+        render: function() {
           this.$el.html(template())
           return this
         },

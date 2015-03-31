@@ -16,8 +16,6 @@ define(function(require) {
 
         initialize: function (options) {
           this.router = options.router
-          this.registerEvents()
-          this.render()
         },
       
         title: 'Signup',

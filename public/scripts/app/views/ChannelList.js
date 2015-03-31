@@ -2,41 +2,21 @@ define(function(require) {
 
     'use strict';
 
-    var _           = require('underscore')
-      , Backbone    = require('backbone')
-      , hasTermsTpl = require('text!tpl/Discovery.html')
-      , noTermsTpl  = require('text!tpl/TermsAndConditions.html')
-      , socket      = require('app/utils/socket')
-      , log         = require('app/utils/bows.min')('Views:Discovery')
+    var _        = require('underscore')
+      , Backbone = require('backbone')
+      , tpl      = require('text!tpl/ChannelList.html')
+      , socket   = require('app/utils/socket')
+      , log     = require('app/utils/bows.min')('Views:ChannelList')
 
     return Backbone.View.extend({
-
+      
         requiresLogin: true,
       
-        termsSigned: false,
-        discovered: false,
-      
-        events: {
-          'click .js-terms': 'setTerms'
-        },
+        events: {},
       
         initialize: function (options) {
+          log('ChannelList')
           this.router = options.router
-          
-          if (!this.router.isLoggedIn()) {
-            return
-          }
-          
-          if (!localStorage.getItem('terms')) {
-            this.title = 'Terms and Conditions'
-            this.template = _.template(noTermsTpl)
-          } else {
-            this.title = 'Finding server...'
-            this.template = _.template(hasTermsTpl)
-            this.termsSigned = true
-          }
-          
-          this.performDiscovery()
         },
       
         performDiscovery: function() {
