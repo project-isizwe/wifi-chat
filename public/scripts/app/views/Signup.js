@@ -10,7 +10,7 @@ define(function(require) {
 
     return Base.extend({
 
-        template: _.template(require('text!tpl/Register.html')),
+        template: _.template(require('text!tpl/Signup.html')),
       
         className: 'signup screen',
       
