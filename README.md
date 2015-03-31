@@ -3,14 +3,28 @@ WiFi-Chat
 
 Buddycloud-channels for the WiFi-Chat project
 
-setup:
-------
-once checked out run:
+install and run:
+-----------------
 
-```npm start```
+For ease we'll install the development packages to build our CSS and Javascript on run.
 
-...which will install dependencies and start a server on port 3000
+```bash
+npm i --development .
+```
 
-Then visit [http://localhost:3000](http://localhost:3000)
+Then we start the script it will build the assets for us:
 
-__Note:__ Those familiar with nodejs may want to just run `node index` to start the server each time rather than have the system run `npm i .` with each `npm start` call.
+```bash
+npm start
+```
+
+If you happen to have a precompiled version then:
+
+```bash
+npm i .
+node index
+```
+
+Will see you right.
+
+Both setups will kick off a server at [http://localhost:3000](http://localhost:3000)
