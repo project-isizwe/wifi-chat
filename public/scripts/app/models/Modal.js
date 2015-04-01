@@ -8,7 +8,7 @@ define(function(require) {
       defaults: {
         type: 'base',
         message: 'Error',
-        showClose: false
+        showClose: true
       }
     })
 

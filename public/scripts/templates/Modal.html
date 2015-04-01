@@ -1,7 +1,10 @@
 <div class="modal-background js-close"></div>
 <div class="modal-body">
   <div class="modal-content">
-    <%= message %>
+    <% if(type == 'spinner') { %>
+      <div class="spinner"></div>
+    <% } %>
+    <div class="system"><%= message %></div>
   </div>
   <% if (showClose) { %>
   <div class="btngroup btngroup--modal">

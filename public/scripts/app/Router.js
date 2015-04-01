@@ -9,7 +9,7 @@ define(function (require) {
     , SignupView = require('app/views/Signup')
     , PasswordResetView = require('app/views/PasswordReset')
     , ChannelListView = require('app/views/ChannelList')
-    , SpinnerView = require('app/views/Spinner')
+    , ModalView = require('app/views/Modal')
     , log = require('app/utils/bows.min')('Router')
         
     return Backbone.Router.extend({
@@ -36,9 +36,9 @@ define(function (require) {
         log('Application initialized')
       },
       
-      showSpinner: function() {
-        var spinnerView = new SpinnerView({ router: this })
-        this.showView(spinnerView, '/spinner')
+      showModal: function() {
+        var modalView = new ModalView({ router: this })
+        this.showView(modalView, '/modal')
       },
       
       showLogin: function() {

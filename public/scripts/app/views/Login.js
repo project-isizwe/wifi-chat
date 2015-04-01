@@ -8,7 +8,7 @@ define(function(require) {
       , socket      = require('app/utils/socket')
       , log         = require('app/utils/bows.min')('Views:Login')
       , ModalView   = require('app/views/Modal')
-      , Error       = require('app/models/modal/Error')
+      , ModalModel   = require('app/models/Modal')
 
     return Base.extend({
 
@@ -45,7 +45,7 @@ define(function(require) {
             } else if ('unknown' === error.condition) {
               message = 'Oh no! Bad username, please check!'
             }
-            self.showError(new Error({
+            self.showError(new ModalModel({
               type: 'error',
               showClose: true,
               message: message
@@ -74,7 +74,7 @@ define(function(require) {
               return self.showError(errorModel)
             }
             socket.send('xmpp.buddycloud.register', {}, function() {})
-            self.router.setLoggedIn().showRules()
+            self.router.setLoggedIn().showChannelList()
           })
         },
       
@@ -85,8 +85,8 @@ define(function(require) {
         login: function(event) {
           event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
-          var username = this.$el.find('input[name="login-username"]').val()
-          var password = this.$el.find('input[name="login-password"]').val()
+          var username = this.$el.find('input[name="username"]').val()
+          var password = this.$el.find('input[name="password"]').val()
           socket.send('xmpp.login', { jid: username, password: password })
           this.showSpinner()
         },
@@ -102,9 +102,9 @@ define(function(require) {
       
         showSpinner: function() {
           log('Showing spinner')
-          this.modal.model = new Spinner({
+          this.modal.model = new ModalModel({
             type: 'spinner',
-            message: '',
+            message: 'Connecting',
             showClose: false
           })
           this.showSubView('modal', this.modal)

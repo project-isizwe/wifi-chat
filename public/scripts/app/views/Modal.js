@@ -7,7 +7,6 @@ define(function(require) {
       , Base       = require('app/views/Base')
       , socket     = require('app/utils/socket')
       , log        = require('app/utils/bows.min')('Views:Modal')
-      , SpinnerView = require('app/views/Spinner')
 
     return Base.extend({
 
@@ -16,13 +15,12 @@ define(function(require) {
       className: 'modal',
 
       events: {
-        'click div': 'close'
+        'click .js-close': 'close'
       },
       
       initialize: function(options) {
         this.options = options
         this.router = options.router
-        this.spinnerView = new SpinnerView()
       },
       
       render: function() {
@@ -30,9 +28,6 @@ define(function(require) {
           this.model.set('message', 'Error')
         }
         this.$el.html(this.template(this.model.toJSON()))
-        if ('spinner' === this.model.get('type')) {
-          this.$el.find('.modal-body').html(this.spinnerView.render().$el)
-        }
         return this
       },
 
