@@ -7,8 +7,6 @@ define(function(require) {
       , Base        = require('app/views/Base')
       , socket      = require('app/utils/socket')
       , log         = require('app/utils/bows.min')('Views:Login')
-      , ModalView   = require('app/views/Modal')
-      , ModalModel   = require('app/models/Modal')
 
     return Base.extend({
 
@@ -27,7 +25,6 @@ define(function(require) {
         initialize: function(options) {
           this.options = options
           this.router = options.router
-          this.modal = new ModalView(options)
           this.registerEvents()
         },
       
@@ -45,11 +42,7 @@ define(function(require) {
             } else if ('unknown' === error.condition) {
               message = 'Oh no! Bad username, please check!'
             }
-            self.showError(new ModalModel({
-              type: 'error',
-              showClose: true,
-              message: message
-            }))
+            self.showError(message)
             self.enableLoginButton()
           })
         },
@@ -66,12 +59,7 @@ define(function(require) {
             log('Discovery response', error, server)
             if (error) {
               self.enableLoginButton()
-              var errorModel = new Error({
-                type: 'error',
-                message: 'We\'re sorry but the system is down!',
-                showClose: true
-              })
-              return self.showError(errorModel)
+              return self.showError('We\'re sorry but the system is down!')
             }
             socket.send('xmpp.buddycloud.register', {}, function() {})
             self.router.setLoggedIn().showChannelList()
@@ -88,31 +76,7 @@ define(function(require) {
           var username = this.$el.find('input[name="username"]').val()
           var password = this.$el.find('input[name="password"]').val()
           socket.send('xmpp.login', { jid: username, password: password })
-          this.showSpinner()
-        },
-      
-        showError: function(model) {
-          this.closeSubView('modal')
-          this.modal.model = model
-          this.showSubView('modal', this.modal)
-          this.modal.on('close', function() {
-            this.closeSubView('modal')
-          }, this)
-        },
-      
-        showSpinner: function() {
-          log('Showing spinner')
-          this.modal.model = new ModalModel({
-            type: 'spinner',
-            message: 'Connecting',
-            showClose: false
-          })
-          this.showSubView('modal', this.modal)
-        },
-      
-        closeSpinner: function() {
-          log('Closing spinner')
-          this.closeSubView('modal')
+          this.showSpinner('Connecting')
         },
 
         password: function() {

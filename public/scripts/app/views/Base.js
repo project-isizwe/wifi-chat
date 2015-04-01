@@ -2,8 +2,9 @@ define(function(require) {
 
     'use strict';
   
-    var Backbone = require('backbone')
-      , Spinner  = require('app/models/modal/Spinner')
+    var Backbone    = require('backbone')
+      , ModalView   = require('app/views/Modal')
+      , ModalModel  = require('app/models/Modal')
 
     return Backbone.View.extend({
 
@@ -28,17 +29,16 @@ define(function(require) {
       closeView: function() {
         Object.keys(this.subViews || {}).forEach(function(subView) {
           this.subViews[subView].closeView()
-          this.subViews[subView] = null
+          delete this.subViews[subView]
         }, this)
         this.stopListening()
-        this.remove() 
-        
+        this.remove()
       },
       
       closeSubView: function(name) {
         if (!this.subViews || !this.subViews[name]) return
         this.subViews[name].closeView()
-        this.subViews[name] = null
+        delete this.subViews[name]
       },
       
       showSubView: function(name, view, element) {
@@ -54,22 +54,31 @@ define(function(require) {
         }
       },
       
-      showError: function(model) {
+      showError: function(message) {
         this.closeSubView('modal')
-        this.modal.model = model
-        this.showSubView('modal', this.modal)
-        this.modal.on('close', function() {
+        var modal = new ModalView()
+        modal.model = new ModalModel({
+          message: message,
+          showClose: true
+        })
+        this.showSubView('modal', modal)
+        modal.once('close', function() {
           this.closeSubView('modal')
         }, this)
       },
 
-      showSpinner: function() {
-        this.modal.model = new Spinner({
+      showSpinner: function(message) {
+        this.closeSubView('modal')
+        var modal = new ModalView()
+        modal.model = new ModalModel({
           type: 'spinner',
-          message: '',
+          message: message,
           showClose: false
         })
-        this.showSubView('modal', this.modal)
+        this.showSubView('modal', modal)
+        modal.once('close', function() {
+          this.closeSubView('modal')
+        }, this)
       },
 
       closeSpinner: function() {
