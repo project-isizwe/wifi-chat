@@ -20,7 +20,8 @@ define(function(require) {
 
         events: {
           'submit': 'login',
-          'click .js-signup': 'signup'
+          'click .js-signup': 'signup',
+          'click .js-forgotPassword': 'password'
         },
       
         initialize: function(options) {
@@ -73,7 +74,7 @@ define(function(require) {
               return self.showError(errorModel)
             }
             socket.send('xmpp.buddycloud.register', {}, function() {})
-            self.router.setLoggedIn().showTermsAndConditions()
+            self.router.setLoggedIn().showRules()
           })
         },
       
@@ -88,6 +89,34 @@ define(function(require) {
           var password = this.$el.find('input[name="login-password"]').val()
           socket.send('xmpp.login', { jid: username, password: password })
           this.showSpinner()
+        },
+      
+        showError: function(model) {
+          this.closeSubView('modal')
+          this.modal.model = model
+          this.showSubView('modal', this.modal)
+          this.modal.on('close', function() {
+            this.closeSubView('modal')
+          }, this)
+        },
+      
+        showSpinner: function() {
+          log('Showing spinner')
+          this.modal.model = new Spinner({
+            type: 'spinner',
+            message: '',
+            showClose: false
+          })
+          this.showSubView('modal', this.modal)
+        },
+      
+        closeSpinner: function() {
+          log('Closing spinner')
+          this.closeSubView('modal')
+        },
+
+        password: function() {
+          this.options.router.showPasswordReset()
         }
 
     })

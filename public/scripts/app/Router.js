@@ -5,8 +5,9 @@ define(function (require) {
   var $         = require('jquery')
     , Backbone  = require('backbone')
     , LoginView = require('app/views/Login')
-    , TermsAndConditionsView = require('app/views/TermsAndConditions')
+    , RulesView = require('app/views/Rules')
     , SignupView = require('app/views/Signup')
+    , PasswordResetView = require('app/views/PasswordReset')
     , ChannelListView = require('app/views/ChannelList')
     , SpinnerView = require('app/views/Spinner')
     , log = require('app/utils/bows.min')('Router')
@@ -23,7 +24,8 @@ define(function (require) {
         '': 'showChannelList',
         '/login': 'showLogin',
         '/signup': 'showSignup',
-        '/terms-and-conditions': 'showTermsAndConditions',
+        '/password/reset': 'showPasswordReset',
+        '/rules': 'showRules',
         '/channel/:jid': 'channelContent',
         '/profile/:jid': 'userProfile',
         '/channels': 'showChannelList'
@@ -44,14 +46,19 @@ define(function (require) {
         this.showView(loginView, '/login')
       },
       
-      showTermsAndConditions: function() {
-        var termsAndConditionsView = new TermsAndConditionsView({ router: this })
-        this.showView(termsAndConditionsView, '/terms-and-conditions')  
+      showRules: function() {
+        var rulesView = new RulesView({ router: this })
+        this.showView(rulesView, '/rules')  
       },
       
       showSignup: function() {
         var signupView = new SignupView({ router: this })
         this.showView(signupView, '/signup')
+      },
+
+      showPasswordReset: function() {
+        var passwordResetView = new PasswordResetView({ router: this })
+        this.showView(passwordResetView, '/password/reset')
       },
       
       showChannelList: function() {

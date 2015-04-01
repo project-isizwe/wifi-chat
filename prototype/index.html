@@ -80,7 +80,7 @@
       <div class="modal-content">
         <div class="system">Invalid Password/Username</div>
       </div>
-      <div class="modal-controls">
+      <div class="btngroup btngroup--modal">
         <div class="btn btn--primary btn--small js-close">Close</div>
       </div>
     </div>
@@ -98,6 +98,21 @@
       <div class="btn btn--small btn--text login-forgotPassword js-forgotPassword">Forgot Password</div>
     </div>
   </div>
+</div>
+
+<div class="passwordReset screen">
+  <header class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="back arrow icon"></div>
+      Back
+    </div>
+    <div class="screen-title">Reset Password</div>
+  </header>
+  <form class="screen-textContent">
+    <p>Enter your email address so that we can send you a link to reset your password</p>
+    <input type="email" id="signup-email" placeholder="E-Mail" required>
+    <div class="btn btn--primary js-signup">Send reset link</div>
+  </form>
 </div>
 
 
@@ -246,9 +261,12 @@
     <div class="post-meta post-meta--bottom">
       <div class="btn btn--text js-readComments">51 comments</div>
     </div>
-    <div class="post-controls">
-      <div class="btn btn--secondary btn--small js-addComment">
+    <div class="btngroup btngroup--topic">
+      <div class="btn btn--secondary btn--small js-comment">
         <span class="plus icon"></span> Add a comment
+      </div>
+      <div class="btn btn--secondary btn--small js-like">
+        <span class="like icon"></span> Like
       </div>
     </div>
   </article>
@@ -263,9 +281,12 @@
     <div class="post-meta post-meta--bottom">
       <div class="btn btn--text js-readComments">35 comments</div>
     </div>
-    <div class="post-controls">
-      <div class="btn btn--secondary btn--small js-addComment">
+    <div class="btngroup btngroup--topic">
+      <div class="btn btn--secondary btn--small js-comment">
         <span class="plus icon"></span> Add a comment
+      </div>
+      <div class="btn btn--secondary btn--small js-like">
+        <span class="like icon"></span> Like
       </div>
     </div>
   </article>
@@ -289,11 +310,44 @@
         <div class="post-time">4 hours ago</div>
       </div>
       <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
-      <div class="post-actions">
-        <div class="post-actions-item btn btn--small js-delete">
+    </div>
+    <div class="comment post">
+      <div class="post-meta">
+        <div class="btn btn--text js-seeAuthor">letsiemogorosi3</div>
+        <div class="post-time">3 hours ago</div>
+      </div>
+      <p>I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</p>
+    </div>
+  </div>
+  <form class="writeComment">
+    <textarea name="comment" placeholder="Write a comment..." rows="1" required></textarea>
+    <button type="submit" class="btn btn--primary btn--small js-comment">Send</button>
+  </form>
+</div>
+
+<div class="comments screen">
+  <header class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="arrow left icon"></div>
+      Close
+    </div>
+    <div class="screen-title">Comments</div>
+  </header>
+  <div class="posts">
+    <div class="comment post">
+      <div class="btn btn--secondary btn--small js-showMore">Show 49 more comments</div>
+    </div>
+    <div class="comment post">
+      <div class="post-meta">
+        <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
+        <div class="post-time">4 hours ago</div>
+      </div>
+      <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
+      <div class="btngroup btngroup--post btngroup--connected">
+        <div class="btn btn--small js-delete">
           <span class="delete icon"></span>Delete comment
         </div>
-        <div class="post-actions-item btn btn--small js-mute">
+        <div class="btn btn--small js-mute">
           <span class="mute icon"></span>Mute user
         </div>
       </div>
@@ -303,7 +357,7 @@
         <div class="btn btn--text js-seeAuthor">letsiemogorosi3</div>
         <div class="post-time">3 hours ago</div>
       </div>
-      <p>I agree with Mattheu. C is a good film. Especially with Brad Pit!!!</p>
+      <p>I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</p>
     </div>
   </div>
   <form class="writeComment">
@@ -311,6 +365,61 @@
     <button type="submit" class="btn btn--primary btn--small js-comment">Send</button>
   </form>
 </div>
+
+
+
+
+
+
+
+
+
+
+<h1>Activity Stream</h1>
+
+
+<div class="activity screen">
+  <header class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="arrow left icon"></div>
+      Back
+    </div>
+    <div class="screen-title">Activity</div>
+  </header>
+  <div class="comment post">
+    <div class="post-meta post-meta--interaction">
+      <div class="btn btn--text js-seeAuthor">letsiemogorosi3 mentioned you:</div>
+    </div>
+    <div class="post-meta">
+      <div class="btn btn--text js-seeAuthor">letsiemogorosi3</div>
+      <div class="post-time">3 hours ago</div>
+    </div>
+    <p>I agree with <b>@mattheu_matshaya</b>. C is a good film. Especially with Brad Pit!!!</p>
+  </div>
+  <div class="comment post">
+    <div class="post-meta">
+      <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
+      <div class="post-time">4 hours ago</div>
+    </div>
+    <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
+    <div class="post-meta post-meta--bottom">
+      <div class="btn btn--text js-likes">5 Likes</div>
+      <div class="btn btn--text js-threat">Context</div>
+    </div>
+  </div>
+  <div class="comment post">
+    <div class="post-meta">
+      <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
+      <div class="post-time">1 day ago</div>
+    </div>
+    <p>Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</p>
+    <div class="post-meta post-meta--bottom">
+      <div class="btn btn--text js-seeThreat">Context</div>
+    </div>
+  </div>
+</div>
+
+
 
 
 
@@ -333,6 +442,7 @@
   </header>
   <div class="screen-textContent">
     <div class="avatar avatar--big" style="background-image: url(avatar-3.jpg)"></div>
+    <div class="profile-name">Mattheu Matshaya</div>
     <p>A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</p>
     <p class="profile-meta">member since 2 weeks</p>
   </div>
@@ -351,7 +461,8 @@
     <div class="avatar avatar--big avatar--uploadMode" style="background-image: url(avatar-3.jpg)">
       <input type="file" accept="image/*">
     </div>
-    <textarea rows="6" placeholder="Tell the world about yourself..." required>A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
+    <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name">
+    <textarea rows="6" name="description" placeholder="Tell the world about yourself...">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
     <div class="form-controls">
       <div class="btn btn--text form-cancel js-discard">Discard Changes</div>
       <button type="submit" class="btn btn--primary btn--small">Save</button>
@@ -366,7 +477,7 @@
       <div class="modal-content">
         <div class="system">Store changes?</div>
       </div>
-      <div class="modal-controls">
+      <div class="btngroup btngroup--modal">
         <div class="btn btn--small js-discard">Discard</div>
         <div class="btn btn--primary btn--small js-save">Save</div>
       </div>
@@ -384,7 +495,8 @@
     <div class="avatar avatar--big avatar--uploadMode" style="background-image: url(avatar-3.jpg)">
       <input type="file" accept="image/*">
     </div>
-    <textarea rows="6" placeholder="Tell the world about yourself..." required>A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
+    <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name">
+    <textarea rows="6" name="description" placeholder="Tell the world about yourself...">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
     <div class="form-controls">
       <div class="btn btn--text form-cancel js-discard">Discard Changes</div>
       <button type="submit" class="btn btn--primary btn--small">Save</button>
@@ -409,6 +521,6 @@
     <div class="optionsList-item">Help</div>
     <div class="optionsList-item">Profile</div>
     <div class="optionsList-item">Rules</div>
-    <div class="optionsList-item">Chat Settings</div>
+    <div class="optionsList-item">Report Abuse</div>
   </div>
 </div>
