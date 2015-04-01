@@ -11,6 +11,8 @@ var express      = require('express')
   , getIndex     = require('./src/routes/index-get')
   , account      = require('./src/routes/account')
   , debug        = require('debug')('wifi-chat:index')
+  , bodyParser   = require('body-parser')
+
 require('colors')
 
 var environment = process.env.NODE_ENV || 'production'
@@ -28,6 +30,7 @@ app.use(errorHandler({
   showStack: ('development' === environment)
 }))
 app.use(helmet())
+app.use(bodyParser.json())
 app.use(favicon(__dirname + '/public/images/favicon.ico'))
 app.set('strict routing', false)
 

@@ -53,7 +53,9 @@ define(function(require) {
           this.showSpinner('Registering')
           var domain = document.location.domain
           if (-1 !== local.indexOf('@')) {
-            
+            var splitLocal = local.split('@')
+            domain = splitLocal.pop()
+            local =  splitLocal.pop()
           }
           this.model = new Account({
             local: local,
@@ -62,19 +64,39 @@ define(function(require) {
             domain: domain
           })
 
-          this.model.save({ 
-            success: _.bind(accountCreated, this),
-            error: _.bind(accountCreateFail, this)
+          this.model.save(null, { 
+            success: _.bind(this.accountCreated, this),
+            error: _.bind(this.accountCreateFail, this)
           })
         
         },
       
-        accountCreated: function() {
-          log('ACCOUNT CREATED', arguments)
+        accountCreated: function(model, response) {
+          log('New account created successfully')
+          this.closeSpinner()
         },
       
-        accountCreateFail: function() {
-          log('ACCOUNT CREATE FAIL', arguments)
+        accountCreateFail: function(model, response) {
+          var error = JSON.parse(response.responseText).error
+          var message = ''
+          switch (error) {
+            case 'local-in-use':
+              message = 'Username in use, please try another'
+              break
+            case 'email-in-use':
+              message = 'Email address in use by another account'
+              break
+            case 'bad-parameters':
+              message = 'Bad details provided by app, please refresh and try again'
+              break
+            default:
+            case 'server-error':
+              message = 'Whoops! Server error, please try again'
+              break
+          }
+          this.closeSpinner()
+          this.showError(message)
+          log('Account creation fail', error)
         }
     })
 
