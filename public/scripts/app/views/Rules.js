@@ -4,19 +4,19 @@ define(function(require) {
 
     var _           = require('underscore')
       , Base        = require('app/views/Base')
-      , log         = require('app/utils/bows.min')('Views:TermsAndConditions')
+      , log         = require('app/utils/bows.min')('Views:Rules')
 
     return Base.extend({
 
-        template: _.template(require('text!tpl/TermsAndConditions.html')),
+        template: _.template(require('text!tpl/Rules.html')),
       
         requiresLogin: true,      
         termsSigned: false,
       
-        title: 'Terms and Conditions', 
+        title: 'Rules', 
       
         events: {
-          'click .js-terms': 'setTerms'
+          'click .js-signRules': 'complete'
         },
 
         className: 'rules screen',
@@ -29,21 +29,11 @@ define(function(require) {
           }
         },
       
-        setTerms: function() {
-          if (this.$el.find('.js-terms').is(':checked')) {
-            this.complete()
-          }
-        },
-      
         complete: function() {
           this.router.showChannelList()
         },
       
         render: function() {
-          if (localStorage.getItem('terms')) {
-            log('User has signed terms and conditions already')
-            return this.complete()
-          }
           this.$el.html(this.template)
           return this
         }

@@ -73,7 +73,7 @@ define(function(require) {
               })
               return self.showError(errorModel)
             }
-            self.router.setLoggedIn().showTermsAndConditions()
+            self.router.setLoggedIn().showRules()
           })
         },
       

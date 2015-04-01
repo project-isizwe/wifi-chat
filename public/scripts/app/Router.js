@@ -5,7 +5,7 @@ define(function (require) {
   var $         = require('jquery')
     , Backbone  = require('backbone')
     , LoginView = require('app/views/Login')
-    , TermsAndConditionsView = require('app/views/TermsAndConditions')
+    , RulesView = require('app/views/Rules')
     , SignupView = require('app/views/Signup')
     , ChannelListView = require('app/views/ChannelList')
     , SpinnerView = require('app/views/Spinner')
@@ -23,7 +23,7 @@ define(function (require) {
         '': 'showChannelList',
         '/login': 'showLogin',
         '/signup': 'showSignup',
-        '/terms-and-conditions': 'showTermsAndConditions',
+        '/rules': 'showRules',
         '/channel/:jid': 'channelContent',
         '/profile/:jid': 'userProfile'
       },
@@ -42,9 +42,9 @@ define(function (require) {
         this.showView(loginView, '/login')
       },
       
-      showTermsAndConditions: function() {
-        var termsAndConditionsView = new TermsAndConditionsView({ router: this })
-        this.showView(termsAndConditionsView, '/terms-and-conditions')  
+      showRules: function() {
+        var rulesView = new RulesView({ router: this })
+        this.showView(rulesView, '/rules')  
       },
       
       showSignup: function() {
