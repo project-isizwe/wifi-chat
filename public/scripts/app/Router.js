@@ -2,15 +2,15 @@ define(function (require) {
   
   'use strict';
 
-  var $         = require('jquery')
-    , Backbone  = require('backbone')
-    , LoginView = require('app/views/Login')
-    , RulesView = require('app/views/Rules')
-    , SignupView = require('app/views/Signup')
+  var $                 = require('jquery')
+    , Backbone          = require('backbone')
+    , LoginView         = require('app/views/Login')
+    , RulesView         = require('app/views/Rules')
+    , SignupView        = require('app/views/Signup')
     , PasswordResetView = require('app/views/PasswordReset')
-    , ChannelListView = require('app/views/ChannelList')
-    , ModalView = require('app/views/Modal')
-    , log = require('app/utils/bows.min')('Router')
+    , ChannelListView   = require('app/views/ChannelList')
+    , ModalView         = require('app/views/Modal')
+    , log               = require('app/utils/bows.min')('Router')
         
     return Backbone.Router.extend({
 
@@ -22,13 +22,13 @@ define(function (require) {
       
       routes: {
         '': 'showChannelList',
-        '/login': 'showLogin',
-        '/signup': 'showSignup',
-        '/password/reset': 'showPasswordReset',
-        '/rules': 'showRules',
-        '/channel/:jid': 'channelContent',
-        '/profile/:jid': 'userProfile',
-        '/channels': 'showChannelList'
+        'login': 'showLogin',
+        'signup': 'showSignup',
+        'password/reset': 'showPasswordReset',
+        'rules': 'showRules',
+        'channel/:jid': 'channelContent',
+        'profile/:jid': 'userProfile',
+        'channels': 'showChannelList'
         
       },
       

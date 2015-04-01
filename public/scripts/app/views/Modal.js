@@ -3,12 +3,12 @@ define(function(require) {
     'use strict';
 
     var $          = require('jquery')
+      , Backbone   = require('backbone')
       , _          = require('underscore')
-      , Base       = require('app/views/Base')
       , socket     = require('app/utils/socket')
       , log        = require('app/utils/bows.min')('Views:Modal')
 
-    return Base.extend({
+    return Backbone.View.extend({
 
       template: _.template(require('text!tpl/Modal.html')),
 
@@ -16,11 +16,6 @@ define(function(require) {
 
       events: {
         'click .js-close': 'close'
-      },
-      
-      initialize: function(options) {
-        this.options = options
-        this.router = options.router
       },
       
       render: function() {
@@ -37,6 +32,11 @@ define(function(require) {
         if (this.model.get('showClose')) {
           this.trigger('close')
         }
+      },
+
+      closeView: function() {
+        this.stopListening()
+        this.remove()
       }
 
     })

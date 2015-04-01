@@ -6,7 +6,6 @@ define(function(require) {
       , Base           = require('app/views/Base')
       , socket         = require('app/utils/socket')
       , log            = require('app/utils/bows.min')('Views:ChannelList')
-      , Error          = require('app/models/modal/Error')
       , NoChannelsView = require('app/views/Channels/NoChannels')
 
     return Base.extend({
@@ -14,8 +13,6 @@ define(function(require) {
         template: _.template(require('text!tpl/ChannelList.html')),
       
         requiresLogin: true,
-      
-        readyToRender: false,
       
         className: 'channels screen',
       
@@ -25,17 +22,15 @@ define(function(require) {
           var self = this
           var event = 'xmpp.buddycloud.subscriptions'
           socket.send(event, {}, function(error, data) {
-             self.readyToRender = true
+             console.log(error, data)
              //if (error) {
-              /* self.showError(new Error({
-                 type: 'error',
-                 showClose: true,
-                 message: 'Could not load channels'
-               }))*/
-               return self.showNoChannels()
+            /* self.showError(new Error({
+               type: 'error',
+               showClose: true,
+               message: 'Could not load channels'
+             }))*/
+              return self.showNoChannels()
              //}
-             
-               
           })
         },
       
@@ -47,8 +42,7 @@ define(function(require) {
         },
                       
         render: function() {
-          if (!this.readyToRender) return
-          
+            
           
         }
       

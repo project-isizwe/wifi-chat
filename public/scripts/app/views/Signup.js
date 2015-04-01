@@ -7,8 +7,6 @@ define(function(require) {
       , Base        = require('app/views/Base')
       , socket      = require('app/utils/socket')
       , log         = require('app/utils/bows.min')('Views:Register')
-      , ModalView   = require('app/views/Modal')
-      , ModalModel  = require('app/models/Modal')
       , Account     = require('app/models/Account')
 
     return Base.extend({
@@ -26,7 +24,6 @@ define(function(require) {
         initialize: function(options) {
           this.options = options
           this.router = options.router
-          this.modal = new ModalView(options)
           this.registerEvents()
         },
       
@@ -38,11 +35,7 @@ define(function(require) {
           })
           socket.on('xmpp.error', function(error) {
             log('Registration failed', error)
-            self.showError(new ModalModel({
-              type: 'error',
-              message: 'Registration failed',
-              showClose: true
-            }))
+            self.showError('Registration failed')
             self.enableRegisterButton()
           })
         },
@@ -51,22 +44,13 @@ define(function(require) {
           this.$el.find('button').attr('disabled', false)
         },
 
-        showError: function(model) {
-          this.closeSubView('modal')
-          this.modal.model = model
-          this.showSubView('modal', this.modal)
-          this.modal.on('close', function() {
-            this.closeSubView('modal')
-          }, this)
-        },
-
         register: function(event) {
           event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
           var local = this.$el.find('input[name="username"]').val()
           var password = this.$el.find('input[name="password"]').val()
           var email = this.$el.find('input[name="email"]').val()
-          this.showSpinner()
+          this.showSpinner('Registering')
           var domain = document.location.domain
           if (-1 !== local.indexOf('@')) {
             
@@ -77,10 +61,12 @@ define(function(require) {
             password: password,
             domain: domain
           })
+
           this.model.save({ 
             success: _.bind(accountCreated, this),
             error: _.bind(accountCreateFail, this)
           })
+        
         },
       
         accountCreated: function() {
@@ -89,23 +75,7 @@ define(function(require) {
       
         accountCreateFail: function() {
           log('ACCOUNT CREATE FAIL', arguments)
-        },
-
-        showSpinner: function() {
-          log('Showing spinner')
-          this.modal.model = new ModalModel({
-            type: 'spinner',
-            message: 'Registering',
-            showClose: false
-          })
-          this.showSubView('modal', this.modal)
-        },
-      
-        closeSpinner: function() {
-          log('Closing spinner')
-          this.closeSubView('modal')
-        },
-
+        }
     })
 
 })
