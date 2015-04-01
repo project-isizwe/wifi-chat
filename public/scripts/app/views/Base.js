@@ -3,6 +3,7 @@ define(function(require) {
     'use strict';
   
     var Backbone = require('backbone')
+      , Spinner  = require('app/models/modal/Spinner')
 
     return Backbone.View.extend({
 
@@ -35,18 +36,44 @@ define(function(require) {
       },
       
       closeSubView: function(name) {
-        if (!this.subViews[name]) return
+        if (!this.subViews || !this.subViews[name]) return
         this.subViews[name].closeView()
         this.subViews[name] = null
       },
       
-      showSubView: function(name, view) {
+      showSubView: function(name, view, element) {
         if (!this.subViews) {
           this.subViews = {}
         }
         this.subViews[name] = view
         view.delegateEvents()
-        this.$el.append(view.render().$el)
+        if (element) {
+          this.$el.find(element).html(view.render().$el)
+        } else {
+          this.$el.append(view.render().$el)
+        }
+      },
+      
+      showError: function(model) {
+        this.closeSubView('modal')
+        this.modal.model = model
+        this.showSubView('modal', this.modal)
+        this.modal.on('close', function() {
+          this.closeSubView('modal')
+        }, this)
+      },
+
+      showSpinner: function() {
+        this.modal.model = new Spinner({
+          type: 'spinner',
+          message: '',
+          showClose: false
+        })
+        this.showSubView('modal', this.modal)
+      },
+
+      closeSpinner: function() {
+        this.closeSubView('modal')
       }
 
   })

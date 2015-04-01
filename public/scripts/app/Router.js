@@ -25,7 +25,9 @@ define(function (require) {
         '/signup': 'showSignup',
         '/terms-and-conditions': 'showTermsAndConditions',
         '/channel/:jid': 'channelContent',
-        '/profile/:jid': 'userProfile'
+        '/profile/:jid': 'userProfile',
+        '/channels': 'showChannelList'
+        
       },
       
       initialize: function() {
