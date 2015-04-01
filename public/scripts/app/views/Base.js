@@ -17,12 +17,17 @@ define(function(require) {
           this.router = options.router
           this.options = options
         }
+        
+        this.on('render', this.afterRender, this)
       },
 
       render: function() {
         this.$el.html(this.template, this.model)
+        this.trigger('render')
         return this
       },
+
+      afterRender: function() {},
       
       registerEvents: function() {},
       
