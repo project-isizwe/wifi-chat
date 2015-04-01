@@ -21,7 +21,8 @@ define(function(require) {
 
         events: {
           'submit': 'login',
-          'click .js-signup': 'signup'
+          'click .js-signup': 'signup',
+          'click .js-forgotPassword': 'password'
         },
       
         initialize: function(options) {
@@ -112,6 +113,10 @@ define(function(require) {
         closeSpinner: function() {
           log('Closing spinner')
           this.closeSubView('modal')
+        },
+
+        password: function() {
+          this.options.router.showPasswordReset()
         }
 
     })
