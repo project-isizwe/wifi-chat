@@ -9,6 +9,7 @@ var express      = require('express')
   , favicon      = require('serve-favicon')
   , getAvatar    = require('./src/routes/avatar-get')
   , getIndex     = require('./src/routes/index-get')
+  , account      = require('./src/routes/account')
   , debug        = require('debug')('wifi-chat:index')
 require('colors')
 
@@ -36,6 +37,11 @@ if ('development' === environment) {
 
 var router = express.Router()
 router.get('/avatar/:channel', getAvatar)
+
+router.post('/account', account.createAccount)
+router.post('/account/reset', account.generateResetPasswordToken)
+router.post('/account/reset/:token', account.resetPassword)
+
 router.get('/*', getIndex)
 app.use('/', router)
 

@@ -9,6 +9,7 @@ define(function(require) {
       , log         = require('app/utils/bows.min')('Views:Register')
       , ModalView   = require('app/views/Modal')
       , ModalModel  = require('app/models/Modal')
+      , Account     = require('app/models/Account')
 
     return Base.extend({
 
@@ -62,16 +63,32 @@ define(function(require) {
         register: function(event) {
           event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
-          var username = this.$el.find('input[name="username"]').val()
+          var local = this.$el.find('input[name="username"]').val()
           var password = this.$el.find('input[name="password"]').val()
           var email = this.$el.find('input[name="email"]').val()
-          socket.send('xmpp.login', { 
-            jid: username, 
-            password: password,
-            email: email, 
-            register: true 
-          })
           this.showSpinner()
+          var domain = document.location.domain
+          if (-1 !== local.indexOf('@')) {
+            
+          }
+          this.model = new Account({
+            local: local,
+            email: email,
+            password: password,
+            domain: domain
+          })
+          this.model.save({ 
+            success: _.bind(accountCreated, this),
+            error: _.bind(accountCreateFail, this)
+          })
+        },
+      
+        accountCreated: function() {
+          log('ACCOUNT CREATED', arguments)
+        },
+      
+        accountCreateFail: function() {
+          log('ACCOUNT CREATE FAIL', arguments)
         },
 
         showSpinner: function() {
