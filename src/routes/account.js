@@ -25,9 +25,18 @@ var FIND_RECORD = 'SELECT * FROM prosody ' +
 var CREATE_ACCOUNT = 'INSERT INTO "prosody" ' +
   'VALUES($1, $2, $3, $4, $5, $6);'
 
-var INSERT_TOKEN = 'INSERT INTO "password-tokens" VALUES ($1, $2, $3, NOW());'
+var INSERT_TOKEN = 'INSERT INTO "password-tokens" ' +
+  'VALUES ($1, $2, $3, NOW() + \'1 day\'::INTERVAL);'
 
 var CLEAN_TOKENS = 'DELETE FROM "password-tokens" WHERE "expires" < NOW();'
+
+var CLEAN_USER_TOKENS = 'DELETE FROM "password-tokens" ' +
+    'WHERE "host" = $1 AND "user" = $2;'
+
+var GET_TOKEN = 'SELECT * FROM "password-tokens" WHERE "token" = $1 LIMIT 1;'
+
+var UPDATE_PASSWORD = 'UPDATE "prosody" SET "value" = $1 ' +
+    'WHERE "user" = $2 AND "host" = $3 AND "key" = \'password\';';
 
 var EMAIL_REGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 
@@ -122,8 +131,7 @@ var generateResetPasswordToken = function(req, res) {
         debug('No entry found for ' + email)
         return res.status(200).send({ error: null, message: 'done' })
       }
-      debug('record', record)
-      crypto.randomBytes(48, function(ex, buf) {
+      crypto.randomBytes(24, function(ex, buf) {
         var token = buf.toString('hex')
         var parameters = [ token, record.host, record.user ]
         client.query(INSERT_TOKEN, parameters, function(error) {
@@ -147,7 +155,41 @@ var generateResetPasswordToken = function(req, res) {
 }
 
 var resetPassword = function(req, res) {
+   // Check e have a valid token and password
+  debug('Incoming new password set request', req.body, req.params.token)
+  var password = (req.body.password || '').trim()
+  var token = req.params.token
   
+  if (!password || (password.length < 6) || !token) {
+    return res.status(400).send({ error: 'bad-parameters' })
+  }
+  // Clean down expired tokens
+  getClient(function(error, client, done) {
+    if (error) return returnServerError(client, res, 'Failed to get DB connection')
+    client.query(CLEAN_TOKENS, [], function(error) {
+      if (error) return returnServerError(client, res, 'Error cleaning expired tokens')
+       client.query(GET_TOKEN, [ token ], function(error, result) {
+         if (error) return returnServerError(client, res, 'Failed to load token')
+         if (0 === result.rowCount) {
+           client.end()
+           return res.status(404).send({ error: 'token-not-found' })
+         }
+         var params = [ password, result.rows[0].user, result.rows[0].host ]
+         client.query(UPDATE_PASSWORD, params, function(error) {
+           if (error) return returnServerError(client, res, 'Error updating password')
+           res.status(200).send({ error: null, message: 'password-updated' })
+           params = [ result.rows[0].host, result.rows[0].user ]
+           client.query(CLEAN_USER_TOKENS, params, function(error) {
+             debug('Error cleaning user tokens')
+             client.end()
+           })
+           
+         })
+
+         
+       })
+    })
+  })
 }
 
 module.exports = {

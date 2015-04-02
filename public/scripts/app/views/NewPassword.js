@@ -24,8 +24,8 @@ define(function(require) {
         newPassword: function(event) {
           event.preventDefault()
           
-          var newPassword = (this.$el.find('#new-password-1').val() || '').trim()
-          var passwordConfirm = (this.$el.find('#new-password-2').val() || '')
+          var newPassword = (this.$el.find('#reset-password-1').val() || '').trim()
+          var passwordConfirm = (this.$el.find('#reset-password-2').val() || '')
             .trim()
           
           if (newPassword.length < 6) {
@@ -38,11 +38,10 @@ define(function(require) {
           this.$el.find('button').attr('disabled', 'disabled')
           
           this.showSpinner('Setting new password')
-          this.model.urlRoot = '/account/reset/' + this.options.token
           this.model = new NewPassword({
-            password: password
+            password: newPassword
           })
-
+          this.model.urlRoot = '/account/reset/' + this.options.token
           this.model.save(null, { 
             success: _.bind(this.passwordReset, this),
             error: _.bind(this.passwordResetFailed, this)
@@ -51,15 +50,21 @@ define(function(require) {
         },
       
         passwordReset: function() {
-          this.showMessage(
-            'Success! If your address was registered with the ' +
-            'system you will receive an email very soon'
+          var modal = this.showMessage(
+            'Success! Your password has been reset'
           )
+          modal.once('close', function() {
+            this.router.showLogin()
+          }, this)
           this.$el.find('button').attr('disabled', false)
         },
       
         passwordResetFailed: function(error) {
-          this.showError('Password reset failed, please try again')
+          var message = 'Password reset failed, please try again'
+          if (error.error === 'token-not-found') {
+            message = 'Password reset token not found'
+          }
+          this.showError(message)
           this.$el.find('button').attr('disabled', false)
         }
 

@@ -71,10 +71,11 @@ define(function(require) {
         modal.once('close', function() {
           this.closeSubView('modal')
         }, this)
+        return modal
       },
       
       showError: function(message) {
-        this.showMessage(message)
+        return this.showMessage(message)
       },
 
       showSpinner: function(message) {

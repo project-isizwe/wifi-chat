@@ -65,7 +65,7 @@ define(function (require) {
       
       showNewPassword: function(token) {
         var newPasswordView = new NewPasswordView({ router: this, token: token })
-        this.showView(newPasswordView, '/password/reset')
+        this.showView(newPasswordView, '/password/reset/' + token)
       },
       
       showChannelList: function() {
