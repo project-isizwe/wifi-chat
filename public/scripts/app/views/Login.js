@@ -94,7 +94,11 @@ define(function(require) {
           this.$el.find('button').attr('disabled', 'disabled')
           this.jid = this.$el.find('input[name="username"]').val()
           this.password = this.$el.find('input[name="password"]').val()
-          socket.send('xmpp.login', { jid: this.jid, password: this.password })
+          var credentials = { jid: this.jid, password: this.password }
+          if (localStorage.getItem('host')) {
+            credentials.host = localStorage.getItem('host')
+          }
+          socket.send('xmpp.login', credentials)
           this.showSpinner('Connecting')
         },
 
