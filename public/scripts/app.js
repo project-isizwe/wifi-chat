@@ -1,5 +1,5 @@
 require.config({
-  baseUrl: 'scripts/lib',
+  baseUrl: '/scripts/lib',
   paths: {
     app: '../app',
     tpl: '../templates'

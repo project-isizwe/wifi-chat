@@ -3,16 +3,13 @@ define(function(require) {
     'use strict';
   
     var Backbone = require('backbone')
-      , log      = require('app/utils/bows.min')('Models:Account')
+      , log      = require('app/utils/bows.min')('Models:NewPassword')
 
     return Backbone.Model.extend({
       
-      urlRoot: '/account',
+      urlRoot: '/account/reset',
       
       defaults: {
-        local: null,
-        domain: null,
-        email: null,
         password: null
       }
       

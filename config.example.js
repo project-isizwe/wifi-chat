@@ -1,7 +1,14 @@
 module.exports = {
+  /* Which domains does this client handle - only affects account features */
   allowedDoamins: [ 'buddycloud.dev', 'example.com' ],
   
+  /* Used for emails */
+  url: 'http://localhost:3000', 
+  
   email: {
+    /* Which address to send emails from */
+    sendAddress: 'noreply@buddycloud.dev',
+    /* Connection details */
     connection: {
       user: 'user',
       password: 'password',

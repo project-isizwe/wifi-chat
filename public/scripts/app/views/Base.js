@@ -60,7 +60,7 @@ define(function(require) {
         }
       },
       
-      showError: function(message) {
+      showMessage: function(message) {
         this.closeSubView('modal')
         var modal = new ModalView()
         modal.model = new ModalModel({
@@ -71,6 +71,10 @@ define(function(require) {
         modal.once('close', function() {
           this.closeSubView('modal')
         }, this)
+      },
+      
+      showError: function(message) {
+        this.showMessage(message)
       },
 
       showSpinner: function(message) {

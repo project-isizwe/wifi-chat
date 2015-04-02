@@ -17,6 +17,15 @@ require('colors')
 
 var environment = process.env.NODE_ENV || 'production'
 
+try {
+  var config = require('./config.' + environment + '.js')
+} catch (e) {
+  console.log(('Config file config.' + environment + '.js not found').red)
+  process.exit(1)
+}
+
+account.setConfig(config)
+
 var app = express()
 
 var server = app.listen(3000, function() {

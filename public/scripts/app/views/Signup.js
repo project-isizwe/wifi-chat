@@ -21,25 +21,6 @@ define(function(require) {
           'submit': 'register',
         },
 
-        initialize: function(options) {
-          this.options = options
-          this.router = options.router
-          this.registerEvents()
-        },
-      
-        registerEvents: function() {
-          var self = this
-          socket.on('xmpp.connection', function(data) {
-            log('Registered as', data.jid)
-            self.router.setLoggedIn().showRules()
-          })
-          socket.on('xmpp.error', function(error) {
-            log('Registration failed', error)
-            self.showError('Registration failed')
-            self.enableRegisterButton()
-          })
-        },
-
         enableRegisterButton: function() {
           this.$el.find('button').attr('disabled', false)
         },
