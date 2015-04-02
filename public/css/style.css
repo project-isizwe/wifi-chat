@@ -45,7 +45,7 @@ h1 {
 
 p {
   margin: 0 0 14px;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .system {
@@ -294,6 +294,7 @@ p {
 .channel-header {
   margin-bottom: 10px;
   border-bottom: 1px solid hsl(240,11%,95%);
+  background: white;
 }
 
 .channel-controls {
@@ -323,11 +324,19 @@ p {
   border-bottom: 1px solid hsl(223,8%,91%);
 }
 
+.channel-meta {
+  padding: 14px 14px 0;
+}
+
 .channel-title {
-  padding: 14px 0;
   text-align: center;
   font-weight: bold;
-  background: white;
+  margin-bottom: 10px;
+}
+
+.channel-actions {
+  padding: 14px;
+  border-top: 1px solid hsl(240,11%,93%);
 }
 
 .topic {
