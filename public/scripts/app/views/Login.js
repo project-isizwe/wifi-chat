@@ -74,13 +74,18 @@ define(function(require) {
           log('Performing discovery')
           var self = this
           var options = {}
+          if (localStorage.getItem('channel-server')) {
+            options.server = localStorage.getItem('channel-server')
+          }
           socket.send('xmpp.buddycloud.discover', options, function(error, server) {
             log('Discovery response', error, server)
             if (error) {
               self.enableLoginButton()
+              localStorage.removeItem('channel-server')
               return self.showError('We\'re sorry but the system is down!')
             }
             socket.send('xmpp.buddycloud.register', {}, function() {})
+            localStorage.setItem('channel-server', server)
             self.router.setLoggedIn().showHome()
           })
         },
