@@ -6,7 +6,9 @@
   <div class="screen-title">Rules</div>
 </header>
 <div class="screen-textContent">
+  <% if (!hideExtras) { %>
   <p>By clicking "Start using WiFi Chat" you're accepting the following set of rules:</p>
+  <% } %>
   <ol class="ruleList">
     <li>
       <p>1. Respect others.</p>
@@ -22,5 +24,7 @@
     <li>
       <p>5. Don't break the site or do anything that interferes with normal use of the site.</p>
   </ol>
+  <% if (!hideExtras) { %>
   <div class="btn btn--primary js-signRules">Start using WiFi Chat</div>
+  <% } %>
 </div>

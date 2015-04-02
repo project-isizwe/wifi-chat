@@ -16,7 +16,8 @@ define(function(require) {
         title: 'Settings',
       
         events: {
-          'click .js-logout': 'logout'
+          'click .js-logout': 'logout',
+          'click .js-rules': 'showRules'
         },
       
         className: 'tab-views-item settings',
@@ -27,6 +28,10 @@ define(function(require) {
       
         logout: function(event) {
           this.router.performLogout()
+        },
+      
+        showRules: function() {
+          this.router.showRules(true)
         }
     })
 

@@ -50,8 +50,8 @@ define(function (require) {
         this.showView(loginView, '/login')
       },
       
-      showRules: function() {
-        var rulesView = new RulesView({ router: this })
+      showRules: function(hideExtras) {
+        var rulesView = new RulesView({ router: this, hideExtras: hideExtras })
         this.showView(rulesView, '/rules')  
       },
       

@@ -4,6 +4,7 @@ define(function(require) {
 
     var _           = require('underscore')
       , Base        = require('app/views/Base')
+      , Rules       = require('app/models/Rules')
       , log         = require('app/utils/bows.min')('Views:Rules')
 
     return Base.extend({
@@ -27,6 +28,8 @@ define(function(require) {
           if (!this.router.isLoggedIn()) {
             return
           }
+          
+          this.model = new Rules({ hideExtras: options.hideExtras })
         },
       
         complete: function() {
@@ -34,7 +37,7 @@ define(function(require) {
         },
       
         render: function() {
-          this.$el.html(this.template)
+          this.$el.html(this.template(this.model.attributes))
           return this
         }
       
