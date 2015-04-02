@@ -9,6 +9,7 @@ define(function (require) {
     , SignupView        = require('app/views/Signup')
     , PasswordResetView = require('app/views/PasswordReset')
     , NewPasswordView   = require('app/views/NewPassword')
+    , LogoutView        = require('app/views/Logout')
     , HomeView          = require('app/views/Home')
     , ModalView         = require('app/views/Modal')
     , log               = require('app/utils/bows.min')('Router')
@@ -27,7 +28,8 @@ define(function (require) {
         'password/reset/:token': 'showNewPassword',
         'rules': 'showRules',
         'channel/:jid': 'channelContent',
-        'profile/:jid': 'userProfile'
+        'profile/:jid': 'userProfile',
+        'logout': 'showLogout'
       },
       
       initialize: function() {
@@ -71,6 +73,11 @@ define(function (require) {
       showHome: function() {
         var homeView = new HomeView({ router: this })
         this.showView(homeView, '')
+      },
+      
+      performLogout: function() {
+        var logoutView = new LogoutView({ router: this })
+        this.showView(logoutView, '/logout')
       },
       
       showView: function(view, url) {

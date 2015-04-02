@@ -15,10 +15,18 @@ define(function(require) {
 
         title: 'Settings',
       
+        events: {
+          'click .js-logout': 'logout'
+        },
+      
         className: 'tab-views-item settings',
 
         attributes: {
           'data-view': 'settings'
+        },
+      
+        logout: function(event) {
+          this.router.performLogout()
         }
     })
 
