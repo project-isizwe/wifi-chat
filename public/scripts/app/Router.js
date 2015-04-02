@@ -41,8 +41,12 @@ define(function (require) {
         this.showView(modalView, '/modal')
       },
       
-      showLogin: function() {
-        var loginView = new LoginView({ router: this })
+      showLogin: function(jid, password) {
+        var loginView = new LoginView({
+          router: this,
+          jid: jid,
+          password: password
+        })
         this.showView(loginView, '/login')
       },
       

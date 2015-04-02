@@ -26,12 +26,31 @@ define(function(require) {
           this.options = options
           this.router = options.router
           this.registerEvents()
+          this.doLogin()
+        },
+      
+        doLogin: function() {
+          this.once('render', function() {
+            if (this.options.jid) {
+              this.$el.find('input[name="username"]').val(this.options.jid)
+              this.$el.find('input[name="password"]').val(this.options.password)
+              this.login()
+            } else if (localStorage.getItem('jid')) {
+              this.$el.find('input[name="username"]')
+                .val(localStorage.getItem('jid'))
+              this.$el.find('input[name="password"]')
+                .val(localStorage.getItem('password'))
+              this.login()
+            }
+          }, this)
         },
       
         registerEvents: function() {
           var self = this
           socket.on('xmpp.connection', function(data) {
             log('Connected as', data.jid)
+            localStorage.setItem('jid', self.jid)
+            localStorage.setItem('password', self.password)
             self.performDiscovery()
           })
           socket.on('xmpp.error', function(error) {
@@ -71,11 +90,11 @@ define(function(require) {
         },
 
         login: function(event) {
-          event.preventDefault()
+          if (event) event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
-          var username = this.$el.find('input[name="username"]').val()
-          var password = this.$el.find('input[name="password"]').val()
-          socket.send('xmpp.login', { jid: username, password: password })
+          this.jid = this.$el.find('input[name="username"]').val()
+          this.password = this.$el.find('input[name="password"]').val()
+          socket.send('xmpp.login', { jid: this.jid, password: this.password })
           this.showSpinner('Connecting')
         },
 

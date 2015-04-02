@@ -74,6 +74,10 @@ define(function(require) {
         accountCreated: function(model, response) {
           log('New account created successfully')
           this.closeSpinner()
+          this.router.showLogin(
+            this.model.get('local') + '@' + this.model.get('domain'),
+            this.model.get('password')
+          )
         },
       
         accountCreateFail: function(model, response) {
