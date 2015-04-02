@@ -190,24 +190,25 @@
 <h1>Channels</h1>
 
 <div class="channels screen">
-  <header class="screen-header">
-    <div class="btn btn--text js-logout">
-      Logout
-    </div>
-    <div class="screen-title">Channels</div>
-    <div class="btn btn--text js-menu">
-      Menu
-      <div class="menu">
-        <div class="menu-item js-topic">New Topic</div>
-        <div class="menu-item js-settings">Settings</div>
+  <header class="screen-header screen-header--hasTabs">
+    <div class="tabs">
+      <div class="tabs-item is-active js-channels">
+        Channels
+        <div class="private-count"></div>
+      </div>
+      <div class="tabs-item js-activity">
+        Activity
+        <div class="private-count">2</div>
+      </div>
+      <div class="tabs-item js-settings">
+        Settings
+        <div class="private-count"></div>
       </div>
     </div>
   </header>
   <div class="channelList">
     <div class="channelList-item">
-      <div class="channelIcon">
-        <div class="private-count">5</div>
-      </div>
+      <div class="channelIcon"></div>
       <div class="channelList-title">WiFi Drive-in</div>
       <div class="channelList-unreadCount">20</div>
       <div class="arrow right icon"></div>
@@ -225,9 +226,7 @@
       <div class="arrow right icon"></div>
     </div>
     <div class="channelList-item">
-      <div class="channelIcon" style="background-image: url(tshwane.jpg)">
-        <div class="private-count">5</div>
-      </div>
+      <div class="channelIcon" style="background-image: url(tshwane.jpg)"></div>
       <div class="channelList-title">City of Tshwane</div>
       <div class="channelList-unreadCount">5</div>
       <div class="arrow right icon"></div>
@@ -386,12 +385,21 @@
 
 
 <div class="activity screen">
-  <header class="screen-header">
-    <div class="btn btn--text js-back">
-      <div class="arrow left icon"></div>
-      Back
+  <header class="screen-header screen-header--hasTabs">
+    <div class="tabs">
+      <div class="tabs-item js-channels">
+        Channels
+        <div class="private-count"></div>
+      </div>
+      <div class="tabs-item is-active js-activity">
+        Activity
+        <div class="private-count">2</div>
+      </div>
+      <div class="tabs-item js-settings">
+        Settings
+        <div class="private-count"></div>
+      </div>
     </div>
-    <div class="screen-title">Activity</div>
   </header>
   <div class="comment post">
     <div class="post-meta post-meta--interaction">
@@ -517,12 +525,21 @@
 <h1>Settings</h1>
 
 <div class="settings screen">
-  <header class="screen-header">
-    <div class="btn btn--text js-back">
-      <div class="left arrow icon"></div>
-      Back
+  <header class="screen-header screen-header--hasTabs">
+    <div class="tabs">
+      <div class="tabs-item js-channels">
+        Channels
+        <div class="private-count"></div>
+      </div>
+      <div class="tabs-item js-activity">
+        Activity
+        <div class="private-count"></div>
+      </div>
+      <div class="tabs-item is-active js-settings">
+        Settings
+        <div class="private-count"></div>
+      </div>
     </div>
-    <div class="screen-title">Settings</div>
   </header>
   <div class="optionsList">
     <div class="optionsList-item">Help</div>
