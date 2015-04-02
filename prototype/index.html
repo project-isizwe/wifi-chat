@@ -200,31 +200,38 @@
     </div>
   </header>
   <div class="tab-views">
+    <div class="tab-views-item tab-views-item--loading" data-view="channelList">
+      <div class="silent spinner"></div>
+      <div class="system">Loading Channels</div>
+    </div>
+    <div class="tab-views-item activity" data-view="activity">
+      <div data-use-symbol="activity"></div>
+    </div>
+    <div class="tab-views-item settings" data-view="settings">
+      <div data-use-symbol="settings"></div>
+    </div>
+  </div>
+</div>
+
+<div class="home screen screen--hasTabViews">
+  <header class="screen-header screen-header--hasTabs">
+    <div class="tabs">
+      <div class="tabs-item is-active" data-target="channelList">
+        Channels
+        <div class="private-count"></div>
+      </div>
+      <div class="tabs-item" data-target="activity">
+        Activity
+        <div class="private-count">2</div>
+      </div>
+      <div class="tabs-item" data-target="settings">
+        Settings
+        <div class="private-count"></div>
+      </div>
+    </div>
+  </header>
+  <div class="tab-views">
     <div class="tab-views-item channelList" data-view="channelList">
-      <div class="channelList-item">
-        <div class="channelIcon"></div>
-        <div class="channelList-title">WiFi Drive-in</div>
-        <div class="channelList-unreadCount">20</div>
-        <div class="arrow right icon"></div>
-      </div>
-      <div class="channelList-item">
-        <div class="channelIcon"></div>
-        <div class="channelList-title">WiFi TV</div>
-        <div class="channelList-unreadCount">0</div>
-        <div class="arrow right icon"></div>
-      </div>
-      <div class="channelList-item">
-        <div class="channelIcon"></div>
-        <div class="channelList-title">WiFi Support</div>
-        <div class="channelList-unreadCount">0</div>
-        <div class="arrow right icon"></div>
-      </div>
-      <div class="channelList-item">
-        <div class="channelIcon" style="background-image: url(tshwane.jpg)"></div>
-        <div class="channelList-title">City of Tshwane</div>
-        <div class="channelList-unreadCount">5</div>
-        <div class="arrow right icon"></div>
-      </div>
       <div class="channelList-item">
         <div class="channelIcon"></div>
         <div class="channelList-title">WiFi Drive-in</div>
