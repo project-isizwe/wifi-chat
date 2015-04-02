@@ -17,6 +17,8 @@ define(function(require) {
 
         initialize: function(options){
           _.bindAll(this, 'render')
+          var self = this;
+
           this.model.bind('change', this.render)
         },
     })

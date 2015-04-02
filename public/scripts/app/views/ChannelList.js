@@ -24,6 +24,8 @@ define(function(require) {
         },
       
         initialize: function(options) {
+          var self = this
+
           this.options = options
           this.router = options.router
           this.collection = new Channels()
@@ -32,7 +34,9 @@ define(function(require) {
           this.collection.on('remove', this.renderChannels, this)
           this.collection.on('all', function(event){ log('ChannelList', event) })
 
-          var self = this
+          // trigger channel load event when title changes
+          this.collection.on('change:title', function(){ self.trigger('channel:loaded') })
+
           var event = 'xmpp.buddycloud.subscriptions'
           socket.send(event, {}, function(error, data) {
             if (error) {

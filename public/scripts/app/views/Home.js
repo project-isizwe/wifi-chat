@@ -28,10 +28,11 @@ define(function(require) {
           this.options = options
           this.router = options.router
 
-          this.tabViews = []
-          this.tabViews.push(new ChannelListView(options))
-          this.tabViews.push(new ActivityView(options))
-          this.tabViews.push(new SettingsView(options))
+          this.channelListView = new ChannelListView(options)
+          this.activityView = new ActivityView(options)
+          this.settingsView = new SettingsView(options)
+
+          this.tabViews = [this.channelListView, this.activityView, this.settingsView]
         },
 
         render: function() {
@@ -47,6 +48,8 @@ define(function(require) {
 
           this.navigateTo(this.$el.find('.tab-views-item').first().attr('data-view'))
 
+          this.channelListView.on('channel:loaded', this.adaptViewsHeight, this)
+
           return this
         },
 
@@ -55,14 +58,24 @@ define(function(require) {
         },
 
         navigateTo: function(viewName) {
+          // deactivate old tab
           this.$el.find('.tabs-item.is-active').removeClass('is-active')
+          // active active tab
           this.$el.find('.tabs-item[data-target='+ viewName +']').addClass('is-active')
-          var targetView = this.$el.find('.tab-views-item[data-view='+ viewName +']')
-          var tabViewsOffset = - targetView.index() * targetView.width()
+
+          this.visibleTabView = this.$el.find('.tab-views-item[data-view='+ viewName +']')
+          var tabViewsOffset = - this.visibleTabView.index() * this.visibleTabView.width()
+
+          // scroll to tab view
           this.$el.find('.tab-views').css({
             transform: 'translateX('+ tabViewsOffset +'px)',
-            height: targetView.height()
+            height: this.visibleTabView.height()
           })
+        },
+
+        adaptViewsHeight: function() {
+          console.log("adaptViewsHeight")
+          this.$el.find('.tab-views').css('height', this.visibleTabView.height())
         }
 
     })
