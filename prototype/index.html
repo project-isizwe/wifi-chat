@@ -222,6 +222,30 @@
         <div class="channelList-unreadCount">5</div>
         <div class="arrow right icon"></div>
       </div>
+      <div class="channelList-item">
+        <div class="channelIcon"></div>
+        <div class="channelList-title">WiFi Drive-in</div>
+        <div class="channelList-unreadCount">20</div>
+        <div class="arrow right icon"></div>
+      </div>
+      <div class="channelList-item">
+        <div class="channelIcon"></div>
+        <div class="channelList-title">WiFi TV</div>
+        <div class="channelList-unreadCount">0</div>
+        <div class="arrow right icon"></div>
+      </div>
+      <div class="channelList-item">
+        <div class="channelIcon"></div>
+        <div class="channelList-title">WiFi Support</div>
+        <div class="channelList-unreadCount">0</div>
+        <div class="arrow right icon"></div>
+      </div>
+      <div class="channelList-item">
+        <div class="channelIcon" style="background-image: url(tshwane.jpg)"></div>
+        <div class="channelList-title">City of Tshwane</div>
+        <div class="channelList-unreadCount">5</div>
+        <div class="arrow right icon"></div>
+      </div>
     </div>
     <div class="tab-views-item activity" data-view="activity">
       <div data-use-symbol="activity"></div>
@@ -382,7 +406,7 @@
 <h1>Activity Stream</h1>
 
 
-<div class="home screen">
+<div class="activity screen">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
       <div class="tabs-item js-channels">
@@ -472,16 +496,12 @@
     <div class="screen-title">mattheu_matshaya</div>
     <div class="btn btn--text js-done">Done</div>
   </header>
-  <form class="screen-textContent bottomControls">
+  <form class="section">
     <div class="avatar avatar--big avatar--uploadMode" style="background-image: url(avatar-3.jpg)">
       <input type="file" accept="image/*">
     </div>
     <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name">
     <textarea rows="6" name="description" placeholder="Tell the world about yourself...">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
-    <div class="form-controls">
-      <div class="btn btn--text form-cancel js-discard">Discard Changes</div>
-      <button type="submit" class="btn btn--primary btn--small">Save</button>
-    </div>
   </form>
 </div>
 
@@ -524,7 +544,7 @@
 
 <h1>Settings</h1>
 
-<div class="home screen">
+<div class="settings screen">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
       <div class="tabs-item js-channels">
@@ -542,9 +562,15 @@
     </div>
   </header>
   <div data-symbol="settings">
-    <div class="optionsList">
+    <form class="section edit-profile">
+      <div class="avatar avatar--big avatar--uploadMode" style="background-image: url(avatar-3.jpg)">
+        <input type="file" accept="image/*">
+      </div>
+      <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name" maxlength="128">
+      <textarea rows="4" name="description" placeholder="Tell the world about yourself..." maxlength="200">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
+    </form>
+    <div class="section optionsList">
       <div class="optionsList-item">Help</div>
-      <div class="optionsList-item">Profile</div>
       <div class="optionsList-item">Rules</div>
       <div class="optionsList-item">Report Abuse</div>
     </div>
@@ -567,7 +593,10 @@
   function linkSymbol(target) {
     var symbolName = target.getAttribute('data-use-symbol')
     var symbol = document.querySelector('[data-symbol='+ symbolName +']')
-    target.parentElement.insertBefore(symbol.cloneNode(true), target)
+    var symbolContents = document.createDocumentFragment()
+    for(var i=0; i<symbol.children.length; i++)
+      symbolContents.appendChild(symbol.children[i].cloneNode(true))
+    target.parentElement.insertBefore(symbolContents, target)
     target.remove()
   }
 

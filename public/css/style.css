@@ -307,7 +307,7 @@ p {
 }
 
 .channel-header {
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   border-bottom: 1px solid hsl(240,11%,95%);
   background: white;
 }
@@ -355,8 +355,8 @@ p {
 }
 
 .topic {
-  border-top: 1px solid hsl(240,11%,93%);
-  border-bottom: 1px solid hsl(240,11%,95%);
+  border-top: 1px solid hsl(240,12%,95%);
+  border-bottom: 1px solid hsl(240,12%,95%);
   margin-bottom: 14px;
 }
 
@@ -393,11 +393,6 @@ p {
 
 .post p {
   margin-bottom: 3px;
-}
-
-.profile .avatar {
-  display: block;
-  margin: 0 auto 28px;
 }
 
 .profile-meta {
@@ -460,11 +455,27 @@ p {
   border-top: none;
 }
 
+.settings {
+  background: hsl(240,11%,98%);
+}
+
+.section {
+  background: white;
+  margin-bottom: 14px;
+  padding: 28px;
+  border-top: 1px solid hsl(240,11%,95%);
+  border-bottom: 1px solid hsl(240,11%,95%);
+}
+
+.section:first-of-type {
+  border-top: none;
+}
+
 .avatar,
 .channelIcon {
   width: 44px;
   height: 44px;
-  border-radius: 100%;
+  border-radius: 2px;
   display: inline-block;
   background: hsl(240,11%,93%) url(../images/icons/avatar_placeholder.svg) center;
   background-size: cover;
@@ -479,6 +490,9 @@ p {
 .avatar--big {
   width: 128px;
   height: 128px;
+  display: block;
+  border-radius: 6px;
+  margin: 0 auto 28px;
 }
 
 .avatar--uploadMode {
@@ -779,6 +793,10 @@ input + .btn {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.optionsList-item:last-child {
+  border-bottom: none;
 }
 
 @media (max-width: 600px) {
