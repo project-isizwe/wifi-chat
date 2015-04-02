@@ -45,7 +45,7 @@ h1 {
 
 p {
   margin: 0 0 14px;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .system {
@@ -150,28 +150,39 @@ p {
   background: white;
   margin-bottom: 10px;
   position: relative;
-  padding-top: 46px;
+  padding-top: 47px;
   margin: 0 10px 10px 0;
   float: left;
   box-shadow: 0 1px 10px hsl(232,8%,80%);
+}
+
+.screen--hasTabViews {
+  overflow-x: hidden;
 }
 
 .screen-header {
   padding: 0 14px;
   position: absolute;
   width: 100%;
-  height: 46px;
+  height: 47px;
   left: 0;
   top: 0;
   background: linear-gradient(hsl(221,3%,96%), hsl(221,3%,98%));
-  border-bottom: 1px solid hsl(221,5%,90%);
+  box-shadow: 0 -1px hsl(221,5%,90%) inset;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   text-align: center;
+}
+
+.screen-header.screen-header--hasTabs {
+  padding: 0;
+  box-shadow: none;
 }
 
 .screen-header .btn {
   flex: 1 1 25%;
+  display: flex;
+  align-items: center;
   text-align: left;
   color: inherit;
   font-weight: normal;
@@ -179,11 +190,15 @@ p {
 }
 
 .screen-header .btn:last-child:not(:only-child) {
+  justify-content: flex-end;
   text-align: right;
 }
 
 .screen-title {
   flex: 1 1 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 10px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -254,7 +269,7 @@ p {
 }
 
 .channelList-item:hover {
-  background: hsl(240,11%,98%);
+  background: hsl(240,9%,98%);
 }
 
 .channelList-title {
@@ -270,7 +285,7 @@ p {
   border-radius: 18px;
   line-height: 18px;
   padding: 0 6px;
-  color: hsl(232,5%,75%);
+  color: hsl(232,5%,70%);
   background: hsl(240,11%,95%);
 }
 
@@ -292,8 +307,9 @@ p {
 }
 
 .channel-header {
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   border-bottom: 1px solid hsl(240,11%,95%);
+  background: white;
 }
 
 .channel-controls {
@@ -323,16 +339,24 @@ p {
   border-bottom: 1px solid hsl(223,8%,91%);
 }
 
+.channel-meta {
+  padding: 14px 14px 0;
+}
+
 .channel-title {
-  padding: 14px 0;
   text-align: center;
   font-weight: bold;
-  background: white;
+  margin-bottom: 10px;
+}
+
+.channel-actions {
+  padding: 14px;
+  border-top: 1px solid hsl(240,11%,93%);
 }
 
 .topic {
-  border-top: 1px solid hsl(240,11%,93%);
-  border-bottom: 1px solid hsl(240,11%,95%);
+  border-top: 1px solid hsl(240,12%,95%);
+  border-bottom: 1px solid hsl(240,12%,95%);
   margin-bottom: 14px;
 }
 
@@ -369,11 +393,6 @@ p {
 
 .post p {
   margin-bottom: 3px;
-}
-
-.profile .avatar {
-  display: block;
-  margin: 0 auto 28px;
 }
 
 .profile-meta {
@@ -436,13 +455,29 @@ p {
   border-top: none;
 }
 
+.settings {
+  background: hsl(240,11%,98%);
+}
+
+.section {
+  background: white;
+  margin-bottom: 14px;
+  padding: 28px;
+  border-top: 1px solid hsl(240,11%,95%);
+  border-bottom: 1px solid hsl(240,11%,95%);
+}
+
+.section:first-of-type {
+  border-top: none;
+}
+
 .avatar,
 .channelIcon {
   width: 44px;
   height: 44px;
-  border-radius: 100%;
+  border-radius: 2px;
   display: inline-block;
-  background: hsl(221,33%,93%) url(../images/icons/avatar_placeholder.svg) center;
+  background: hsl(240,11%,93%) url(../images/icons/avatar_placeholder.svg) center;
   background-size: cover;
   position: relative;
 }
@@ -455,6 +490,9 @@ p {
 .avatar--big {
   width: 128px;
   height: 128px;
+  display: block;
+  border-radius: 6px;
+  margin: 0 auto 28px;
 }
 
 .avatar--uploadMode {
@@ -484,6 +522,69 @@ p {
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  width: 100%;
+}
+
+.tabs-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 -1px rgba(0,0,0,.075) inset;
+  position: relative;
+}
+
+.tabs-item:hover {
+  background: hsl(240,11%,95%);
+}
+
+/* left and right lines */
+.tabs-item:not(:first-child):before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 42%;
+  top: 29%;
+  background: hsl(240,11%,90%);
+}
+
+.tabs-item.is-active {
+  box-shadow: 
+    0 -5px hsl(221,33%,43%) inset,
+    0 -1px rgba(0,0,0,.075) inset;
+}
+
+.tabs-item .private-count {
+  position: static;
+  margin-left: 6px;
+  box-shadow: 
+    0 1px hsl(240,11%,99%),
+    0 1px 1px rgba(0,0,0,.1) inset;
+}
+
+/* make private count 0px wide when empty */
+.tabs-item .private-count:empty {
+  padding: 0;
+  margin: 0;
+}
+
+.tab-views {
+  width: 300%;
+  display: flex;
+  position: absolute;
+  left: 0;
+  transition: transform 200ms;
+}
+
+.tab-views-item {
+  flex: 1 0 33.33333%;
 }
 
 .btngroup {
@@ -692,6 +793,10 @@ input + .btn {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.optionsList-item:last-child {
+  border-bottom: none;
 }
 
 @media (max-width: 600px) {
