@@ -15,8 +15,6 @@ define(function (require) {
     return Backbone.Router.extend({
 
       el: $('body'),
-      
-      class: 'signup screen',
     
       loggedIn: false, 
       
@@ -27,9 +25,7 @@ define(function (require) {
         'password/reset': 'showPasswordReset',
         'rules': 'showRules',
         'channel/:jid': 'channelContent',
-        'profile/:jid': 'userProfile',
-        'channels': 'showChannelList'
-        
+        'profile/:jid': 'userProfile'
       },
       
       initialize: function() {
@@ -67,7 +63,7 @@ define(function (require) {
       
       showChannelList: function() {
         var channelList = new ChannelListView({ router: this })
-        this.showView(channelList, '/')
+        this.showView(channelList, '')
       },
       
       showView: function(view, url) {
@@ -78,7 +74,7 @@ define(function (require) {
         if (view.requiresLogin && !this.loggedIn) {
           return this.showLogin()
         }
-        this.navigate(url, { trigger: true })
+        this.navigate(url)
         this.currentView = view
 
         this.el.html(view.el)
@@ -99,6 +95,7 @@ define(function (require) {
       isLoggedIn: function() {
         log('User is' + (this.loggedIn ? ' ' : 'n\'t ') + 'logged in')
         if (!this.loggedIn) {
+          log("is logged in, so lets go")
           this.showLogin()
         }
         return true

@@ -22,7 +22,8 @@ define(function(require) {
       },
 
       render: function() {
-        this.$el.html(this.template, this.model)
+        var data = this.model ? this.model.attributes : null
+        this.$el.html(this.template(data))
         this.trigger('render')
         return this
       },

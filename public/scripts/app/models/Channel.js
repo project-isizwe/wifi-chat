@@ -19,7 +19,7 @@ define(function(require) {
         'pubsub#creation_date': 'creationDate',
         'buddycloud#updated_date': 'updatedDate',
         'pubsub#type': 'contentType'
-      }
+      },
       
       defaults: {
         node: null,
@@ -31,13 +31,20 @@ define(function(require) {
         this.on('change:node', function() {
           this.getDetails()
         }, this)
+
+        this.getDetails()
       },
       
       getDetails: function() {
         if (!this.get('node') || this.get('title')) return
         log('Retrieving channel details for ' + this.get('node'))
         var options = { node: this.get('node') }
-        socket.send('xmpp.buddycloud.config.get', options, _.bind(populateDetails, this))
+        socket.send('xmpp.buddycloud.config.get', options, _.bind(this.populateDetails, this))
+
+        // get mediaServer endpoint from cache
+        
+        var domain = /@(topics.*)\//.exec(this.get('node'))[1]
+        // this.cache.getMediaServer(domain)).then(this.renderAvatar)
       },
       
       populateDetails: function(error, data) {
@@ -45,12 +52,13 @@ define(function(require) {
           log('Error retrieving details for node: ' + this.get('node'))
           return
         }
-        log('Have configuration data', data)
+        var config = {}
         data.forEach(function(d) {
-          if (this.configurationMap[d]) {
-            this.set(this.configurationMap[d], d.value)
+          if (this.configurationMap[d.var]) {
+            config[this.configurationMap[d.var]] = d.value
           }
         }, this)
+        this.set(config)
       }
       
     })
