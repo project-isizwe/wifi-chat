@@ -81,7 +81,7 @@ define(function(require) {
               return self.showError('We\'re sorry but the system is down!')
             }
             socket.send('xmpp.buddycloud.register', {}, function() {})
-            self.router.setLoggedIn().showChannelList()
+            self.router.setLoggedIn().showHome()
           })
         },
       

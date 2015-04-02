@@ -14,8 +14,14 @@ define(function(require) {
         template: _.template(require('text!tpl/ChannelList.html')),
       
         requiresLogin: true,
+
+        title: 'Channels',
       
-        className: 'channels screen',
+        className: 'tab-views-item channelList',
+
+        attributes: {
+          'data-view': 'channelList'
+        },
       
         initialize: function(options) {
           this.options = options

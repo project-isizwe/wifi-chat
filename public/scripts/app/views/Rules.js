@@ -30,7 +30,7 @@ define(function(require) {
         },
       
         complete: function() {
-          this.router.showChannelList()
+          this.router.showHome()
         },
       
         render: function() {

@@ -13,6 +13,8 @@ define(function(require) {
       title: 'Wifi Chat',
       
       initialize: function (options) {
+        _.bindAll('render')
+        
         if (options) {
           this.router = options.router
           this.options = options

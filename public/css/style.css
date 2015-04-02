@@ -213,6 +213,7 @@ p {
 
 .screen-textContent {
   padding: 28px;
+  background: white;
 }
 
 .login {
@@ -366,29 +367,52 @@ p {
 }
 
 .post-meta {
-  margin: -7px -14px -6px;
   display: flex;
   font-size: 12px;
   color: #afb0bb;
+  margin-bottom: 3px;
 }
 
 .post-meta .btn,
 .post-time {
-  padding: 7px 14px 9px;
+  margin: -7px 0 -6px;
+  padding: 7px 7px 6px;
+}
+
+.post-meta .btn:first-child {
+  padding-left: 14px;
+  margin-left: -14px;
 }
 
 .post-meta.post-meta--bottom {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.btngroup--topic {
+  margin-top: 7px;
 }
 
 .post-meta.post-meta--interaction {
-  margin-bottom: 7px;
-  font-style: italic;
+  margin: -2px 0 14px;
+  font-size: 14px;
+  display: block;
+  line-height: 1.45;
+}
+
+.post-meta.post-meta--interaction .btn {
+  overflow: visible;
+  white-space: normal;
+  padding-right: 0;
+}
+
+.post-meta.post-meta--interaction .btn:not(:first-child) {
+  padding-left: 0;
 }
 
 .post-time {
   margin-left: auto;
+  padding-right: 14px;
+  margin-right: -14px;
 }
 
 .post p {
@@ -439,7 +463,9 @@ p {
   text-align: center;
 }
 
-.activity {
+.activity,
+.settings,
+.profile--setup {
   background: hsl(240,11%,98%);
 }
 
@@ -455,10 +481,6 @@ p {
   border-top: none;
 }
 
-.settings {
-  background: hsl(240,11%,98%);
-}
-
 .section {
   background: white;
   margin-bottom: 14px;
@@ -467,7 +489,7 @@ p {
   border-bottom: 1px solid hsl(240,11%,95%);
 }
 
-.section:first-of-type {
+.section:first-child {
   border-top: none;
 }
 
@@ -497,21 +519,13 @@ p {
 
 .avatar--uploadMode {
   position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
 }
 
-.avatar--uploadMode:before {
-  content: "+";
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  line-height: 128px;
-  text-align: center;
-  font-size: 8em;
-  color: white;
-  border-radius: inherit;
-  background: hsla(221,11%,50%,.3);
+.avatar--uploadMode .btn {
+  border-radius: 0;
 }
 
 .avatar--uploadMode input[type=file] {
@@ -578,8 +592,10 @@ p {
 .tab-views {
   width: 300%;
   display: flex;
+  align-items: flex-start;
   position: absolute;
   left: 0;
+  overflow-y: hidden;
   transition: transform 200ms;
 }
 
@@ -731,17 +747,7 @@ input + .btn {
   color: hsl(221,5%,75%);
 }
 
-.profile--edit {
-  background: hsl(240,11%,98%);
-}
-
-.profile--edit .screen-textContent {
-  background: white;
-  padding-bottom: 0;
-}
-
 .form-controls {
-  margin: 14px -28px 0;
   padding: 14px;
   display: flex;
   align-items: center;
