@@ -150,10 +150,14 @@ p {
   background: white;
   margin-bottom: 10px;
   position: relative;
-  padding-top: 46px;
+  padding-top: 47px;
   margin: 0 10px 10px 0;
   float: left;
   box-shadow: 0 1px 10px hsl(232,8%,80%);
+}
+
+.screen--hasTabViews {
+  overflow-x: hidden;
 }
 
 .screen-header {
@@ -512,7 +516,7 @@ p {
 }
 
 .tabs-item {
-  flex: 1 0 33.333%;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -555,6 +559,18 @@ p {
 .tabs-item .private-count:empty {
   padding: 0;
   margin: 0;
+}
+
+.tab-views {
+  width: 300%;
+  display: flex;
+  position: absolute;
+  left: 0;
+  transition: transform 200ms;
+}
+
+.tab-views-item {
+  flex: 1 0 33.33333%;
 }
 
 .btngroup {
