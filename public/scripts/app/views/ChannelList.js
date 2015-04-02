@@ -2,11 +2,12 @@ define(function(require) {
 
     'use strict';
 
-    var _              = require('underscore')
-      , Base           = require('app/views/Base')
-      , socket         = require('app/utils/socket')
-      , log            = require('app/utils/bows.min')('Views:ChannelList')
-      , NoChannelsView = require('app/views/Channels/NoChannels')
+    var _                   = require('underscore')
+      , Base                = require('app/views/Base')
+      , socket              = require('app/utils/socket')
+      , Channels            = require('app/collections/Channels')
+      , ChannelListItemView = require('app/views/ChannelListItem')
+      , log                 = require('app/utils/bows.min')('Views:ChannelList')
 
     return Base.extend({
 
@@ -19,34 +20,40 @@ define(function(require) {
         initialize: function(options) {
           this.options = options
           this.router = options.router
+          this.collection = new Channels()
+          this.collection.on('add', this.renderChannels, this)
+          this.collection.on('reset', this.renderChannels, this)
+          this.collection.on('remove', this.renderChannels, this)
+          this.collection.on('all', function(event){ log('ChannelList', event) })
+
           var self = this
           var event = 'xmpp.buddycloud.subscriptions'
           socket.send(event, {}, function(error, data) {
-             console.log(error, data)
-             //if (error) {
-            /* self.showError(new Error({
-               type: 'error',
-               showClose: true,
-               message: 'Could not load channels'
-             }))*/
-              return self.showNoChannels()
-             //}
+            if (error) {
+              return self.showError('Could not load channels')
+            }
+            // filter channels by nodes containing @topic and /posts.
+            // and add them to the collection
+            self.collection.add(data.filter(function(channel){
+              return /@topics\..*\/posts$/.exec(channel.node)
+            }))
           })
         },
-      
-        showNoChannels: function() {
-          this.readyToRender = true
-          var noChannelView = new NoChannelsView(this.options)
-          this.render()
-          this.showSubView('nochannels', noChannelView)
+
+        renderChannels: function() {
+          var channelList = document.createDocumentFragment()
+
+          this.collection.forEach(function(item){
+            var channel = new ChannelListItemView({
+              model: item
+            })
+
+            channelList.appendChild(channel.render().el)
+          })
+          log('rendering', channelList)
+
+          this.$el.find('.channelList').replaceWith(channelList)
         },
-                      
-        render: function() {
-            
-          
-        }
-      
-      
     })
 
 })
