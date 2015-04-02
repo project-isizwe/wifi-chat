@@ -72,6 +72,21 @@ var primus = new Primus(server, options)
 primus.use('emitter', Emitter)
 primus.save(__dirname + '/public/scripts/primus.js')
 
+/**
+ * Prevent users from posting new threads
+ */
+Buddycloud.prototype.publishItem = function(data, callback) {
+    if (!this._checkCall(data, callback)) return
+    if (!data.entry ||
+        !data.entry['in-reply-to'] ||
+        (data.entry['in-reply-to'].length < 5)) {
+      this._clientError(
+        'You are not able to create new topics currently', data, callback
+      )
+    }
+    this.publish(data, callback)
+}
+
 var buddycloudCache = {}
 
 primus.on('connection', function(socket) {
