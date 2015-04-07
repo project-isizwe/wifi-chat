@@ -4,17 +4,22 @@ define(function(require) {
   
   var Backbone = require('backbone')
     , Channel  = require('app/models/Channel')
-    , log      = require('app/utils/bows.min')('Collections:Threads')
+    , Post     = require('app/models/Post')
+    , log      = require('app/utils/bows.min')('Collections:Topics')
     , socket   = require('app/utils/socket')
     
   return Backbone.Collection.extend({
     
-    model: Thread,
+    model: Post,
     
     event: 'xmpp.buddycloud.retrieve',
     
+    initialize: function(models, options) {
+      this.options = options
+      this.options.node = '/user/' + options.channelJid + '/posts'
+    },
+    
     sync: function(method, collection, options) {
-      log(method, collection, options)
       if (!method) {
         method = 'get'
       }
@@ -36,6 +41,7 @@ define(function(require) {
       var self = this
       var options = {
         node: this.options.node,
+        parentOnly: true,
         rsm: {
           max: 10
         }
@@ -44,7 +50,8 @@ define(function(require) {
         if (error) {
           return self.trigger('error', error)
         }
-        self.add(data))
+        log('Received topics', data.length)
+        self.add(data)
       })
     }
     

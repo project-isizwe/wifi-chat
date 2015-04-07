@@ -4,18 +4,16 @@ require.config({
     app: '../app',
     tpl: '../templates'
   },
-  map: {
-    '*': {
-      'app/models/employee': 'app/models/memory/employee'
-    }
-  },
   shim: {
     backbone: {
-      deps: ['underscore', 'jquery'],
+      deps: [ 'underscore', 'jquery' ],
       exports: 'Backbone'
     },
     underscore: {
       exports: '_'
+    },
+    'jquery.timeago': {
+      deps: [ 'jquery' ]
     }
   }
 })

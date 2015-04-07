@@ -59,7 +59,7 @@ define(function(require) {
 
           this.navigateTo(this.$el.find('.tab-views-item').first().attr('data-view'))
 
-          this.channelListView.on('channel:loaded', this.adaptViewsHeight, this)
+          this.channelListView.on('loaded:channel', this.adaptViewsHeight, this)
 
           this.contentHeight = this.$el.outerHeight() - this.$el.find('.screen-header').height()
 

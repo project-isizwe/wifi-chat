@@ -14,7 +14,6 @@ define(function(require) {
     event: 'xmpp.buddycloud.subscriptions',
     
     sync: function(method, collection, options) {
-      log(method, collection, options)
       if (!method) {
         method = 'get'
       }

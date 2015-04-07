@@ -23,7 +23,6 @@ define(function(require) {
         },
       
         initialize: function(options) {
-          var self = this
 
           this.options = options
           this.router = options.router
@@ -38,7 +37,7 @@ define(function(require) {
           }, this)
 
           // trigger channel load event when title changes
-          this.collection.on('change:title', function() { self.trigger('channel:loaded') })
+          this.collection.on('change:title', function() { self.trigger('loaded:channel') })
 
           if (0 !== this.collection.length) {
             this.once('render', this.renderChannels, this)

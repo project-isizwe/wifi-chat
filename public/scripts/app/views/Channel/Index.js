@@ -5,6 +5,7 @@ define(function(require) {
     var _             = require('underscore')
       , Base          = require('app/views/Base')
       , HeaderView    = require('app/views/Channel/Header')
+      , TopicsView    = require('app/views/Channel/Topics')
       , subscriptions = require('app/store/Subscriptions')
       , log           = require('app/utils/bows.min')('Views:Channel')
 
@@ -36,7 +37,7 @@ define(function(require) {
       beforeRender: function() {
         if (this.options.model) {
           this.header = new HeaderView(this.options)
-      //  this.threads = new ThreadView(this.options)
+          this.topics = new TopicsView(this.options)
         }
       }, 
       
@@ -46,6 +47,7 @@ define(function(require) {
         this.$el.html(this.template(data))
         if (this.header) {
           this.$el.find('header').html(this.header.render().el)
+          this.$el.append(this.topics.render().el)
         }
         this.trigger('render')
         return this

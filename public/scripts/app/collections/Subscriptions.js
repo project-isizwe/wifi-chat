@@ -51,7 +51,7 @@ define(function(require) {
         if (error) {
           return self.trigger('error', error)
         }
-        log('Retrieved affiliations', data)
+        log('Retrieved user affiliations')
         data.forEach(function(affiliation) {
           var channel = self.findWhere({ node: affiliation.node })
           if (!channel) {
