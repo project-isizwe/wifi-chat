@@ -31,28 +31,32 @@ define(function(require) {
           this.collection.on('add', this.renderChannels, this)
           this.collection.on('reset', this.renderChannels, this)
           this.collection.on('remove', this.renderChannels, this)
-          this.collection.on('all', function(event){ log('ChannelList', event) })
+          this.collection.on('all', function(event) { log('ChannelList', event) })
+          this.collection.on('error', function() {
+            this.renderChannels()
+            this.showError('Oh no! Could not load channels')
+          }, this)
 
           // trigger channel load event when title changes
           this.collection.on('change:title', function() { self.trigger('channel:loaded') })
 
           this.collection.sync()
+          if (0 !== this.collection.length) {
+            this.once('render', this.renderChannels, this)
+          }
         },
 
         renderChannels: function() {
           var channelList = document.createDocumentFragment()
           var self = this
 
-          this.collection.forEach(function(item){
+          this.collection.forEach(function(item) {
             var channel = new ChannelListItemView({
               model: item,
               router: self.router
             })
-
             channelList.appendChild(channel.render().el)
           })
-          log('rendering', channelList)
-
           this.$el.find('.channelList').replaceWith(channelList)
         },
     })

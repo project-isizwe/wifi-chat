@@ -24,7 +24,8 @@ define(function(require) {
       defaults: {
         node: null,
         title: null,
-        decription: null
+        decription: null,
+        affiliation: null
       },
       
       initialize: function() {
