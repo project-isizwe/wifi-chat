@@ -304,7 +304,6 @@ p {
 
 .channel {
   background: hsl(240,11%,98%);
-  padding-top: 0;
 }
 
 .channel-header {
@@ -313,41 +312,14 @@ p {
   background: white;
 }
 
-.channel-controls {
-  position: absolute;
-  width: 100%;
-  display: flex;
-  padding-bottom: 7px;
-  background: linear-gradient(hsla(240,14%,50%,.3), hsla(240,14%,50%,0));
-}
-
-.channel-controls .btn {
-  padding: 14px;
-  font-size: 14px;
-  font-weight: normal;
-  color: white;
-  text-shadow: 0 1px 1px hsla(223,8%,41%,.2);
-}
-
-.channel-controls .btn:last-child:not(:only-child) {
-  margin-left: auto;
-}
-
 .channel-banner {
   height: 166px;
   background-size: cover;
   background-position: center;
-  border-bottom: 1px solid hsl(223,8%,91%);
 }
 
-.channel-meta {
-  padding: 14px 14px 0;
-}
-
-.channel-title {
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 10px;
+.channel-description {
+  padding: 7px 14px 0;
 }
 
 .channel-actions {
@@ -605,7 +577,7 @@ p {
   min-height: 100%;
 }
 
-.tab-views-item--loading {
+.tab-views-item--message {
   display: flex;
   flex-direction: column;
   align-items: center;

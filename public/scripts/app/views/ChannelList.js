@@ -41,10 +41,12 @@ define(function(require) {
 
         renderChannels: function() {
           var channelList = document.createDocumentFragment()
+          var self = this
 
           this.collection.forEach(function(item){
             var channel = new ChannelListItemView({
-              model: item
+              model: item,
+              router: self.router
             })
 
             channelList.appendChild(channel.render().el)
