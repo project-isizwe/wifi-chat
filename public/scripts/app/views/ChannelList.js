@@ -23,6 +23,7 @@ define(function(require) {
         },
       
         initialize: function(options) {
+          var self = this
 
           this.options = options
           this.router = options.router
