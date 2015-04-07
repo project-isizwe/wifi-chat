@@ -4,23 +4,25 @@ define(function(require) {
 
     var _                   = require('underscore')
       , Base                = require('app/views/Base')
-      , socket              = require('app/utils/socket')
-      , log                 = require('app/utils/bows.min')('Views:Channel')
+      , log                 = require('app/utils/bows.min')('Views:Channel:Header')
 
     return Base.extend({
 
-        template: _.template(require('text!tpl/Channel.html')),
+        template: _.template(require('text!tpl/Channel/Header.html')),
       
         requiresLogin: true,
-      
-        className: 'channel screen',
+
+        title: 'Channel Description',
+
+        className: '',
       
         initialize: function(options) {
-          var self = this
-
           this.options = options
           this.router = options.router
+          this.model = options.model
+          log(this.model, options)
         }
+
     })
 
 })
