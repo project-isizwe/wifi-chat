@@ -91,7 +91,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 2;
   padding: 28px;
 }
 
@@ -161,14 +161,14 @@ p {
 }
 
 .screen-header {
-  padding: 0 14px;
   position: absolute;
+  z-index: 1;
   width: 100%;
-  height: 47px;
+  height: 46px;
   left: 0;
   top: 0;
   background: linear-gradient(hsl(221,3%,96%), hsl(221,3%,98%));
-  box-shadow: 0 -1px hsl(221,5%,90%) inset;
+  box-shadow: 0 1px hsla(221,9%,30%,.14);
   display: flex;
   align-items: stretch;
   text-align: center;
@@ -180,6 +180,7 @@ p {
 }
 
 .screen-header .btn {
+  padding: 0 14px;
   flex: 1 1 25%;
   display: flex;
   align-items: center;
@@ -196,9 +197,7 @@ p {
 
 .screen-title {
   flex: 1 1 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: 47px;
   margin: 0 10px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -261,6 +260,10 @@ p {
   justify-content: center;
 }
 
+.channelList {
+  background: white;
+}
+
 .channelList-item {
   border-bottom: 1px solid hsl(240,11%,95%);
   display: flex;
@@ -302,7 +305,8 @@ p {
   font-size: 12px;
 }
 
-.channel {
+.channel,
+.topic {
   background: hsl(240,11%,98%);
 }
 
@@ -327,22 +331,41 @@ p {
   border-top: 1px solid hsl(240,11%,93%);
 }
 
-.topic {
+.post {
+  padding: 14px;
+  background: white;
+}
+
+.post--topic {
   border-top: 1px solid hsl(240,12%,95%);
   border-bottom: 1px solid hsl(240,12%,95%);
   margin-bottom: 14px;
 }
 
-.post {
-  padding: 14px;
-  background: white;
+.topic.screen .post--topic {
+  border-top: none;
+  margin-bottom: 0;
+}
+
+.post-displayName {
+  font-weight: bold;
+  color: black;
+}
+
+.post-username {
+  color: #afb0bb;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.post-username:before {
+  content: '@';
 }
 
 .post-meta {
   display: flex;
   font-size: 12px;
   color: #afb0bb;
-  margin-bottom: 3px;
 }
 
 .post-meta .btn,
@@ -354,10 +377,6 @@ p {
 .post-meta .btn:first-child {
   padding-left: 14px;
   margin-left: -14px;
-}
-
-.post-meta.post-meta--bottom {
-  margin-top: 5px;
 }
 
 .btngroup--topic {
@@ -385,10 +404,22 @@ p {
   margin-left: auto;
   padding-right: 14px;
   margin-right: -14px;
+  flex-shrink: 0;
 }
 
-.post p {
-  margin-bottom: 3px;
+.post-content {
+  margin: 5px 0 7px;
+  line-height: 1.4;
+}
+
+.post-content video {
+  width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+
+.post-media {
+  margin: 2px -14px 0;
 }
 
 .profile-meta {
@@ -406,17 +437,16 @@ p {
   padding-top: 0;
 }
 
-.posts {
+.comments {
   flex: 1;
   overflow: auto;
 }
 
 .writeComment {
-  background: hsl(240,11%,98%);
   padding: 7px 14px 3px;
   display: flex;
   align-items: flex-start;
-  border-top: 1px solid hsl(240,11%,95%);
+  border-top: 1px solid hsl(240,12%,95%);
 }
 .writeComment [name=comment] {
   flex: 1;
@@ -567,7 +597,7 @@ p {
   align-items: flex-start;
   position: absolute;
   left: 0;
-  top: 47px;
+  top: 46px;
   overflow-y: hidden;
   transition: transform 200ms;
 }
@@ -589,7 +619,7 @@ p {
 }
 
 .btngroup .btn {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   margin: 0 3px;
 }
 
@@ -795,11 +825,30 @@ input + .btn {
 }
 
 @media (max-width: 600px) {
+  html,
+  body {
+    height: auto;
+    overflow-x: hidden;
+  }
+  body {
+    display: initial;
+  }
   .screen {
     margin: 0;
-    height: 100vh;
+    height: auto;
     width: 100%;
     min-width: 320px;
     box-shadow: none;
+    float: none;
+    overflow: auto;
+    position: static;
+    min-height: 100vh;
+  }
+  .screen.screen--hasTabViews {
+    position: relative;
+  }
+  .modal,
+  .screen-header {
+    position: fixed;
   }
 }

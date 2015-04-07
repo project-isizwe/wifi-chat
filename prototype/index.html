@@ -22,6 +22,12 @@
   body > .screen + h1 {
     margin-top: 84px;
   }
+
+  .screen-header,
+  .modal,
+  .modal-background {
+    position: absolute;
+  }
 </style>
 
 <h1>Login</h1>
@@ -286,116 +292,189 @@
       <div class="btn btn--primary js-topic">Write new post</div>
     </div>
   </header>
-  <article class="topic post">
-    <div class="post-meta">
-      <div class="btn btn--text js-seeAuthor"><span class="admin icon"></span>daniele54</div>
-      <div class="post-time">5 hours ago</div>
-    </div>
-    <div class="post-content">
-      <p>We need your help. We're planning the new Wifi-Drive-in film but can't decide what to pick. Right now we have three choices: Out of Movie A, B and C, which would you like to see next?</p>
-    </div>
-    <div class="post-meta post-meta--bottom">
-      <div class="btn btn--text js-readComments">51 comments</div>
-    </div>
-    <div class="btngroup btngroup--topic">
-      <div class="btn btn--secondary btn--small js-comment">
-        <span class="plus icon"></span> Add a comment
-      </div>
-      <div class="btn btn--secondary btn--small js-like">
-        <span class="like icon"></span> Like
-      </div>
-    </div>
-  </article>
-  <article class="topic post">
-    <div class="post-meta">
-      <div class="btn btn--text js-seeAuthor"><span class="admin icon"></span>p16thembe</div>
-      <div class="post-time">yesterday</div>
-    </div>
-    <div class="post-content">
-      <p>Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</p>
-    </div>
-    <div class="post-meta post-meta--bottom">
-      <div class="btn btn--text js-readComments">35 comments</div>
-    </div>
-    <div class="btngroup btngroup--topic">
-      <div class="btn btn--secondary btn--small js-comment">
-        <span class="plus icon"></span> Add a comment
-      </div>
-      <div class="btn btn--secondary btn--small js-like">
-        <span class="like icon"></span> Like
-      </div>
-    </div>
-  </article>
+  <section class="posts">
+    <article>
+      <section class="post post--topic">
+        <div class="post-meta">
+          <div class="btn btn--text js-seeAuthor">
+            <span class="admin icon"></span>
+            <span class="post-displayName">Daniele Francis</span>
+            <span class="post-username">daniele54</span>
+          </div>
+          <time class="post-time">5 hours ago</time>
+        </div>
+        <div class="post-content">We have a new video for you guys. Let us know what you think of it:
+    http://connectuptv.pockittv.mobi/v/850</div>
+        <div class="post-meta post-meta--bottom">
+          <div class="btn btn--text js-readComments">51 comments</div>
+        </div>
+        <div class="btngroup btngroup--topic">
+          <div class="btn btn--secondary btn--small js-comment">
+            <span class="plus icon"></span> Add a comment
+          </div>
+          <div class="btn btn--secondary btn--small js-like">
+            <span class="like icon"></span> Like
+          </div>
+        </div>
+      </section>
+    </article>
+    <article>
+      <section class="post post--topic">
+        <div class="post-meta">
+          <div class="btn btn--text js-seeAuthor">
+            <span class="admin icon"></span>
+            <span class="post-displayName">Thembe Khumalo</span>
+            <span class="post-username">p16thembe</span>
+          </div>
+          <time class="post-time">yesterday</time>
+        </div>
+        <div class="post-content">Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</div>
+        <div class="post-meta post-meta--bottom">
+          <div class="btn btn--text js-readComments">35 comments</div>
+        </div>
+        <div class="btngroup btngroup--topic">
+          <div class="btn btn--secondary btn--small js-comment">
+            <span class="plus icon"></span> Add a comment
+          </div>
+          <div class="btn btn--secondary btn--small js-like">
+            <span class="like icon"></span> Like
+          </div>
+        </div>
+      </section>
+    </article>
+  </section>
 </div>
 
-<div class="comments screen">
+<div class="topic screen" data-scrolloffset="189">
   <header class="screen-header">
     <div class="btn btn--text js-back">
       <div class="arrow left icon"></div>
       Close
     </div>
-    <div class="screen-title">Comments</div>
+    <div class="screen-title">We have a new video for you guys</div>
   </header>
-  <div class="posts">
-    <div class="comment post">
-      <div class="btn btn--secondary btn--small js-showMore">Show 49 more comments</div>
-    </div>
-    <div class="comment post">
+  <article>
+    <section class="post post--topic">
       <div class="post-meta">
-        <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
-        <div class="post-time">4 hours ago</div>
+        <div class="btn btn--text js-seeAuthor">
+          <span class="admin icon"></span>
+          <span class="post-displayName">Daniele Francis</span>
+          <span class="post-username">daniele54</span>
+        </div>
+        <time class="post-time">5 hours ago</time>
       </div>
-      <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
-    </div>
-    <div class="comment post">
-      <div class="post-meta">
-        <div class="btn btn--text js-seeAuthor">letsiemogorosi3</div>
-        <div class="post-time">3 hours ago</div>
+      <div class="post-content">We have a new video for you guys. Let us know what you think of it:
+    http://connectuptv.pockittv.mobi/v/850</div>
+      <div class="post-meta post-meta--bottom">
+        <div class="btn btn--text js-readComments">51 comments</div>
       </div>
-      <p>I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</p>
-    </div>
-  </div>
+      <div class="btngroup btngroup--topic">
+        <div class="btn btn--secondary btn--small js-comment">
+          <span class="plus icon"></span> Add a comment
+        </div>
+        <div class="btn btn--secondary btn--small js-like">
+          <span class="like icon"></span> Like
+        </div>
+      </div>
+    </section>
+    <section class="comments">
+      <article class="comment post">
+        <div class="btn btn--secondary btn--small js-showMore">Show 49 more comments</div>
+      </article>
+      <article class="comment post">
+        <div class="post-meta">
+          <div class="btn btn--text js-seeAuthor">
+            <span class="post-displayName">Mattheu Matshaya</span>
+            <span class="post-username">mattheu_matshaya</span>
+          </div>
+          <time class="post-time">4 hours ago</time>
+        </div>
+        <div class="post-content">I've seen A and B. Both sucked!. But C. Please please please!</div>
+      </article>
+      <article class="comment post">
+        <div class="post-meta">
+          <div class="btn btn--text js-seeAuthor">
+            <span class="post-displayName">Letsie Mogorosi</span>
+            <span class="post-username">letsiemogorosi3</span>
+          </div>
+          <time class="post-time">3 hours ago</time>
+        </div>
+        <div class="post-content">I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</div>
+      </article>
+    </section>
+  </article>
   <form class="writeComment">
     <textarea name="comment" placeholder="Write a comment..." rows="1" required></textarea>
     <button type="submit" class="btn btn--primary btn--small js-comment">Send</button>
   </form>
 </div>
 
-<div class="comments screen">
+<div class="topic screen" data-scrolloffset="189">
   <header class="screen-header">
     <div class="btn btn--text js-back">
       <div class="arrow left icon"></div>
       Close
     </div>
-    <div class="screen-title">Comments</div>
+    <div class="screen-title">We have a new video for you guys</div>
   </header>
-  <div class="posts">
-    <div class="comment post">
-      <div class="btn btn--secondary btn--small js-showMore">Show 49 more comments</div>
-    </div>
-    <div class="comment post">
+  <article>
+    <section class="post post--topic">
       <div class="post-meta">
-        <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
-        <div class="post-time">4 hours ago</div>
-      </div>
-      <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
-      <div class="btngroup btngroup--post btngroup--connected">
-        <div class="btn btn--small js-delete">
-          <span class="delete icon"></span>Delete comment
+        <div class="btn btn--text js-seeAuthor">
+          <span class="admin icon"></span>
+          <span class="post-displayName">Daniele Francis</span>
+          <span class="post-username">daniele54</span>
         </div>
-        <div class="btn btn--small js-mute">
-          <span class="mute icon"></span>Mute user
+        <time class="post-time">5 hours ago</time>
+      </div>
+      <div class="post-content">We have a new video for you guys. Let us know what you think of it:
+    http://connectuptv.pockittv.mobi/v/850</div>
+      <div class="post-meta post-meta--bottom">
+        <div class="btn btn--text js-readComments">51 comments</div>
+      </div>
+      <div class="btngroup btngroup--topic">
+        <div class="btn btn--secondary btn--small js-comment">
+          <span class="plus icon"></span> Add a comment
+        </div>
+        <div class="btn btn--secondary btn--small js-like">
+          <span class="like icon"></span> Like
         </div>
       </div>
-    </div>
-    <div class="comment post">
-      <div class="post-meta">
-        <div class="btn btn--text js-seeAuthor">letsiemogorosi3</div>
-        <div class="post-time">3 hours ago</div>
-      </div>
-      <p>I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</p>
-    </div>
-  </div>
+    </section>
+    <section class="comments">
+      <article class="comment post">
+        <div class="btn btn--secondary btn--small js-showMore">Show 49 more comments</div>
+      </article>
+      <article class="comment post">
+        <div class="post-meta">
+          <div class="btn btn--text js-seeAuthor">
+            <span class="post-displayName">Mattheu Matshaya</span>
+            <span class="post-username">mattheu_matshaya</span>
+          </div>
+          <time class="post-time">4 hours ago</time>
+        </div>
+        <div class="post-content">I've seen A and B. Both sucked!. But C. Please please please!</div>
+        <div class="btngroup btngroup--post btngroup--connected">
+          <div class="btn btn--small js-flag">
+            <span class="delete icon"></span>Flag comment
+          </div>
+          <div class="btn btn--small js-mention">
+            <span class="mute icon"></span>Mention Mattheu Matshaya
+          </div>
+        </div>
+      </article>
+      <article class="comment post">
+        <div class="post-meta">
+          <div class="btn btn--text js-seeAuthor">
+            <span class="post-displayName">Letsie Mogorosi</span>
+            <span class="post-username">letsiemogorosi3</span>
+          </div>
+          <time class="post-time">3 hours ago</time>
+        </div>
+        <div class="post-content">I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</div>
+      </article>
+    </section>
+  </article>
   <form class="writeComment">
     <textarea name="comment" placeholder="Write a comment..." rows="1" required></textarea>
     <button type="submit" class="btn btn--primary btn--small js-comment">Send</button>
@@ -438,7 +517,7 @@
       </div>
       <div class="post-meta">
         <div class="btn btn--text js-seeAuthor">letsiemogorosi3</div>
-        <div class="post-time">3 hours ago</div>
+        <time class="post-time">3 hours ago</time>
       </div>
       <p>I agree with <b>@mattheu_matshaya</b>. C is a good film. Especially with Brad Pit!!!</p>
     </div>
@@ -448,7 +527,7 @@
       </div>
       <div class="post-meta">
         <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
-        <div class="post-time">4 hours ago</div>
+        <time class="post-time">4 hours ago</time>
       </div>
       <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
       <div class="post-meta post-meta--bottom">
@@ -462,7 +541,7 @@
       </div>
       <div class="post-meta">
         <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
-        <div class="post-time">1 day ago</div>
+        <time class="post-time">1 day ago</time>
       </div>
       <p>Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</p>
       <div class="post-meta post-meta--bottom">
@@ -656,5 +735,54 @@
   }
 
   navigateTo(tabViewsItem[0].getAttribute('data-view'))
+
+
+
+
+  /*
+
+
+    Embed Receipts
+
+
+  */
+
+  var embedReceipts = [
+    {
+      regex: /.*connectuptv.pockittv.mobi\/v\/(\w*)/g,
+      substitution: '<div class="post-media"><video width="320" height="240" poster="http://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
+    }
+  ]
+
+  function embed(text){
+    for(var i=0; i<embedReceipts.length; i++){
+      text = text.replace(embedReceipts[i].regex, embedReceipts[i].substitution)
+    }
+    return text
+  }
+
+  var postContents = document.querySelectorAll('.post-content')
+
+  for(var i=0; i<postContents.length; i++)
+    postContents[i].innerHTML = embed(postContents[i].innerHTML)
+
+
+  /*
+
+
+    Synced Scroll Offsets
+
+
+  */
+
+  var scrollScreens = document.querySelectorAll('[data-scrolloffset]')
+
+  for(var i=0; i<scrollScreens.length; i++)
+    scrollScreen(scrollScreens[i])
+
+  function scrollScreen(screen) {
+    screen.scrollTop = screen.getAttribute('data-scrolloffset')
+  }
+
 
 </script>
