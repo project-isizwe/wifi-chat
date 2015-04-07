@@ -24,6 +24,7 @@ define(function(require) {
       },
 
       render: function() {
+        this.beforeRender()
         var data = this.model ? this.model.attributes : null
         this.$el.html(this.template(data))
         this.trigger('render')
@@ -31,6 +32,8 @@ define(function(require) {
       },
 
       afterRender: function() {},
+      
+      beforeRender: function() {},
       
       registerEvents: function() {},
       

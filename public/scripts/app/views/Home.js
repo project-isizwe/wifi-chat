@@ -28,14 +28,25 @@ define(function(require) {
           this.options = options
           this.router = options.router
 
-          this.channelListView = new ChannelListView(options)
-          this.activityView = new ActivityView(options)
-          this.settingsView = new SettingsView(options)
+        },
+      
+        beforeRender: function() {
+          if (this.channelListView) {
+            return
+          }
+          this.channelListView = new ChannelListView(this.options)
+          this.activityView = new ActivityView(this.options)
+          this.settingsView = new SettingsView(this.options)
 
-          this.tabViews = [this.channelListView, this.activityView, this.settingsView]
+          this.tabViews = [
+            this.channelListView,
+            this.activityView,
+            this.settingsView
+          ]
         },
 
         render: function() {
+          this.beforeRender()
           var tabViews = document.createDocumentFragment()
 
           this.tabViews.forEach(function(view){
