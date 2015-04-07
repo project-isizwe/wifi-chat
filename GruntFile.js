@@ -110,7 +110,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs')
     grunt.loadNpmTasks('grunt-contrib-clean')
     grunt.loadNpmTasks('grunt-nsp-package')
-    grunt.loadNpmTasks('grunt-svg-sprite')
+    // grunt.loadNpmTasks('grunt-svg-sprite')
     grunt.loadNpmTasks('grunt-autoprefixer')
     grunt.loadNpmTasks('grunt-contrib-watch')
 
@@ -122,7 +122,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['clean', 'build', 'mochacli'/*, 'jshint'*/, 'validate-package'])
     grunt.registerTask('mocha', ['mochacli'])
     grunt.registerTask('dev-throttle', ['concurrent:devThrottle'])
-    grunt.registerTask('build-dev', [ 'requirejs:css', 'autoprefixer:prefixit', 'svg_sprite:spriteit' ])
+    grunt.registerTask('build-dev', [ 'requirejs:css', 'autoprefixer:prefixit' /*, 'svg_sprite:spriteit' */ ])
     grunt.registerTask('build', ['build-dev', 'requirejs:javascript' ])
     grunt.registerTask('release', [ 'clean', 'build', 'compress', 'copy', 'clean:post-release' ])
 }
