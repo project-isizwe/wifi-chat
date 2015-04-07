@@ -35,6 +35,19 @@ define(function (require) {
       
       initialize: function() {
         log('Application initialized')
+        this.on('all', function(route, parameters) {
+          if (0 !== route.indexOf('route:')) {
+            return
+          }
+          var method = route.split(':')[1]
+          if ('showLogin' === method) {
+            return this.lastRoute = null
+          }
+          this.lastRoute = {
+            method: route.split(':')[1],
+            parameters: parameters
+          }
+        }, this)
       },
       
       showModal: function() {
@@ -42,11 +55,12 @@ define(function (require) {
         this.showView(modalView, '/modal')
       },
       
-      showLogin: function(jid, password) {
+      showLogin: function(jid, password, url) {
         var loginView = new LoginView({
           router: this,
           jid: jid,
-          password: password
+          password: password,
+          lastRoute: this.lastRoute
         })
         this.showView(loginView, '/login')
       },
@@ -90,11 +104,11 @@ define(function (require) {
         this.closeView()
         view.delegateEvents()
 
-        window.document.title = view.title
         if (view.requiresLogin && !this.loggedIn) {
           return this.showLogin()
         }
-        this.navigate(url)
+        window.document.title = view.title
+        this.navigate(url, { trigger: false })
         this.currentView = view
 
         this.el.html(view.el)

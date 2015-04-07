@@ -15,18 +15,17 @@ define(function(require) {
     affiliationsEvent: 'xmpp.buddycloud.affiliations',
     
     sync: function(method, collection, options) {
-      log(method, collection, options)
       if (!method) {
         method = 'get'
       }
       
       switch (method) {
+        case 'read':
         case 'get':
           return this.getSubscriptions()
         default:
           throw new Error('Unhandled method')
       }
-          
     },
     
     getSubscriptions: function() {

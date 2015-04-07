@@ -40,7 +40,6 @@ define(function(require) {
           // trigger channel load event when title changes
           this.collection.on('change:title', function() { self.trigger('channel:loaded') })
 
-          this.collection.sync()
           if (0 !== this.collection.length) {
             this.once('render', this.renderChannels, this)
           }

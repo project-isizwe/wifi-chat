@@ -7,6 +7,7 @@ define(function(require) {
       , Base        = require('app/views/Base')
       , socket      = require('app/utils/socket')
       , log         = require('app/utils/bows.min')('Views:Login')
+      , subscriptions = require('app/store/Subscriptions')
 
     return Base.extend({
 
@@ -84,9 +85,17 @@ define(function(require) {
               localStorage.removeItem('channel-server')
               return self.showError('We\'re sorry but the system is down!')
             }
+            subscriptions.sync()
             socket.send('xmpp.buddycloud.register', {}, function() {})
             localStorage.setItem('channel-server', server)
-            self.router.setLoggedIn().showHome()
+            
+            self.router.setLoggedIn()
+            
+            if (self.router.lastRoute) {
+              return self.router[self.router.lastRoute.method]
+                .apply(self.router, [ self.router.lastRoute.parameters ])
+            }
+            self.router.showHome()
           })
         },
       

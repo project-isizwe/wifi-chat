@@ -17,25 +17,40 @@ define(function(require) {
       className: 'channel screen',
 
       initialize: function(options) {
-
-        options.model = subscriptions
-          .findWhere({ channelJid: options.channelJid })
-
-        this.header = new HeaderView(options)
-      //  this.threads = new ThreadView(options)
-
         this.options = options
         this.router = options.router
+        
+        this.options.model = subscriptions
+          .findWhere({ channelJid: options.channelJid })
+
+        if (!this.options.model) {
+          subscriptions.on('loaded:meta', function(model) {
+            if (model.get('channelJid') === this.options.channelJid) {
+              this.options.model = model
+              this.render()
+            }
+          }, this)
+        }
       },
+      
+      beforeRender: function() {
+        if (this.options.model) {
+          this.header = new HeaderView(this.options)
+      //  this.threads = new ThreadView(this.options)
+        }
+      }, 
       
       render: function() {
         this.beforeRender()
         var data = this.model ? this.model.attributes : null
         this.$el.html(this.template(data))
-        this.$el.find('header').html(this.header.render().el)
+        if (this.header) {
+          this.$el.find('header').html(this.header.render().el)
+        }
         this.trigger('render')
         return this
-      },
+      }
+
     })
 
 })

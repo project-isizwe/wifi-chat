@@ -61,6 +61,7 @@ define(function(require) {
         }, this)
         config['channelJid'] = /[^\/]*.@.[^\/]*/.exec(this.get('node'))[0]
         this.set(config)
+        this.trigger('loaded:meta', this)
       }
       
     })
