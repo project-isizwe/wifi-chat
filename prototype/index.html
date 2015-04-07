@@ -646,8 +646,9 @@
     tabs.querySelector('[data-target='+ view +']').classList.add('is-active')
     var targetView = tabViews.querySelector('[data-view='+ view +']')
     var tabViewsOffset = - getTabViewIndex(targetView) * targetView.clientWidth
+    var minHeight = tabViews.parentNode.clientHeight - tabViews.previousElementSibling.clientHeight;
     tabViews.style.transform = 'translateX('+ tabViewsOffset +'px)'
-    tabViews.style.height = targetView.clientHeight + 'px'
+    tabViews.style.height = Math.max(minHeight, targetView.clientHeight) + 'px'
   }
 
   function getTabViewIndex(view) {

@@ -50,6 +50,8 @@ define(function(require) {
 
           this.channelListView.on('channel:loaded', this.adaptViewsHeight, this)
 
+          this.contentHeight = this.$el.outerHeight() - this.$el.find('.screen-header').height()
+
           return this
         },
 
@@ -74,8 +76,8 @@ define(function(require) {
         },
 
         adaptViewsHeight: function() {
-          console.log("adaptViewsHeight")
-          this.$el.find('.tab-views').css('height', this.visibleTabView.height())
+          var height = Math.max(this.visibleTabView.height(), this.contentHeight)
+          this.$el.find('.tab-views').css('height', height)
         }
 
     })

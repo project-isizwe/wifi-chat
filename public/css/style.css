@@ -598,12 +598,11 @@ p {
   top: 47px;
   overflow-y: hidden;
   transition: transform 200ms;
-  min-height: calc(100% - 47px);
 }
 
 .tab-views-item {
   flex: 1 0 33.33333%;
-  height: 100%;
+  min-height: 100%;
 }
 
 .tab-views-item--loading {
