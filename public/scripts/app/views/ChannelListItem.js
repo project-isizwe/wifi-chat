@@ -15,12 +15,21 @@ define(function(require) {
       
         className: 'channelList-item',
 
+        events: {
+          'click': 'open'
+        },
+
         initialize: function(options){
           _.bindAll(this, 'render')
-          var self = this;
+          var self = this
 
+          this.router = options.router
           this.model.bind('change', this.render)
         },
+
+        open: function(){
+          this.router.showChannel(this.model.get('channelJid'))
+        }
     })
 
 })

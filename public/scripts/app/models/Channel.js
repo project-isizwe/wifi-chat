@@ -58,6 +58,7 @@ define(function(require) {
             config[this.configurationMap[d.var]] = d.value
           }
         }, this)
+        config['channelJid'] = /[^\/]*.@.[^\/]*/.exec(this.get('node'))[0]
         this.set(config)
       }
       
