@@ -14,17 +14,17 @@ define(function(require) {
       
         requiresLogin: true,
 
-      initialize: function(options){
-          _.bindAll(this, 'render')
+        initialize: function(options){
+            _.bindAll(this, 'render')
 
-          this.router = options.router
-          this.model.bind('change', this.render)
-          this.on('render', this.afterRender, this)
-        },
-      
-        afterRender: function() {
-          this.$el.find('time').timeago()
-        }
+            this.router = options.router
+            this.model.bind('change', this.render)
+            this.on('render', this.afterRender, this)
+          },
+        
+          afterRender: function() {
+            this.$el.find('time').timeago()
+          }
       
     })
 
