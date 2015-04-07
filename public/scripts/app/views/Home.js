@@ -81,7 +81,7 @@ define(function(require) {
 
           // scroll to tab view
           this.$el.find('.tab-views').css({
-            transform: 'translateX('+ tabViewsOffset +'px)',
+            transform: 'translateX('+ tabViewsOffset +'px) translateZ(0)',
             height: this.visibleTabView.height()
           })
         },
