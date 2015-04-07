@@ -44,7 +44,7 @@ define(function(require) {
 
         // get mediaServer endpoint from cache
         
-        var domain = /@(topics.*)\//.exec(this.get('node'))[1]
+        var domain = /@(.*)\//.exec(this.get('node'))[1]
         // this.cache.getMediaServer(domain)).then(this.renderAvatar)
       },
       
