@@ -10,18 +10,7 @@ define(function(require) {
 
         template: _.template(require('text!tpl/Channel/Header.html')),
       
-        requiresLogin: true,
-
-        title: 'Channel Description',
-
-        className: '',
-      
-        initialize: function(options) {
-          this.options = options
-          this.router = options.router
-          this.model = options.model
-          log(this.model, options)
-        }
+        requiresLogin: true
 
     })
 

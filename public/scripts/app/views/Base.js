@@ -18,6 +18,9 @@ define(function(require) {
         if (options) {
           this.router = options.router
           this.options = options
+          if (options.model) {
+            this.model = options.model
+          }
         }
         
         this.on('render', this.afterRender, this)
