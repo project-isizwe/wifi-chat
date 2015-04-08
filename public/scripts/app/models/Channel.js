@@ -24,8 +24,11 @@ define(function(require) {
       defaults: {
         node: null,
         title: null,
-        decription: null,
-        affiliation: null
+        description: null,
+        affiliation: null,
+        displayName: null,
+        username: null,
+        creationDate: null
       },
       
       initialize: function() {
@@ -60,6 +63,10 @@ define(function(require) {
           }
         }, this)
         config['channelJid'] = /[^\/]*.@.[^\/]*/.exec(this.get('node'))[0]
+
+        if(config['title'] == config['channelJid'])
+          config['title'] = ''
+
         this.set(config)
         this.trigger('loaded:meta', this)
       }

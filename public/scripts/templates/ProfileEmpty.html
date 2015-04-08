@@ -1,0 +1,16 @@
+<header class="screen-header">
+  <div class="btn btn--text">
+    <div class="left arrow icon"></div>
+    Back
+  </div>
+  <div class="screen-title"></div>
+</header>
+<div class="screen-textContent">
+  <div class="avatar avatar--big"></div>
+  <% if(displayName) { %>
+  <div class="profile-displayName"><%- displayName %></div>
+  <% } %>
+  <div class="profile-username"><%- username %></div>
+  <div class="profile-description"><%- description %></div>
+  <div class="profile-meta">member joined <time datetime="<%- creationDate %>"></time></div>
+</div>

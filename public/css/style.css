@@ -167,7 +167,7 @@ p {
   height: 46px;
   left: 0;
   top: 0;
-  background: linear-gradient(hsl(221,3%,96%), hsl(221,3%,98%));
+  background-image: linear-gradient(to bottom right, hsl(240,11%,98%), hsl(240,12%,93%));
   box-shadow: 0 1px hsla(221,9%,30%,.14);
   display: flex;
   align-items: stretch;
@@ -318,6 +318,7 @@ p {
 
 .channel-banner {
   height: 166px;
+  background-image: linear-gradient(to bottom right, hsl(240,11%,100%), hsl(240,12%,97%));
   background-size: cover;
   background-position: center;
 }
@@ -347,23 +348,32 @@ p {
   margin-bottom: 0;
 }
 
-.post-displayName {
+.post-displayName,
+.post-username {
   font-weight: bold;
   color: black;
+  font-size: 13px;
 }
 
-.post-username {
-  color: #afb0bb;
+.post-displayName {
+  padding-right: 8px;
   display: inline-block;
-  margin-left: 5px;
 }
 
-.post-username:before {
+/* in case there is a displayName */
+.post-displayName + .post-username {
+  font-weight: normal;
+  color: #afb0bb;
+  font-size: inherit;
+}
+
+.post-displayName + .post-username:before {
   content: '@';
 }
 
 .post-meta {
   display: flex;
+  align-items: flex-end;
   font-size: 12px;
   color: #afb0bb;
 }
@@ -410,6 +420,7 @@ p {
 .post-content {
   margin: 5px 0 7px;
   line-height: 1.4;
+  word-break: break-all;
 }
 
 .post-content video {
@@ -420,12 +431,6 @@ p {
 
 .post-media {
   margin: 2px -14px 0;
-}
-
-.profile-meta {
-  font-size: 14px;
-  color: hsl(232,8%,75%);
-  text-align: center;
 }
 
 .comments {
@@ -459,9 +464,31 @@ p {
   margin-top: 3px;
 }
 
-.profile-name {
+.profile-displayName,
+.profile-username {
   font-weight: bold;
-  margin: 1em 0;
+  text-align: center;
+  font-size: 18px;
+}
+
+.profile-displayName + .profile-username {
+  font-weight: normal;
+  font-size: 14px;
+  margin-top: 2px;
+  color: hsl(232,8%,75%);
+}
+
+.profile-displayName + .profile-username:before {
+  content: "@";
+}
+
+.profile-description {
+  line-height: 1.45;
+  margin: 24px 0;
+}
+
+.profile-meta {
+  color: hsl(232,8%,75%);
   text-align: center;
 }
 
@@ -581,7 +608,7 @@ p {
   position: static;
   margin-left: 6px;
   box-shadow: 
-    0 1px hsl(240,11%,99%),
+    0 1px hsl(240,11%,98%),
     0 1px 1px rgba(0,0,0,.1) inset;
 }
 
@@ -669,6 +696,7 @@ p {
   text-overflow: ellipsis;
   user-select: none;
   outline: none;
+  text-decoration: none;
 }
 
 form :invalid ~ .btn:not(.btn--text) {
@@ -698,7 +726,7 @@ form :invalid ~ .btn:not(.btn--text) {
 }
 
 .btn--secondary:active {
-  background: none;
+  background: hsl(221,30%,55%);
 }
 
 .btn--text {

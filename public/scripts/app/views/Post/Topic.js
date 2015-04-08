@@ -4,8 +4,7 @@ define(function(require) {
 
     var _              = require('underscore')
       , Base           = require('app/views/Base')
-      , socket         = require('app/utils/socket')
-      , log            = require('app/utils/bows.min')('Views:Post:ThreadStart')
+      , log            = require('app/utils/bows.min')('Views:Topic')
     require('jquery.timeago')
 
     return Base.extend({
@@ -15,16 +14,15 @@ define(function(require) {
         requiresLogin: true,
 
         initialize: function(options){
-            _.bindAll(this, 'render')
+          _.bindAll(this, 'render')
 
-            this.router = options.router
-            this.model.bind('change', this.render)
-            this.on('render', this.afterRender, this)
-          },
-        
-          afterRender: function() {
-            this.$el.find('time').timeago()
-          }
+          this.model.bind('change', this.render)
+          this.on('render', this.afterRender, this)
+        },
+      
+        afterRender: function() {
+          this.$el.find('time').timeago()
+        }
       
     })
 

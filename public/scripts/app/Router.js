@@ -13,6 +13,7 @@ define(function (require) {
     , HomeView          = require('app/views/Home')
     , ModalView         = require('app/views/Modal')
     , ChannelView       = require('app/views/Channel/Index')
+    , ProfileView       = require('app/views/Profile')
     , log               = require('app/utils/bows.min')('Router')
         
     return Backbone.Router.extend({
@@ -93,6 +94,11 @@ define(function (require) {
       showChannel: function(jid) {
         var channelView = new ChannelView({ router: this, channelJid: jid })
         this.showView(channelView, '/channel/' + jid)
+      },
+
+      showProfile: function(jid) {
+        var profileView = new ProfileView({ router: this, jid: jid })
+        this.showView(profileView, '/profile/' + jid)
       },
       
       performLogout: function() {

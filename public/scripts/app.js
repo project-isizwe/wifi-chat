@@ -35,7 +35,7 @@ require(['jquery', 'backbone', 'app/Router'], function ($, Backbone, Router) {
 
     if (href.prop && href.prop.slice(0, root.length) === root) {
       event.preventDefault()
-      Backbone.history.navigate(href.attr, true)
+      Backbone.history.navigate(href.attr, { trigger: true })
     }
   })
   
