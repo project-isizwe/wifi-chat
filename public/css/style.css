@@ -266,10 +266,6 @@ p {
   justify-content: center;
 }
 
-.channelList {
-  background: white;
-}
-
 .channelList-item {
   border-bottom: 1px solid hsl(240,11%,95%);
   display: flex;
@@ -283,7 +279,7 @@ p {
 }
 
 .channelList--loader {
-  padding: 28px;
+  padding: 14px;
   justify-content: center;
   border: none;
 }
@@ -360,29 +356,6 @@ p {
   margin-bottom: 0;
 }
 
-.post-displayName,
-.post-username {
-  font-weight: bold;
-  color: black;
-  font-size: 13px;
-}
-
-.post-displayName {
-  padding-right: 8px;
-  display: inline-block;
-}
-
-/* in case there is a displayName */
-.post-displayName + .post-username {
-  font-weight: normal;
-  color: #afb0bb;
-  font-size: inherit;
-}
-
-.post-displayName + .post-username:before {
-  content: '@';
-}
-
 .post-meta {
   display: flex;
   align-items: flex-end;
@@ -399,6 +372,15 @@ p {
 .post-meta .btn:first-child {
   padding-left: 14px;
   margin-left: -14px;
+}
+
+.post-meta .displayName,
+.post-meta .username {
+  display: inline-block;
+}
+
+.post-meta .displayName + .username {
+  font-size: inherit;
 }
 
 .btngroup--topic {
@@ -466,22 +448,20 @@ p {
   margin-top: 3px;
 }
 
-.profile-displayName,
-.profile-username {
-  font-weight: bold;
+.profile .displayName,
+.profile .username {
   text-align: center;
   font-size: 18px;
 }
 
-.profile-displayName + .profile-username {
-  font-weight: normal;
+.profile .displayName {
+  padding-right: 0;
+}
+
+.profile .displayName + .username {
   font-size: 14px;
   margin-top: 2px;
   color: hsl(232,8%,75%);
-}
-
-.profile-displayName + .profile-username:before {
-  content: "@";
 }
 
 .profile-description {
@@ -494,10 +474,58 @@ p {
   text-align: center;
 }
 
-.activity,
-.settings,
+.tab-views-item.settings,
+.tab-views-item.activity,
 .profile--setup {
   background: hsl(240,11%,98%);
+}
+
+.displayName,
+.username {
+  font-weight: bold;
+  color: black;
+  font-size: 13px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.displayName {
+  padding-right: 8px;
+}
+
+/* in case there is a displayName */
+.displayName + .username {
+  font-weight: normal;
+  color: #afb0bb;
+}
+
+.displayName + .username:before {
+  content: '@';
+}
+
+.userList-item {
+  border-bottom: 1px solid hsl(240,11%,95%);
+  display: flex;
+  align-items: center;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+.userList-item:hover {
+  background: hsl(240,9%,98%);
+}
+
+.userList .username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userList .displayName {
+  font-size: 14px;
+  margin-left: 14px;
 }
 
 .activity .post {
@@ -533,6 +561,7 @@ p {
   background: hsl(240,11%,93%) url(../images/icons/avatar_placeholder.svg) center;
   background-size: cover;
   position: relative;
+  flex-shrink: 0;
 }
 
 .channelIcon {
