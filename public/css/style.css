@@ -651,7 +651,6 @@ p {
 }
 
 .tab-views {
-  width: 300%;
   display: flex;
   align-items: flex-start;
   position: absolute;

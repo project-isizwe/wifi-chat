@@ -585,7 +585,7 @@
 
 
 
-<h1>Activity Stream</h1>
+<!-- <h1>Activity Stream</h1>
 
 
 <div class="activity screen">
@@ -653,7 +653,7 @@
       <div data-use-symbol="settings"></div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 
@@ -789,6 +789,16 @@
 </div>
 
 <script>
+  var activityViews = document.querySelectorAll('.activity')
+
+  for(var i=0; i<activityViews.length; i++)
+    activityViews[i].remove()
+
+  var activityTabs = document.querySelectorAll('[data-target=activity]')
+  
+  for(var i=0; i<activityTabs.length; i++)
+    activityTabs[i].remove()
+
   /*
 
 
@@ -830,6 +840,8 @@
 
   Tabs.prototype = {
     init: function() {
+      this.view.style.width = this.nav.clientWidth * this.viewItems.length + 'px'
+
       for(var i=0; i<this.navItems.length; i++)
         this.navItems[i].addEventListener('click', this.onTabClick.bind(this))
 
