@@ -9,6 +9,10 @@ define(function(require) {
 
     return Backbone.Model.extend({
       
+      xmppEvents: {
+        'get': 'xmpp.buddycloud.retrieve'
+      },
+
       defaults: {
         content: null,
         author: {},
@@ -17,19 +21,14 @@ define(function(require) {
       },
       
       initialize: function(post) {
-        var data = {
-          displayName: null,
-          username: post.entry.atom.author.uri.substr(5),
-          published: post.entry.atom.published,
-          content: post.entry.atom.content.content,
-          node: post.node,
-          channelJid: post.node.split('/')[2],
-          id: post.entry.atom.id,
-          canComment: true,
-          isReply: ('comment' === post.entry.activity),
-          likes: 1,
-          commentCount: 99
+        log(post)
+        if (!post.entry) {
+          /* We probably want the model to 
+           * load this for us
+           */
+          return this.set(post, { silent: true })
         }
+        var data = this._mapPost(post)
         this.set(data, { silent: true })
         this.requestCommentCount()
       },
@@ -48,6 +47,52 @@ define(function(require) {
           }
           self.set({ commentCount: rsm.count || 0 })
         })
+      },
+
+      sync: function(method, collection, options) {
+        if (!method) {
+          method = 'get'
+        }
+        
+        switch (method) {
+          case 'get':
+            return this.getPost()
+          default:
+            throw new Error('Unhandled method')
+        }
+            
+      },
+
+      getPost: function() {
+        var event = this.xmppEvents['get']
+        var self = this
+        var options = {
+          node: this.get('node'),
+          id: this.get('id')
+        }
+        socket.send(event, options, function(error, post) {
+          if (error) {
+            return self.trigger('error', error)
+          }
+          self.set(self._mapPost(post[0]), { silent: true })
+          self.trigger('loaded:post')
+        })
+      },
+
+      _mapPost: function(post) {
+        return {
+          displayName: null,
+          username: post.entry.atom.author.uri.substr(5),
+          published: post.entry.atom.published,
+          content: post.entry.atom.content.content,
+          node: post.node,
+          channelJid: post.node.split('/')[2],
+          id: post.entry.atom.id,
+          canComment: true,
+          isReply: ('comment' === post.entry.activity),
+          likes: 1,
+          commentCount: 99
+        }
       }
       
     })
