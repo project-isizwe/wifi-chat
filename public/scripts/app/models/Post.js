@@ -17,26 +17,37 @@ define(function(require) {
       },
       
       initialize: function(post) {
-        try {
-          var data = {
-            displayName: null,
-            username: post.entry.atom.author.uri.substr(5),
-            published: post.entry.atom.published,
-            content: post.entry.atom.content.content,
-            node: post.node,
-            channelJid: post.node.split('/')[2],
-            id: post.entry.atom.id,
-            canComment: true,
-            isReply: ('comment' === post.entry.activity),
-            likes: 1,
-            comments: 99
-          }
-          this.set(data, { silent: true })
-        } catch (e) {
-          log('error', e, post)
-          log(e.stack)
-          throw new Error(e)
+        var data = {
+          displayName: null,
+          username: post.entry.atom.author.uri.substr(5),
+          published: post.entry.atom.published,
+          content: post.entry.atom.content.content,
+          node: post.node,
+          channelJid: post.node.split('/')[2],
+          id: post.entry.atom.id,
+          canComment: true,
+          isReply: ('comment' === post.entry.activity),
+          likes: 1,
+          comments: 99
         }
+        this.set(data, { silent: true })
+        this.requestCommentCount()
+      },
+
+      requestCommentCount: function() {
+        var self = this
+        var options = {
+          node: this.get('node'),
+          id: this.get('id'),
+          rsm: { max: 1 }
+        }
+
+        socket.send('xmpp.buddycloud.items.replies', options, function(error, data, rsm) {
+          if (error) {
+            return self.trigger('error', error)
+          }
+          self.set({ commentCount: rsm.count || 0 })
+        })
       }
       
     })

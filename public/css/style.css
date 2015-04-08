@@ -416,6 +416,9 @@ p {
   margin: 5px 0 7px;
   line-height: 1.4;
   word-break: break-all;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .post-content video {
@@ -425,7 +428,17 @@ p {
 }
 
 .post-media {
-  margin: 2px -14px 0;
+  margin: 2px -14px 4px;
+}
+
+.post-more {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 42px 0 10px;
+  background: linear-gradient(rgba(255,255,255,0), white 28px);
+  cursor: pointer;
 }
 
 .post--comment + .post--comment {
@@ -651,7 +664,6 @@ p {
 }
 
 .tab-views {
-  width: 300%;
   display: flex;
   align-items: flex-start;
   position: absolute;

@@ -40,7 +40,7 @@ define(function(require) {
 
           this.tabViews = [
             this.channelListView,
-            this.activityView,
+            // this.activityView,
             this.settingsView
           ]
         },
@@ -54,7 +54,7 @@ define(function(require) {
           })
 
           this.$el.html(this.template())
-          this.$el.find('.tab-views').append(tabViews)
+          this.$el.find('.tab-views').append(tabViews).width(this.tabViews.length * this.$el.width())
           this.trigger('render')
 
           this.navigateTo(this.$el.find('.tab-views-item').first().attr('data-view'))
