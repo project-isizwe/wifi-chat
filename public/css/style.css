@@ -66,6 +66,12 @@ p {
   animation: clockwise .75s linear infinite;
 }
 
+.spinner--small {
+  width: 30px;
+  height: 30px;
+  border-width: 3px;
+}
+
 .spinner.silent {
   animation: none;
 }
@@ -272,8 +278,14 @@ p {
   cursor: pointer;
 }
 
-.channelList-item:hover {
+.channelList-item:not(.channelList--loader):hover {
   background: hsl(240,9%,98%);
+}
+
+.channelList--loader {
+  padding: 28px;
+  justify-content: center;
+  border: none;
 }
 
 .channelList-title {

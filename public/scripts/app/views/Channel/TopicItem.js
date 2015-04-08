@@ -4,7 +4,7 @@ define(function(require) {
 
     var _              = require('underscore')
       , Base           = require('app/views/Base')
-      , log            = require('app/utils/bows.min')('Views:Topic')
+      , log            = require('app/utils/bows.min')('Views:TopicItem')
     require('jquery.timeago')
 
     return Base.extend({

@@ -21,9 +21,8 @@ define(function(require) {
         this.collection = new Topics(null, {
           channelJid: this.options.channelJid
         })
-        this.collection.on('add', this.renderTopics, this)
-        this.collection.on('reset', this.renderTopics, this)
-        this.collection.on('remove', this.renderTopics, this)
+        this.collection.on('all', function(event) { log('TopicList', event) })
+        this.collection.once('loaded:topics', this.initialRender, this)
 
         this.collection.on('error', function() {
           this.renderTopics()
@@ -34,6 +33,13 @@ define(function(require) {
           return this.once('render', this.renderTopics, this)
         }
         this.collection.sync()
+      },
+
+      initialRender: function() {
+        this.renderTopics()
+        this.collection.on('add', this.renderTopics, this)
+        this.collection.on('reset', this.renderTopics, this)
+        this.collection.on('remove', this.renderTopics, this)
       },
 
       renderTopics: function() {

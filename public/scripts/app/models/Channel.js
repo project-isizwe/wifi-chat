@@ -41,7 +41,6 @@ define(function(require) {
       
       getDetails: function() {
         if (!this.get('node') || this.get('title')) return
-        log('Retrieving channel details for ' + this.get('node'))
         var options = { node: this.get('node') }
         socket.send('xmpp.buddycloud.config.get', options, _.bind(this.populateDetails, this))
 
