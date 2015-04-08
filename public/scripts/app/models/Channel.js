@@ -63,9 +63,16 @@ define(function(require) {
         }, this)
         config['channelJid'] = /[^\/]*.@.[^\/]*/.exec(this.get('node'))[0]
 
-        if(config['title'] == config['channelJid'])
-          config['title'] = ''
-
+        if (config['title'] === config['channelJid']) {
+          config['title'] = null
+        }
+        
+        config.username = config.channelJid
+        if (config.channelJid.split('@')[1] === localStorage.getItem('jid').split('@')[1]) {
+          
+          config.username = config.channelJid.split('@')[0]
+          
+        }
         this.set(config)
         this.trigger('loaded:meta', this)
       }

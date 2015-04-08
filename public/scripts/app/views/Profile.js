@@ -20,12 +20,10 @@ define(function(require) {
           _.bindAll(this, 'render')
 
           this.model = new ChannelModel({ node: '/user/' + options.jid + '/posts' })
-
           this.model.bind('loaded:meta', this.displayProfile, this)
         },
 
         displayProfile: function() {
-          log(this.model.attributes)
           this.$el.html(this.profileTemplate(this.model.attributes))
           this.$el.find('time').timeago()
         }

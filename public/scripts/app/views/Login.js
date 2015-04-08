@@ -52,6 +52,7 @@ define(function(require) {
             log('Connected as', data.jid)
             localStorage.setItem('jid', self.jid)
             localStorage.setItem('password', self.password)
+            self.connectedJid = data.jid
             self.performDiscovery()
           })
           socket.on('xmpp.error', function(error) {
@@ -89,7 +90,7 @@ define(function(require) {
             socket.send('xmpp.buddycloud.register', {}, function() {})
             localStorage.setItem('channel-server', server)
             
-            self.router.setLoggedIn()
+            self.router.setLoggedIn(self.connectedJid)
             
             if (self.router.lastRoute) {
               return self.router[self.router.lastRoute.method]

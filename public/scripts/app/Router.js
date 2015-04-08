@@ -134,10 +134,14 @@ define(function (require) {
         this.currentView.closeView()
       },
       
-      setLoggedIn: function() {
-        this.loggedIn = true
+      setLoggedIn: function(jid) {
+        this.loggedIn = jid
         return this
       },
+      
+      getJid: function() {
+        return this.loggedIn
+      },      
       
       isLoggedIn: function() {
         log('User is' + (this.loggedIn ? ' ' : 'n\'t ') + 'logged in')

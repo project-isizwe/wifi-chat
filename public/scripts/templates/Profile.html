@@ -13,8 +13,8 @@
   <% if(title) { %>
   <div class="displayName"><%- title %></div>
   <% } %>
-  <div class="username"><%- channelJid %></div>
-  <% if(description) { %>
+  <div class="username" data-jid="<%- channelJid %>"><% if ('topic' === channelType) { %><%- channelJid %><% } else { %><%- username %><% } %></div>
+  <% if (description) { %>
   <div class="profile-description"><%- description %></div>
   <% } %>
   <div class="profile-meta">member joined <time datetime="<%- creationDate %>"></time></div>
