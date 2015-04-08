@@ -27,10 +27,27 @@ define(function(require) {
           id: post.entry.atom.id,
           canComment: true,
           isReply: ('comment' === post.entry.activity),
-          likes: 1,
-          comments: 99
+          commentCount: '∞'
         }
         this.set(data, { silent: true })
+
+        this.requestCommentCount()
+      },
+
+      requestCommentCount: function() {
+        var self = this
+        var options = {
+          node: this.get('node'),
+          id: this.get('id'),
+          rsm: { max: 1 }
+        }
+
+        socket.send('xmpp.buddycloud.items.replies', options, function(error, data, rsm) {
+          if (error) {
+            return self.trigger('error', error)
+          }
+          self.set({ commentCount: rsm.count || 0 })
+        })
       }
       
     })
