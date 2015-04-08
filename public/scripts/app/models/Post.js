@@ -27,7 +27,7 @@ define(function(require) {
           id: post.entry.atom.id,
           canComment: true,
           isReply: ('comment' === post.entry.activity),
-          commentCount: '∞'
+          commentCount: 0
         }
         this.set(data, { silent: true })
 
