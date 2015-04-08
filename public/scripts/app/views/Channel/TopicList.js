@@ -2,15 +2,15 @@ define(function(require) {
 
     'use strict';
 
-    var _          = require('underscore')
-      , Base       = require('app/views/Base')
-      , Topics     = require('app/collections/Topics')
-      , TopicsView = require('app/views/Post/Topic')
-      , log        = require('app/utils/bows.min')('Views:Channel:Topics')
+    var _              = require('underscore')
+      , Base           = require('app/views/Base')
+      , Topics         = require('app/collections/Topics')
+      , TopicItemView  = require('app/views/Channel/TopicItem')
+      , log            = require('app/utils/bows.min')('Views:Channel:TopicList')
 
     return Base.extend({
 
-      template: _.template(require('text!tpl/Channel/TopicsContainer.html')),
+      template: _.template(require('text!tpl/Channel/TopicList.html')),
 
       requiresLogin: true,
 
@@ -41,7 +41,7 @@ define(function(require) {
         var self = this
 
         this.collection.forEach(function(post) {
-          var topic = new TopicsView({
+          var topic = new TopicItemView({
             model: post,
             router: self.router
           })

@@ -433,18 +433,8 @@ p {
   margin: 2px -14px 0;
 }
 
-.comments {
-  display: flex;
-  flex-direction: column;
-}
-
-.comment + .comment {
+.post--comment + .post--comment {
   padding-top: 0;
-}
-
-.comments {
-  flex: 1;
-  overflow: auto;
 }
 
 .writeComment {
