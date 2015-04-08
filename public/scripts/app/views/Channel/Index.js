@@ -7,11 +7,11 @@ define(function(require) {
       , HeaderView    = require('app/views/Channel/Header')
       , TopicListView = require('app/views/Channel/TopicList')
       , subscriptions = require('app/store/Subscriptions')
-      , log           = require('app/utils/bows.min')('Views:Channel')
+      , log           = require('app/utils/bows.min')('Views:Channel:Index')
 
     return Base.extend({
 
-      template: _.template(require('text!tpl/Channel/Channel.html')),
+      template: _.template(require('text!tpl/Channel/Index.html')),
 
       requiresLogin: true,
 

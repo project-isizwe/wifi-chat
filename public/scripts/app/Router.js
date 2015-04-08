@@ -12,9 +12,9 @@ define(function (require) {
     , LogoutView        = require('app/views/Logout')
     , HomeView          = require('app/views/Home')
     , ModalView         = require('app/views/Modal')
-    , ChannelView       = require('app/views/Channel/Channel')
+    , ChannelView       = require('app/views/Channel/Index')
     , ProfileView       = require('app/views/Profile')
-    , TopicView         = require('app/views/Topic/Topic')
+    , TopicView         = require('app/views/Topic/Index')
     , log               = require('app/utils/bows.min')('Router')
         
     return Backbone.Router.extend({
@@ -99,6 +99,10 @@ define(function (require) {
       },
 
       showTopic: function(jid, id) {
+        log(jid, id)
+        if (!id) {
+          return this.showChannel(jid)
+        }
         var topicView = new TopicView({ router: this, channelJid: jid, id: id })
         this.showView(topicView, '/channel/' + jid + '/' + id)
       },
