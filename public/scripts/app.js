@@ -18,7 +18,7 @@ require.config({
   }
 })
 
-require(['jquery', 'backbone', 'app/Router'], function ($, Backbone, Router) {
+require(['jquery', 'backbone', 'app/Router', 'fastclick'], function ($, Backbone, Router, fastclick) {
 
   localStorage.andlogKey = 'wifiDebug'
   
@@ -40,5 +40,6 @@ require(['jquery', 'backbone', 'app/Router'], function ($, Backbone, Router) {
   })
   
   Backbone.history.start({ pushState: true })
-  
+
+  fastclick.attach(document.body)
 })

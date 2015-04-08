@@ -35,7 +35,6 @@
     "pg": "^4.3.0",
     "primus": "~2.0.4",
     "primus-emitter": "~3.0.0",
-    "serve-favicon": "^2.2.0",
     "serve-static": "^1.9.2",
     "xmpp-ftw": "1.x",
     "xmpp-ftw-buddycloud": "1.x"

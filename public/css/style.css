@@ -222,9 +222,7 @@ p {
 }
 
 .login {
-  padding: 0;
   display: flex;
-  min-height: 480px;
   flex-direction: column;
   justify-content: center;
 }
@@ -234,7 +232,9 @@ p {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  justify-content: center;
   text-align: center;
+  flex: 1;
 }
 
 .login .logo {
@@ -243,10 +243,6 @@ p {
 
 .bottom-controls {
   display: flex;
-  position: absolute;
-  bottom: 14px;
-  left: 0;
-  right: 0;
 }
 .bottom-controls .btn {
   padding: 14px 0 14px 28px;
@@ -787,8 +783,8 @@ form :invalid ~ .btn:not(.btn--text) {
 
 input,
 textarea {
+  -webkit-appearance: none;
   width: 100%;
-  appearance: none;
   font-family: inherit;
   font-size: inherit;
   padding: 5px 0;
@@ -799,6 +795,7 @@ textarea {
   position: relative;
   background: none;
   resize: none;
+  border-radius: 0;
 }
 input:focus,
 textarea:focus {
@@ -904,6 +901,7 @@ input + .btn {
   }
   body {
     display: initial;
+    background: white;
   }
   .screen {
     margin: 0;
@@ -915,6 +913,10 @@ input + .btn {
     overflow: auto;
     position: static;
     min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .login.screen {
+    min-height: 0;
   }
   .screen.screen--hasTabViews {
     position: relative;
