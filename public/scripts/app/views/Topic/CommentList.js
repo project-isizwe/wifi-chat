@@ -19,14 +19,15 @@ define(function(require) {
         this.options = options
         this.router = options.router
         this.collection = new Comments(null, {
-          channelJid: this.options.channelJid
+          node: this.options.node,
+          id: this.options.id
         })
         this.collection.on('all', function(event) { log('TopicList', event) })
-        this.collection.once('loaded:topics', this.initialRender, this)
+        this.collection.once('loaded:comments', this.initialRender, this)
 
         this.collection.on('error', function() {
           this.renderComments()
-          this.showError('Oh no! Could not load topics')
+          this.showError('Oh no! Could not load the comments')
         }, this)
 
         if (0 !== this.collection.length) {
@@ -53,7 +54,8 @@ define(function(require) {
           })
           comments.appendChild(comment.render().el)
         })
-        this.$el.html(topics)
+        log(this.$el)
+        this.$el.html(comments)
       }
     })
 

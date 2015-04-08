@@ -99,7 +99,6 @@ define(function (require) {
       },
 
       showTopic: function(jid, id) {
-        log(jid, id)
         if (!id) {
           return this.showChannel(jid)
         }

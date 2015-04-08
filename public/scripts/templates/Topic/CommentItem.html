@@ -1,0 +1,18 @@
+  <article class="post post--comment">
+    <div class="post-meta">
+      <div class="btn btn--text js-seeAuthor">
+        <span class="displayName"><%- displayName %></span>
+        <span class="username"><%- username %></span>
+      </div>
+      <time class="post-time" datetime="<%- published %>"><%- published %></time>
+    </div>
+    <div class="post-content"><%- content %></div>
+    <div class="btngroup btngroup--post btngroup--connected">
+      <div class="btn btn--small js-flag">
+        <span class="delete icon"></span>Flag comment
+      </div>
+      <div class="btn btn--small js-mention">
+        <span class="mute icon"></span>Mention <%- displayName %>
+      </div>
+    </div>
+  </article>

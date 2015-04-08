@@ -11,18 +11,16 @@ define(function(require) {
     
     model: Post,
     
-    event: 'xmpp.buddycloud.item.replies',
+    event: 'xmpp.buddycloud.items.replies',
     
     initialize: function(models, options) {
       this.options = options
-      this.options.node = '/user/' + options.channelJid + '/posts'
     },
     
     sync: function(method, collection, options) {
       if (!method) {
         method = 'get'
       }
-      
       switch (method) {
         case 'get':
           return this.getComments()
@@ -42,15 +40,16 @@ define(function(require) {
         node: this.options.node,
         id: this.options.id,
         rsm: {
-          max: 10,
-          afterItemId: this.options.afterItemId || null
+          max: 10
         }
       }
-      socket.send(this.event, options, function(error, data) {
+      if (this.options.afterItemId) {
+        options.rsm.afterItemId = this.options.afterItemId
+      }
+      socket.send(this.event, options, function(error, data, rsm) {
         if (error) {
           return self.trigger('error', error)
         }
-        log('Received commentsf', data.length)
         self.add(data)
         self.trigger('loaded:comments')
       })

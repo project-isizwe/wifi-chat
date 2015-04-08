@@ -21,7 +21,6 @@ define(function(require) {
       },
       
       initialize: function(post) {
-        log(post)
         if (!post.entry) {
           /* We probably want the model to 
            * load this for us
