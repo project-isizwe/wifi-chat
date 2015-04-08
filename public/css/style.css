@@ -162,10 +162,6 @@ p {
   box-shadow: 0 1px 10px hsl(232,8%,80%);
 }
 
-.screen--hasTabViews {
-  overflow-x: hidden;
-}
-
 .screen-header {
   position: absolute;
   z-index: 1;
@@ -660,18 +656,26 @@ p {
 }
 
 .tab-views {
-  display: flex;
-  align-items: flex-start;
   position: absolute;
   left: 0;
   top: 46px;
-  overflow-y: hidden;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tab-scroller {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100%;
   transition: transform 200ms;
 }
 
 .tab-views-item {
-  flex: 1 0 33.33333%;
+  width: 100%;
   min-height: 100%;
+  position: absolute;
 }
 
 .tab-views-item--message {
@@ -897,7 +901,6 @@ input + .btn {
   html,
   body {
     height: auto;
-    overflow-x: hidden;
   }
   body {
     display: initial;
@@ -913,7 +916,6 @@ input + .btn {
     overflow: auto;
     position: static;
     min-height: 100vh;
-    overflow-x: hidden;
   }
   .login.screen {
     min-height: 0;
