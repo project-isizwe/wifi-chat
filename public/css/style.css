@@ -381,6 +381,7 @@ p {
 
 .post-meta .displayName + .username {
   font-size: inherit;
+  display: inline;
 }
 
 .btngroup--topic {
