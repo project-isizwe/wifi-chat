@@ -13,7 +13,7 @@ define(function(require) {
         content: null,
         author: {},
         published: null,
-        comments: 0
+        commentCount: 0
       },
       
       initialize: function(post) {
@@ -28,7 +28,7 @@ define(function(require) {
           canComment: true,
           isReply: ('comment' === post.entry.activity),
           likes: 1,
-          comments: 99
+          commentCount: 99
         }
         this.set(data, { silent: true })
         this.requestCommentCount()
