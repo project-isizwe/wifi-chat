@@ -8,7 +8,7 @@ define(function(require) {
 
     return Base.extend({
 
-        template: _.template(require('text!tpl/Channel/Topic/NewComment.html')),
+        template: _.template(require('text!tpl/Topic/NewComment.html')),
       
         requiresLogin: true
 
