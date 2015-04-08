@@ -12,7 +12,9 @@ define(function (require) {
     , LogoutView        = require('app/views/Logout')
     , HomeView          = require('app/views/Home')
     , ModalView         = require('app/views/Modal')
-    , ChannelView       = require('app/views/Channel/Index')
+    , ChannelView       = require('app/views/Channel/Channel')
+    , ProfileView       = require('app/views/Profile')
+    , TopicView         = require('app/views/Topic/Topic')
     , log               = require('app/utils/bows.min')('Router')
         
     return Backbone.Router.extend({
@@ -30,6 +32,7 @@ define(function (require) {
         'rules': 'showRules',
         'channel/:jid': 'showChannel',
         'profile/:jid': 'showProfile',
+        'channel/:jid/:id': 'showTopic',
         'logout': 'showLogout'
       },
       
@@ -93,6 +96,16 @@ define(function (require) {
       showChannel: function(jid) {
         var channelView = new ChannelView({ router: this, channelJid: jid })
         this.showView(channelView, '/channel/' + jid)
+      },
+
+      showTopic: function(jid, id) {
+        var topicView = new TopicView({ router: this, channelJid: jid, id: id })
+        this.showView(topicView, '/channel/' + jid + '/' + id)
+      },
+
+      showProfile: function(jid) {
+        var profileView = new ProfileView({ router: this, jid: jid })
+        this.showView(profileView, '/profile/' + jid)
       },
       
       performLogout: function() {

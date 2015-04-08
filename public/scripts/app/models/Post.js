@@ -18,15 +18,19 @@ define(function(require) {
       
       initialize: function(post) {
         var data = {
-          author: post.entry.atom.author.uri.substr(5),
+          displayName: null,
+          username: post.entry.atom.author.uri.substr(5),
           published: post.entry.atom.published,
           content: post.entry.atom.content.content,
-          node: post.entry.node,
-          id: post.entry.id,
+          node: post.node,
+          channelJid: post.node.split('/')[2],
+          id: post.entry.atom.id,
           canComment: true,
-          isReply: ('comment' === post.entry.activity)
+          isReply: ('comment' === post.entry.activity),
+          likes: 1,
+          comments: 99
         }
-        this.set(data)
+        this.set(data, { silent: true })
       }
       
     })

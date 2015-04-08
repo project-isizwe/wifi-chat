@@ -1,0 +1,34 @@
+<section class="post post--topic">
+  <div class="post-meta">
+    <a class="btn btn--text" href="/profile/<%- username %>">
+      <span class="admin icon"></span>
+      <% if(displayName) { %>
+      <span class="displayName"><%- displayName %></span>
+      <% } %>
+      <span class="username"><%- username %></span>
+    </a>
+    <time class="post-time" datetime="<%- published %>"><%- published %></time>
+  </div>
+  <div class="post-content"><%- content %></div>
+  <div class="post-meta post-meta--bottom">
+    <a class="btn btn--text" href="channel/<%- channelJid %>/<%- id %>"><%- comments %> comments</a>
+    <div class="btn btn--text">
+      <%- likes %> 
+      <% if(likes > 1){ 
+        print('likes')
+      } else {
+        print('like')
+      } %>
+    </div>
+  </div>
+  <% if (canComment) { %>
+  <div class="btngroup btngroup--topic">
+    <div class="btn btn--secondary btn--small js-comment">
+      <span class="plus icon"></span> Add a comment
+    </div>
+    <div class="btn btn--secondary btn--small js-like">
+      <span class="like icon"></span> Like
+    </div>
+  </div>
+  <% } %>
+</section>

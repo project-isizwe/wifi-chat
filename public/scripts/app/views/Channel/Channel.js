@@ -5,13 +5,13 @@ define(function(require) {
     var _             = require('underscore')
       , Base          = require('app/views/Base')
       , HeaderView    = require('app/views/Channel/Header')
-      , TopicsView    = require('app/views/Channel/Topics')
+      , TopicListView = require('app/views/Channel/TopicList')
       , subscriptions = require('app/store/Subscriptions')
       , log           = require('app/utils/bows.min')('Views:Channel')
 
     return Base.extend({
 
-      template: _.template(require('text!tpl/Channel.html')),
+      template: _.template(require('text!tpl/Channel/Channel.html')),
 
       requiresLogin: true,
 
@@ -37,7 +37,7 @@ define(function(require) {
       beforeRender: function() {
         if (this.options.model) {
           this.header = new HeaderView(this.options)
-          this.topics = new TopicsView(this.options)
+          this.topicList = new TopicListView(this.options)
         }
       }, 
       
@@ -47,7 +47,7 @@ define(function(require) {
         this.$el.html(this.template(data))
         if (this.header) {
           this.$el.find('header').html(this.header.render().el)
-          this.$el.append(this.topics.render().el)
+          this.$el.append(this.topicList.render().el)
         }
         this.trigger('render')
         return this

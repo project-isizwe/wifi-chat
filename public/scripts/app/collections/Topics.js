@@ -3,7 +3,6 @@ define(function(require) {
   'use strict';
   
   var Backbone = require('backbone')
-    , Channel  = require('app/models/Channel')
     , Post     = require('app/models/Post')
     , log      = require('app/utils/bows.min')('Collections:Topics')
     , socket   = require('app/utils/socket')
@@ -52,6 +51,7 @@ define(function(require) {
         }
         log('Received topics', data.length)
         self.add(data)
+        self.trigger('loaded:topics')
       })
     }
     

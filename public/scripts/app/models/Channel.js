@@ -24,8 +24,11 @@ define(function(require) {
       defaults: {
         node: null,
         title: null,
-        decription: null,
-        affiliation: null
+        description: null,
+        affiliation: null,
+        displayName: null,
+        username: null,
+        creationDate: null
       },
       
       initialize: function() {
@@ -38,13 +41,12 @@ define(function(require) {
       
       getDetails: function() {
         if (!this.get('node') || this.get('title')) return
-        log('Retrieving channel details for ' + this.get('node'))
         var options = { node: this.get('node') }
         socket.send('xmpp.buddycloud.config.get', options, _.bind(this.populateDetails, this))
 
         // get mediaServer endpoint from cache
         
-        var domain = /@(topics.*)\//.exec(this.get('node'))[1]
+        var domain = /@(.*)\//.exec(this.get('node'))[1]
         // this.cache.getMediaServer(domain)).then(this.renderAvatar)
       },
       
@@ -60,6 +62,10 @@ define(function(require) {
           }
         }, this)
         config['channelJid'] = /[^\/]*.@.[^\/]*/.exec(this.get('node'))[0]
+
+        if(config['title'] == config['channelJid'])
+          config['title'] = ''
+
         this.set(config)
         this.trigger('loaded:meta', this)
       }

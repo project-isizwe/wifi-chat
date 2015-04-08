@@ -1,0 +1,21 @@
+<header class="screen-header">
+  <div class="btn btn--text js-back">
+    <div class="left arrow icon"></div>
+    Back
+  </div>
+  <div class="screen-title"><%- channelJid %></div>
+  <div class="btn btn--text js-edit">
+    Edit
+  </div>
+</header>
+<div class="screen-textContent">
+  <div class="avatar avatar--big" style="/* background-image: url(path/to/avatar) */"></div>
+  <% if(title) { %>
+  <div class="displayName"><%- title %></div>
+  <% } %>
+  <div class="username"><%- channelJid %></div>
+  <% if(description) { %>
+  <div class="profile-description"><%- description %></div>
+  <% } %>
+  <div class="profile-meta">member joined <time datetime="<%- creationDate %>"></time></div>
+</div>

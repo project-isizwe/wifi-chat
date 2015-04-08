@@ -66,6 +66,12 @@ p {
   animation: clockwise .75s linear infinite;
 }
 
+.spinner--small {
+  width: 30px;
+  height: 30px;
+  border-width: 3px;
+}
+
 .spinner.silent {
   animation: none;
 }
@@ -167,7 +173,7 @@ p {
   height: 46px;
   left: 0;
   top: 0;
-  background: linear-gradient(hsl(221,3%,96%), hsl(221,3%,98%));
+  background-image: linear-gradient(to bottom right, hsl(240,11%,98%), hsl(240,12%,93%));
   box-shadow: 0 1px hsla(221,9%,30%,.14);
   display: flex;
   align-items: stretch;
@@ -260,10 +266,6 @@ p {
   justify-content: center;
 }
 
-.channelList {
-  background: white;
-}
-
 .channelList-item {
   border-bottom: 1px solid hsl(240,11%,95%);
   display: flex;
@@ -272,8 +274,14 @@ p {
   cursor: pointer;
 }
 
-.channelList-item:hover {
+.channelList-item:not(.channelList--loader):hover {
   background: hsl(240,9%,98%);
+}
+
+.channelList--loader {
+  padding: 14px;
+  justify-content: center;
+  border: none;
 }
 
 .channelList-title {
@@ -318,6 +326,7 @@ p {
 
 .channel-banner {
   height: 166px;
+  background-image: linear-gradient(to bottom right, hsl(240,11%,100%), hsl(240,12%,97%));
   background-size: cover;
   background-position: center;
 }
@@ -347,23 +356,9 @@ p {
   margin-bottom: 0;
 }
 
-.post-displayName {
-  font-weight: bold;
-  color: black;
-}
-
-.post-username {
-  color: #afb0bb;
-  display: inline-block;
-  margin-left: 5px;
-}
-
-.post-username:before {
-  content: '@';
-}
-
 .post-meta {
   display: flex;
+  align-items: flex-end;
   font-size: 12px;
   color: #afb0bb;
 }
@@ -377,6 +372,15 @@ p {
 .post-meta .btn:first-child {
   padding-left: 14px;
   margin-left: -14px;
+}
+
+.post-meta .displayName,
+.post-meta .username {
+  display: inline-block;
+}
+
+.post-meta .displayName + .username {
+  font-size: inherit;
 }
 
 .btngroup--topic {
@@ -410,6 +414,7 @@ p {
 .post-content {
   margin: 5px 0 7px;
   line-height: 1.4;
+  word-break: break-all;
 }
 
 .post-content video {
@@ -422,24 +427,8 @@ p {
   margin: 2px -14px 0;
 }
 
-.profile-meta {
-  font-size: 14px;
-  color: hsl(232,8%,75%);
-  text-align: center;
-}
-
-.comments {
-  display: flex;
-  flex-direction: column;
-}
-
-.comment + .comment {
+.post--comment + .post--comment {
   padding-top: 0;
-}
-
-.comments {
-  flex: 1;
-  overflow: auto;
 }
 
 .writeComment {
@@ -459,16 +448,84 @@ p {
   margin-top: 3px;
 }
 
-.profile-name {
-  font-weight: bold;
-  margin: 1em 0;
+.profile .displayName,
+.profile .username {
+  text-align: center;
+  font-size: 18px;
+}
+
+.profile .displayName {
+  padding-right: 0;
+}
+
+.profile .displayName + .username {
+  font-size: 14px;
+  margin-top: 2px;
+  color: hsl(232,8%,75%);
+}
+
+.profile-description {
+  line-height: 1.45;
+  margin: 24px 0;
+}
+
+.profile-meta {
+  color: hsl(232,8%,75%);
   text-align: center;
 }
 
-.activity,
-.settings,
+.tab-views-item.settings,
+.tab-views-item.activity,
 .profile--setup {
   background: hsl(240,11%,98%);
+}
+
+.displayName,
+.username {
+  font-weight: bold;
+  color: black;
+  font-size: 13px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.displayName {
+  padding-right: 8px;
+}
+
+/* in case there is a displayName */
+.displayName + .username {
+  font-weight: normal;
+  color: #afb0bb;
+}
+
+.displayName + .username:before {
+  content: '@';
+}
+
+.userList-item {
+  border-bottom: 1px solid hsl(240,11%,95%);
+  display: flex;
+  align-items: center;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+.userList-item:hover {
+  background: hsl(240,9%,98%);
+}
+
+.userList .username {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userList .displayName {
+  font-size: 14px;
+  margin-left: 14px;
 }
 
 .activity .post {
@@ -504,6 +561,7 @@ p {
   background: hsl(240,11%,93%) url(../images/icons/avatar_placeholder.svg) center;
   background-size: cover;
   position: relative;
+  flex-shrink: 0;
 }
 
 .channelIcon {
@@ -581,7 +639,7 @@ p {
   position: static;
   margin-left: 6px;
   box-shadow: 
-    0 1px hsl(240,11%,99%),
+    0 1px hsl(240,11%,98%),
     0 1px 1px rgba(0,0,0,.1) inset;
 }
 
@@ -669,6 +727,7 @@ p {
   text-overflow: ellipsis;
   user-select: none;
   outline: none;
+  text-decoration: none;
 }
 
 form :invalid ~ .btn:not(.btn--text) {
@@ -698,7 +757,7 @@ form :invalid ~ .btn:not(.btn--text) {
 }
 
 .btn--secondary:active {
-  background: none;
+  background: hsl(221,30%,55%);
 }
 
 .btn--text {

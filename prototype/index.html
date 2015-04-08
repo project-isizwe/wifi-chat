@@ -186,7 +186,7 @@
 
 
 
-<h1>Channels</h1>
+<h1>Channel List</h1>
 
 <div class="home screen screen--hasTabViews">
   <header class="screen-header screen-header--hasTabs">
@@ -238,29 +238,52 @@
   </header>
   <div class="tab-views">
     <div class="tab-views-item channelList" data-view="channelList">
-      <div class="channelList-item">
-        <div class="channelIcon"></div>
-        <div class="channelList-title">WiFi Drive-in</div>
-        <div class="channelList-unreadCount">20</div>
-        <div class="arrow right icon"></div>
-      </div>
-      <div class="channelList-item">
-        <div class="channelIcon"></div>
-        <div class="channelList-title">WiFi TV</div>
-        <div class="channelList-unreadCount">0</div>
-        <div class="arrow right icon"></div>
-      </div>
-      <div class="channelList-item">
-        <div class="channelIcon"></div>
-        <div class="channelList-title">WiFi Support</div>
-        <div class="channelList-unreadCount">0</div>
-        <div class="arrow right icon"></div>
-      </div>
-      <div class="channelList-item">
-        <div class="channelIcon" style="background-image: url(tshwane.jpg)"></div>
-        <div class="channelList-title">City of Tshwane</div>
-        <div class="channelList-unreadCount">5</div>
-        <div class="arrow right icon"></div>
+      <div data-symbol="channelList">
+        <div class="channelList-item">
+          <div class="channelIcon" style="background-image: url(tshwane.jpg)"></div>
+          <div class="channelList-title">City of Tshwane</div>
+          <div class="channelList-unreadCount">5</div>
+          <div class="arrow right icon"></div>
+        </div>
+        <div class="channelList-item">
+          <div class="channelIcon"></div>
+          <div class="channelList-title">WiFi Drive-in</div>
+          <div class="channelList-unreadCount">0</div>
+          <div class="arrow right icon"></div>
+        </div>
+        <div class="channelList-item">
+          <div class="channelIcon"></div>
+          <div class="channelList-title">WiFi TV</div>
+          <div class="channelList-unreadCount">5</div>
+          <div class="arrow right icon"></div>
+        </div>
+        <div class="channelList-item">
+          <div class="channelIcon"></div>
+          <div class="channelList-title">WiFi Support</div>
+          <div class="channelList-unreadCount">12</div>
+          <div class="arrow right icon"></div>
+        </div>
+        <div class="channelList-item">
+          <div class="channelIcon"></div>
+          <div class="channelList-title">WiFi Drive-in</div>
+          <div class="channelList-unreadCount">0</div>
+          <div class="arrow right icon"></div>
+        </div>
+        <div class="channelList-item">
+          <div class="channelIcon"></div>
+          <div class="channelList-title">WiFi TV</div>
+          <div class="channelList-unreadCount">5</div>
+          <div class="arrow right icon"></div>
+        </div>
+        <div class="channelList-item">
+          <div class="channelIcon"></div>
+          <div class="channelList-title">WiFi Support</div>
+          <div class="channelList-unreadCount">0</div>
+          <div class="arrow right icon"></div>
+        </div>
+        <div class="channelList-item channelList--loader">
+          <div class="silent spinner spinner--small"></div>
+        </div>
       </div>
     </div>
     <div class="tab-views-item activity" data-view="activity">
@@ -272,6 +295,22 @@
   </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1>Channel</h1>
+
 <div class="channel screen">
   <header class="channel-header">
     <div class="screen-header">
@@ -280,8 +319,8 @@
         Close
       </div>
       <div class="screen-title">City of Tshwane</div>
-      <div class="btn btn--text js-menu">
-        Menu
+      <div class="btn btn--text js-edit">
+        Edit
       </div>
     </div>
     <div class="channel-banner" style="background-image: url(tshwane.jpg)"></div>
@@ -298,8 +337,8 @@
         <div class="post-meta">
           <div class="btn btn--text js-seeAuthor">
             <span class="admin icon"></span>
-            <span class="post-displayName">Daniele Francis</span>
-            <span class="post-username">daniele54</span>
+            <span class="displayName">Daniele Francis</span>
+            <span class="username">daniele54</span>
           </div>
           <time class="post-time">5 hours ago</time>
         </div>
@@ -307,6 +346,7 @@
     http://connectuptv.pockittv.mobi/v/850</div>
         <div class="post-meta post-meta--bottom">
           <div class="btn btn--text js-readComments">51 comments</div>
+          <div class="btn btn--text js-seeLikes">5 likes</div>
         </div>
         <div class="btngroup btngroup--topic">
           <div class="btn btn--secondary btn--small js-comment">
@@ -323,8 +363,8 @@
         <div class="post-meta">
           <div class="btn btn--text js-seeAuthor">
             <span class="admin icon"></span>
-            <span class="post-displayName">Thembe Khumalo</span>
-            <span class="post-username">p16thembe</span>
+            <span class="displayName">Thembe Khumalo</span>
+            <span class="username">p16thembe</span>
           </div>
           <time class="post-time">yesterday</time>
         </div>
@@ -345,6 +385,45 @@
   </section>
 </div>
 
+<div class="newPost screen">
+  <div data-symbol="newPost">
+    <header class="screen-header">
+      <div class="btn btn--text js-cancel">
+        <div class="arrow left icon"></div>
+        Cancel
+      </div>
+      <div class="screen-title">New Post in City of Tshwane</div>
+    </header>
+    <form class="screen-textContent">
+      <textarea name="post" placeholder="Write a post..." rows="5" required>This week we're gonna have a new </textarea>
+      <button type="submit" class="btn btn--primary">Post</button>
+    </form>
+  </div>
+</div>
+
+<div class="newPost screen">
+  <div data-use-symbol="newPost"></div>
+  <div class="modal">
+    <div class="modal-background js-close"></div>
+    <div class="modal-body">
+      <div class="modal-content">
+        <div class="system">Store changes?</div>
+      </div>
+      <div class="btngroup btngroup--modal">
+        <div class="btn btn--small js-discard">Discard</div>
+        <div class="btn btn--primary btn--small js-save">Save</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<h1>Topic</h1>
+
 <div class="topic screen" data-scrolloffset="189">
   <header class="screen-header">
     <div class="btn btn--text js-back">
@@ -358,8 +437,8 @@
       <div class="post-meta">
         <div class="btn btn--text js-seeAuthor">
           <span class="admin icon"></span>
-          <span class="post-displayName">Daniele Francis</span>
-          <span class="post-username">daniele54</span>
+          <span class="displayName">Daniele Francis</span>
+          <span class="username">daniele54</span>
         </div>
         <time class="post-time">5 hours ago</time>
       </div>
@@ -377,25 +456,25 @@
         </div>
       </div>
     </section>
-    <section class="comments">
-      <article class="comment post">
+    <section class="posts">
+      <article class="post post--comment">
         <div class="btn btn--secondary btn--small js-showMore">Show 49 more comments</div>
       </article>
-      <article class="comment post">
+      <article class="post post--comment">
         <div class="post-meta">
           <div class="btn btn--text js-seeAuthor">
-            <span class="post-displayName">Mattheu Matshaya</span>
-            <span class="post-username">mattheu_matshaya</span>
+            <span class="displayName">Mattheu Matshaya</span>
+            <span class="username">mattheu_matshaya</span>
           </div>
           <time class="post-time">4 hours ago</time>
         </div>
         <div class="post-content">I've seen A and B. Both sucked!. But C. Please please please!</div>
       </article>
-      <article class="comment post">
+      <article class="post post--comment">
         <div class="post-meta">
           <div class="btn btn--text js-seeAuthor">
-            <span class="post-displayName">Letsie Mogorosi</span>
-            <span class="post-username">letsiemogorosi3</span>
+            <span class="displayName">Letsie Mogorosi</span>
+            <span class="username">letsiemogorosi3</span>
           </div>
           <time class="post-time">3 hours ago</time>
         </div>
@@ -422,8 +501,8 @@
       <div class="post-meta">
         <div class="btn btn--text js-seeAuthor">
           <span class="admin icon"></span>
-          <span class="post-displayName">Daniele Francis</span>
-          <span class="post-username">daniele54</span>
+          <span class="displayName">Daniele Francis</span>
+          <span class="username">daniele54</span>
         </div>
         <time class="post-time">5 hours ago</time>
       </div>
@@ -441,15 +520,15 @@
         </div>
       </div>
     </section>
-    <section class="comments">
-      <article class="comment post">
+    <section class="posts">
+      <article class="post post--comment">
         <div class="btn btn--secondary btn--small js-showMore">Show 49 more comments</div>
       </article>
-      <article class="comment post">
+      <article class="post post--comment">
         <div class="post-meta">
           <div class="btn btn--text js-seeAuthor">
-            <span class="post-displayName">Mattheu Matshaya</span>
-            <span class="post-username">mattheu_matshaya</span>
+            <span class="displayName">Mattheu Matshaya</span>
+            <span class="username">mattheu_matshaya</span>
           </div>
           <time class="post-time">4 hours ago</time>
         </div>
@@ -463,11 +542,11 @@
           </div>
         </div>
       </article>
-      <article class="comment post">
+      <article class="post post--comment">
         <div class="post-meta">
           <div class="btn btn--text js-seeAuthor">
-            <span class="post-displayName">Letsie Mogorosi</span>
-            <span class="post-username">letsiemogorosi3</span>
+            <span class="displayName">Letsie Mogorosi</span>
+            <span class="username">letsiemogorosi3</span>
           </div>
           <time class="post-time">3 hours ago</time>
         </div>
@@ -486,6 +565,35 @@
 
 
 
+<h1>Likes</h1>
+
+<div class="likes screen">
+  <header class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="arrow left icon"></div>
+      Close
+    </div>
+    <div class="screen-title">Likes</div>
+  </header>
+  <div class="userList">
+    <div class="userList-item">
+      <div class="avatar" style="background-image: url(avatar-1.jpg)"></div>
+      <div class="displayName">Janishtha Mthethwa</div>
+      <div class="username">Janishta</div>
+    </div>
+    <div class="userList-item">
+      <div class="avatar" style="background-image: url(avatar-5.jpg)"></div>
+      <div class="displayName">Letsie Mogorosi</div>
+      <div class="username">letsiemogorosi3</div>
+    </div>
+    <div class="userList-item">
+      <div class="avatar" style="background-image: url(avatar-2.jpg)"></div>
+      <div class="displayName">Stanley Baloyi</div>
+      <div class="username">StanBL11</div>
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -496,57 +604,67 @@
 <div class="activity screen">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
-      <div class="tabs-item js-channels">
+      <div class="tabs-item" data-target="channelList">
         Channels
         <div class="private-count"></div>
       </div>
-      <div class="tabs-item is-active js-activity">
+      <div class="tabs-item is-active" data-target="activity">
         Activity
         <div class="private-count">2</div>
       </div>
-      <div class="tabs-item js-settings">
+      <div class="tabs-item" data-target="settings">
         Settings
         <div class="private-count"></div>
       </div>
     </div>
   </header>
-  <div data-symbol="activity">
-    <div class="comment post">
-      <div class="post-meta post-meta--interaction">
-        <span class="btn btn--text js-seeAuthor">letsiemogorosi3</span> mentioned you in <span class="btn btn--text js-channel">City of Tshwane</span>:
-      </div>
-      <div class="post-meta">
-        <div class="btn btn--text js-seeAuthor">letsiemogorosi3</div>
-        <time class="post-time">3 hours ago</time>
-      </div>
-      <p>I agree with <b>@mattheu_matshaya</b>. C is a good film. Especially with Brad Pit!!!</p>
+  <div class="tab-views">
+    <div class="tab-views-item channels" data-view="channelList">
+      <div data-use-symbol="channelList"></div>
     </div>
-    <div class="comment post">
-      <div class="post-meta post-meta--interaction">
-        You wrote in <span class="btn btn--text js-channel">City of Tshwane</span>:
-      </div>
-      <div class="post-meta">
-        <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
-        <time class="post-time">4 hours ago</time>
-      </div>
-      <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
-      <div class="post-meta post-meta--bottom">
-        <div class="btn btn--text js-likes">5 Likes</div>
-        <div class="btn btn--text js-threat">Threat</div>
+    <div class="tab-views-item activity" data-view="activity">
+      <div data-symbol="activity">
+        <div class="post post--comment">
+          <div class="post-meta post-meta--interaction">
+            <span class="btn btn--text js-seeAuthor">letsiemogorosi3</span> mentioned you in <span class="btn btn--text js-channel">City of Tshwane</span>:
+          </div>
+          <div class="post-meta">
+            <div class="btn btn--text js-seeAuthor">letsiemogorosi3</div>
+            <time class="post-time">3 hours ago</time>
+          </div>
+          <p>I agree with <b>@mattheu_matshaya</b>. C is a good film. Especially with Brad Pit!!!</p>
+        </div>
+        <div class="post post--comment">
+          <div class="post-meta post-meta--interaction">
+            You wrote in <span class="btn btn--text js-channel">City of Tshwane</span>:
+          </div>
+          <div class="post-meta">
+            <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
+            <time class="post-time">4 hours ago</time>
+          </div>
+          <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
+          <div class="post-meta post-meta--bottom">
+            <div class="btn btn--text js-likes">5 Likes</div>
+            <div class="btn btn--text js-threat">Threat</div>
+          </div>
+        </div>
+        <div class="post post--comment">
+          <div class="post-meta post-meta--interaction">
+            You wrote in <span class="btn btn--text js-channel">City of Tshwane</span>:
+          </div>
+          <div class="post-meta">
+            <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
+            <time class="post-time">1 day ago</time>
+          </div>
+          <p>Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</p>
+          <div class="post-meta post-meta--bottom">
+            <div class="btn btn--text js-seeThreat">Threat</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="comment post">
-      <div class="post-meta post-meta--interaction">
-        You wrote in <span class="btn btn--text js-channel">City of Tshwane</span>:
-      </div>
-      <div class="post-meta">
-        <div class="btn btn--text js-seeAuthor">mattheu_matshaya</div>
-        <time class="post-time">1 day ago</time>
-      </div>
-      <p>Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</p>
-      <div class="post-meta post-meta--bottom">
-        <div class="btn btn--text js-seeThreat">Threat</div>
-      </div>
+    <div class="tab-views-item settings" data-view="settings">
+      <div data-use-symbol="settings"></div>
     </div>
   </div>
 </div>
@@ -574,9 +692,10 @@
   </header>
   <div class="screen-textContent">
     <div class="avatar avatar--big" style="background-image: url(avatar-3.jpg)"></div>
-    <div class="profile-name">Mattheu Matshaya</div>
-    <p>A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</p>
-    <p class="profile-meta">member since 2 weeks</p>
+    <div class="displayName">Mattheu Matshaya</div>
+    <div class="username">mattheu_matshaya</div>
+    <div class="profile-description">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</div>
+    <div class="profile-meta">member for 2 weeks</div>
   </div>
 </div>
 
@@ -644,33 +763,41 @@
 <div class="settings screen">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
-      <div class="tabs-item js-channels">
+      <div class="tabs-item" data-target="channelList">
         Channels
-        <div class="private-count"></div>
       </div>
-      <div class="tabs-item js-activity">
+      <div class="tabs-item" data-target="activity">
         Activity
         <div class="private-count"></div>
       </div>
-      <div class="tabs-item is-active js-settings">
+      <div class="tabs-item is-active" data-target="settings">
         Settings
-        <div class="private-count"></div>
       </div>
     </div>
   </header>
-  <div data-symbol="settings">
-    <form class="section edit-profile">
-      <div class="avatar avatar--big avatar--uploadMode" style="background-image: url(avatar-3.jpg)">
-        <div class="btn btn--primary">Change</div>
-        <input type="file" name="avatar" accept="image/*">
+  <div class="tab-views">
+    <div class="tab-views-item channels" data-view="channelList">
+      <div data-use-symbol="channelList"></div>
+    </div>
+    <div class="tab-views-item activity" data-view="activity">
+      <div data-use-symbol="activity"></div>
+    </div>
+    <div class="tab-views-item settings" data-view="settings">
+      <div data-symbol="settings">
+        <form class="section edit-profile">
+          <div class="avatar avatar--big avatar--uploadMode" style="background-image: url(avatar-3.jpg)">
+            <div class="btn btn--primary">Change</div>
+            <input type="file" name="avatar" accept="image/*">
+          </div>
+          <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name" maxlength="128">
+          <textarea rows="4" name="description" placeholder="Tell the world about yourself..." maxlength="200">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
+        </form>
+        <div class="section optionsList">
+          <a href="#" class="optionsList-item">Help</a>
+          <div class="optionsList-item">Rules</div>
+          <div class="optionsList-item js-logout">Logout</div>
+        </div>
       </div>
-      <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name" maxlength="128">
-      <textarea rows="4" name="description" placeholder="Tell the world about yourself..." maxlength="200">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
-    </form>
-    <div class="section optionsList">
-      <a href="#" class="optionsList-item">Help</a>
-      <div class="optionsList-item">Rules</div>
-      <div class="optionsList-item js-logout">Logout</div>
     </div>
   </div>
 </div>
@@ -706,37 +833,49 @@
 
   */
 
-  var tabs = document.querySelector('.tabs')
-  var tabsItems = tabs.querySelectorAll('.tabs-item')
-  var tabViews = document.querySelector('.tab-views')
-  var tabViewsItem = tabViews.querySelectorAll('.tab-views-item')
+  function Tabs(nav, view){
+    this.nav = nav
+    this.view = view
+    this.navItems = nav.querySelectorAll('.tabs-item')
+    this.viewItems = view.querySelectorAll('.tab-views-item')
 
-  for(var i=0; i<tabsItems.length; i++)
-    tabsItems[i].addEventListener('click', onTabClick)
-
-  function onTabClick(event) {
-    navigateTo(this.getAttribute('data-target'))
+    this.init()
   }
 
-  function navigateTo(view) {
-    tabs.querySelector('.is-active').classList.remove('is-active')
-    tabs.querySelector('[data-target='+ view +']').classList.add('is-active')
-    var targetView = tabViews.querySelector('[data-view='+ view +']')
-    var tabViewsOffset = - getTabViewIndex(targetView) * targetView.clientWidth
-    var minHeight = tabViews.parentNode.clientHeight - tabViews.previousElementSibling.clientHeight;
-    tabViews.style.transform = 'translateX('+ tabViewsOffset +'px)'
-    tabViews.style.height = Math.max(minHeight, targetView.clientHeight) + 'px'
+  Tabs.prototype = {
+    init: function() {
+      for(var i=0; i<this.navItems.length; i++)
+        this.navItems[i].addEventListener('click', this.onTabClick.bind(this))
+
+      this.navigateTo(this.nav.querySelector('.is-active').getAttribute('data-target'))
+    },
+
+    onTabClick: function(event) {
+      this.navigateTo(event.currentTarget.getAttribute('data-target'))
+    },
+
+    navigateTo: function(view) {
+      this.nav.querySelector('.is-active').classList.remove('is-active')
+      this.nav.querySelector('[data-target='+ view +']').classList.add('is-active')
+      var targetView = this.view.querySelector('[data-view='+ view +']')
+      var tabViewsOffset = - this.getTabViewIndex(targetView) * targetView.clientWidth
+      var minHeight = this.view.parentNode.clientHeight - this.view.previousElementSibling.clientHeight;
+      this.view.style.transform = 'translateX('+ tabViewsOffset +'px)'
+      this.view.style.height = Math.max(minHeight, targetView.clientHeight) + 'px'
+    },
+
+    getTabViewIndex: function(view) {
+      for(var i=0; i<this.view.children.length; i++)
+        if(this.view.children[i] == view) return i
+      return -1;
+    }
   }
 
-  function getTabViewIndex(view) {
-    for(var i=0; i<tabViews.children.length; i++)
-      if(tabViews.children[i] == view) return i
-    return -1;
-  }
+  var tabList = document.querySelectorAll('.tabs')
+  var tabViews = document.querySelectorAll('.tab-views')
 
-  navigateTo(tabViewsItem[0].getAttribute('data-view'))
-
-
+  for(var i=0; i<tabList.length; i++)
+    new Tabs(tabList[i], tabViews[i])
 
 
   /*

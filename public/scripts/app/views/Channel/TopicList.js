@@ -2,15 +2,15 @@ define(function(require) {
 
     'use strict';
 
-    var _          = require('underscore')
-      , Base       = require('app/views/Base')
-      , Topics     = require('app/collections/Topics')
-      , TopicsView = require('app/views/Post/Topic')
-      , log        = require('app/utils/bows.min')('Views:Channel:Topics')
+    var _              = require('underscore')
+      , Base           = require('app/views/Base')
+      , Topics         = require('app/collections/Topics')
+      , TopicItemView  = require('app/views/Channel/TopicItem')
+      , log            = require('app/utils/bows.min')('Views:Channel:TopicList')
 
     return Base.extend({
 
-      template: _.template(require('text!tpl/Channel/TopicsContainer.html')),
+      template: _.template(require('text!tpl/Channel/TopicList.html')),
 
       requiresLogin: true,
 
@@ -21,9 +21,8 @@ define(function(require) {
         this.collection = new Topics(null, {
           channelJid: this.options.channelJid
         })
-        this.collection.on('add', this.renderTopics, this)
-        this.collection.on('reset', this.renderTopics, this)
-        this.collection.on('remove', this.renderTopics, this)
+        this.collection.on('all', function(event) { log('TopicList', event) })
+        this.collection.once('loaded:topics', this.initialRender, this)
 
         this.collection.on('error', function() {
           this.renderTopics()
@@ -36,12 +35,19 @@ define(function(require) {
         this.collection.sync()
       },
 
+      initialRender: function() {
+        this.renderTopics()
+        this.collection.on('add', this.renderTopics, this)
+        this.collection.on('reset', this.renderTopics, this)
+        this.collection.on('remove', this.renderTopics, this)
+      },
+
       renderTopics: function() {
         var topics = document.createDocumentFragment()
         var self = this
 
         this.collection.forEach(function(post) {
-          var topic = new TopicsView({
+          var topic = new TopicItemView({
             model: post,
             router: self.router
           })

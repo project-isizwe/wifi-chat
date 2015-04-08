@@ -24,9 +24,19 @@ require(['jquery', 'backbone', 'app/Router'], function ($, Backbone, Router) {
   
   var router = new Router()
 
-  $('body').on('click', '.js-back', function(event) {
+  $(document).on('click', '.js-back', function(event) {
     event.preventDefault()
     window.history.back()
+  })
+
+  $(document).on('click', 'a:not([data-bypass])', function(event) {
+    var href = { prop: $(this).prop('href'), attr: $(this).attr('href') }
+    var root = location.protocol + '//' + location.host + Backbone.history.options.root
+
+    if (href.prop && href.prop.slice(0, root.length) === root) {
+      event.preventDefault()
+      Backbone.history.navigate(href.attr, { trigger: true })
+    }
   })
   
   Backbone.history.start({ pushState: true })
