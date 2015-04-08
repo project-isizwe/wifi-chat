@@ -787,8 +787,8 @@ form :invalid ~ .btn:not(.btn--text) {
 
 input,
 textarea {
+  -webkit-appearance: none;
   width: 100%;
-  appearance: none;
   font-family: inherit;
   font-size: inherit;
   padding: 5px 0;

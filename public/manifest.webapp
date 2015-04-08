@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "name": "WiFi Chat",
+  "description": "A Chat App for Project Isizwe – Free Wi-Fi for Africa",
+  "launch_path": "/index.html",
+  "icons": {
+    "512": "/images/app_icons/icon_512x512.png",
+    "128": "/images/app_icons/icon_128x128.png"
+  },
+  "developer": {
+    "name": "Project Isizwe",
+    "url": "http://projectisizwe.org"
+  },
+  "default_locale": "en",
+  "fullscreen": "true",
+  "orientation": "portrait"
+}

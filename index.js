@@ -6,7 +6,6 @@ var express      = require('express')
   , xmpp         = require('xmpp-ftw')
   , Buddycloud   = require('xmpp-ftw-buddycloud')
   , helmet       = require('helmet')
-  , favicon      = require('serve-favicon')
   , getAvatar    = require('./src/routes/avatar-get')
   , getIndex     = require('./src/routes/index-get')
   , account      = require('./src/routes/account')
@@ -40,7 +39,6 @@ app.use(errorHandler({
 }))
 app.use(helmet())
 app.use(bodyParser.json())
-app.use(favicon(__dirname + '/public/images/favicon.ico'))
 app.set('strict routing', false)
 
 if ('development' === environment) {
