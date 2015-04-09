@@ -67,6 +67,11 @@ define(function(require) {
             self.enableLoginButton()
           })
         },
+
+        onDestroy: function() {
+          socket.off('xmpp.connection')
+          socket.off('xmpp.error')
+        },
       
         enableLoginButton: function() {
           this.$el.find('button').attr('disabled', false)
