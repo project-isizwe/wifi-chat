@@ -192,16 +192,17 @@
 <div class="home screen screen--hasTabViews">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
       <div class="tabs-item is-active" data-target="channelList">
-        Channels
+        <span class="tabs-item-label">Channels</span>
         <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="activity">
-        Activity
+        <span class="tabs-item-label">Activity</span>
         <div class="private-count">2</div>
       </div>
       <div class="tabs-item" data-target="settings">
-        Settings
+        <span class="tabs-item-label">Settings</span>
         <div class="private-count"></div>
       </div>
     </div>
@@ -225,16 +226,17 @@
 <div class="home screen screen--hasTabViews">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
       <div class="tabs-item is-active" data-target="channelList">
-        Channels
+        <span class="tabs-item-label">Channels</span>
         <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="activity">
-        Activity
+        <span class="tabs-item-label">Activity</span>
         <div class="private-count">2</div>
       </div>
       <div class="tabs-item" data-target="settings">
-        Settings
+        <span class="tabs-item-label">Settings</span>
         <div class="private-count"></div>
       </div>
     </div>
@@ -605,16 +607,17 @@
 <div class="activity screen">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
       <div class="tabs-item" data-target="channelList">
-        Channels
+        <span class="tabs-item-label">Channels</span>
         <div class="private-count"></div>
       </div>
       <div class="tabs-item is-active" data-target="activity">
-        Activity
+        <span class="tabs-item-label">Activity</span>
         <div class="private-count">2</div>
       </div>
       <div class="tabs-item" data-target="settings">
-        Settings
+        <span class="tabs-item-label">Settings</span>
         <div class="private-count"></div>
       </div>
     </div>
@@ -765,15 +768,16 @@
 <div class="settings screen">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
       <div class="tabs-item" data-target="channelList">
-        Channels
+        <span class="tabs-item-label">Channels</span>
       </div>
       <div class="tabs-item" data-target="activity">
-        Activity
+        <span class="tabs-item-label">Activity</span>
         <div class="private-count"></div>
       </div>
       <div class="tabs-item is-active" data-target="settings">
-        Settings
+        <span class="tabs-item-label">Settings</span>
       </div>
     </div>
   </header>
@@ -850,9 +854,13 @@
   function Tabs(nav, view){
     this.nav = nav
     this.view = view
+    this.activeIndicator = nav.querySelector('.tabs-activeIndicator')
     this.scroller = view.querySelector('.tab-scroller')
     this.navItems = nav.querySelectorAll('.tabs-item')
     this.viewItems = view.querySelectorAll('.tab-views-item')
+    this.tolerance = 5
+    this.xPos = 0
+    this.xMax = (this.viewItems.length - 1)
 
     this.init()
   }
@@ -864,15 +872,86 @@
       for(var i=0; i<this.navItems.length; i++)
         this.navItems[i].addEventListener('click', this.onTabClick.bind(this))
 
+      this.view.addEventListener('touchstart', this.onInputDown.bind(this))
+
       this.navigateTo(this.nav.querySelector('.is-active').getAttribute('data-target'))
     },
 
+    onInputDown: function(event) {
+      this.startX = event.touches[0].pageX
+      this.startY = event.touches[0].pageY
+      this.onInputMoveClosure = this.onInputMove.bind(this)
+      this.onInputUpClosure = this.onInputUp.bind(this)
+      document.addEventListener('touchmove', this.onInputMoveClosure)
+      document.addEventListener('touchend', this.onInputUpClosure)
+
+      // disable transitions on the scroller so that we can move it
+      this.scroller.classList.add('no-transition')
+      this.activeIndicator.classList.add('no-transition')
+    },
+
+    onInputMove: function(event) {
+      event.preventDefault()
+      var x = this.startX - event.touches[0].pageX
+      var y = this.startY - event.touches[0].pageY
+
+      if(Math.abs(x) > this.tolerance && Math.abs(y) < this.tolerance){
+        this.xMove = this.slowOnEdges(x)
+        var newX = this.xPos * this.viewWidth + this.xMove
+        this.moveIt(newX)
+      }
+    },
+
+    slowOnEdges: function(x) {
+      var position = this.xPos * this.viewWidth + x
+      var min = 0
+      var max = this.xMax * this.viewWidth
+      if(position < min) {
+        var excess = min - position;
+        x *= (1 - excess / (this.viewWidth * 0.98)) * 0.98
+      }
+      if(position > max) {
+        var excess = position - max;
+        x *= (1 - excess / (this.viewWidth * 0.98)) * 0.98
+      }
+      return x
+    },
+
+    onInputUp: function(event) {
+      document.removeEventListener('inputmove', this.onInputMoveClosure)
+      document.removeEventListener('inputend', this.onInputUpClosure)
+
+      // re-enable transitions on the scroller
+      this.scroller.classList.remove('no-transition')
+      this.activeIndicator.classList.remove('no-transition')
+
+      // did something happen that needs us to move the
+      // scroller either back to its neutral position
+      // or towards another slide then let's do this
+      if(this.xMove){
+        event.preventDefault()
+
+        if(this.xMove >= this.viewWidth/2 && this.xPos < this.xMax) {
+          this.xPos += 1
+        }
+        else if(this.xMove <= -this.viewWidth/2 && this.xPos > 0) {
+          this.xPos -= 1
+        }
+
+        this.moveIt(this.xPos * this.viewWidth)
+
+        this.xMove = null
+      }
+    },
+
     resize: function() {
-      var viewWidth = this.view.clientWidth
+      this.viewWidth = this.view.clientWidth
+      this.tabWidth = this.navItems[0].clientWidth
+      this.activeIndicator.style.width = this.tabWidth + "px"
 
       for(var i=0; i<this.viewItems.length; i++) {
-        this.viewItems[i].style.width = viewWidth + "px"
-        this.viewItems[i].style.left = i * viewWidth + "px"
+        this.viewItems[i].style.width = this.viewWidth + "px"
+        this.viewItems[i].style.left = i * this.viewWidth + "px"
       }
     },
 
@@ -884,10 +963,15 @@
       this.nav.querySelector('.is-active').classList.remove('is-active')
       this.nav.querySelector('[data-target='+ view +']').classList.add('is-active')
       var targetView = this.view.querySelector('[data-view='+ view +']')
-      var tabViewsOffset = - this.getTabViewIndex(targetView) * targetView.clientWidth
+      this.xPos = this.getTabViewIndex(targetView)
       var minHeight = this.view.parentNode.clientHeight - this.view.previousElementSibling.clientHeight;
-      this.scroller.style.transform = 'translateX('+ tabViewsOffset +'px)'
       this.view.style.height = Math.max(minHeight, targetView.clientHeight) + 'px'
+      this.moveIt(this.xPos * this.viewWidth)
+    },
+
+    moveIt: function(x) {
+      this.scroller.style.transform = 'translateX('+ (-x) +'px) translateZ(0)'
+      this.activeIndicator.style.transform = 'translateX('+ (x/this.viewWidth * this.tabWidth) +'px) translateZ(0)'
     },
 
     getTabViewIndex: function(view) {

@@ -17,17 +17,16 @@ define(function(require) {
         requiresLogin: true,
 
         events: {
-          'click .tabs-item': 'onTabClick'
+          'click .tabs-item':      'onTabClick',
+          'touchstart .tab-views': 'onInputDown'
         },
       
         className: 'home screen screen--hasTabViews',
       
         initialize: function(options) {
-          _.bindAll('onTabClick')
+          _.bindAll(this, 'onResize', 'onInputMove', 'onInputUp')
 
           this.options = options
-          this.router = options.router
-
         },
       
         beforeRender: function() {
@@ -54,27 +53,121 @@ define(function(require) {
           })
 
           this.$el.html(this.template())
-          this.$el.find('.tab-scroller').append(tabViews).width(this.tabViews.length * this.$el.width())
+          this.scroller = this.$el.find('.tab-scroller')
+          this.scroller.append(tabViews)
           this.trigger('render')
-
-          this.resize()
-
-          this.navigateTo(this.$el.find('.tab-views-item').first().attr('data-view'))
-
-          this.channelListView.on('loaded:channel', this.adaptViewsHeight, this)
-
-          this.contentHeight = this.$el.outerHeight() - this.$el.find('.screen-header').height()
+          this.initializeTabViews()
 
           return this
         },
 
-        resize: function() {
-          var viewWidth = this.$el.width()
+        initializeTabViews: function() {
+          this.viewsHolder = this.$el.find('.tab-views')
+          this.activeIndicator = this.$el.find('.tabs-activeIndicator')
+          this.navItems = this.$el.find('.tabs-item')
+          this.viewItems = this.$el.find('.tab-views-item')
+          this.xMax = this.viewItems.size() - 1
 
-          this.$el.find('.tab-views-item').css({
-            width: viewWidth,
-            left: function(i) { return i * viewWidth }
+          // stores the current xPos  
+          this.xPos = 0
+
+          // distance after which a touchmove is seen as a slide attempt
+          this.tolerance = 5
+
+          // adapt view height when channelList got filled
+          this.channelListView.on('loaded:channel', this.adaptViewsHeight, this)
+
+          // update dimensions
+          this.onResize()
+          $(document).on('resize', this.onResize)
+
+          // go to first item
+          this.navigateTo(this.viewItems.first().attr('data-view'))
+        },
+
+        onDestroy: function() {
+          $(document).off('resize', this.onResize)
+        },
+
+        onResize: function() {
+          var self = this
+          this.viewWidth = this.$el.width()
+          this.tabWidth = this.navItems.first().outerWidth()
+          this.activeIndicator.width(this.tabWidth)
+
+          // cache visible view area height
+          this.contentHeight = this.$el.outerHeight() - this.$el.find('.screen-header').height()
+
+          this.scroller.width(this.viewItems.size() * this.viewWidth)
+
+          this.viewItems.css({
+            width: this.viewWidth,
+            left: function(i) { return i * self.viewWidth }
           })
+        },
+
+        onInputDown: function(event) {
+          this.startX = event.originalEvent.touches[0].pageX
+          this.startY = event.originalEvent.touches[0].pageY
+          $(document).on('touchmove', this.onInputMove)
+          $(document).one('touchend', this.onInputUp)
+
+          // disable transitions on the scroller so that we can move it
+          this.scroller.addClass('no-transition')
+          this.activeIndicator.addClass('no-transition')
+        },
+
+        onInputMove: function(event) {
+          event.preventDefault()
+          var x = this.startX - event.originalEvent.touches[0].pageX
+          var y = this.startY - event.originalEvent.touches[0].pageY
+
+          if(Math.abs(x) > this.tolerance && Math.abs(y) < this.tolerance){
+            this.xMove = x //this.slowOnEdges(x)
+            var newX = this.xPos * this.viewWidth + this.xMove
+            this.moveIt(newX)
+          }
+        },
+
+        slowOnEdges: function(x) {
+          var position = this.xPos * this.viewWidth + x
+          var min = 0
+          var max = this.xMax * this.viewWidth
+          if(position < min) {
+            var excess = min - position;
+            x *= (1 - excess / (this.viewWidth * 0.98)) * 0.98
+          }
+          if(position > max) {
+            var excess = position - max;
+            x *= (1 - excess / (this.viewWidth * 0.98)) * 0.98
+          }
+          return x
+        },
+
+        onInputUp: function(event) {
+          $(document).off('inputmove', this.onInputMove)
+
+          // re-enable transitions on the scroller
+          this.scroller.removeClass('no-transition')
+          this.activeIndicator.removeClass('no-transition')
+
+          // did something happen that needs us to move the
+          // scroller either back to its neutral position
+          // or towards another slide then let's do this
+          if(this.xMove){
+            event.preventDefault()
+
+            if(this.xMove >= this.viewWidth/2 && this.xPos < this.xMax) {
+              this.xPos += 1
+            }
+            else if(this.xMove <= -this.viewWidth/2 && this.xPos > 0) {
+              this.xPos -= 1
+            }
+
+            this.moveIt(this.xPos * this.viewWidth)
+
+            this.xMove = null
+          }
         },
 
         onTabClick: function(event) {
@@ -82,22 +175,22 @@ define(function(require) {
         },
 
         navigateTo: function(viewName) {
-          // deactivate old tab
-          this.$el.find('.tabs-item.is-active').removeClass('is-active')
-          // active active tab
-          this.$el.find('.tabs-item[data-target='+ viewName +']').addClass('is-active')
+          this.visibleTabView = this.viewItems.filter('[data-view='+ viewName +']')
+          this.xPos = this.visibleTabView.index()
 
-          this.visibleTabView = this.$el.find('.tab-views-item[data-view='+ viewName +']')
-          var tabViewsOffset = - this.visibleTabView.index() * this.visibleTabView.width()
-
-          // scroll to tab view
-          this.$el.find('.tab-views').css('height', this.visibleTabView.height())
-          this.$el.find('.tab-scroller').css('transform', 'translateX('+ tabViewsOffset +'px) translateZ(0)')
+          // adjust height
+          this.viewsHolder.css('height', this.visibleTabView.height())
+          this.moveIt(this.xPos * this.viewWidth)
         },
 
         adaptViewsHeight: function() {
           var height = Math.max(this.visibleTabView.height(), this.contentHeight)
-          this.$el.find('.tab-views').css('height', height)
+          this.viewsHolder.css('height', height)
+        },
+
+        moveIt: function(x) {
+          this.scroller.css('transform', 'translateX('+ (-x) +'px) translateZ(0)')
+          this.activeIndicator.css('transform', 'translateX('+ (x/this.viewWidth * this.tabWidth) +'px) translateZ(0)')
         }
 
     })

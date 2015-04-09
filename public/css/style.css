@@ -607,10 +607,27 @@ p {
 .tabs {
   display: flex;
   width: 100%;
+  position: relative;
+}
+
+.tabs-activeIndicator {
+  position: absolute;
+  height: 6px;
+  bottom: 0;
+  background: hsl(221,33%,43%);
+  box-shadow: 0 -1px rgba(0,0,0,.075) inset;
+  transition: transform 200ms;
+  will-change: transition;
+  z-index: 1;
+}
+
+.tabs-activeIndicator.no-transition {
+  transition: none;
 }
 
 .tabs-item {
   flex: 1;
+  padding: 0 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -628,20 +645,21 @@ p {
 .tabs-item:not(:first-child):before {
   content: "";
   position: absolute;
-  left: 0;
+  left: -1px;
   width: 1px;
   height: 42%;
   top: 29%;
   background: hsl(240,11%,90%);
 }
 
-.tabs-item.is-active {
-  box-shadow: 
-    0 -5px hsl(221,33%,43%) inset,
-    0 -1px rgba(0,0,0,.075) inset;
+.tabs-item-label {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .tabs-item .private-count {
+  flex-shrink: 0;
   position: static;
   margin-left: 6px;
   box-shadow: 
@@ -670,6 +688,11 @@ p {
   width: 100%;
   min-height: 100%;
   transition: transform 200ms;
+  will-change: transition;
+}
+
+.tab-scroller.no-transition {
+  transition: none;
 }
 
 .tab-views-item {
