@@ -6,6 +6,7 @@ define(function(require) {
     , Post     = require('app/models/Post')
     , log      = require('app/utils/bows.min')('Collections:Comments')
     , socket   = require('app/utils/socket')
+    , pusher   = require('app/store/Pusher')
     
   return Backbone.Collection.extend({
     
@@ -15,6 +16,7 @@ define(function(require) {
     
     initialize: function(models, options) {
       this.options = options
+      pusher.on('new-post', this.pushedItem, this)
     },
 
     comparator: function(model) {
@@ -66,6 +68,14 @@ define(function(require) {
         }
         self.trigger('loaded:comments')
       })
+    },
+
+    pushedItem: function(model) {
+      if ((model.get('node') !== this.options.node) ||
+        (model.get('inReplyTo') !== this.options.id.split(',')[2])) {
+        return
+      }
+      this.add(model)
     }
     
   })

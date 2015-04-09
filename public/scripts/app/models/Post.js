@@ -89,6 +89,7 @@ define(function(require) {
           id: post.entry.atom.id,
           canComment: true,
           isReply: ('comment' === post.entry.activity),
+          inReplyTo: (post.entry['in-reply-to'] || {}).ref,
           likes: 1,
           commentCount: 99
         }

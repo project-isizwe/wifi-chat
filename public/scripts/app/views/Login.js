@@ -98,7 +98,10 @@ define(function(require) {
               return self.showError('We\'re sorry but the system is down!')
             }
             subscriptions.sync()
+            /* Register to register with channels */
             socket.send('xmpp.buddycloud.register', {}, function() {})
+            /* Tell the server that we are online */
+            socket.send('xmpp.buddycloud.presence', {})
             localStorage.setItem('channel-server', server)
             
             self.router.setLoggedIn(self.connectedJid)
