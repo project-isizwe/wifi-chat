@@ -383,6 +383,10 @@ hr {
   margin-bottom: 0;
 }
 
+.post--loader .spinner {
+  margin: 0 auto;
+}
+
 .post-meta {
   display: flex;
   align-items: flex-end;
