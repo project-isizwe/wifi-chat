@@ -189,8 +189,11 @@ define(function(require) {
         },
 
         moveIt: function(x) {
+          var indicatorPos = x/this.viewWidth * this.tabWidth
+          // limit indicator to view boundaries
+          indicatorPos = Math.max(0, Math.min(this.xMax * this.tabWidth, indicatorPos))
+          this.activeIndicator.css('transform', 'translateX('+ indicatorPos +'px) translateZ(0)')
           this.scroller.css('transform', 'translateX('+ (-x) +'px) translateZ(0)')
-          this.activeIndicator.css('transform', 'translateX('+ (x/this.viewWidth * this.tabWidth) +'px) translateZ(0)')
         }
 
     })

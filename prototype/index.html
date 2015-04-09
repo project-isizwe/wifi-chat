@@ -896,7 +896,7 @@
       var y = this.startY - event.touches[0].pageY
 
       if(Math.abs(x) > this.tolerance && Math.abs(y) < this.tolerance){
-        this.xMove = this.slowOnEdges(x)
+        this.xMove = x //this.slowOnEdges(x)
         var newX = this.xPos * this.viewWidth + this.xMove
         this.moveIt(newX)
       }
@@ -970,8 +970,11 @@
     },
 
     moveIt: function(x) {
+      var indicatorPos = x/this.viewWidth * this.tabWidth
+      // limit indicator to view boundaries
+      indicatorPos = Math.max(0, Math.min(this.xMax * this.tabWidth, indicatorPos))
+      this.activeIndicator.style.transform = 'translateX('+ indicatorPos +'px) translateZ(0)'
       this.scroller.style.transform = 'translateX('+ (-x) +'px) translateZ(0)'
-      this.activeIndicator.style.transform = 'translateX('+ (x/this.viewWidth * this.tabWidth) +'px) translateZ(0)'
     },
 
     getTabViewIndex: function(view) {
