@@ -17,6 +17,7 @@ define(function(require) {
     initialize: function(models, options) {
       this.options = options
       pusher.on('new-post', this.pushedItem, this)
+      pusher.on('delete-post', this.deleteItem, this)
     },
 
     comparator: function(model) {
@@ -76,6 +77,13 @@ define(function(require) {
         return
       }
       this.add(model)
+    },
+
+    deleteItem: function(details) {
+      var post = this.findWhere({ node: details.node, id: details.id })
+      if (post) {
+        this.remove(post)
+      }
     }
     
   })

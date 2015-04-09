@@ -21,6 +21,10 @@ define(function(require) {
         log('Incoming post item', item)
         self.trigger('new-post', new Post(item))
       })
+      socket.on('xmpp.buddycloud.push.retract', function(item) {
+        log('Incoming post delete', item)
+        self.trigger('delete-post', item)
+      })
     }
     return Pusher
 
