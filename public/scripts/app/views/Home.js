@@ -2,7 +2,8 @@ define(function(require) {
 
     'use strict';
 
-    var _                   = require('underscore')
+    var $                   = require('jquery')
+      , _                   = require('underscore')
       , Base                = require('app/views/Base')
       , socket              = require('app/utils/socket')
       , ChannelListView     = require('app/views/ChannelList')

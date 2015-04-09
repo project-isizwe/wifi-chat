@@ -4,6 +4,7 @@ define(function (require) {
 
   var $                 = require('jquery')
     , Backbone          = require('backbone')
+    , WelcomeView       = require('app/views/Welcome')
     , LoginView         = require('app/views/Login')
     , RulesView         = require('app/views/Rules')
     , SignupView        = require('app/views/Signup')
@@ -25,6 +26,7 @@ define(function (require) {
       
       routes: {
         '': 'showHome',
+        'welcome': 'showWelcome',
         'login': 'showLogin',
         'signup': 'showSignup',
         'password/reset': 'showPasswordReset',
@@ -56,6 +58,11 @@ define(function (require) {
       showModal: function() {
         var modalView = new ModalView({ router: this })
         this.showView(modalView, '/modal')
+      },
+
+      showWelcome: function(options) {
+        var welcomeView = new WelcomeView()
+        this.showView(welcomeView, '/welcome') 
       },
       
       showLogin: function(options) {
@@ -129,7 +136,7 @@ define(function (require) {
         view.delegateEvents()
 
         if (view.requiresLogin && !this.loggedIn) {
-          return this.showLogin()
+          return this.sendToLogin()
         }
         window.document.title = view.title
         this.navigate(url, { trigger: false })
@@ -152,13 +159,22 @@ define(function (require) {
       
       getJid: function() {
         return this.loggedIn
-      },      
+      }, 
+
+      sendToLogin: function() {
+        if(localStorage.getItem('visited')) {
+          this.showLogin()
+        } else {
+          this.showWelcome()
+          localStorage.setItem('visited', true)
+        }
+      },     
       
       isLoggedIn: function() {
         log('User is' + (this.loggedIn ? ' ' : 'n\'t ') + 'logged in')
         if (!this.loggedIn) {
           log("is logged in, so lets go")
-          this.showLogin()
+          this.sendToLogin()
         }
         return true
       }

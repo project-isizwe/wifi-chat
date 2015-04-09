@@ -1,7 +1,7 @@
 <!doctype html>
 <title>Wifi Chat</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../public/css/style.css">
+<link rel="stylesheet" href="../public/app.min.css">
 <link rel="icon" sizes="192x192" href="../public/images/app_icons/icon-4x.png">
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <style>
@@ -58,6 +58,18 @@
 </header>
 
 <h1 id="login">Login</h1>
+
+<div class="welcome screen">
+  <div class="screen-textContent screen-textContent--centered">
+    <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
+    <h1>WiFi Chat</h1>
+    <div class="btngroup btngroup--vertical">
+      <a href="/signup" class="btn btn--callToAction">Join WiFi Chat</a>
+      <hr>
+      <a href="/login" class="btn btn--primary">Login</a>
+    </div>
+  </div>
+</div>
 
 <div class="login screen">
   <div class="screen-textContent">
@@ -148,7 +160,7 @@
       <input type="text" name="username" placeholder="WiFi Chat Username" autocapitalize="off" required>
       <input type="password" name="password" placeholder="Password" minlength="6" required pattern=".{6,}">
       <input type="email" name="email" placeholder="E-Mail" required>
-      <button type="submit" class="btn btn--primary js-signup">Sign Up to WiFi Chat</button>
+      <button type="submit" class="btn btn--primary js-signup">Join WiFi Chat</button>
     </form>
     <p>
       If you don't have an E-Mail address, you can get one here: <a href="http://projectisizwe.org/faq/free-email-providers">Free Email Providers</a>
@@ -532,7 +544,7 @@
       </div>
     </section>
     <div class="section section--showMore">
-      <div class="btn btn--secondary btn--small js-showMore">Load older comments</div>
+      <button class="btn btn--secondary btn--small btn--fullWidth js-showMore">Load older comments</button>
     </div>
     <section class="posts">
       <article class="post post--comment">
@@ -593,7 +605,7 @@
       </div>
     </section>
     <div class="section section--showMore">
-      <div class="btn btn--secondary btn--small js-showMore">Load older comments</div>
+      <button class="btn btn--secondary btn--small btn--fullWidth js-showMore">Load older comments</button>
     </div>
     <section class="posts">
       <article class="post post--comment">
