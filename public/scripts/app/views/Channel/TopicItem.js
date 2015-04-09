@@ -15,14 +15,8 @@ define(function(require) {
 
         initialize: function(options){
           _.bindAll(this, 'render')
-var self = this
           this.model.bind('change', this.render)
           this.on('render', this.afterRender, this)
-
-          this.model.bind('change:commentCount', function() {
-            log('updated comment')
-            self.render()
-          }, this)
         },
       
         afterRender: function() {
