@@ -9,7 +9,7 @@ var passwordResetTemplate = fs.readFileSync(
   'utf8'
 )
 
-var connectionString = process.env.DATABASE_URL || 'postgres://prosody_server:Ied8eichOasheil0@localhost:5432/prosody_server'
+var connectionString = process.env.DATABASE_URL || 'postgres://prosody_server:secret_for_prosody_server@localhost:5432/prosody_server'
 
 var getClient = function(callback) {
   pg.connect(connectionString, callback)
