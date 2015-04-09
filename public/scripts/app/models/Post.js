@@ -90,7 +90,7 @@ define(function(require) {
           canComment: true,
           isReply: ('comment' === post.entry.activity),
           likes: 1,
-          commentCount: 99
+          commentCount: null
         }
       }
       

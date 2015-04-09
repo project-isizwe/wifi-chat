@@ -16,7 +16,7 @@ define(function(require) {
 
       requiresLogin: true,
 
-      className: 'channel screen',
+      className: 'topic screen',
       
       beforeRender: function() {
         if (this.header) {
@@ -35,7 +35,7 @@ define(function(require) {
         this.$el.html(this.template())
         this.$el.find('div[data-role="header"]').html(this.header.render().el)
         this.$el.find('main').html(this.commentList.render().el)
-        this.$el.find('form').html(this.newComment.render().el)
+        this.$el.find('.js-newComment').html(this.newComment.render().el)
         this.trigger('render')
         return this
       }
