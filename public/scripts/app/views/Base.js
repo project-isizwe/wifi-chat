@@ -12,9 +12,7 @@ define(function(require) {
       
       title: 'Wifi Chat',
       
-      initialize: function (options) {
-        _.bindAll('render')
-        
+      initialize: function (options) {      
         if (options) {
           this.router = options.router
           this.options = options
@@ -22,7 +20,7 @@ define(function(require) {
             this.model = options.model
           }
         }
-        
+        _.bindAll('render')
         this.on('render', this.afterRender, this)
       },
 

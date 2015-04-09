@@ -14,19 +14,29 @@ define(function(require) {
 
       requiresLogin: true,
 
-      initialize: function(options) {
+      events: {
+        'click button': 'loadMoreComments'
+      },
 
+      initialize: function(options) {
         this.options = options
         this.router = options.router
         this.collection = new Comments(null, {
           node: this.options.node,
           id: this.options.id
         })
+        _.bindAll('render')
+        this.on('render', this.afterRender, this)
+        this.loadComments()
+      },
+
+      loadComments: function() {
         this.collection.on('all', function(event) { log('TopicList', event) })
         this.collection.once('loaded:comments', this.initialRender, this)
 
         this.collection.on('error', function() {
           this.renderComments()
+          this.enableLoadMoreButton()
           this.showError('Oh no! Could not load the comments')
         }, this)
 
@@ -43,6 +53,14 @@ define(function(require) {
         this.collection.on('remove', this.renderComments, this)
       },
 
+      enableLoadMoreButton: function() {
+        this.$el.find('button').attr('disabled', false)
+      },
+
+      disableLoadMoreButton: function() {
+        this.$el.find('button').attr('disabled', 'disabled')
+      },
+
       renderComments: function() {
         var comments = document.createDocumentFragment()
         var self = this
@@ -54,8 +72,23 @@ define(function(require) {
           })
           comments.appendChild(comment.render().el)
         })
-        log(this.$el)
-        this.$el.html(comments)
+        this.$el.find('div').html(comments)
+        this.afterRender()
+      },
+
+      afterRender: function() {
+        var displayFunction = 'show'
+        if (this.collection.allItemsLoaded()) {
+          displayFunction = 'hide'
+        }
+        var button = this.$el.find('button')
+        this.enableLoadMoreButton()
+        button[displayFunction]()
+      },
+
+      loadMoreComments: function() {
+        this.disableLoadMoreButton()
+        this.collection.sync()
       }
     })
 

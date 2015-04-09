@@ -16,6 +16,14 @@ define(function(require) {
     initialize: function(models, options) {
       this.options = options
     },
+
+    comparator: function(model) {
+      return model.get('published')
+    },
+
+    lastPostId: null,
+    itemsPerRequest: 15,
+    itemCount: null,
     
     sync: function(method, collection, options) {
       if (!method) {
@@ -29,28 +37,33 @@ define(function(require) {
       }
           
     },
+
+    allItemsLoaded: function() {
+      return (this.itemCount && (this.models.length === this.itemCount))
+    },
     
     getComments: function() {
-      if (0 !== this.models.length) {
-        /* No reload */
-        return
-      }
       var self = this
       var options = {
         node: this.options.node,
         id: this.options.id,
         rsm: {
-          max: 10
+          max: this.itemsPerRequest
         }
       }
-      if (this.options.afterItemId) {
-        options.rsm.afterItemId = this.options.afterItemId
+      if (this.lastPostId) {
+        options.rsm.before = this.lastPostId
+        options.rsm.max = this.itemsPerRequest + 1
       }
       socket.send(this.event, options, function(error, data, rsm) {
         if (error) {
           return self.trigger('error', error)
         }
+        self.itemCount = rsm.count
         self.add(data)
+        if (0 !== data.length) {
+          self.lastPostId = rsm.first
+        }
         self.trigger('loaded:comments')
       })
     }
