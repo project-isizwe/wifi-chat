@@ -15,7 +15,7 @@ define(function(require) {
       requiresLogin: true,
 
       events: {
-        'click button': 'loadMoreComments'
+        'click .js-showMore': 'loadMoreComments'
       },
 
       initialize: function(options) {
@@ -54,11 +54,11 @@ define(function(require) {
       },
 
       enableLoadMoreButton: function() {
-        this.$el.find('.js-showMore').removeClass('is-disabled')
+        this.$el.find('.js-showMore').attr('disabled', false)
       },
 
       disableLoadMoreButton: function() {
-        this.$el.find('.js-showMore').addClass('is-disabled')
+        this.$el.find('.js-showMore').attr('disabled', 'disabled')
       },
 
       renderComments: function() {
@@ -81,7 +81,7 @@ define(function(require) {
         if (this.collection.allItemsLoaded()) {
           displayFunction = 'hide'
         }
-        var button = this.$el.find('button')
+        var button = this.$el.find('.js-showMore')
         this.enableLoadMoreButton()
         button[displayFunction]()
       },
