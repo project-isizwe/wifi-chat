@@ -13,7 +13,7 @@ define(function(require) {
       title: 'Wifi Chat',
       
       initialize: function (options) {
-        _.bindAll('render')
+        _.bindAll(this, 'render')
         
         if (options) {
           this.router = options.router
@@ -37,10 +37,11 @@ define(function(require) {
       afterRender: function() {},
       
       beforeRender: function() {},
-      
-      registerEvents: function() {},
+
+      onDestroy: function() {},
       
       closeView: function() {
+        this.onDestroy()
         Object.keys(this.subViews || {}).forEach(function(subView) {
           this.subViews[subView].closeView()
           delete this.subViews[subView]
