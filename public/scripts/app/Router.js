@@ -127,6 +127,7 @@ define(function (require) {
       },
       
       performLogout: function() {
+        localStorage.setItem('wasLoggedInOnce', true)
         var logoutView = new LogoutView({ router: this })
         this.showView(logoutView, '/logout')
       },
@@ -162,11 +163,10 @@ define(function (require) {
       }, 
 
       sendToLogin: function() {
-        if(localStorage.getItem('visited')) {
+        if(localStorage.getItem('wasLoggedInOnce')) {
           this.showLogin()
         } else {
           this.showWelcome()
-          localStorage.setItem('visited', true)
         }
       },     
       
