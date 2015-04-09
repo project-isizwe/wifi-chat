@@ -11,6 +11,10 @@ define(function(require) {
   return Backbone.Collection.extend({
     
     model: Post,
+
+    lastTopicId: null,
+    topicsPerRequest: 15,
+    topicCount: null,
     
     event: 'xmpp.buddycloud.retrieve',
 
@@ -38,6 +42,10 @@ define(function(require) {
       }
           
     },
+
+    allItemsLoaded: function() {
+      return (this.topicCount && (this.models.length === this.topicCount))
+    },
     
     getThreads: function() {
       if (0 !== this.models.length) {
@@ -49,15 +57,23 @@ define(function(require) {
         node: this.options.node,
         parentOnly: true,
         rsm: {
-          max: 10
+          max: this.topicsPerRequest
         }
       }
-      socket.send(this.event, options, function(error, data) {
+      if (this.lastTopicId) {
+        options.rsm.before = this.lastTopicId
+        options.rsm.max = this.topicsPerRequest + 1
+      }
+      socket.send(this.event, options, function(error, data, rsm) {
         if (error) {
           return self.trigger('error', error)
         }
         log('Received topics', data.length)
+        self.topicCount = rsm.count
         self.add(data)
+        if (0 !== data.length) {
+          self.lastTopicId = rsm.first
+        }
         self.trigger('loaded:topics')
       })
     },

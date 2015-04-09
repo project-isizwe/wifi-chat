@@ -14,6 +14,9 @@ require.config({
     },
     'jquery.timeago': {
       deps: [ 'jquery' ]
+    },
+    'jquery.scrollparent': {
+      deps: [ 'jquery' ]
     }
   }
 })

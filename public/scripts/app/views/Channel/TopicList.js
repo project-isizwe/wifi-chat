@@ -7,6 +7,7 @@ define(function(require) {
       , Topics         = require('app/collections/Topics')
       , TopicItemView  = require('app/views/Channel/TopicItem')
       , log            = require('app/utils/bows.min')('Views:Channel:TopicList')
+    require('jquery.scrollparent')
 
     return Base.extend({
 
@@ -14,7 +15,11 @@ define(function(require) {
 
       requiresLogin: true,
 
+      infiniteScrollTriggerPoint: 100, // in pixels from the bottom
+      isInfiniteScrollLoading: false,
+
       initialize: function(options) {
+        _.bindAll(this, 'onScroll')
 
         this.options = options
         this.router = options.router
@@ -40,6 +45,12 @@ define(function(require) {
         this.collection.on('add', this.renderTopics, this)
         this.collection.on('reset', this.renderTopics, this)
         this.collection.on('remove', this.renderTopics, this)
+        this.scrollParent = this.$el.scrollParent()
+        this.scrollParent.on('scroll.topicList', this.onScroll)
+      },
+
+      onDestroy: function() {
+        this.scrollParent.off('scroll.topicList')
       },
 
       renderTopics: function() {
@@ -54,6 +65,23 @@ define(function(require) {
           topics.appendChild(topic.render().el)
         })
         this.$el.find('.js-topicPosts').html(topics)
+        this.isInfiniteScrollLoading = false
+      },
+
+      onScroll: function() {
+        if(!this.isInfiniteScrollLoading) {
+          var viewBottomEdge = this.scrollParent.scrollTop() + this.scrollParent.height()
+          var triggerPos = this.scrollParent.prop('scrollHeight') - this.infiniteScrollTriggerPoint
+          if(viewBottomEdge > triggerPos) {
+            this.loadMoreTopics()
+          }
+        }
+      },
+
+      loadMoreTopics: function() {
+        log('INFINITESCROLL: loadMoreTopics')
+        this.isInfiniteScrollLoading = true
+        this.collection.sync()
       }
     })
 

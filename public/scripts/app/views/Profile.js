@@ -7,6 +7,8 @@ define(function(require) {
       , ChannelModel        = require('app/models/Channel')
       , log                 = require('app/utils/bows.min')('Views:Profile')
 
+    require('jquery.timeago')
+
     return Base.extend({
 
         template: _.template(require('text!tpl/ProfileEmpty.html')),
