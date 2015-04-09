@@ -29,13 +29,12 @@ define(function(require) {
             return
           }
           
-          this.model = new Rules({ hideExtras: options.hideExtras })
+          this.model = new Rules({
+            hideExtras: options.hideExtras
+          })
         },
       
         complete: function() {
-          if (this.options.showSafety) {
-            return this.router.showSafety()
-          }
           this.router.showHome()
         },
       

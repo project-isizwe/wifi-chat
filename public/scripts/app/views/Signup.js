@@ -66,8 +66,7 @@ define(function(require) {
           this.router.showLogin({
             jid: this.model.get('local') + '@' + this.model.get('domain'),
             password: this.model.get('password'),
-            showRules: true,
-            showSafety: true
+            showRules: true
           })
         },
       

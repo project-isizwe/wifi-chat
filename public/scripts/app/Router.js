@@ -67,8 +67,7 @@ define(function (require) {
           jid: options.jid,
           password: options.password,
           lastRoute: this.lastRoute,
-          showRules: options.showRules,
-          showSafety: options.showSafety
+          showRules: options.showRules
         })
         this.showView(loginView, '/login')
       },
