@@ -83,7 +83,7 @@ define(function(require) {
           displayName: null,
           username: post.entry.atom.author.uri.substr(5),
           published: Date.parse(post.entry.atom.published),
-          content: post.entry.atom.content.content,
+          content: this.parseContent(post.entry.atom.content.content),
           node: post.node,
           channelJid: post.node.split('/')[2],
           id: post.entry.atom.id,
@@ -94,6 +94,13 @@ define(function(require) {
           likes: 1,
           commentCount: null
         }
+      },
+
+      parseContent: function(content) {
+        return _.escape(content)
+          .replace(/\{/g, '&#123;')
+          .replace(/&#x2F;/g, '/')
+          .replace(/\}/g, '&#125;')
       },
 
       addComment: function() {
