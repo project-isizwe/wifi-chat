@@ -28,7 +28,18 @@ define(function(require) {
         this.header = new HeaderView(this.options)
         this.commentList = new CommentsList(this.options)
         this.newComment = new NewCommentView(this.options)
-      }, 
+        this.newComment.on('publish:error', this.showPublishError, this)
+      },
+
+      showPublishError: function(error) {
+        var message = 'Oh no! There was a problem publishing your comment.'
+        switch (error.condition) {
+          case 'forbidden':
+            message = 'We\'re sorry, you don\'t have permission to comment here'
+            break
+        }
+        this.showError(message)
+      },
       
       render: function() {
         this.beforeRender()

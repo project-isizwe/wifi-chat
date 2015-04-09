@@ -10,7 +10,8 @@ define(function(require) {
     return Backbone.Model.extend({
       
       xmppEvents: {
-        'get': 'xmpp.buddycloud.retrieve'
+        'get': 'xmpp.buddycloud.retrieve',
+        'post': 'xmpp.buddycloud.publish'
       },
 
       defaults: {
@@ -56,8 +57,11 @@ define(function(require) {
         switch (method) {
           case 'get':
             return this.getPost()
+          case 'post':
+          case 'create':
+            return this.publish()
           default:
-            throw new Error('Unhandled method')
+            throw new Error('Unhandled method: ' + method)
         }
             
       },
@@ -75,6 +79,26 @@ define(function(require) {
           }
           self.set(self._mapPost(post[0]), { silent: true })
           self.trigger('loaded:post')
+        })
+      },
+
+      publish: function() {
+        var payload = {
+            node: this.get('node'),
+            content: {
+              atom: {
+                content: this.get('content')
+            },
+            'in-reply-to': { ref: this.get('inReplyTo') }
+          }
+        }
+        var self = this
+        var event = this.xmppEvents['post']
+        socket.send(event, payload, function(error, success) {
+          if (error) {
+            return self.trigger('publish:error', error)
+          }
+          self.trigger('publish:success')
         })
       },
 
