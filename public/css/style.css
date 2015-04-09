@@ -824,6 +824,9 @@ textarea {
   resize: none;
   border-radius: 0;
 }
+input.nonEmpty:invalid {
+  border-color: red;
+}
 input:focus,
 textarea:focus {
   outline: none;
@@ -852,6 +855,11 @@ input + .btn {
 :-ms-input-placeholder {  
   font-size: 100%;
   color: hsl(221,5%,75%);
+}
+
+.hint {
+  font-size: 12px;
+  margin-bottom: 14px;
 }
 
 .form-controls {

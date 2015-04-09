@@ -20,7 +20,13 @@ define(function(require) {
         events: {
           'submit': 'login',
           'click .js-signup': 'signup',
-          'click .js-forgotPassword': 'password'
+          'click .js-forgotPassword': 'password',
+          'blur input': 'inidicateValidation',
+        },
+
+        inidicateValidation: function(event) {
+          // add a nonEmpty class when the input is non-empty
+          $(event.currentTarget).toggleClass('nonEmpty', event.currentTarget.value !== "")
         },
       
         initialize: function(options) {

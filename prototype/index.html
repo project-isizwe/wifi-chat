@@ -119,10 +119,11 @@
   </header>
   <div class="screen-textContent">
     <form>
-      <input type="text" name="username" placeholder="Wifi Chat Username" required>
-      <input type="password" name="password" placeholder="Password" required>
+      <input type="text" name="username" placeholder="Wifi Chat Username" autocapitalize="off" required>
+      <div class="hint">This username can't be changed later on.</div>
+      <input type="password" name="password" placeholder="Password" minlength="6" required pattern=".{6,}">
       <input type="email" name="email" placeholder="E-Mail" required>
-      <div class="btn btn--primary js-signup">Sign Up to WiFi Chat</div>
+      <button type="submit" class="btn btn--primary js-signup">Sign Up to WiFi Chat</button>
     </form>
     <p>
       If you don't have an E-Mail address, you can get one here: <a href="http://projectisizwe.org/faq/free-email-providers">Free Email Providers</a>
@@ -791,14 +792,14 @@
       </div>
       <div class="tab-views-item settings" data-view="settings">
         <div data-symbol="settings">
-          <form class="section edit-profile">
+          <div class="section edit-profile">
             <div class="avatar avatar--big avatar--uploadMode" style="background-image: url(avatar-3.jpg)">
               <div class="btn btn--primary">Change</div>
               <input type="file" name="avatar" accept="image/*">
             </div>
             <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name" maxlength="128">
             <textarea rows="4" name="description" placeholder="Tell the world about yourself..." maxlength="200">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
-          </form>
+          </div>
           <div class="section optionsList">
             <a href="#" class="optionsList-item">Help</a>
             <div class="optionsList-item">Rules</div>
@@ -810,6 +811,7 @@
   </div>
 </div>
 
+<script src="../public/scripts/lib/jquery.js"></script>
 <script>
   var activityViews = document.querySelectorAll('.activity')
 
@@ -1060,5 +1062,23 @@
     screen.scrollTop = screen.getAttribute('data-scrolltop')
   }
 
+
+  /*
+
+    Input Functions
+
+  */
+
+  $('.settings.screen input[type=file]').on('change', function(event) {
+    console.log(event)
+  })
+
+  $('.settings.screen textarea').blur(function(event) {
+    console.log(event.currentTarget.value)
+  })
+
+  $('input').on('blur', function(event){
+    $(event.currentTarget).toggleClass('nonEmpty', event.currentTarget.value !== "")
+  })
 
 </script>
