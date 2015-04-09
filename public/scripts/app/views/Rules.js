@@ -33,6 +33,9 @@ define(function(require) {
         },
       
         complete: function() {
+          if (this.options.showSafety) {
+            return this.router.showSafety()
+          }
           this.router.showHome()
         },
       

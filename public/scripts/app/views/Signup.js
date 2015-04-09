@@ -5,7 +5,6 @@ define(function(require) {
     var $           = require('jquery')
       , _           = require('underscore')
       , Base        = require('app/views/Base')
-      , socket      = require('app/utils/socket')
       , log         = require('app/utils/bows.min')('Views:Register')
       , Account     = require('app/models/Account')
 
@@ -24,7 +23,10 @@ define(function(require) {
 
         inidicateValidation: function(event) {
           // add a nonEmpty class when the input is non-empty
-          $(event.currentTarget).toggleClass('nonEmpty', event.currentTarget.value !== "")
+          $(event.currentTarget).toggleClass(
+            'nonEmpty',
+            event.currentTarget.value !== ""
+          )
         },
 
         enableRegisterButton: function() {
@@ -61,10 +63,12 @@ define(function(require) {
         accountCreated: function(model, response) {
           log('New account created successfully')
           this.closeSpinner()
-          this.router.showLogin(
-            this.model.get('local') + '@' + this.model.get('domain'),
-            this.model.get('password')
-          )
+          this.router.showLogin({
+            jid: this.model.get('local') + '@' + this.model.get('domain'),
+            password: this.model.get('password'),
+            showRules: true,
+            showSafety: true
+          })
         },
       
         accountCreateFail: function(model, response) {

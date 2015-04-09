@@ -58,18 +58,27 @@ define(function (require) {
         this.showView(modalView, '/modal')
       },
       
-      showLogin: function(jid, password, url) {
+      showLogin: function(options) {
+        if (!options) {
+          options = {}
+        }
         var loginView = new LoginView({
           router: this,
-          jid: jid,
-          password: password,
-          lastRoute: this.lastRoute
+          jid: options.jid,
+          password: options.password,
+          lastRoute: this.lastRoute,
+          showRules: options.showRules,
+          showSafety: options.showSafety
         })
         this.showView(loginView, '/login')
       },
       
-      showRules: function(hideExtras) {
-        var rulesView = new RulesView({ router: this, hideExtras: hideExtras })
+      showRules: function(options) {
+        var rulesView = new RulesView({
+          router: this,
+          hideExtras: options.hideExtras,
+          showSafety: showSafety
+        })
         this.showView(rulesView, '/rules')  
       },
       
