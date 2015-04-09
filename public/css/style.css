@@ -217,6 +217,16 @@ p {
   background: white;
 }
 
+.screen-textContent--isFull {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.align-bottom {
+  margin-top: auto;
+}
+
 .login {
   display: flex;
   flex-direction: column;
