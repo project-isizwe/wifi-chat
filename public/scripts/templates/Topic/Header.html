@@ -10,19 +10,11 @@
     <div class="post-meta">
       <div class="post-author btn btn--text js-seeAuthor">
         <span class="admin icon"></span>
-        <span class="displayName">Daniele Francis</span>
-        <span class="username">daniele54</span>
+        <span class="displayName"><%- displayName %></span>
+        <span class="username"><%- username %></span>
       </div>
-      <time class="post-time" datetime="<%- published %>"><%- published %></time>
+      <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
     </div>
     <div class="post-content"><%- content %></div>
-    <div class="post-meta post-meta--bottom">
-      <div class="btn btn--text js-readComments">51 comments</div>
-    </div>
-    <div class="btngroup btngroup--topic">
-      <div class="btn btn--secondary btn--small js-comment">
-        <span class="plus icon"></span> Add a comment
-      </div>
-    </div>
   </section>
 </article>

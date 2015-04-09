@@ -77,13 +77,13 @@ define(function(require) {
       },
 
       afterRender: function() {
-        var displayFunction = 'show'
+        var displayFunction = 'addClass'
         if (this.collection.allItemsLoaded()) {
-          displayFunction = 'hide'
+          displayFunction = 'removeClass'
         }
         var button = this.$el.find('.js-showMore')
         this.enableLoadMoreButton()
-        button[displayFunction]()
+        button[displayFunction]('is-hidden')
       },
 
       loadMoreComments: function() {
