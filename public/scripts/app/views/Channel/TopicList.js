@@ -53,7 +53,7 @@ define(function(require) {
           })
           topics.appendChild(topic.render().el)
         })
-        this.$el.html(topics)
+        this.$el.find('.js-topicPosts').html(topics)
       }
     })
 

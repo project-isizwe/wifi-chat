@@ -13,6 +13,10 @@ define(function(require) {
       
         requiresLogin: true,
 
+        tagName: 'section',
+
+        className: 'post post--topic',
+
         initialize: function(options){
           _.bindAll(this, 'render')
           this.model.bind('change', this.render)

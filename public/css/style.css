@@ -48,6 +48,14 @@ p {
   line-height: 1.45;
 }
 
+hr {
+  margin: 14px 0;
+  width: 100%;
+  border: none;
+  height: 1px;
+  background: hsl(240,8%,90%);
+}
+
 .system {
   font-size: 15px;
 }
@@ -217,6 +225,14 @@ p {
   background: white;
 }
 
+.screen-textContent--centered {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  min-height: 100%;
+}
+
 .screen-textContent--isFull {
   display: flex;
   flex-direction: column;
@@ -225,6 +241,15 @@ p {
 
 .align-bottom {
   margin-top: auto;
+}
+
+.welcome.screen {
+  padding: 0;
+  text-align: center;
+}
+
+.welcome .btngroup .btn + .btn {
+  margin-top: 14px;
 }
 
 .login {
@@ -243,7 +268,7 @@ p {
   flex: 1;
 }
 
-.login .logo {
+.logo {
   align-self: center;
 }
 
@@ -356,6 +381,10 @@ p {
 .topic.screen .post--topic {
   border-top: none;
   margin-bottom: 0;
+}
+
+.post--loader .spinner {
+  margin: 0 auto;
 }
 
 .post-meta {
@@ -741,11 +770,11 @@ p {
   margin: 0;
 }
 
-.btngroup .btn:first-child {
+.btngroup:not(.btngroup--vertical) .btn:first-child {
   margin-left: 0;
 }
 
-.btngroup .btn:last-child {
+.btngroup:not(.btngroup--vertical) .btn:last-child {
   margin-right: 0;
 }
 
@@ -765,6 +794,19 @@ p {
 .btngroup--connected .btn:last-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.btngroup--vertical {
+  display: block;
+}
+
+.btngroup--vertical .btn {
+  margin: 0;
+}
+
+.btngroup--vertical .btn + .btn {
+  margin-left: 0;
+  margin-top: 5px;
 }
 
 .btn {
@@ -802,6 +844,14 @@ form :invalid ~ .btn:not(.btn--text) {
   background: hsl(221,33%,36%);
 }
 
+.btn--callToAction {
+  background: hsl(25,89%,56%);
+}
+
+.btn--callToAction:active {
+  background: hsl(25,89%,50%);
+}
+
 .btn--small {
   width: auto;
   padding: 7px 14px;
@@ -814,6 +864,10 @@ form :invalid ~ .btn:not(.btn--text) {
 
 .btn--secondary:active {
   background: hsl(221,30%,55%);
+}
+
+.btn--fullWidth {
+  width: 100%;
 }
 
 .btn--text {
@@ -946,6 +1000,10 @@ input + .btn {
 .optionsList-item a {
   color: inherit;
   text-decoration: none;
+}
+
+.is-hidden {
+  display: none;
 }
 
 @media (max-width: 600px) {

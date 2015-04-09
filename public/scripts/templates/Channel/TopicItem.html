@@ -1,27 +1,25 @@
-<section class="post post--topic">
-  <div class="post-meta">
-    <a class="btn btn--text" href="/profile/<%- username %>">
-      <span class="admin icon"></span>
-      <% if(displayName) { %>
-      <span class="displayName"><%- displayName %></span>
-      <% } %>
-      <span class="username"><%- username %></span>
-    </a>
-    <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
-  </div>
-  <div class="post-content"><%- content %></div>
-  <div class="post-meta post-meta--bottom">
-    <% if(commentCount > 0) { %>
-    <a class="btn btn--text" href="channel/<%- channelJid %>/<%- id %>">
-      <%- commentCount %> comment
-    </a>
+<div class="post-meta">
+  <a class="btn btn--text" href="/profile/<%- username %>">
+    <span class="admin icon"></span>
+    <% if(displayName) { %>
+    <span class="displayName"><%- displayName %></span>
     <% } %>
-  </div>
-  <% if (canComment) { %>
-  <div class="btngroup btngroup--topic">
-    <div class="btn btn--secondary btn--small js-comment">
-      <span class="plus icon"></span> Add a comment
-    </div>
-  </div>
+    <span class="username"><%- username %></span>
+  </a>
+  <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
+</div>
+<div class="post-content"><%- content %></div>
+<div class="post-meta post-meta--bottom">
+  <% if(commentCount > 0) { %>
+  <a class="btn btn--text" href="channel/<%- channelJid %>/<%- id %>">
+    <%- commentCount %> comment
+  </a>
   <% } %>
-</section>
+</div>
+<% if (canComment) { %>
+<div class="btngroup btngroup--topic">
+  <div class="btn btn--secondary btn--small js-comment">
+    <span class="plus icon"></span> Add a comment
+  </div>
+</div>
+<% } %>
