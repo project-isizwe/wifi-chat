@@ -72,21 +72,24 @@ define(function(require) {
           this.xPos = 0
 
           // distance after which a touchmove is seen as a slide attempt
-          this.tolerance = 5
+          this.tolerance = {
+            x: 5,
+            y: 10
+          }
 
           // adapt view height when channelList got filled
           this.channelListView.on('loaded:channel', this.adaptViewsHeight, this)
 
           // update dimensions
           this.onResize()
-          $(document).on('resize', this.onResize)
+          $(window).on('resize', this.onResize)
 
           // go to first item
           this.navigateTo(this.viewItems.first().attr('data-view'))
         },
 
         onDestroy: function() {
-          $(document).off('resize', this.onResize)
+          $(window).off('resize', this.onResize)
         },
 
         onResize: function() {
@@ -104,6 +107,9 @@ define(function(require) {
             width: this.viewWidth,
             left: function(i) { return i * self.viewWidth }
           })
+
+          if(this.visibleTabView)
+            this.navigateTo(this.visibleTabView.attr('data-view'))
         },
 
         onInputDown: function(event) {
@@ -118,11 +124,11 @@ define(function(require) {
         },
 
         onInputMove: function(event) {
-          event.preventDefault()
           var x = this.startX - event.originalEvent.touches[0].pageX
           var y = this.startY - event.originalEvent.touches[0].pageY
 
-          if(Math.abs(x) > this.tolerance && Math.abs(y) < this.tolerance){
+          if(Math.abs(x) > this.tolerance.x && Math.abs(y) < this.tolerance.y){
+            event.preventDefault()
             this.xMove = x //this.slowOnEdges(x)
             var newX = this.xPos * this.viewWidth + this.xMove
             this.moveIt(newX)

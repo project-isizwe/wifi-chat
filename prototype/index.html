@@ -876,7 +876,7 @@
     this.scroller = view.querySelector('.tab-scroller')
     this.navItems = nav.querySelectorAll('.tabs-item')
     this.viewItems = view.querySelectorAll('.tab-views-item')
-    this.tolerance = 5
+    this.tolerance = 10
     this.xPos = 0
     this.xMax = (this.viewItems.length - 1)
 
@@ -885,7 +885,9 @@
 
   Tabs.prototype = {
     init: function() {
-      this.resize()
+      this.onResize()
+
+      window.addEventListener('resize', this.onResize.bind(this))
 
       for(var i=0; i<this.navItems.length; i++)
         this.navItems[i].addEventListener('click', this.onTabClick.bind(this))
@@ -962,28 +964,32 @@
       }
     },
 
-    resize: function() {
+    onResize: function() {
       this.viewWidth = this.view.clientWidth
       this.tabWidth = this.navItems[0].clientWidth
       this.activeIndicator.style.width = this.tabWidth + "px"
+      console.log("resize!")
 
       for(var i=0; i<this.viewItems.length; i++) {
         this.viewItems[i].style.width = this.viewWidth + "px"
         this.viewItems[i].style.left = i * this.viewWidth + "px"
       }
+
+      if(this.visibleTabView)
+        this.navigateTo(this.visibleTabView.getAttribute('data-view'))
     },
 
     onTabClick: function(event) {
       this.navigateTo(event.currentTarget.getAttribute('data-target'))
     },
 
-    navigateTo: function(view) {
+    navigateTo: function(viewName) {
       this.nav.querySelector('.is-active').classList.remove('is-active')
-      this.nav.querySelector('[data-target='+ view +']').classList.add('is-active')
-      var targetView = this.view.querySelector('[data-view='+ view +']')
-      this.xPos = this.getTabViewIndex(targetView)
+      this.nav.querySelector('[data-target='+ viewName +']').classList.add('is-active')
+      this.visibleTabView = this.view.querySelector('[data-view='+ viewName +']')
+      this.xPos = this.getTabViewIndex(this.visibleTabView)
       var minHeight = this.view.parentNode.clientHeight - this.view.previousElementSibling.clientHeight;
-      this.view.style.height = Math.max(minHeight, targetView.clientHeight) + 'px'
+      this.view.style.height = Math.max(minHeight, this.visibleTabView.clientHeight) + 'px'
       this.moveIt(this.xPos * this.viewWidth)
     },
 
