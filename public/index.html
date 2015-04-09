@@ -29,9 +29,14 @@
         <title>WiFi Chat</title>
 
         <link rel="stylesheet" type="text/css" href="/app.min.css" />
-        <script type="text/javascript" src="/scripts/primus.js"></script>
+        <script></script>
+        <script src="/scripts/primus.js"></script>
         <script data-main="/scripts/app" src="/scripts/require.js"></script>
         <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
     </head>
-    <body></body>
+    <body>
+        <div class="splash screen">
+            <script>if(localStorage.getItem('jid')){ document.write('<header class="screen-header"></header>')}</script>
+        </div>
+    </body>
 </html>
