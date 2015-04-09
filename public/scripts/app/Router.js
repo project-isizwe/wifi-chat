@@ -30,9 +30,9 @@ define(function (require) {
         'password/reset': 'showPasswordReset',
         'password/reset/:token': 'showNewPassword',
         'rules': 'showRules',
-        'channel/:jid': 'showChannel',
         'profile/:jid': 'showProfile',
-        'channel/:jid/:id': 'showTopic',
+        'channel/:jid': 'showChannel',
+        'channel/:jid/*id': 'showTopic',
         'logout': 'showLogout'
       },
       
