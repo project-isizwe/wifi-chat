@@ -91,6 +91,7 @@ define(function(require) {
           }
           this.closeSpinner()
           this.showError(message)
+          this.enableRegisterButton()
           log('Account creation fail', error)
         }
     })
