@@ -10,7 +10,9 @@ define(function(require) {
 
         template: _.template(require('text!tpl/Topic/NewComment.html')),
       
-        requiresLogin: true
+        requiresLogin: true,
+
+        className: 'writeComment'
 
     })
 

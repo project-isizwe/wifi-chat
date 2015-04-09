@@ -102,7 +102,7 @@ p {
 }
 
 .modal-background {
-  background: radial-gradient(rgba(0,0,0,.34), rgba(0,0,0,.55));
+  background: radial-gradient(rgba(0,0,0,.21), rgba(0,0,0,.55));
   cursor: pointer;
 }
 
@@ -378,12 +378,11 @@ p {
 
 .post-meta .displayName,
 .post-meta .username {
-  display: inline-block;
+  display: inline;
 }
 
 .post-meta .displayName + .username {
   font-size: inherit;
-  display: inline;
 }
 
 .btngroup--topic {
@@ -443,8 +442,12 @@ p {
   cursor: pointer;
 }
 
-.post--comment + .post--comment {
+.post--comment {
   padding-top: 0;
+}
+
+.btngroup.btngroup--post {
+  display: none;
 }
 
 .writeComment {
@@ -566,6 +569,13 @@ p {
 
 .section:first-child {
   border-top: none;
+}
+
+.section.section--showMore {
+  border-top: none;
+  margin-bottom: 0;
+  padding: 14px;
+  border-bottom: 0;
 }
 
 .avatar,

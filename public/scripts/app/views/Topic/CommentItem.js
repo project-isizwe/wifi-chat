@@ -13,6 +13,10 @@ define(function(require) {
       
         requiresLogin: true,
 
+        tagName: 'article',
+
+        className: 'post post--comment',
+
         initialize: function(options){
           _.bindAll(this, 'render')
 

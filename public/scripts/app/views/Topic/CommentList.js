@@ -54,11 +54,11 @@ define(function(require) {
       },
 
       enableLoadMoreButton: function() {
-        this.$el.find('button').attr('disabled', false)
+        this.$el.find('.js-showMore').removeClass('is-disabled')
       },
 
       disableLoadMoreButton: function() {
-        this.$el.find('button').attr('disabled', 'disabled')
+        this.$el.find('.js-showMore').addClass('is-disabled')
       },
 
       renderComments: function() {
@@ -72,7 +72,7 @@ define(function(require) {
           })
           comments.appendChild(comment.render().el)
         })
-        this.$el.find('div').html(comments)
+        this.$el.find('[data-role=posts-container]').html(comments)
         this.afterRender()
       },
 

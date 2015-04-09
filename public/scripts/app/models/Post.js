@@ -92,7 +92,7 @@ define(function(require) {
           isReply: ('comment' === post.entry.activity),
           inReplyTo: (post.entry['in-reply-to'] || {}).ref,
           likes: 1,
-          commentCount: 99
+          commentCount: null
         }
       },
 
