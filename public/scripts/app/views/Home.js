@@ -54,8 +54,10 @@ define(function(require) {
           })
 
           this.$el.html(this.template())
-          this.$el.find('.tab-views').append(tabViews).width(this.tabViews.length * this.$el.width())
+          this.$el.find('.tab-scroller').append(tabViews).width(this.tabViews.length * this.$el.width())
           this.trigger('render')
+
+          this.resize()
 
           this.navigateTo(this.$el.find('.tab-views-item').first().attr('data-view'))
 
@@ -64,6 +66,15 @@ define(function(require) {
           this.contentHeight = this.$el.outerHeight() - this.$el.find('.screen-header').height()
 
           return this
+        },
+
+        resize: function() {
+          var viewWidth = this.$el.width()
+
+          this.$el.find('.tab-views-item').css({
+            width: viewWidth,
+            left: function(i) { return i * viewWidth }
+          })
         },
 
         onTabClick: function(event) {
@@ -80,10 +91,8 @@ define(function(require) {
           var tabViewsOffset = - this.visibleTabView.index() * this.visibleTabView.width()
 
           // scroll to tab view
-          this.$el.find('.tab-views').css({
-            transform: 'translateX('+ tabViewsOffset +'px) translateZ(0)',
-            height: this.visibleTabView.height()
-          })
+          this.$el.find('.tab-views').css('height', this.visibleTabView.height())
+          this.$el.find('.tab-scroller').css('transform', 'translateX('+ tabViewsOffset +'px) translateZ(0)')
         },
 
         adaptViewsHeight: function() {
