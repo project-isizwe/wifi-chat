@@ -4,7 +4,7 @@
         <span class="displayName"><%- displayName %></span>
         <span class="username"><%- username %></span>
       </div>
-      <time class="post-time" datetime="<%- published %>"><%- published %></time>
+      <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
     </div>
     <div class="post-content"><%- content %></div>
     <div class="btngroup btngroup--post btngroup--connected">

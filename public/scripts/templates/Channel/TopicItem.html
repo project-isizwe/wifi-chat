@@ -7,7 +7,7 @@
       <% } %>
       <span class="username"><%- username %></span>
     </a>
-    <time class="post-time" datetime="<%- published %>"><%- published %></time>
+    <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
   </div>
   <div class="post-content"><%- content %></div>
   <div class="post-meta post-meta--bottom">

@@ -1,7 +1,7 @@
 <section class="topic post">
   <div class="post-meta">
     <div class="btn btn--text js-seeAuthor"><span class="admin icon"></span><%- author %></div>
-    <time class="post-time" datetime="<%- published %>"><%- published %></time>
+    <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
   </div>
   <div class="post-content">
     <p><%- content %></p>
