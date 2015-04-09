@@ -12,7 +12,7 @@
   }
 
   body > h1 {
-    padding: 0 7px 7px;
+    padding: 14px 7px 7px;
     font-size: 3em;
     flex: 1 0 100%;
     border-bottom: 1px solid hsl(223,6%,75%);
@@ -21,7 +21,7 @@
   }
 
   body > .screen + h1 {
-    margin-top: 84px;
+    margin-top: 56px;
   }
 
   .screen-header,
@@ -29,9 +29,35 @@
   .modal-background {
     position: absolute;
   }
+
+  .toc {
+    margin: 0;
+  }
+
+  .toc li a {
+    display: block;
+    padding: 5px;
+    color: hsl(205,100%,50%);
+  }
+
+  .overview {
+    margin: 0 0 14px;
+  }
 </style>
 
-<h1>Login</h1>
+<header class="overview">
+  <ol class="toc">
+    <li><a href="#login">Login</a>
+    <li><a href="#signup">Signup</a>
+    <li><a href="#home">Home</a>
+    <li><a href="#channel">Channel</a>
+    <li><a href="#topic">Topic</a>
+    <li><a href="#profile">Profile</a>
+    <li><a href="#misc">Misc</a>
+  </ol>
+</header>
+
+<h1 id="login">Login</h1>
 
 <div class="login screen">
   <div class="screen-textContent">
@@ -107,7 +133,7 @@
 </div>
 
 
-<h1>Signup</h1>
+<h1 id="signup">Signup</h1>
 
 <div class="signup screen">
   <header class="screen-header">
@@ -119,10 +145,11 @@
   </header>
   <div class="screen-textContent">
     <form>
-      <input type="text" name="username" placeholder="Wifi Chat Username" required>
-      <input type="password" name="password" placeholder="Password" required>
+      <input type="text" name="username" placeholder="Wifi Chat Username" autocapitalize="off" required>
+      <div class="hint">This username can't be changed later on.</div>
+      <input type="password" name="password" placeholder="Password" minlength="6" required pattern=".{6,}">
       <input type="email" name="email" placeholder="E-Mail" required>
-      <div class="btn btn--primary js-signup">Sign Up to WiFi Chat</div>
+      <button type="submit" class="btn btn--primary js-signup">Sign Up to WiFi Chat</button>
     </form>
     <p>
       If you don't have an E-Mail address, you can get one here: <a href="http://projectisizwe.org/faq/free-email-providers">Free Email Providers</a>
@@ -159,6 +186,22 @@
   </div>
 </div>
 
+<div class="safety screen">
+  <header class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="back arrow icon"></div>
+      Back
+    </div>
+    <div class="screen-title">Safety</div>
+  </header>
+  <div class="screen-textContent screen-textContent--isFull">
+    <p>
+    Lorem ipsum Quis eu laboris officia nostrud exercitation id eu sed amet sed anim ex elit laboris sed ullamco ex deserunt id elit eiusmod sed quis commodo esse magna magna consectetur.
+    </p>
+    <div class="btn btn--primary js-start align-bottom">Ok got it</div>
+  </div>
+</div>
+
 <div class="profile profile--setup screen">
   <header class="screen-header">
     <div class="btn btn--text js-back">
@@ -187,21 +230,22 @@
 
 
 
-<h1>Channel List</h1>
+<h1 id="home">Home</h1>
 
 <div class="home screen screen--hasTabViews">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
       <div class="tabs-item is-active" data-target="channelList">
-        Channels
+        <span class="tabs-item-label">Channels</span>
         <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="activity">
-        Activity
+        <span class="tabs-item-label">Activity</span>
         <div class="private-count">2</div>
       </div>
       <div class="tabs-item" data-target="settings">
-        Settings
+        <span class="tabs-item-label">Settings</span>
         <div class="private-count"></div>
       </div>
     </div>
@@ -225,16 +269,17 @@
 <div class="home screen screen--hasTabViews">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
       <div class="tabs-item is-active" data-target="channelList">
-        Channels
+        <span class="tabs-item-label">Channels</span>
         <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="activity">
-        Activity
+        <span class="tabs-item-label">Activity</span>
         <div class="private-count">2</div>
       </div>
       <div class="tabs-item" data-target="settings">
-        Settings
+        <span class="tabs-item-label">Settings</span>
         <div class="private-count"></div>
       </div>
     </div>
@@ -300,6 +345,50 @@
   </div>
 </div>
 
+<div class="settings screen">
+  <header class="screen-header screen-header--hasTabs">
+    <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
+      <div class="tabs-item" data-target="channelList">
+        <span class="tabs-item-label">Channels</span>
+      </div>
+      <div class="tabs-item" data-target="activity">
+        <span class="tabs-item-label">Activity</span>
+        <div class="private-count"></div>
+      </div>
+      <div class="tabs-item is-active" data-target="settings">
+        <span class="tabs-item-label">Settings</span>
+      </div>
+    </div>
+  </header>
+  <div class="tab-views">
+    <div class="tab-scroller">
+      <div class="tab-views-item channels" data-view="channelList">
+        <div data-use-symbol="channelList"></div>
+      </div>
+      <div class="tab-views-item activity" data-view="activity">
+        <div data-use-symbol="activity"></div>
+      </div>
+      <div class="tab-views-item settings" data-view="settings">
+        <div data-symbol="settings">
+          <div class="section edit-profile">
+            <div class="avatar avatar--big avatar--uploadMode" style="background-image: url(avatar-3.jpg)">
+              <div class="btn btn--primary">Change</div>
+              <input type="file" name="avatar" accept="image/*">
+            </div>
+            <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name" maxlength="128">
+            <textarea rows="4" name="description" placeholder="Tell the world about yourself..." maxlength="200">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
+          </div>
+          <div class="section optionsList">
+            <a href="#" class="optionsList-item">Help</a>
+            <div class="optionsList-item">Rules</div>
+            <div class="optionsList-item js-logout">Logout</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -313,8 +402,7 @@
 
 
 
-
-<h1>Channel</h1>
+<h1 id="channel">Channel</h1>
 
 <div class="channel screen">
   <div data-symbol="channel">
@@ -429,7 +517,7 @@
 
 
 
-<h1>Topic</h1>
+<h1 id="topic">Topic</h1>
 
 <div class="topic screen" data-scrolltop="189">
   <header class="screen-header">
@@ -566,7 +654,7 @@
 
 
 
-<!-- <h1>User List</h1>
+<!-- <h1 id="userList">User List</h1>
 
 <div class="likes screen">
   <header class="screen-header">
@@ -599,22 +687,23 @@
 
 
 
-<!-- <h1>Activity Stream</h1>
+<!-- <h1 id="activity">Activity Stream</h1>
 
 
 <div class="activity screen">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
       <div class="tabs-item" data-target="channelList">
-        Channels
+        <span class="tabs-item-label">Channels</span>
         <div class="private-count"></div>
       </div>
       <div class="tabs-item is-active" data-target="activity">
-        Activity
+        <span class="tabs-item-label">Activity</span>
         <div class="private-count">2</div>
       </div>
       <div class="tabs-item" data-target="settings">
-        Settings
+        <span class="tabs-item-label">Settings</span>
         <div class="private-count"></div>
       </div>
     </div>
@@ -681,7 +770,7 @@
 
 
 
-<h1>Profile</h1>
+<h1 id="profile">Profile</h1>
 
 <div class="profile screen">
   <header class="screen-header">
@@ -760,52 +849,31 @@
 
 
 
-<h1>Settings</h1>
 
-<div class="settings screen">
-  <header class="screen-header screen-header--hasTabs">
-    <div class="tabs">
-      <div class="tabs-item" data-target="channelList">
-        Channels
-      </div>
-      <div class="tabs-item" data-target="activity">
-        Activity
-        <div class="private-count"></div>
-      </div>
-      <div class="tabs-item is-active" data-target="settings">
-        Settings
-      </div>
-    </div>
-  </header>
-  <div class="tab-views">
-    <div class="tab-scroller">
-      <div class="tab-views-item channels" data-view="channelList">
-        <div data-use-symbol="channelList"></div>
-      </div>
-      <div class="tab-views-item activity" data-view="activity">
-        <div data-use-symbol="activity"></div>
-      </div>
-      <div class="tab-views-item settings" data-view="settings">
-        <div data-symbol="settings">
-          <form class="section edit-profile">
-            <div class="avatar avatar--big avatar--uploadMode" style="background-image: url(avatar-3.jpg)">
-              <div class="btn btn--primary">Change</div>
-              <input type="file" name="avatar" accept="image/*">
-            </div>
-            <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name" maxlength="128">
-            <textarea rows="4" name="description" placeholder="Tell the world about yourself..." maxlength="200">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
-          </form>
-          <div class="section optionsList">
-            <a href="#" class="optionsList-item">Help</a>
-            <div class="optionsList-item">Rules</div>
-            <div class="optionsList-item js-logout">Logout</div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+
+
+
+
+<h1 id="misc">Misc</h1>
+
+
+<div class="login screen">
+  <div class="screen-textContent">
+    <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
+    <h1>WiFi Chat</h1>
+    <p>
+      Your browser is not supported.
+      Please try a different browser.
+
+      <a href="#">Learn More</a>
+    </p>
   </div>
 </div>
 
+
+
+<script src="../public/scripts/lib/jquery.js"></script>
 <script>
   var activityViews = document.querySelectorAll('.activity')
 
@@ -850,44 +918,133 @@
   function Tabs(nav, view){
     this.nav = nav
     this.view = view
+    this.activeIndicator = nav.querySelector('.tabs-activeIndicator')
     this.scroller = view.querySelector('.tab-scroller')
     this.navItems = nav.querySelectorAll('.tabs-item')
     this.viewItems = view.querySelectorAll('.tab-views-item')
+    this.tolerance = 10
+    this.xPos = 0
+    this.xMax = (this.viewItems.length - 1)
 
     this.init()
   }
 
   Tabs.prototype = {
     init: function() {
-      this.resize()
+      this.onResize()
+
+      window.addEventListener('resize', this.onResize.bind(this))
 
       for(var i=0; i<this.navItems.length; i++)
         this.navItems[i].addEventListener('click', this.onTabClick.bind(this))
 
+      this.view.addEventListener('touchstart', this.onInputDown.bind(this))
+
       this.navigateTo(this.nav.querySelector('.is-active').getAttribute('data-target'))
     },
 
-    resize: function() {
-      var viewWidth = this.view.clientWidth
+    onInputDown: function(event) {
+      this.startX = event.touches[0].pageX
+      this.startY = event.touches[0].pageY
+      this.onInputMoveClosure = this.onInputMove.bind(this)
+      this.onInputUpClosure = this.onInputUp.bind(this)
+      document.addEventListener('touchmove', this.onInputMoveClosure)
+      document.addEventListener('touchend', this.onInputUpClosure)
+
+      // disable transitions on the scroller so that we can move it
+      this.scroller.classList.add('no-transition')
+      this.activeIndicator.classList.add('no-transition')
+    },
+
+    onInputMove: function(event) {
+      event.preventDefault()
+      var x = this.startX - event.touches[0].pageX
+      var y = this.startY - event.touches[0].pageY
+
+      if(Math.abs(x) > this.tolerance && Math.abs(y) < this.tolerance){
+        this.xMove = x //this.slowOnEdges(x)
+        var newX = this.xPos * this.viewWidth + this.xMove
+        this.moveIt(newX)
+      }
+    },
+
+    slowOnEdges: function(x) {
+      var position = this.xPos * this.viewWidth + x
+      var min = 0
+      var max = this.xMax * this.viewWidth
+      if(position < min) {
+        var excess = min - position;
+        x *= (1 - excess / (this.viewWidth * 0.98)) * 0.98
+      }
+      if(position > max) {
+        var excess = position - max;
+        x *= (1 - excess / (this.viewWidth * 0.98)) * 0.98
+      }
+      return x
+    },
+
+    onInputUp: function(event) {
+      document.removeEventListener('inputmove', this.onInputMoveClosure)
+      document.removeEventListener('inputend', this.onInputUpClosure)
+
+      // re-enable transitions on the scroller
+      this.scroller.classList.remove('no-transition')
+      this.activeIndicator.classList.remove('no-transition')
+
+      // did something happen that needs us to move the
+      // scroller either back to its neutral position
+      // or towards another slide then let's do this
+      if(this.xMove){
+        event.preventDefault()
+
+        if(this.xMove >= this.viewWidth/2 && this.xPos < this.xMax) {
+          this.xPos += 1
+        }
+        else if(this.xMove <= -this.viewWidth/2 && this.xPos > 0) {
+          this.xPos -= 1
+        }
+
+        this.moveIt(this.xPos * this.viewWidth)
+
+        this.xMove = null
+      }
+    },
+
+    onResize: function() {
+      this.viewWidth = this.view.clientWidth
+      this.tabWidth = this.navItems[0].clientWidth
+      this.activeIndicator.style.width = this.tabWidth + "px"
+      console.log("resize!")
 
       for(var i=0; i<this.viewItems.length; i++) {
-        this.viewItems[i].style.width = viewWidth + "px"
-        this.viewItems[i].style.left = i * viewWidth + "px"
+        this.viewItems[i].style.width = this.viewWidth + "px"
+        this.viewItems[i].style.left = i * this.viewWidth + "px"
       }
+
+      if(this.visibleTabView)
+        this.navigateTo(this.visibleTabView.getAttribute('data-view'))
     },
 
     onTabClick: function(event) {
       this.navigateTo(event.currentTarget.getAttribute('data-target'))
     },
 
-    navigateTo: function(view) {
+    navigateTo: function(viewName) {
       this.nav.querySelector('.is-active').classList.remove('is-active')
-      this.nav.querySelector('[data-target='+ view +']').classList.add('is-active')
-      var targetView = this.view.querySelector('[data-view='+ view +']')
-      var tabViewsOffset = - this.getTabViewIndex(targetView) * targetView.clientWidth
+      this.nav.querySelector('[data-target='+ viewName +']').classList.add('is-active')
+      this.visibleTabView = this.view.querySelector('[data-view='+ viewName +']')
+      this.xPos = this.getTabViewIndex(this.visibleTabView)
       var minHeight = this.view.parentNode.clientHeight - this.view.previousElementSibling.clientHeight;
-      this.scroller.style.transform = 'translateX('+ tabViewsOffset +'px)'
-      this.view.style.height = Math.max(minHeight, targetView.clientHeight) + 'px'
+      this.view.style.height = Math.max(minHeight, this.visibleTabView.clientHeight) + 'px'
+      this.moveIt(this.xPos * this.viewWidth)
+    },
+
+    moveIt: function(x) {
+      var indicatorPos = x/this.viewWidth * this.tabWidth
+      // limit indicator to view boundaries
+      indicatorPos = Math.max(0, Math.min(this.xMax * this.tabWidth, indicatorPos))
+      this.activeIndicator.style.transform = 'translateX('+ indicatorPos +'px) translateZ(0)'
+      this.scroller.style.transform = 'translateX('+ (-x) +'px) translateZ(0)'
     },
 
     getTabViewIndex: function(view) {
@@ -973,5 +1130,23 @@
     screen.scrollTop = screen.getAttribute('data-scrolltop')
   }
 
+
+  /*
+
+    Input Functions
+
+  */
+
+  $('.settings.screen input[type=file]').on('change', function(event) {
+    console.log(event)
+  })
+
+  $('.settings.screen textarea').blur(function(event) {
+    console.log(event.currentTarget.value)
+  })
+
+  $('input').on('blur', function(event){
+    $(event.currentTarget).toggleClass('nonEmpty', event.currentTarget.value !== "")
+  })
 
 </script>

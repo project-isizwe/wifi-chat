@@ -12,7 +12,7 @@ define(function(require) {
       
       title: 'Wifi Chat',
       
-      initialize: function (options) {      
+      initialize: function (options) {
         if (options) {
           this.router = options.router
           this.options = options
@@ -20,7 +20,7 @@ define(function(require) {
             this.model = options.model
           }
         }
-        _.bindAll('render')
+        _.bindAll(this, 'render')
         this.on('render', this.afterRender, this)
       },
 
@@ -35,10 +35,11 @@ define(function(require) {
       afterRender: function() {},
       
       beforeRender: function() {},
-      
-      registerEvents: function() {},
+
+      onDestroy: function() {},
       
       closeView: function() {
+        this.onDestroy()
         Object.keys(this.subViews || {}).forEach(function(subView) {
           this.subViews[subView].closeView()
           delete this.subViews[subView]

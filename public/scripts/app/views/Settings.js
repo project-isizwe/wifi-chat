@@ -17,7 +17,9 @@ define(function(require) {
       
         events: {
           'click .js-logout': 'logout',
-          'click .js-rules': 'showRules'
+          'click .js-rules': 'showRules',
+          'blur input[name="name"]': 'storeName',
+          'blur textarea': 'storeDescription'
         },
       
         className: 'tab-views-item settings',
@@ -32,6 +34,18 @@ define(function(require) {
       
         showRules: function() {
           this.router.showRules(true)
+        },
+
+        storeName: function(event) {
+          // socket send 
+          // event.currentTarget.value
+        },
+
+        storeDescription: function(event) {
+          // socket send 
+          // event.currentTarget.value
+
+          // no auto-grow textarea in v1
         }
     })
 

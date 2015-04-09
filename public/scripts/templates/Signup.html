@@ -5,9 +5,15 @@
   </div>
   <div class="screen-title">Sign Up</div>
 </header>
-<form class="screen-textContent">
-  <input type="text" name="username" placeholder="Wifi Chat Username" autocapitalize="off" required>
-  <input type="password" name="password" placeholder="Password" required pattern=".*{6,}">
-  <input type="email" name="email" placeholder="E-Mail" required>
-  <button type="submit" class="btn btn--primary js-signup">Sign Up to WiFi Chat</button>
-</form>
+<div class="screen-textContent">
+  <form>
+    <input type="text" name="username" placeholder="Wifi Chat Username" autocapitalize="off" required>
+    <div class="hint">This username can't be changed later on.</div>
+    <input type="password" name="password" placeholder="Password" required minlength"6" pattern=".{6,}">
+    <input type="email" name="email" placeholder="E-Mail" required>
+    <button type="submit" class="btn btn--primary js-signup">Sign Up to WiFi Chat</button>
+  </form>
+  <p>
+    If you don't have an E-Mail address, you can get one here: <a href="http://projectisizwe.org/faq/free-email-providers">Free Email Providers</a>
+  </p>
+</div>

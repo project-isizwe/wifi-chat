@@ -38,6 +38,9 @@ require(['jquery', 'backbone', 'app/Router', 'fastclick'], function ($, Backbone
       Backbone.history.navigate(href.attr, { trigger: true })
     }
   })
+
+  // remove splash screen
+  $('body').empty()
   
   Backbone.history.start({ pushState: true })
 

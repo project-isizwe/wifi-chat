@@ -19,6 +19,12 @@ define(function(require) {
 
         events: {
           'submit': 'register',
+          'blur input': 'inidicateValidation',
+        },
+
+        inidicateValidation: function(event) {
+          // add a nonEmpty class when the input is non-empty
+          $(event.currentTarget).toggleClass('nonEmpty', event.currentTarget.value !== "")
         },
 
         enableRegisterButton: function() {
