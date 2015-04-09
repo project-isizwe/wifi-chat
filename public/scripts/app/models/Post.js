@@ -82,17 +82,29 @@ define(function(require) {
         return {
           displayName: null,
           username: post.entry.atom.author.uri.substr(5),
-          published: post.entry.atom.published,
+          published: Date.parse(post.entry.atom.published),
           content: post.entry.atom.content.content,
           node: post.node,
           channelJid: post.node.split('/')[2],
           id: post.entry.atom.id,
+          localId: post.entry.atom.id.split(',')[2] || post.entry.atom.id,
           canComment: true,
           isReply: ('comment' === post.entry.activity),
           inReplyTo: (post.entry['in-reply-to'] || {}).ref,
           likes: 1,
           commentCount: 99
         }
+      },
+
+      addComment: function() {
+        this.set('commentCount', this.attributes.commentCount + 1)
+      },
+
+      removeComment: function() {
+        this.set(
+          'commentCount',
+          (this.attributes.commentCount > 0) ? this.attributes.commentCount - 1 : 0
+        )
       }
       
     })

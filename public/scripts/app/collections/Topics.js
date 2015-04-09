@@ -6,16 +6,23 @@ define(function(require) {
     , Post     = require('app/models/Post')
     , log      = require('app/utils/bows.min')('Collections:Topics')
     , socket   = require('app/utils/socket')
+    , pusher   = require('app/store/Pusher')
     
   return Backbone.Collection.extend({
     
     model: Post,
     
     event: 'xmpp.buddycloud.retrieve',
-    
+
+    comparator: function(model) {
+      return -1.0 * model.get('published')
+    },
+
     initialize: function(models, options) {
       this.options = options
       this.options.node = '/user/' + options.channelJid + '/posts'
+      pusher.on('new-post', this.pushedItem, this)
+      pusher.on('delete-post', this.retractItem, this)
     },
     
     sync: function(method, collection, options) {
@@ -53,6 +60,34 @@ define(function(require) {
         self.add(data)
         self.trigger('loaded:topics')
       })
+    },
+
+    pushedItem: function(model) {
+      if (model.get('node') !== this.options.node) {
+        return
+      }
+      // If post is a new thread drop into the collection
+      var inReplyTo = model.get('inReplyTo')
+
+      if (!inReplyTo) {
+        return this.add(model)
+      }
+      // If post is a reply, update the comment count
+      var parentPost = this.findWhere({ localId: inReplyTo })
+      if (parentPost) {
+        parentPost.addComment()
+      }
+    },
+
+    retractItem: function(data) {
+      if (data.node !== this.options.node) {
+        return
+      }
+      // If post is a new thread drop into the collection
+      var model = this.findWhere({ node: data.node, localId: data.id })
+      if (model) {
+        this.remove(model)
+      }
     }
     
   })
