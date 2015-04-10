@@ -15,8 +15,10 @@ define(function(require) {
 
       requiresLogin: true,
 
-      infiniteScrollTriggerPoint: 100, // in pixels from the bottom
+      infiniteScrollTriggerPoint: 200, // in pixels from the bottom
       isInfiniteScrollLoading: false,
+
+      untouched: true,
 
       initialize: function(options) {
         _.bindAll(this, 'onScroll')
@@ -26,8 +28,8 @@ define(function(require) {
         this.collection = new Topics(null, {
           channelJid: this.options.channelJid
         })
-        this.collection.on('all', function(event) { log('TopicList', event) })
-        this.collection.once('loaded:topics', this.initialRender, this)
+        // this.collection.on('all', function(event) { log('TopicList', event) })
+        this.collection.on('loaded:topics', this.addTopics, this)
 
         this.collection.on('error', function() {
           this.renderTopics()
@@ -40,20 +42,12 @@ define(function(require) {
         this.collection.sync()
       },
 
-      initialRender: function() {
-        this.renderTopics()
-        this.collection.on('add', this.renderTopics, this)
-        this.collection.on('reset', this.renderTopics, this)
-        this.collection.on('remove', this.renderTopics, this)
-        this.scrollParent = this.$el.scrollParent()
-        this.scrollParent.on('scroll.topicList', this.onScroll)
-      },
-
       onDestroy: function() {
         this.scrollParent.off('scroll.topicList')
       },
 
-      renderTopics: function() {
+      addTopics: function() {
+        log('add topics')
         var topics = document.createDocumentFragment()
         var self = this
 
@@ -64,17 +58,32 @@ define(function(require) {
           })
           topics.appendChild(topic.render().el)
         })
-        this.$el.find('.js-topicPosts').html(topics)
+        this.$el.find('.js-topicPosts').append(topics)
+
         this.isInfiniteScrollLoading = false
+
+        if(this.untouched){
+          this.scrollParent = this.$el.scrollParent()
+          this.scrollParent.on('scroll.topicList', this.onScroll)
+          this.untouched = false
+        }
+
+
+        if (this.collection.allItemsLoaded()) {
+          this.$el.find('.js-infiniteLoader').addClass('is-hidden')
+        }
       },
 
       onScroll: function() {
-        if(!this.isInfiniteScrollLoading) {
-          var viewBottomEdge = this.scrollParent.scrollTop() + this.scrollParent.height()
-          var triggerPos = this.scrollParent.prop('scrollHeight') - this.infiniteScrollTriggerPoint
-          if(viewBottomEdge > triggerPos) {
-            this.loadMoreTopics()
-          }
+        if(this.isInfiniteScrollLoading) {
+          return
+        }
+
+        var viewBottomEdge = this.scrollParent.scrollTop() + this.scrollParent.height()
+        var triggerPos = this.scrollParent.prop('scrollHeight') - this.infiniteScrollTriggerPoint
+
+        if(viewBottomEdge > triggerPos) {
+          this.loadMoreTopics()
         }
       },
 

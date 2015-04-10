@@ -31,7 +31,7 @@ define(function(require) {
           this.collection.on('add', this.renderChannels, this)
           this.collection.on('reset', this.renderChannels, this)
           this.collection.on('remove', this.renderChannels, this)
-          this.collection.on('all', function(event) { log('ChannelList', event) })
+          // this.collection.on('all', function(event) { log('ChannelList', event) })
           this.collection.on('error', function() {
             this.renderChannels()
             this.showError('Oh no! Could not load channels')

@@ -13,7 +13,7 @@ define(function(require) {
     model: Post,
 
     lastTopicId: null,
-    topicsPerRequest: 15,
+    topicsPerRequest: 5,
     topicCount: null,
     
     event: 'xmpp.buddycloud.retrieve',
@@ -48,10 +48,6 @@ define(function(require) {
     },
     
     getThreads: function() {
-      if (0 !== this.models.length) {
-        /* No reload */
-        return
-      }
       var self = this
       var options = {
         node: this.options.node,
@@ -61,8 +57,8 @@ define(function(require) {
         }
       }
       if (this.lastTopicId) {
-        options.rsm.before = this.lastTopicId
-        options.rsm.max = this.topicsPerRequest + 1
+        options.rsm.after = this.lastTopicId
+        options.rsm.max = this.topicsPerRequest
       }
       socket.send(this.event, options, function(error, data, rsm) {
         if (error) {
@@ -72,7 +68,7 @@ define(function(require) {
         self.topicCount = rsm.count
         self.add(data)
         if (0 !== data.length) {
-          self.lastTopicId = rsm.first
+          self.lastTopicId = rsm.last
         }
         self.trigger('loaded:topics')
       })
