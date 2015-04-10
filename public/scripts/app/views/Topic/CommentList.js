@@ -19,20 +19,24 @@ define(function(require) {
       },
 
       initialize: function(options) {
+        _.bindAll('render')
         this.options = options
         this.router = options.router
         this.collection = new Comments(null, {
           node: this.options.node,
           id: this.options.id
         })
-        _.bindAll('render')
-        this.on('render', this.afterRender, this)
         this.loadComments()
       },
 
       loadComments: function() {
         this.collection.on('all', function(event) { log('TopicList', event) })
-        this.collection.once('loaded:comments', this.initialRender, this)
+        this.collection.on('loaded:comments', this.addComments, this)
+
+        /* focus on newComment has to wait for this */
+        this.collection.once('loaded:comments', function(){
+          this.trigger('loaded:comments')
+        }, this)
 
         this.collection.on('error', function() {
           this.renderComments()
@@ -46,30 +50,21 @@ define(function(require) {
         this.collection.sync()
       },
 
-      initialRender: function() {
-        this.renderComments()
-        this.collection.on('add', this.renderComments, this)
-        this.collection.on('reset', this.renderComments, this)
-        this.collection.on('remove', this.renderComments, this)
-        this.trigger('loaded:comments')
-      },
-
-      renderComments: function() {
+      addComments: function(length) {
+        var newComments = this.collection.models.slice(-length)
+        log(length, 'new comments')
         var comments = document.createDocumentFragment()
         var self = this
 
-        this.collection.forEach(function(post) {
+        for(var i=0, l=newComments.length; i<l; i++){
           var comment = new CommentItemView({
-            model: post,
+            model: newComments[i],
             router: self.router
           })
           comments.appendChild(comment.render().el)
-        })
-        this.$el.find('[data-role=posts-container]').html(comments)
-        this.afterRender()
-      },
+        }
+        this.$el.find('[data-role=posts-container]').prepend(comments)
 
-      afterRender: function() {
         if (this.collection.allItemsLoaded()) {
           this.$el.find('.js-showMore').remove()
         } else {

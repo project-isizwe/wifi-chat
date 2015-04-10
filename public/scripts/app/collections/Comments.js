@@ -11,6 +11,10 @@ define(function(require) {
   return Backbone.Collection.extend({
     
     model: Post,
+
+    lastPostId: null,
+    itemsPerRequest: 5,
+    itemCount: null,
     
     event: 'xmpp.buddycloud.items.replies',
     
@@ -23,10 +27,6 @@ define(function(require) {
     comparator: function(model) {
       return model.get('published')
     },
-
-    lastPostId: null,
-    itemsPerRequest: 15,
-    itemCount: null,
     
     sync: function(method, collection, options) {
       if (!method) {
@@ -42,6 +42,7 @@ define(function(require) {
     },
 
     allItemsLoaded: function() {
+      log('allItemsLoaded?', this.itemCount, this.models.length)
       return (this.itemCount && (this.models.length === this.itemCount))
     },
     
@@ -56,7 +57,7 @@ define(function(require) {
       }
       if (this.lastPostId) {
         options.rsm.before = this.lastPostId
-        options.rsm.max = this.itemsPerRequest + 1
+        options.rsm.max = this.itemsPerRequest
       }
       socket.send(this.event, options, function(error, data, rsm) {
         if (error) {
@@ -67,7 +68,7 @@ define(function(require) {
         if (0 !== data.length) {
           self.lastPostId = rsm.first
         }
-        self.trigger('loaded:comments')
+        self.trigger('loaded:comments', data.length)
       })
     },
 
