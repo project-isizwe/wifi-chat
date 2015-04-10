@@ -51,6 +51,7 @@ define(function(require) {
         this.collection.on('add', this.renderComments, this)
         this.collection.on('reset', this.renderComments, this)
         this.collection.on('remove', this.renderComments, this)
+        this.trigger('loaded:comments')
       },
 
       enableLoadMoreButton: function() {

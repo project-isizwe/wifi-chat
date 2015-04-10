@@ -6,6 +6,7 @@ define(function(require) {
       , Base  = require('app/views/Base')
       , Post  = require('app/models/Post')
       , log   = require('app/utils/bows.min')('Views:Topic:NewComment')
+      require('jquery.scrollparent')
 
     return Base.extend({
 
@@ -20,6 +21,17 @@ define(function(require) {
         },
 
         className: 'writeComment',
+
+        initialize: function() {
+          this.once('loaded:comments', this.onCommentsLoaded, this)
+        },
+
+        onCommentsLoaded: function() {
+          if(this.options.goToNewComment){
+            this.$el.find('.js-input').focus()
+            this.$el.scrollParent().scrollTop(99999)
+          }
+        },
 
         createPost: function(event) {
           event.preventDefault()

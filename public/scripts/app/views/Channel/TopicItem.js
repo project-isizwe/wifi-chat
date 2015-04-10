@@ -18,12 +18,23 @@ define(function(require) {
         className: 'post post--topic',
 
         events: {
-          'click .js-comment': 'addComment'
+          'click .js-comment': 'addComment',
+        },
+
+        initialize: function(options) {
+          _.bindAll(this, 'render')
+          this.model.bind('change', this.render)
+          this.on('render', this.afterRender, this)
         },
       
         afterRender: function() {
           this.$el.find('time').timeago()
-        }
+        },
+
+        addComment: function() {
+          // view topic and focus on new comment input
+          this.options.router.showTopic(this.model.get('channelJid'), this.model.get('id'), true)
+        },
       
     })
 
