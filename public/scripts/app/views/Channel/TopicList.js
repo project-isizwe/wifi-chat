@@ -91,7 +91,7 @@ define(function(require) {
       },
 
       loadMoreTopics: function() {
-        log('INFINITESCROLL: loadMoreTopics')
+        log('Loading more topics')
         this.isInfiniteScrollLoading = true
         this.collection.sync()
       }

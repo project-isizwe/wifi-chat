@@ -14,7 +14,6 @@ define(function(require) {
 	    requiresLogin: true,
 
 	    initialize: function(options) {
-        log('HERE')
         this.router = options.router
         this.options = options
         _.bindAll(this, 'render')
@@ -26,13 +25,18 @@ define(function(require) {
       loadAvatar: function() {
         this.avatar = new Avatar({ jid: this.options.channelJid })
         this.avatar.once('change:url', this.render, this)
-        log('Avatar loaded', this.avatar.attributes)
       },
 
       afterRender: function() {
-        log('afterRender', this.avatar.attributes)
         if (this.avatar.get('url')) {
-          this.$el.find('.channelIcon')
+          var image = new Image()
+          var self = this
+          image.onerror = function() {
+            self.$el.find('.channel-banner')
+              .css('background-image', 'url(../images/icons/channel_placeholder.svg)')
+          }
+          image.src = this.avatar.get('url')
+          this.$el.find('.channel-banner')
             .css('background-image', 'url("' + this.avatar.get('url') + '")')
         }
       }
