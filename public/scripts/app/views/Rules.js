@@ -36,11 +36,6 @@ define(function(require) {
       
         complete: function() {
           this.router.showHome()
-        },
-      
-        render: function() {
-          this.$el.html(this.template(this.model.attributes))
-          return this
         }
       
     })

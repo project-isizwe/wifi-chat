@@ -82,8 +82,7 @@ define(function (require) {
       showRules: function(options) {
         var rulesView = new RulesView({
           router: this,
-          hideExtras: options.hideExtras,
-          showSafety: showSafety
+          hideExtras: (options || {}).hideExtras
         })
         this.showView(rulesView, '/rules')  
       },
@@ -173,7 +172,6 @@ define(function (require) {
       isLoggedIn: function() {
         log('User is' + (this.loggedIn ? ' ' : 'n\'t ') + 'logged in')
         if (!this.loggedIn) {
-          log("is logged in, so lets go")
           this.sendToLogin()
         }
         return true

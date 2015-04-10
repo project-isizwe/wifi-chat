@@ -33,7 +33,7 @@ define(function(require) {
         },
       
         showRules: function() {
-          this.router.showRules(true)
+          this.router.showRules({ hideExtras: true })
         },
 
         storeName: function(event) {
