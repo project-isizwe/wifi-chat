@@ -5,7 +5,7 @@ define(function(require) {
     var Backbone    = require('backbone')
       , ModalView   = require('app/views/Modal')
       , ModalModel  = require('app/models/Modal')
-    require('html5-placeholder-shim')
+    require('jquery.html5-placeholder-shim')
 
     return Backbone.View.extend({
 
