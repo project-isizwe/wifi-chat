@@ -44,7 +44,7 @@ define(function(require) {
             height: 44,
             width: 44
           })
-          this.avatar.once('change:url', this.render, this)
+          this.avatar.once('loaded:avatar', this.render, this)
         },
 
         afterRender: function() {
@@ -55,13 +55,8 @@ define(function(require) {
           if (!this.avatar.get('url')) {
             return
           }
-          var image = new Image()
-          var self = this
-          image.onload = function() {
-            self.$el.find('.channelIcon')
-              .css('background-image', 'url("' + this.src + '")')
-          }
-          image.src = this.avatar.get('url')
+          this.$el.find('.channelIcon')
+            .css('background-image', 'url("' + this.avatar.get('url') + '")')
         }
     })
 

@@ -34,7 +34,13 @@ define(function(require) {
           '/avatar' +
           this.getImageParameters()
           var self = this
-        setTimeout(function() { self.set('url', url) },0)
+        var image = new Image()
+        var self = this
+        image.onload = function() {
+          self.set('url', url, { silent: true })
+          self.trigger('loaded:avatar')
+        }
+        image.src = url
       },
 
       getImageParameters: function() {

@@ -19,25 +19,18 @@ define(function(require) {
         _.bindAll(this, 'render')
         this.on('render', this.afterRender, this)
         this.loadAvatar()
-
       },
 
       loadAvatar: function() {
         this.avatar = new Avatar({ jid: this.options.channelJid })
-        this.avatar.once('change:url', this.render, this)
+        this.avatar.once('loaded:avatar', this.render, this)
       },
 
       afterRender: function() {
         if (this.avatar.get('url')) {
-          var image = new Image()
-          var self = this
-          image.onload = function() {
-            self.$el.find('.channel-banner')
-              .css('background-image', 'url("' + this.src + '")')
-          }
-          image.src = this.avatar.get('url')
-          
-        }
+          this.$el.find('.channel-banner')
+            .css('background-image', 'url("' + this.avatar.get('url') + '")')
+        }          
       }
 
     })
