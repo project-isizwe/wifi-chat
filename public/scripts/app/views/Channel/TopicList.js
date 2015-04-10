@@ -72,6 +72,10 @@ define(function(require) {
         if (this.collection.allItemsLoaded()) {
           this.$el.find('.js-infiniteLoader').addClass('is-hidden')
         }
+
+        var scrollHeight = (this.scrollParent.get(0) == document ? $('body') : this.scrollParent).prop('scrollHeight')
+        this.triggerPos = scrollHeight - this.infiniteScrollTriggerPoint
+        this.height = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).height()
       },
 
       onScroll: function() {
@@ -79,10 +83,9 @@ define(function(require) {
           return
         }
 
-        var viewBottomEdge = this.scrollParent.scrollTop() + this.scrollParent.height()
-        var triggerPos = this.scrollParent.prop('scrollHeight') - this.infiniteScrollTriggerPoint
+        var viewBottomEdge = this.scrollParent.scrollTop() + this.height
 
-        if(viewBottomEdge > triggerPos) {
+        if(viewBottomEdge > this.triggerPos) {
           this.loadMoreTopics()
         }
       },
