@@ -387,6 +387,10 @@ hr {
   background-repeat: no-repeat;
 }
 
+.channel-banner[style] {
+  background-color: none;
+}
+
 .channel-description {
   padding: 7px 14px 0;
 }
