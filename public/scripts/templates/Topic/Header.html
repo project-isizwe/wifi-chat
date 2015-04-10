@@ -10,7 +10,9 @@
     <div class="post-meta">
       <div class="post-author btn btn--text js-seeAuthor">
         <span class="admin icon"></span>
+        <% if(displayName) { %>
         <span class="displayName"><%- displayName %></span>
+        <% } %>
         <span class="username"><%- username %></span>
       </div>
       <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
