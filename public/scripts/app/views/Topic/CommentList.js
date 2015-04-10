@@ -54,14 +54,6 @@ define(function(require) {
         this.trigger('loaded:comments')
       },
 
-      enableLoadMoreButton: function() {
-        this.$el.find('.js-showMore').attr('disabled', false)
-      },
-
-      disableLoadMoreButton: function() {
-        this.$el.find('.js-showMore').attr('disabled', 'disabled')
-      },
-
       renderComments: function() {
         var comments = document.createDocumentFragment()
         var self = this
@@ -78,17 +70,20 @@ define(function(require) {
       },
 
       afterRender: function() {
-        var displayFunction = 'addClass'
         if (this.collection.allItemsLoaded()) {
-          displayFunction = 'removeClass'
+          this.$el.find('.js-showMore').remove()
+        } else {
+          this.isFetchingComments = false
+          this.$el.find('.js-showMore').removeClass('is-loading')
         }
-        var button = this.$el.find('.js-showMore')
-        this.enableLoadMoreButton()
-        button[displayFunction]('is-hidden')
       },
 
       loadMoreComments: function() {
-        this.disableLoadMoreButton()
+        if(this.isFetchingComments)
+          return
+
+        this.isFetchingComments = true
+        this.$el.find('.js-showMoreHolder').addClass('is-loading')
         this.collection.sync()
       }
     })
