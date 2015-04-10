@@ -21,7 +21,8 @@ define(function(require) {
         'click .js-logout': 'logout',
         'click .js-rules': 'showRules',
         'blur input[name="title"]': 'saveProfile',
-        'blur textarea[name="description"]': 'saveProfile'
+        'blur textarea[name="description"]': 'saveProfile',
+        'change input[name="avatar"]': 'uploadAvatar'
       },
     
       className: 'tab-views-item settings',
@@ -34,6 +35,14 @@ define(function(require) {
         this.options = options
         this.router = options.router
         this.model = user
+
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+          this.model.set('canUploadFiles', true)
+        } else {
+          log('The File APIs are not fully supported in this browser.')
+          this.model.set('canUploadFiles', false)
+        }
+
         this.model.once('loaded:meta', this.render, this)
         this.loadAvatar()
       },
@@ -67,6 +76,11 @@ define(function(require) {
           this.$el.find('.js-avatar')
             .css('background-image', 'url("' + this.avatar.get('url') + '")')
         }          
+      },
+
+      uploadAvatar: function(event) {
+        this.avatar.uploadAvatar(event)
+        this.avatar.once('avatar:updated', this.afterRender, this)
       }
 
     })

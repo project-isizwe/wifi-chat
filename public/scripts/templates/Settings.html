@@ -1,7 +1,9 @@
 <div class="section edit-profile">
   <div class="avatar avatar--big avatar--uploadMode js-avatar">
+    <% if (canUploadFiles) { %>
     <div class="btn btn--primary">Change</div>
-    <input type="file" name="avatar" accept="image/*">
+    <input type="file" name="avatar" accept="image/*" />
+    <% } %>
   </div>
   <input type="text" name="title" placeholder="Name" maxlength="128" value="<%- title %>" />
   <textarea rows="2" name="description" placeholder="Tell the world about yourself..." maxlength="200"><%- description %></textarea>

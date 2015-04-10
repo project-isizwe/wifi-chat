@@ -157,7 +157,11 @@ define(function (require) {
         this.loggedIn = jid
         var jidString = jid.local + '@' + jid.domain
         var node = [ '/user/', jidString, '/posts' ]
-        user.set({ node: node.join(''), channelJid: jidString })
+        user.set({
+          node: node.join(''),
+          channelJid: jidString,
+          fullJid: jidString + '/' + jid.resource
+        })
         return this
       },
       
@@ -166,11 +170,10 @@ define(function (require) {
       }, 
 
       sendToLogin: function() {
-        if(localStorage.getItem('wasLoggedInOnce')) {
-          this.showLogin()
-        } else {
-          this.showWelcome()
+        if (localStorage.getItem('wasLoggedInOnce')) {
+          return this.showLogin()
         }
+        this.showWelcome()
       },     
       
       isLoggedIn: function() {
