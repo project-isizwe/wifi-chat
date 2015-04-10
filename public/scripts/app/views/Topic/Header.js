@@ -16,6 +16,10 @@ define(function(require) {
 
         canRender: false,
 
+        events: {
+          'click .js-seeAuthor': 'seeAuthor',
+        },
+
         initialize: function(options) {
         	this.options = options
         	this.router = options.router
@@ -28,7 +32,7 @@ define(function(require) {
         },
 
         renderPost: function() {
-        	this.template = this.postTemplate
+          this.template = this.postTemplate
         	this.render()
         },
 
@@ -36,10 +40,14 @@ define(function(require) {
         	this.beforeRender()
 	        var data = this.model ? this.model.attributes : null
 	        this.$el.html(this.template(data))
-            this.$el.find('time').timeago()
+          this.$el.find('time').timeago()
 	        this.trigger('render')
 	        return this
-        }
+        },
+
+        seeAuthor: function() {
+          this.options.router.showProfile(this.model.get('username'))
+        },
 
     })
 

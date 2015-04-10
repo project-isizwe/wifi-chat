@@ -17,6 +17,10 @@ define(function(require) {
 
         className: 'post post--comment',
 
+        events: {
+          'click .js-seeAuthor': 'seeAuthor',
+        },
+
         initialize: function(options){
           _.bindAll(this, 'render')
 
@@ -26,7 +30,11 @@ define(function(require) {
       
         afterRender: function() {
           this.$el.find('time').timeago()
-        }
+        },
+
+        seeAuthor: function() {
+          this.options.router.showProfile(this.model.get('username'))
+        },
       
     })
 

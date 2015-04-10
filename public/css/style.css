@@ -416,69 +416,98 @@ hr {
   margin: 0 auto;
 }
 
-.post-meta {
+
+.post-header {
   display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.post-avatar {
+  cursor: pointer;
+}
+
+.post-meta {
+  margin-left: 9px;
+}
+
+.post-author {
+  display: flex;
+  cursor: pointer;
   align-items: flex-end;
+}
+
+.post-author .displayName,
+.post-author .username {
+  font-size: 14px;
+}
+
+.post-author .displayName + .username {
   font-size: 12px;
   color: #afb0bb;
-}
-
-.post-meta .btn,
-.post-time {
-  margin: -7px 0 -6px;
-  padding: 7px 7px 6px;
-}
-
-.post-meta .btn:first-child {
-  padding-left: 14px;
-  margin-left: -14px;
-}
-
-.post-meta .displayName,
-.post-meta .username {
-  display: inline;
-}
-
-.post-meta .displayName + .username {
-  font-size: inherit;
 }
 
 .btngroup--topic {
   margin-top: 7px;
 }
 
-.post-meta.post-meta--interaction {
-  margin: -2px 0 14px;
-  font-size: 14px;
+.post-time {
+  margin-top: 2px;
   display: block;
-  line-height: 1.45;
+  font-size: 12px;
+  color: #afb0bb;
 }
 
-.post-meta.post-meta--interaction .btn {
-  overflow: visible;
+.post-footer {
+  font-size: 12px;
+  color: #afb0bb;
+}
+
+.post--comment {
+  position: relative;
+  padding-left: 56px;
+}
+
+.post--comment .avatar {
+  position: absolute;
+  left: 14px;
+}
+
+.post--comment .displayName,
+.post--comment .username {
+  display: inline;
+  word-break: break-all;
   white-space: normal;
+  overflow: visible;
   padding-right: 0;
 }
 
-.post-meta.post-meta--interaction .btn:not(:first-child) {
-  padding-left: 0;
+.post--comment .displayName + .username {
+  display: none;
 }
 
-.post-time {
-  margin-left: auto;
-  padding-right: 14px;
-  margin-right: -14px;
-  flex-shrink: 0;
+.post--comment .post-author {
+  display: inline;
+}
+
+.post--comment .post-time {
+  display: inline;
 }
 
 .post-content {
   margin: 5px -14px 7px;
   padding: 0 14px;
   line-height: 1.4;
-  word-break: break-all;
+  word-break: break-word;
   position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.post--comment .post-content {
+  display: inline;
+  margin: 0;
+  padding: 0;
 }
 
 .post-media {
@@ -586,7 +615,7 @@ hr {
 }
 
 .displayName {
-  padding-right: 8px;
+  padding-right: 6px;
 }
 
 /* in case there is a displayName */
@@ -673,6 +702,11 @@ hr {
   background-image: url(../images/icons/channel_placeholder.svg);
 }
 
+.avatar--small {
+  width: 33px;
+  height: 33px;
+}
+
 .channelIcon--big,
 .avatar--big {
   width: 128px;
@@ -701,6 +735,12 @@ hr {
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+.avatar .admin.icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .tabs {

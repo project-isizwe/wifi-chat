@@ -18,6 +18,7 @@ define(function(require) {
         className: 'post post--topic',
 
         events: {
+          'click .js-seeAuthor': 'seeAuthor',
           'click .js-comment': 'addComment',
         },
 
@@ -34,6 +35,10 @@ define(function(require) {
         addComment: function() {
           // view topic and focus on new comment input
           this.options.router.showTopic(this.model.get('channelJid'), this.model.get('id'), true)
+        },
+
+        seeAuthor: function() {
+          this.options.router.showProfile(this.model.get('username'))
         },
       
     })

@@ -7,15 +7,19 @@
 </header>
 <article>
   <section class="post post--topic">
-    <div class="post-meta">
-      <div class="post-author btn btn--text js-seeAuthor">
+    <div class="post-header">
+      <div class="avatar js-seeAuthor">
         <span class="admin icon"></span>
-        <% if(displayName) { %>
-        <span class="displayName"><%- displayName %></span>
-        <% } %>
-        <span class="username"><%- username %></span>
       </div>
-      <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
+      <div class="post-meta">
+        <div class="post-author js-seeAuthor">
+          <% if(displayName) { %>
+          <span class="displayName"><%- displayName %></span>
+          <% } %>
+          <span class="username"><%- username %></span>
+        </div>
+        <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
+      </div>
     </div>
     <div class="post-content"><%= content %></div>
   </section>
