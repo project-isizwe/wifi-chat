@@ -19,7 +19,7 @@ define(function(require) {
 
         events: {
         	'submit': 'createPost',
-          'keyup .js-input': 'detectShiftEnter',
+          'keypress .js-input': 'detectShiftEnter',
         },
 
         className: 'newComment',
@@ -53,7 +53,9 @@ define(function(require) {
 
         detectShiftEnter: function(event) {
           if(event.keyCode == 13 && event.shiftKey){
+            event.preventDefault()
             this.createPost(event)
+            return false
           }
         },
 
