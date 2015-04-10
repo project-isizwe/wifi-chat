@@ -16,6 +16,7 @@ define(function (require) {
     , ChannelView       = require('app/views/Channel/Index')
     , ProfileView       = require('app/views/Profile')
     , TopicView         = require('app/views/Topic/Index')
+    , user              = require('app/store/User')
     , log               = require('app/utils/bows.min')('Router')
         
     return Backbone.Router.extend({
@@ -154,6 +155,9 @@ define(function (require) {
       
       setLoggedIn: function(jid) {
         this.loggedIn = jid
+        var jidString = jid.local + '@' + jid.domain
+        var node = [ '/user/', jidString, '/posts' ]
+        user.set({ node: node.join(''), channelJid: jidString })
         return this
       },
       

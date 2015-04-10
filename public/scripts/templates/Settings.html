@@ -1,10 +1,10 @@
 <div class="section edit-profile">
-  <div class="avatar avatar--big avatar--uploadMode">
+  <div class="avatar avatar--big avatar--uploadMode js-avatar">
     <div class="btn btn--primary">Change</div>
     <input type="file" name="avatar" accept="image/*">
   </div>
-  <input type="text" name="name" placeholder="Name" maxlength="128">
-  <textarea rows="2" name="description" placeholder="Tell the world about yourself..." maxlength="200"></textarea>
+  <input type="text" name="name" placeholder="Name" maxlength="128" value="<%- title %>" />
+  <textarea rows="2" name="description" placeholder="Tell the world about yourself..." maxlength="200"><%- description %></textarea>
 </div>
 <div class="section optionsList">
   <div class="optionsList-item"><a href="http://projectisizwe.org/help/wifi-chat">Help</a></div>

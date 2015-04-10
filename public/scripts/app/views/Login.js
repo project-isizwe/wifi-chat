@@ -2,11 +2,11 @@ define(function(require) {
 
     'use strict';
 
-    var $           = require('jquery')
-      , _           = require('underscore')
-      , Base        = require('app/views/Base')
-      , socket      = require('app/utils/socket')
-      , log         = require('app/utils/bows.min')('Views:Login')
+    var $             = require('jquery')
+      , _             = require('underscore')
+      , Base          = require('app/views/Base')
+      , socket        = require('app/utils/socket')
+      , log           = require('app/utils/bows.min')('Views:Login')
       , subscriptions = require('app/store/Subscriptions')
 
     return Base.extend({
@@ -102,6 +102,7 @@ define(function(require) {
             socket.send('xmpp.buddycloud.register', {}, function() {})
             /* Tell the server that we are online */
             socket.send('xmpp.buddycloud.presence', {})
+
             localStorage.setItem('channel-server', server)
             
             self.router.setLoggedIn(self.connectedJid)

@@ -17,10 +17,8 @@ define(function(require) {
 
         className: 'post post--topic',
 
-        initialize: function(options){
-          _.bindAll(this, 'render')
-          this.model.bind('change', this.render)
-          this.on('render', this.afterRender, this)
+        events: {
+          'click .js-comment': 'addComment'
         },
       
         afterRender: function() {

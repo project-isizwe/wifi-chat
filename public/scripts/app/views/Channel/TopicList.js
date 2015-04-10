@@ -29,7 +29,6 @@ define(function(require) {
           channelJid: this.options.channelJid,
           comparator: false,
         })
-        // this.collection.on('all', function(event) { log('TopicList', event) })
         this.collection.on('loaded:topics', this.addTopics, this)
 
         this.collection.on('error', function() {
