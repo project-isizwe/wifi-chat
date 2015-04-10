@@ -20,8 +20,8 @@ define(function(require) {
       events: {
         'click .js-logout': 'logout',
         'click .js-rules': 'showRules',
-        'blur input[name="name"]': 'saveProfile',
-        'blur textarea': 'saveProfile'
+        'blur input[name="title"]': 'saveProfile',
+        'blur textarea[name="description"]': 'saveProfile'
       },
     
       className: 'tab-views-item settings',
@@ -47,8 +47,14 @@ define(function(require) {
       },
 
       saveProfile: function(event) {
-        // socket send 
-        // event.currentTarget.value
+        var title = this.$el.find('input[name="title"]').val()
+        var description = this.$el.find('textarea[name="description"]').val()
+        if ((this.model.get('title') === title) &&
+          (this.model.get('description') === description)) {
+          return
+        }
+        this.model.set({ title: title, description: description })
+        this.model.save()
       },
 
       loadAvatar: function() {
