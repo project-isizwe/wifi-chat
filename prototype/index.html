@@ -533,14 +533,6 @@
       </div>
       <div class="post-content">We have a new video for you guys. Let us know what you think of it:
     http://connectuptv.pockittv.mobi/v/850</div>
-      <div class="post-meta post-meta--bottom">
-        <div class="btn btn--text js-readComments">51 comments</div>
-      </div>
-      <div class="btngroup btngroup--topic">
-        <div class="btn btn--secondary btn--small js-comment">
-          <span class="plus icon"></span> Add a comment
-        </div>
-      </div>
     </section>
     <div class="section section--showMore js-showMore">
       <div class="btn btn--secondary btn--small btn--fullWidth ">
@@ -597,14 +589,6 @@
       </div>
       <div class="post-content">We have a new video for you guys. Let us know what you think of it:
     http://connectuptv.pockittv.mobi/v/850</div>
-      <div class="post-meta post-meta--bottom">
-        <div class="btn btn--text js-readComments">51 comments</div>
-      </div>
-      <div class="btngroup btngroup--topic">
-        <div class="btn btn--secondary btn--small js-comment">
-          <span class="plus icon"></span> Add a comment
-        </div>
-      </div>
     </section>
     <div class="section section--showMore js-showMore">
       <div class="btn btn--secondary btn--small btn--fullWidth ">
@@ -1087,13 +1071,9 @@
   var embedReceipts = [
     {
       regex: /.*connectuptv.pockittv.mobi\/v\/(\w*)/g,
-      substitution: '<div class="post-media"><video width="320" height="240" poster="http://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
+      substitution: '<div class="post-media post-media--video"><video width="320" height="240" poster="http://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
     }
   ]
-
-  /*
-    - image (jpg,png,svg)
-  */
 
   function embed(text){
     for(var i=0; i<embedReceipts.length; i++){
@@ -1104,8 +1084,8 @@
 
   var postContents = document.querySelectorAll('.post-content')
 
-  for(var i=0; i<postContents.length; i++)
-    postContents[i].innerHTML = embed(postContents[i].innerHTML)
+  // for(var i=0; i<postContents.length; i++)
+  //   postContents[i].innerHTML = embed(postContents[i].innerHTML)
 
 
   /*

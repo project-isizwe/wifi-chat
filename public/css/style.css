@@ -66,18 +66,33 @@ hr {
   border-width: 5px;
   border-style: solid;
   border-color: 
-    rgb(130, 130, 130) 
-    rgb(230, 230, 230) 
-    rgb(230, 230, 230) 
-    rgb(230, 230, 230);
+    rgba(0,0,0,.5) 
+    rgba(0,0,0,.1) 
+    rgba(0,0,0,.1) 
+    rgba(0,0,0,.1);
   border-radius: 100%;
   animation: clockwise .75s linear infinite;
+}
+
+.spinner--light {
+  border-color: 
+    rgba(255,255,255,.8) 
+    rgba(255,255,255,.2) 
+    rgba(255,255,255,.2) 
+    rgba(255,255,255,.2);
 }
 
 .spinner--small {
   width: 30px;
   height: 30px;
   border-width: 3px;
+}
+
+.spinner--mini {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+  vertical-align: bottom;
 }
 
 .spinner.silent {
@@ -90,6 +105,11 @@ hr {
 
 @keyframes clockwise {
   to { transform: rotate(1turn); }
+}
+
+.btn .spinner {
+  display: inline-block;
+  margin-right: 4px;
 }
 
 .modal,
@@ -490,14 +510,14 @@ hr {
 .post-more {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 14px;
+  right: 14px;
   padding: 42px 0 10px;
   background: linear-gradient(rgba(255,255,255,0), white 28px);
   cursor: pointer;
 }
 
-.post--comment {
+.post--comment + .post--comment {
   padding-top: 0;
 }
 
@@ -629,8 +649,12 @@ hr {
 .section.section--showMore {
   border-top: none;
   margin-bottom: 0;
-  padding: 14px;
+  padding: 14px 14px 7px;
   border-bottom: 0;
+}
+
+.section.section--showMore:not(.is-loading) .spinner {
+  display: none;
 }
 
 .avatar,
