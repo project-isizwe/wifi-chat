@@ -1054,6 +1054,7 @@ input + .btn {
     position: relative;
   }
   .modal,
+  .modal-background,
   .screen-header {
     position: fixed;
   }
