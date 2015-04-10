@@ -18,10 +18,6 @@ define(function(require) {
     
     event: 'xmpp.buddycloud.retrieve',
 
-    comparator: function(model) {
-      return -1.0 * model.get('published')
-    },
-
     initialize: function(models, options) {
       this.options = options
       this.options.node = '/user/' + options.channelJid + '/posts'
@@ -64,13 +60,13 @@ define(function(require) {
         if (error) {
           return self.trigger('error', error)
         }
-        log('Received topics', data.length)
+        log('Received topics')
         self.topicCount = rsm.count
         self.add(data)
         if (0 !== data.length) {
           self.lastTopicId = rsm.last
         }
-        self.trigger('loaded:topics')
+        self.trigger('loaded:topics', data.length)
       })
     },
 

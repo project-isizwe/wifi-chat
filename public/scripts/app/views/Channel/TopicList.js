@@ -26,7 +26,8 @@ define(function(require) {
         this.options = options
         this.router = options.router
         this.collection = new Topics(null, {
-          channelJid: this.options.channelJid
+          channelJid: this.options.channelJid,
+          comparator: false,
         })
         // this.collection.on('all', function(event) { log('TopicList', event) })
         this.collection.on('loaded:topics', this.addTopics, this)
@@ -46,28 +47,27 @@ define(function(require) {
         this.scrollParent.off('scroll.topicList')
       },
 
-      addTopics: function() {
-        log('add topics')
+      addTopics: function(length) {
+        var newTopics = this.collection.models.slice(-length)
         var topics = document.createDocumentFragment()
         var self = this
 
-        this.collection.forEach(function(post) {
+        for(var i=0, l=newTopics.length; i<l; i++){
           var topic = new TopicItemView({
-            model: post,
+            model: newTopics[i],
             router: self.router
           })
           topics.appendChild(topic.render().el)
-        })
+        }
         this.$el.find('.js-topicPosts').append(topics)
 
         this.isInfiniteScrollLoading = false
 
-        if(this.untouched){
+        if (this.untouched) {
           this.scrollParent = this.$el.scrollParent()
           this.scrollParent.on('scroll.topicList', this.onScroll)
           this.untouched = false
         }
-
 
         if (this.collection.allItemsLoaded()) {
           this.$el.find('.js-infiniteLoader').addClass('is-hidden')
