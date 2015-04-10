@@ -277,14 +277,16 @@ hr {
 }
 
 .bottom-controls {
-  display: flex;
+  overflow: hidden;
 }
 .bottom-controls .btn {
   padding: 14px 0 14px 28px;
+  float: left;
 }
 .bottom-controls .btn:last-child {
   padding: 14px 28px 14px 0;
   margin-left: auto;
+  float: right;
 }
 
 .signup form {
@@ -357,7 +359,9 @@ hr {
 
 .channel-banner {
   height: 166px;
-  background-image: linear-gradient(to bottom right, hsl(240,11%,100%), hsl(240,12%,97%));
+  background-color: hsl(240,12%,93%);
+  background-image:
+    url(../images/icons/channel_placeholder.svg);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -1052,6 +1056,7 @@ input + .btn {
     position: relative;
   }
   .modal,
+  .modal-background,
   .screen-header {
     position: fixed;
   }

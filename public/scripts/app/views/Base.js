@@ -5,6 +5,7 @@ define(function(require) {
     var Backbone    = require('backbone')
       , ModalView   = require('app/views/Modal')
       , ModalModel  = require('app/models/Modal')
+    require('jquery.html5-placeholder-shim')
 
     return Backbone.View.extend({
 
@@ -21,7 +22,6 @@ define(function(require) {
           }
         }
         _.bindAll(this, 'render')
-        this.on('render', this.afterRender, this)
       },
 
       render: function() {
@@ -29,6 +29,8 @@ define(function(require) {
         var data = this.model ? this.model.attributes : null
         this.$el.html(this.template(data))
         this.trigger('render')
+        this.afterRender()
+        $.placeholder.shim()
         return this
       },
 

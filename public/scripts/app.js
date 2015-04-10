@@ -17,6 +17,9 @@ require.config({
     },
     'jquery.scrollparent': {
       deps: [ 'jquery' ]
+    },
+    'jquery.html5-placeholder-shim': {
+      deps: [ 'jquery' ]
     }
   }
 })
