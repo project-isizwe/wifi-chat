@@ -41,10 +41,6 @@ app.use(helmet())
 app.use(bodyParser.json())
 app.set('strict routing', false)
 
-if ('development' === environment) {
-  require('./src/livereload')
-}
-
 var router = express.Router()
 router.get('/avatar/:channel', getAvatar)
 

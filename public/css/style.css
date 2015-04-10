@@ -1044,12 +1044,9 @@ input + .btn {
     min-width: 320px;
     box-shadow: none;
     float: none;
-    overflow: auto;
+    overflow: visible;
     position: static;
     min-height: 100vh;
-  }
-  .login.screen {
-    min-height: 0;
   }
   .screen.screen--hasTabViews {
     position: relative;
@@ -1057,5 +1054,8 @@ input + .btn {
   .modal,
   .screen-header {
     position: fixed;
+  }
+  .screen-textContent--centered {
+    min-height: 100vh;
   }
 }
