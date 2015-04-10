@@ -114,6 +114,10 @@ hr {
   cursor: pointer;
 }
 
+.modal-background.is-unclickable {
+  cursor: default;
+}
+
 .modal-body {
   max-width: 320px;
   max-height: 100%;
