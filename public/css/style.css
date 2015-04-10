@@ -94,7 +94,7 @@ hr {
 
 .modal,
 .modal-background {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
@@ -505,19 +505,19 @@ hr {
   display: none;
 }
 
-.writeComment {
+.newComment {
   padding: 7px 14px 3px;
   display: flex;
   align-items: flex-start;
   border-top: 1px solid hsl(240,12%,95%);
 }
-.writeComment [name=comment] {
+.newComment [name=comment] {
   flex: 1;
   margin-right: 7px;
-  max-height: 240px;
+  line-height: 21px;
 }
 
-.writeComment .btn {
+.newComment .btn {
   width: auto;
   margin-top: 3px;
 }
@@ -1052,13 +1052,11 @@ input + .btn {
     position: static;
     min-height: 100vh;
   }
-  .screen.screen--hasTabViews {
-    position: relative;
-  }
-  .modal,
-  .modal-background,
   .screen-header {
     position: fixed;
+  }
+  .screen.screen--hasTabViews {
+    position: relative;
   }
   .screen-textContent--centered {
     min-height: 100vh;
