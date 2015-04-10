@@ -50,13 +50,11 @@ define(function(require) {
           }
           var image = new Image()
           var self = this
-          image.onerror = function() {
+          image.onload = function() {
             self.$el.find('.channelIcon')
-              .css('background-image', 'url(../images/icons/channel_placeholder.svg)')
+              .css('background-image', 'url("' + this.src + '")')
           }
           image.src = this.avatar.get('url')
-          this.$el.find('.channelIcon')
-            .css('background-image', 'url("' + this.avatar.get('url') + '")')
         }
     })
 
