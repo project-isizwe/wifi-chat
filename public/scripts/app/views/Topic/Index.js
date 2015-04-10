@@ -29,6 +29,10 @@ define(function(require) {
         this.commentList = new CommentsList(this.options)
         this.newComment = new NewCommentView(this.options)
         this.newComment.on('publish:error', this.showPublishError, this)
+
+        this.commentList.once('loaded:comments', function() {
+          this.newComment.trigger('loaded:comments')
+        }, this)
       },
 
       showPublishError: function(error) {

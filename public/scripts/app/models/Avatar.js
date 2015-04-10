@@ -114,7 +114,7 @@ define(function(require) {
             processData: false,
             success: function(data, status, jqXHR) {
                 log('success', null, data, status, jqXHR)
-                self.trigger('avatar:updated')
+                self.trigger('updated:avatar')
             },
             error: function(jqXHR, status, error) {
               log('error', {

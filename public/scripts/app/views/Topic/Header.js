@@ -2,10 +2,11 @@ define(function(require) {
 
     'use strict';
 
-    var _    = require('underscore')
-      , Base = require('app/views/Base')
-      , Post = require('app/models/Post')
-      , log  = require('app/utils/bows.min')('Views:Channel:Header')
+    var _       = require('underscore')
+      , Avatar  = require('app/models/Avatar')
+      , Base    = require('app/views/Base')
+      , Post    = require('app/models/Post')
+      , log     = require('app/utils/bows.min')('Views:Channel:Header')
 
     return Base.extend({
 
@@ -15,6 +16,10 @@ define(function(require) {
         requiresLogin: true,
 
         canRender: false,
+
+        events: {
+          'click .js-seeAuthor': 'seeAuthor',
+        },
 
         initialize: function(options) {
         	this.options = options
@@ -28,18 +33,33 @@ define(function(require) {
         },
 
         renderPost: function() {
-        	this.template = this.postTemplate
+          this.template = this.postTemplate
         	this.render()
+          this.loadAvatar()
         },
 
         render: function() {
         	this.beforeRender()
 	        var data = this.model ? this.model.attributes : null
 	        this.$el.html(this.template(data))
-            this.$el.find('time').timeago()
+          this.$el.find('time').timeago()
 	        this.trigger('render')
 	        return this
-        }
+        },
+
+        seeAuthor: function() {
+          this.options.router.showProfile(this.model.get('username'))
+        },
+        
+        loadAvatar: function() {
+          this.avatar = new Avatar({ jid: this.model.get('username') })
+          this.avatar.once('loaded:avatar', this.showAvatar, this)
+        },
+
+        showAvatar: function() {
+          this.$el.find('.avatar')
+            .css('background-image', 'url("' + this.avatar.get('url') + '")')      
+        },
 
     })
 

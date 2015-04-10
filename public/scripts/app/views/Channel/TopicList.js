@@ -70,6 +70,7 @@ define(function(require) {
 
         if (this.collection.allItemsLoaded()) {
           this.$el.find('.js-infiniteLoader').addClass('is-hidden')
+          this.scrollParent.off('scroll.topicList')
         }
 
         var scrollHeight = (this.scrollParent.get(0) == document ? $('body') : this.scrollParent).prop('scrollHeight')

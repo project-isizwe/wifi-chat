@@ -2,10 +2,12 @@ define(function(require) {
 
     'use strict';
 
-    var _     = require('underscore')
-      , Base  = require('app/views/Base')
-      , Post  = require('app/models/Post')
-      , log   = require('app/utils/bows.min')('Views:Topic:NewComment')
+    var _        = require('underscore')
+      , autosize = require('autosize')
+      , Base     = require('app/views/Base')
+      , Post     = require('app/models/Post')
+      , log      = require('app/utils/bows.min')('Views:Topic:NewComment')
+      require('jquery.scrollparent')
 
     return Base.extend({
 
@@ -16,17 +18,53 @@ define(function(require) {
         requiresLogin: true,
 
         events: {
-        	'submit': 'createPost'
+        	'submit': 'createPost',
+          'keypress .js-input': 'detectShiftEnter',
         },
 
-        className: 'writeComment',
+        className: 'newComment',
+
+        initialize: function() {
+          _.bindAll(this, 'scrollToBottom')
+          this.once('loaded:comments', this.onCommentsLoaded, this)
+        },
+
+        afterRender: function() {
+          this.input = this.$el.find('.js-input')
+        },
+
+        onDestroy: function() {
+          this.triggerAutosizeEvent('autosize.destroy')
+        },
+
+        onCommentsLoaded: function() {
+          autosize(this.input)
+          this.input.get(0).addEventListener('autosize.resized', this.scrollToBottom)
+
+          if(this.options.goToNewComment){
+            this.input.focus()
+            this.scrollToBottom()
+          }
+        },
+
+        scrollToBottom: function() {
+          this.$el.scrollParent().scrollTop(99999)
+        },
+
+        detectShiftEnter: function(event) {
+          if(event.keyCode == 13 && event.shiftKey){
+            event.preventDefault()
+            this.createPost(event)
+            return false
+          }
+        },
 
         createPost: function(event) {
           event.preventDefault()
           event.stopPropagation()
-          var content = this.$el.find('textarea').val()
+          var content = this.input.val()
           if (!content) return
-          this.$el.find('button').attr('disabled', 'disabled')
+          this.$el.find('.js-comment').attr('disabled', 'disabled')
           var post = new Post({
           	content: content,
           	node: this.options.node,
@@ -38,11 +76,18 @@ define(function(require) {
         },
 
         enableButton: function() {
-        	this.$el.find('button').attr('disabled', false)
+        	this.$el.find('.js-comment').attr('disabled', false)
         },
 
         clearContent: function() {
-        	this.$el.find('textarea').val('')
+        	this.input.val('')
+          this.triggerAutosizeEvent('autosize.update')
+        },
+
+        triggerAutosizeEvent: function(event) {
+          var evt = document.createEvent('Event');
+          evt.initEvent(event, true, false);
+          this.input.get(0).dispatchEvent(evt);
         },
 
         success: function() {

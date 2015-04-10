@@ -80,14 +80,14 @@ module.exports = function(grunt) {
         },
         autoprefixer: {
           prefixit: {
-            src: 'public/app.min.css',
+            src: 'public/css/app.min.css',
             browsers: ['> 50%']
           }
         },
       watch: {
         scripts: {
           files: ['public/scripts/**/*.js', 'public/css/**/*.css', 'public/images/**/*' ],
-          tasks: ['build'],
+          tasks: ['build-dev'],
           options: {
             spawn: false,
           },

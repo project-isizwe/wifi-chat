@@ -113,11 +113,11 @@ define(function (require) {
         this.showView(channelView, '/channel/' + jid)
       },
 
-      showTopic: function(jid, id) {
+      showTopic: function(jid, id, goToNewComment) {
         if (!id) {
           return this.showChannel(jid)
         }
-        var topicView = new TopicView({ router: this, channelJid: jid, id: id })
+        var topicView = new TopicView({ router: this, channelJid: jid, id: id, goToNewComment: goToNewComment })
         this.showView(topicView, '/channel/' + jid + '/' + id)
       },
 

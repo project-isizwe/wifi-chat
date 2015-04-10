@@ -44,9 +44,9 @@ define(function(require) {
         }
 
         this.model.once('loaded:meta', this.render, this)
-        this.loadAvatar()
+        this.model.once('loaded:meta', this.loadAvatar, this)
       },
-    
+
       logout: function(event) {
         this.router.performLogout()
       },
@@ -68,19 +68,18 @@ define(function(require) {
 
       loadAvatar: function() {
         this.avatar = new Avatar({ jid: this.model.get('channelJid') })
-        this.avatar.once('loaded:avatar', this.render, this)
-      },
-
-      afterRender: function() {
-        if (this.avatar.get('url')) {
-          this.$el.find('.js-avatar')
-            .css('background-image', 'url("' + this.avatar.get('url') + '")')
-        }          
+        this.avatar.once('loaded:avatar', this.showAvatar, this)
       },
 
       uploadAvatar: function(event) {
         this.avatar.uploadAvatar(event)
-        this.avatar.once('avatar:updated', this.afterRender, this)
+        this.avatar.once('updated:avatar', this.showAvatar, this)
+      },
+
+      showAvatar: function() {
+        log(this.$el.find('.avatar'))
+        this.$el.find('.avatar')
+          .css('background-image', 'url("' + this.avatar.get('url') + '")')      
       }
 
     })
