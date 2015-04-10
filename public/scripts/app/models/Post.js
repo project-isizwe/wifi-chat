@@ -20,6 +20,24 @@ define(function(require) {
         published: null,
         commentCount: 0
       },
+
+      embedReceipts: [
+        {
+          name: 'WiFi TV',
+          regex: /.*connectuptv.pockittv.mobi\/v\/(\w*)/g,
+          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="http://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
+        },
+        // {
+        //   name: 'Images',
+        //   regex: /[a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|svg)/g,
+        //   substitution: '<div class="post-media post-media--image"><img src="$&"></img></div>'
+        // },
+        // {
+        //   name: 'Youtube',
+        //   regex: /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/g,
+        //   substitution: '<div class="post-media post-media--video  post-media--youtube"><div class="iframe-wrapper"><iframe id="ytplayer" type="text/html" width="320" height="240" src="http://www.youtube.com/embed/$1" frameborder="0"/></div></div>'
+        // }
+      ],
       
       initialize: function(post) {
         if (!post.entry) {
@@ -121,10 +139,18 @@ define(function(require) {
       },
 
       parseContent: function(content) {
-        return _.escape(content)
+        content = _.escape(content)
           .replace(/\{/g, '&#123;')
           .replace(/&#x2F;/g, '/')
           .replace(/\}/g, '&#125;')
+
+        for(var i=0; i<this.embedReceipts.length; i++){
+          content = content.replace(this.embedReceipts[i].regex, this.embedReceipts[i].substitution)
+        }
+
+        log('parsed content', content)
+
+        return content
       },
 
       addComment: function() {

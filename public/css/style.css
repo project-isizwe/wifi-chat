@@ -447,7 +447,8 @@ hr {
 }
 
 .post-content {
-  margin: 5px 0 7px;
+  margin: 5px -14px 7px;
+  padding: 0 14px;
   line-height: 1.4;
   word-break: break-all;
   position: relative;
@@ -455,14 +456,30 @@ hr {
   text-overflow: ellipsis;
 }
 
-.post-content video {
+.post-media {
+  margin: 2px -14px 4px;
+}
+
+.post-media--video video {
   width: 100%;
   height: auto;
   vertical-align: bottom;
 }
 
-.post-media {
-  margin: 2px -14px 4px;
+.iframe-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .post-more {
