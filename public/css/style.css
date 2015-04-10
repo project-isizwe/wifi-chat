@@ -359,7 +359,9 @@ hr {
 
 .channel-banner {
   height: 166px;
-  background-image: linear-gradient(to bottom right, hsl(240,11%,100%), hsl(240,12%,97%));
+  background-color: hsl(240,12%,93%);
+  background-image:
+    url(../images/icons/channel_placeholder.svg);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
