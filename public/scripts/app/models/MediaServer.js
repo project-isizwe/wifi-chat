@@ -39,6 +39,7 @@ define(function(require) {
             self.trigger('discovery:error')
             return
           }
+          log('Discovered media server for ' + self.get('domain'), data)
           self.set({
             component: data.component,
             url: data.endpoint

@@ -28,10 +28,26 @@ define(function(require) {
       },
 
       getAvatarUrl: function() {
-        this.set(
-          'url',
-          this.mediaServer.get('url') + '/' + this.get('jid') + '/avatar'
-        )
+        var url = this.mediaServer.get('url') +
+          '/' +
+          this.get('jid') +
+          '/avatar' +
+          this.getImageParameters()
+        this.set('url', url)
+      },
+
+      getImageParameters: function() {
+        var parameters = []
+        if (this.get('height')) {
+          parameters.push('height=' + this.get('height'))
+        }
+        if (this.get('width')) {
+          parameters.push('width=' + this.get('width'))
+        }
+        if (!parameters) {
+          return ''
+        }
+        return '?' + parameters.join('&')
       }
       
     })

@@ -14,21 +14,25 @@ define(function(require) {
 	    requiresLogin: true,
 
 	    initialize: function(options) {
+        log('HERE')
         this.router = options.router
         this.options = options
         _.bindAll(this, 'render')
         this.on('render', this.afterRender, this)
         this.loadAvatar()
+
       },
 
       loadAvatar: function() {
         this.avatar = new Avatar({ jid: this.options.channelJid })
-        this.avatar.on('change:url', this.render, this)
+        this.avatar.once('change:url', this.render, this)
+        log('Avatar loaded', this.avatar.attributes)
       },
 
       afterRender: function() {
+        log('afterRender', this.avatar.attributes)
         if (this.avatar.get('url')) {
-          this.$el.find('.channel-banner')
+          this.$el.find('.channelIcon')
             .css('background-image', 'url("' + this.avatar.get('url') + '")')
         }
       }
