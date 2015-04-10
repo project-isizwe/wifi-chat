@@ -36,6 +36,9 @@ define(function(require) {
         },
 
         loadAvatar: function() {
+          if (!this.model.get('channelJid')) {
+            return
+          }
           this.avatar = new Avatar({
             jid: this.model.get('channelJid'),
             height: 44,
@@ -45,7 +48,11 @@ define(function(require) {
         },
 
         afterRender: function() {
-          if (!this.avatar || !this.avatar.get('url')) {
+          if (!this.avatar) {
+            this.loadAvatar()
+            return
+          }
+          if (!this.avatar.get('url')) {
             return
           }
           var image = new Image()

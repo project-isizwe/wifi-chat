@@ -33,7 +33,8 @@ define(function(require) {
           this.get('jid') +
           '/avatar' +
           this.getImageParameters()
-        this.set('url', url)
+          var self = this
+        setTimeout(function() { self.set('url', url) },0)
       },
 
       getImageParameters: function() {
