@@ -354,8 +354,9 @@ hr {
 .channel-banner {
   height: 166px;
   background-image: linear-gradient(to bottom right, hsl(240,11%,100%), hsl(240,12%,97%));
-  background-size: cover;
   background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .channel-description {
