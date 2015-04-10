@@ -1,4 +1,4 @@
-WiFi-Chat
+Project Isizwe's WiFi-Chat
 =========
 
 Buddycloud-channels for the WiFi-Chat project
@@ -28,3 +28,7 @@ node index
 Will see you right.
 
 Both setups will kick off a server at [http://localhost:3000](http://localhost:3000)
+
+Fixes:
+------
+Pull requests welcomed

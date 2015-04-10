@@ -8,7 +8,7 @@
   </a>
   <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
 </div>
-<div class="post-content"><%- content %></div>
+<div class="post-content"><%= content %></div>
 <div class="post-meta post-meta--bottom">
   <% if(commentCount > 0) { %>
   <a class="btn btn--text" href="channel/<%- channelJid %>/<%- id %>">
