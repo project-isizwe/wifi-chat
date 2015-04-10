@@ -59,15 +59,13 @@ define(function(require) {
 
       loadAvatar: function() {
         this.avatar = new Avatar({ jid: this.model.get('channelJid') })
-        this.avatar.once('loaded:avatar', this.render, this)
+        this.avatar.once('loaded:avatar', this.showAvatar, this)
       },
 
-      afterRender: function() {
-        if (this.avatar.get('url')) {
-          this.$el.find('.js-avatar')
-            .css('background-image', 'url("' + this.avatar.get('url') + '")')
-        }          
-      }
+      showAvatar: function() {
+        this.$el.find('.avatar')
+          .css('background-image', 'url("' + this.avatar.get('url') + '")')      
+      },
 
     })
 
