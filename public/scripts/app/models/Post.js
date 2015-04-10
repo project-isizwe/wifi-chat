@@ -144,12 +144,10 @@ define(function(require) {
           .replace(/&#x2F;/g, '/')
           .replace(/\}/g, '&#125;')
 
-        for(var i=0; i<this.embedReceipts.length; i++){
-          content = content.replace(this.embedReceipts[i].regex, this.embedReceipts[i].substitution)
-        }
-
-        log('parsed content', content)
-
+        this.embedReceipts.forEach(function(receipt) {
+          content = content
+            .replace(receipt.regex, receipt.substitution)
+        }, this)
         return content
       },
 
