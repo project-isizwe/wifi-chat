@@ -15,7 +15,7 @@ define(function(require) {
 
       requiresLogin: true,
 
-      infiniteScrollTriggerPoint: 200, // in pixels from the bottom
+      infiniteScrollTriggerPoint: 300, // in pixels from the bottom
       isInfiniteScrollLoading: false,
 
       untouched: true,
