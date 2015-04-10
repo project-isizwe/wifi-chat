@@ -17,6 +17,8 @@ define(function(require) {
       
         requiresLogin: true,
 
+        title: 'Home',
+
         events: {
           'click .tabs-item':      'onTabClick',
           'touchstart .tab-views': 'onInputDown'

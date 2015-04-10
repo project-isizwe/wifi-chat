@@ -139,7 +139,7 @@ define(function (require) {
         if (view.requiresLogin && !this.loggedIn) {
           return this.sendToLogin()
         }
-        window.document.title = view.title
+        window.document.title = 'WiFi Chat - ' + view.title
         this.navigate(url, { trigger: false })
         this.currentView = view
 
