@@ -277,14 +277,16 @@ hr {
 }
 
 .bottom-controls {
-  display: flex;
+  overflow: hidden;
 }
 .bottom-controls .btn {
   padding: 14px 0 14px 28px;
+  float: left;
 }
 .bottom-controls .btn:last-child {
   padding: 14px 28px 14px 0;
   margin-left: auto;
+  float: right;
 }
 
 .signup form {
