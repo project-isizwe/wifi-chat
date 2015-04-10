@@ -743,8 +743,25 @@ hr {
 
 .avatar .admin.icon {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: -18px;
+  right: -5px;
+}
+
+.admin.icon {
+  position: relative;
+  top: 9px;
+  display: inline-block;
+}
+
+.post--topic .admin.icon {
+  margin-right: 4px;
+}
+
+.admin.icon:after {
+  content: '*';
+  font-size: 29px;
+  line-height: 14px;
+  color: hsl(25,89%,56%);
 }
 
 .tabs {
