@@ -252,9 +252,13 @@ hr {
 .screen-textContent--centered {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   justify-content: center;
   min-height: 100%;
+}
+
+.screen-textContent--stretched {
+  align-items: stretch;
 }
 
 .screen-textContent--isFull {
