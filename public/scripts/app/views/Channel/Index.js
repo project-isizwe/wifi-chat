@@ -43,7 +43,7 @@ define(function(require) {
       
       render: function() {
         this.beforeRender()
-        var data = this.model ? this.model.attributes : null
+        var data = this.model ? this.options.model.attributes : null
         this.$el.html(this.template(data))
         if (this.header) {
           this.$el.find('header').html(this.header.render().el)
