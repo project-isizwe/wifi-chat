@@ -16,6 +16,7 @@ define(function (require) {
     , ChannelView       = require('app/views/Channel/Index')
     , ProfileView       = require('app/views/Profile')
     , TopicView         = require('app/views/Topic/Index')
+    , NewTopicView      = require('app/views/NewTopic')
     , user              = require('app/store/User')
     , log               = require('app/utils/bows.min')('Router')
         
@@ -35,6 +36,7 @@ define(function (require) {
         'rules': 'showRules',
         'profile/:jid': 'showProfile',
         'channel/:jid': 'showChannel',
+        'channel/:jid/new': 'showNewTopic',
         'channel/:jid/*id': 'showTopic',
         'logout': 'showLogout'
       },
@@ -113,6 +115,11 @@ define(function (require) {
         this.showView(channelView, '/channel/' + jid)
       },
 
+      showNewTopic: function(jid) {
+        var newTopicView = new NewTopicView({ router: this, channelJid: jid })
+        this.showView(newTopicView, 'channel/' + jid + '/new')
+      },
+
       showTopic: function(jid, id, goToNewComment) {
         if (!id) {
           return this.showChannel(jid)
@@ -145,6 +152,7 @@ define(function (require) {
 
         this.el.html(view.el)
         view.delegateEvents()
+
         view.render()
       },
       

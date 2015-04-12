@@ -1,0 +1,11 @@
+<header class="screen-header">
+  <div class="btn btn--text js-backToChannel">
+    <div class="arrow left icon"></div>
+    Back
+  </div>
+  <div class="screen-title">New Post in <%- title %></div>
+</header>
+<form class="screen-textContent">
+  <textarea class="js-input" name="post" placeholder="Write a post..." rows="3" required><% if(draft) print(draft) %></textarea>
+  <button type="submit" class="btn btn--primary">Post</button>
+</form>
