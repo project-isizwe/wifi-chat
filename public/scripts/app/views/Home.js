@@ -189,6 +189,9 @@ define(function(require) {
           this.visibleTabView = this.viewItems.filter('[data-view='+ viewName +']')
           this.xPos = this.visibleTabView.index()
 
+          // reset height
+          this.viewsHolder.css('height', '')
+          
           // adjust height
           this.viewsHolder.css('height', this.visibleTabView.height())
           this.moveIt(this.xPos * this.viewWidth)
