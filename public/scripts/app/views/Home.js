@@ -2,14 +2,14 @@ define(function(require) {
 
     'use strict';
 
-    var $                   = require('jquery')
-      , _                   = require('underscore')
-      , Base                = require('app/views/Base')
-      , socket              = require('app/utils/socket')
-      , ChannelListView     = require('app/views/ChannelList')
-      , ActivityView        = require('app/views/Activity')
-      , SettingsView        = require('app/views/Settings')
-      , log                 = require('app/utils/bows.min')('Views:Home')
+    var $               = require('jquery')
+      , _               = require('underscore')
+      , Base            = require('app/views/Base')
+      , socket          = require('app/utils/socket')
+      , ChannelListView = require('app/views/ChannelList')
+      , ActivityView    = require('app/views/Activity/Index')
+      , SettingsView    = require('app/views/Settings')
+      , log             = require('bows.min')('Views:Home')
 
     return Base.extend({
 
@@ -44,7 +44,7 @@ define(function(require) {
 
           this.tabViews = [
             this.channelListView,
-            // this.activityView,
+            this.activityView,
             this.settingsView
           ]
         },
