@@ -13,6 +13,10 @@ define(function(require) {
 	  
 	    requiresLogin: true,
 
+      events: {
+        'click .js-newTopic': 'showNewTopicScreen',
+      },
+
 	    initialize: function(options) {
         this.router = options.router
         this.options = options
@@ -31,7 +35,11 @@ define(function(require) {
           this.$el.find('.channel-banner')
             .css('background-image', 'url("' + this.avatar.get('url') + '")')
         }          
-      }
+      },
+
+      showNewTopicScreen: function() {
+        this.router.showNewTopic(this.model.get('channelJid'))
+      },
 
     })
 
