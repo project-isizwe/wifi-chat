@@ -47,12 +47,25 @@ define(function(require) {
         if (0 !== this.collection.length) {
           return this.once('render', this.renderComments, this)
         }
+        this.collection.on('add', this.pushedItem, this)
         this.collection.sync()
       },
 
+      pushedItem: function(model) {
+        log(arguments, model)
+        this.addComments(model)
+      },
+
       addComments: function(length) {
-        var newComments = this.collection.models.slice(0, length)
-        log(length, 'new comments')
+        var newComments =  null
+        var addMethod = 'prepend'
+        if (length instanceof Backbone.Model) {
+          newComments = [ length ]
+          addMethod = 'append'
+        } else {
+          newComments = this.collection.models.slice(0, length)
+          log(length + ' new comments')
+        }
         var comments = document.createDocumentFragment()
         var self = this
 
@@ -63,7 +76,7 @@ define(function(require) {
           })
           comments.appendChild(comment.render().el)
         }, this)
-        this.$el.find('[data-role=posts-container]').prepend(comments)
+        this.$el.find('[data-role=posts-container]')[addMethod](comments)
 
         if (this.collection.allItemsLoaded()) {
           return this.$el.find('.js-showMore').remove()

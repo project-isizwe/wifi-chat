@@ -66,6 +66,7 @@ define(function(require) {
           var content = this.input.val()
           if (!content) return
           this.$el.find('.js-comment').attr('disabled', 'disabled')
+
           var post = new Post({
           	content: content,
           	node: this.options.node,

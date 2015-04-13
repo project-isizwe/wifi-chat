@@ -64,7 +64,7 @@ define(function(require) {
           return self.trigger('error', error)
         }
         self.itemCount = rsm.count
-        self.add(data)
+        self.add(data, { silent: true })
         if (0 !== data.length) {
           self.lastPostId = rsm.first
         }

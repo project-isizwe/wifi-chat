@@ -71,9 +71,9 @@ primus.save(__dirname + '/public/scripts/primus.js')
  */
 Buddycloud.prototype.publishItem = function(data, callback) {
     if (!this._checkCall(data, callback)) return
-    if (!data.entry ||
-        !data.entry['in-reply-to'] ||
-        (data.entry['in-reply-to'].length < 5)) {
+    if (!data.content ||
+        !data.content['in-reply-to'] ||
+        (data.content['in-reply-to'].length < 5)) {
       this._clientError(
         'You are not able to create new topics currently', data, callback
       )
