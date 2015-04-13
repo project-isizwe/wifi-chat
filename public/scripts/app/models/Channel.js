@@ -30,6 +30,8 @@ define(function(require) {
         username: null,
         creationDate: null
       },
+
+      isMetaLoaded: false,
       
       initialize: function() {
         this.on('change:node', function() {
@@ -66,7 +68,7 @@ define(function(require) {
         if (config['title'] === config['channelJid']) {
           config['title'] = null
         }
-        
+        this.isMetaLoaded = true
         config.username = config.channelJid
         if (config.channelJid.split('@')[1] === localStorage.getItem('jid').split('@')[1]) {
           
@@ -75,6 +77,10 @@ define(function(require) {
         }
         this.set(config)
         this.trigger('loaded:meta', this)
+      },
+
+      isLoaded: function() {
+        return this.isMetaLoaded
       }
       
     })
