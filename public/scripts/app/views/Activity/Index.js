@@ -29,15 +29,12 @@ define(function(require) {
       },
 
       initialize: function(options) {
+        _.bindAll(this, 'onScroll')
         this.options = options
         this.router = options.router
 
         this.collection = new UserPosts()
         this.collection.on('loaded:activities', this.addActivityItems, this)
-
-        // if (0 !== this.collection.length) {
-        //   return this.addActivityItems(0)
-        // }
 
         this.collection.sync()
       },
@@ -85,7 +82,10 @@ define(function(require) {
 
         var scrollHeight = (this.scrollParent.get(0) == document ? $('body') : this.scrollParent).prop('scrollHeight')
         this.triggerPos = scrollHeight - this.infiniteScrollTriggerPoint
-        this.height = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).height()
+        this.height = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).outerHeight()
+
+        // resize tab view height
+        this.trigger('rendered:activities')
       },
 
       onScroll: function() {
@@ -103,7 +103,7 @@ define(function(require) {
       loadMoreItems: function() {
         this.isInfiniteScrollLoading = true
         this.collection.sync()
-      }
+      },
 
     })
 

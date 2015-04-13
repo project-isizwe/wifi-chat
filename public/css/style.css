@@ -592,7 +592,6 @@ hr {
   padding-bottom: 9px;
   margin-bottom: 14px;
   border-bottom: 1px solid hsl(240,12%,95%);
-  /*border-left: 5px solid hsl(240,12%,95%);*/
 }
 
 .post--activity:not(:first-child) {
@@ -600,13 +599,14 @@ hr {
 }
 
 .post--activity .post-header {
-  padding: 14px 14px 8px;
+  padding: 14px 14px 9px;
   margin: -14px -14px 8px;
   border-bottom: 1px solid hsl(240,12%,95%);
 }
 
 .post--activity .avatar {
   margin-right: 5px;
+  margin-top: -1px;
 }
 
 .post--activity .avatar:not(:first-child) {
@@ -771,8 +771,8 @@ hr {
 }
 
 .avatar--tiny {
-  width: 16px;
-  height: 16px;
+  width: 17px;
+  height: 17px;
 }
 
 .channelIcon--big,
