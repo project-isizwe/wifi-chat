@@ -35,7 +35,6 @@ define(function(require) {
         this.collection = new UserPosts()
         this.collection.on('loaded:activities', this.addActivityItems, this)
 
-
         // if (0 !== this.collection.length) {
         //   return this.addActivityItems(0)
         // }
@@ -69,7 +68,7 @@ define(function(require) {
           })
           fragment.appendChild(item.render().el)
         }, this)
-        this.$el.append(fragment)
+        this.$el.find('.js-infiniteLoader').before(fragment)
 
         this.isInfiniteScrollLoading = false
 

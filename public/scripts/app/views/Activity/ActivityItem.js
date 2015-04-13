@@ -15,9 +15,11 @@ define(function(require) {
 
         tagName: 'article',
 
-        className: 'post post--comment',
+        className: 'post post--activity',
 
         events: {
+          'click .js-author': 'seeAuthor',
+          'click .js-channel': 'seeChannel',
           'click .js-context': 'seeContext',
         },
 
@@ -36,6 +38,14 @@ define(function(require) {
             null,
             this.model.get('id')
           )
+        },
+
+        seeAuthor: function() {
+
+        },
+
+        seeChannel: function() {
+          
         },
 
         afterRender: function() {
