@@ -35,6 +35,7 @@ define(function(require) {
 
         this.collection = new UserPosts()
         this.collection.on('loaded:activities', this.addActivityItems, this)
+        this.on('resizeTabViews', this.onResizeTabViews, this)
 
         this.collection.sync()
       },
@@ -80,12 +81,17 @@ define(function(require) {
           this.scrollParent.off('scroll.activityList')
         }
 
-        var scrollHeight = (this.scrollParent.get(0) == document ? $('body') : this.scrollParent).prop('scrollHeight')
-        this.triggerPos = scrollHeight - this.infiniteScrollTriggerPoint
-        this.height = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).outerHeight()
+        this.scrollTopBackup = this.scrollParent.scrollTop()
 
         // resize tab view height
         this.trigger('rendered:activities')
+      },
+
+      onResizeTabViews: function() {
+        if (this.scrollTopBackup) {
+          this.scrollParent.scrollTop(this.scrollTopBackup)
+          this.scrollTopBackup = null
+        }
       },
 
       onScroll: function() {
@@ -93,9 +99,12 @@ define(function(require) {
           return
         }
 
-        var viewBottomEdge = this.scrollParent.scrollTop() + this.height
+        var scrollHeight = (this.scrollParent.get(0) == document ? $('body') : this.scrollParent).prop('scrollHeight')
+        var triggerPos = scrollHeight - this.infiniteScrollTriggerPoint
+        var visibleHeight = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).outerHeight()
+        var viewBottomEdge = this.scrollParent.scrollTop() + visibleHeight
 
-        if (viewBottomEdge > this.triggerPos) {
+        if(viewBottomEdge > triggerPos) {
           this.loadMoreItems()
         }
       },
