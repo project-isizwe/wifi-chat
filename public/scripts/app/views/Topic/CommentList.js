@@ -7,6 +7,7 @@ define(function(require) {
       , Comments        = require('app/collections/Comments')
       , CommentItemView = require('app/views/Topic/CommentItem')
       , log             = require('bows.min')('Views:Topic:CommentList')
+      require('jquery.scrollparent')
 
     return Base.extend({
 
@@ -31,6 +32,10 @@ define(function(require) {
           id: this.options.id
         })
         this.loadComments()
+      },
+
+      afterRender: function() {
+        this.scrollParent = this.$el.scrollParent()
       },
 
       loadComments: function() {
@@ -73,6 +78,10 @@ define(function(require) {
         var comments = document.createDocumentFragment()
         var self = this
 
+        var scrollHeight = (this.scrollParent.get(0) == document ? $('body') : this.scrollParent).prop('scrollHeight')
+        var viewHeight = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).height()
+        var isScrolledToBottom = 0 == this.scrollParent.scrollTop() - scrollHeight - viewHeight
+
         newComments.forEach(function(newComment) {
           var comment = new CommentItemView({
             model: newComment,
@@ -90,8 +99,13 @@ define(function(require) {
         if (this.collection.allItemsLoaded()) {
           return this.$el.find('.js-showMore').remove()
         }
+
         this.isFetchingComments = false
         this.$el.find('.js-showMore').removeClass('is-loading')
+
+        if(isScrolledToBottom){
+          this.scrollParent.scrollTop(999999)
+        }
       },
 
       loadMoreComments: function() {

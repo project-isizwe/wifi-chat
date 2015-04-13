@@ -32,6 +32,7 @@ define(function(require) {
 
         afterRender: function() {
           this.input = this.$el.find('.js-input')
+          this.scrollParent = this.$el.scrollParent()
         },
 
         onDestroy: function() {
@@ -49,7 +50,7 @@ define(function(require) {
         },
 
         scrollToBottom: function() {
-          this.$el.scrollParent().scrollTop(99999)
+          this.scrollParent.scrollTop(999999)
         },
 
         detectShiftEnter: function(event) {
