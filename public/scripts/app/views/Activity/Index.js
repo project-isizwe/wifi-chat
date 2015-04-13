@@ -95,7 +95,7 @@ define(function(require) {
 
         var viewBottomEdge = this.scrollParent.scrollTop() + this.height
 
-        if(viewBottomEdge > this.triggerPos) {
+        if (viewBottomEdge > this.triggerPos) {
           this.loadMoreItems()
         }
       },

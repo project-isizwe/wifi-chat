@@ -15,6 +15,8 @@ define(function(require) {
     lastPostId: null,
     itemsPerRequest: 5,
     itemCount: null,
+
+    comparator: false,
     
     event: 'xmpp.buddycloud.items.replies',
     
@@ -24,10 +26,6 @@ define(function(require) {
       pusher.on('delete-post', this.retractItem, this)
     },
 
-    comparator: function(model) {
-      return model.get('published')
-    },
-    
     sync: function(method, collection, options) {
       if (!method) {
         method = 'get'

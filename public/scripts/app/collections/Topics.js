@@ -12,6 +12,7 @@ define(function(require) {
     
     model: Post,
     idAttribute: 'id',
+    comparator: false,
 
     lastTopicId: null,
     topicsPerRequest: 5,
