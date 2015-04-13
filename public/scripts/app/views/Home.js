@@ -96,6 +96,7 @@ define(function(require) {
         },
 
         onDestroy: function() {
+          this.scroller.off('transitionend', this.onTransitionEnd)
           $(window).off('resize.home', this.onResize)
           this.hammertime.destroy()
         },
