@@ -22,7 +22,6 @@ define(function(require) {
 
     initialize: function(models, options) {
       this.options = options
-      this.model = user
       pusher.on('new-post', this.pushedItem, this)
     },
     
@@ -48,7 +47,7 @@ define(function(require) {
       var options = {
         form: [{
           var: 'author',
-          value: this.model.get('channelJid')
+          value: user.get('channelJid')
         }]
       }
 
@@ -64,10 +63,7 @@ define(function(require) {
         }
         
         if ((data.results || []).length > 0) {
-          log(data.results)
-          data.results.forEach(function(result) {
-            self.add(new Post(result), { silent: true })
-          })
+          self.add(data.results, { silent: true })
           ++self.rsmPageNumber
         } else {
           self.allItemsAreLoaded = true
@@ -77,10 +73,9 @@ define(function(require) {
     },
 
     pushedItem: function(post) {
-      if (post.get('username') !== this.model.get('jid')) {
+      if (post.get('username') !== user.get('jid')) {
         return
       }
-      
       this.add(post)
     }
 
