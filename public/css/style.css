@@ -730,11 +730,13 @@ hr {
 .avatar--uploadMode {
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: flex-end;
 }
 
 .avatar--uploadMode .btn {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   border-radius: 0;
 }
 
@@ -746,6 +748,21 @@ hr {
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+.avatar--uploadMode:not(.is-uploading) .spinner {
+  display: none;
+}
+
+.avatar--uploadMode.is-uploading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar--uploadMode.is-uploading .btn,
+.avatar--uploadMode.is-uploading input {
+  display: none;
 }
 
 .avatar .admin.icon {
@@ -784,7 +801,7 @@ hr {
   background: hsl(221,33%,43%);
   box-shadow: 0 -1px rgba(0,0,0,.075) inset;
   transition: transform 200ms;
-  will-change: transition;
+  will-change: transform;
   z-index: 1;
 }
 
@@ -855,7 +872,7 @@ hr {
   width: 100%;
   min-height: 100%;
   transition: transform 200ms;
-  will-change: transition;
+  will-change: transform;
 }
 
 .tab-scroller.no-transition {
