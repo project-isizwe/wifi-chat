@@ -51,31 +51,31 @@ define(function(require) {
       },
 
       addComments: function(length) {
-        var newComments = this.collection.models.slice(-length)
+        var newComments = this.collection.models.slice(0, length)
         log(length, 'new comments')
         var comments = document.createDocumentFragment()
         var self = this
 
-        for(var i=0, l=newComments.length; i<l; i++){
+        newComments.forEach(function(newComment) {
           var comment = new CommentItemView({
-            model: newComments[i],
+            model: newComment,
             router: self.router
           })
           comments.appendChild(comment.render().el)
-        }
+        }, this)
         this.$el.find('[data-role=posts-container]').prepend(comments)
 
         if (this.collection.allItemsLoaded()) {
-          this.$el.find('.js-showMore').remove()
-        } else {
-          this.isFetchingComments = false
-          this.$el.find('.js-showMore').removeClass('is-loading')
+          return this.$el.find('.js-showMore').remove()
         }
+        this.isFetchingComments = false
+        this.$el.find('.js-showMore').removeClass('is-loading')
       },
 
       loadMoreComments: function() {
-        if(this.isFetchingComments)
+        if (this.isFetchingComments) {
           return
+        }
 
         this.isFetchingComments = true
         this.$el.find('.js-showMoreHolder').addClass('is-loading')
