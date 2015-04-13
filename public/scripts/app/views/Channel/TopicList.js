@@ -78,7 +78,7 @@ define(function(require) {
 
         var scrollHeight = (this.scrollParent.get(0) == document ? $('body') : this.scrollParent).prop('scrollHeight')
         this.triggerPos = scrollHeight - this.infiniteScrollTriggerPoint
-        this.height = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).height()
+        this.height = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).outerHeight()
       },
 
       onScroll: function() {

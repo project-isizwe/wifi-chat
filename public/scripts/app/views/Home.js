@@ -40,8 +40,6 @@ define(function(require) {
           this.activityView = new ActivityView(this.options)
           this.settingsView = new SettingsView(this.options)
 
-          this.settingsView.on('error', this.showError, this)
-
           this.tabViews = [
             this.channelListView,
             this.activityView,
@@ -86,6 +84,12 @@ define(function(require) {
 
           // adapt view height when channelList got filled
           this.channelListView.on('loaded:channel', this.adaptViewsHeight, this)
+
+          // broadcast settings error (avatar upload)
+          this.settingsView.on('error', this.showError, this)
+
+          // adapt view height when activities got rendered
+          this.activityView.on('rendered:activities', this.adaptViewsHeight, this)
 
           // update dimensions
           this.onResize()
