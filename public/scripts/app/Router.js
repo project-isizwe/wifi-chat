@@ -153,7 +153,8 @@ define(function (require) {
         this.el.html(view.el)
         view.delegateEvents()
 
-        view.render()
+        if(!view.noAutoRender)
+          view.render()
       },
       
       closeView: function() {

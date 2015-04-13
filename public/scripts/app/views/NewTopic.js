@@ -17,6 +17,8 @@ define(function(require) {
 	  
 	    requiresLogin: true,
 
+      noAutoRender: true,
+
       className: 'newTopic screen',
 
       events: {
@@ -39,11 +41,13 @@ define(function(require) {
               this.renderFilled()
             }
           }, this)
+          this.render()
+        } else {
+          this.renderFilled()
         }
       },
 
       renderFilled: function() {
-        log(this.model)
         this.$el.html(this.finalTemplate(_.extend(this.model.attributes, { 
           draft: this.getDraft()
         })))
@@ -110,7 +114,7 @@ define(function(require) {
       },
 
       goBack: function() {
-        this.options.router.showChannel(this.model.get('jid'))
+        this.options.router.showChannel(this.model.get('channelJid'))
       },
 
     })
