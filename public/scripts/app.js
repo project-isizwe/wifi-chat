@@ -20,7 +20,8 @@ require.config({
     },
     'jquery.html5-placeholder-shim': {
       deps: [ 'jquery' ]
-    }
+    },
+    'bows.min': {}
   }
 })
 

@@ -4,7 +4,7 @@ define(function(require) {
   
   var Channels = require('app/collections/Channels')
     , Channel  = require('app/models/Channel')
-    , log      = require('app/utils/bows.min')('Collections:Subscriptions')
+    , log      = require('bows.min')('Collections:Subscriptions')
     , socket   = require('app/utils/socket')
     
   return Backbone.Collection.extend({

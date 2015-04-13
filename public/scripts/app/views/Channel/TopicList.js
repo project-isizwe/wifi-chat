@@ -6,7 +6,7 @@ define(function(require) {
       , Base           = require('app/views/Base')
       , Topics         = require('app/collections/Topics')
       , TopicItemView  = require('app/views/Channel/TopicItem')
-      , log            = require('app/utils/bows.min')('Views:Channel:TopicList')
+      , log            = require('bows.min')('Views:Channel:TopicList')
     require('jquery.scrollparent')
 
     return Base.extend({

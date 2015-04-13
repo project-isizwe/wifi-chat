@@ -6,7 +6,7 @@ define(function(require) {
       , Base           = require('app/views/Base')
       , Avatar         = require('app/models/Avatar')
       , subscriptions  = require('app/store/Subscriptions')
-      , log            = require('app/utils/bows.min')('Views:TopicItem')
+      , log            = require('bows.min')('Views:TopicItem')
     require('jquery.timeago')
 
     return Base.extend({

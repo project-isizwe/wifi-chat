@@ -4,7 +4,7 @@ define(function(require) {
   
   var Backbone    = require('backbone')
     , MediaServer = require('app/models/MediaServer')
-    , log         = require('app/utils/bows.min')('Collections:MediaServers')
+    , log         = require('bows.min')('Collections:MediaServers')
     
   return Backbone.Collection.extend({
     

@@ -6,7 +6,7 @@ define(function(require) {
       , _             = require('underscore')
       , Base          = require('app/views/Base')
       , socket        = require('app/utils/socket')
-      , log           = require('app/utils/bows.min')('Views:Login')
+      , log           = require('bows.min')('Views:Login')
       , subscriptions = require('app/store/Subscriptions')
       , config        = require('app/utils/config')
 

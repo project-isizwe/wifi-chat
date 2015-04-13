@@ -7,7 +7,7 @@ define(function(require) {
       , MediaServer  = require('app/models/MediaServer')
       , socket       = require('app/utils/socket')
       , user         = require('app/store/User')
-      , log          = require('app/utils/bows.min')('Models:Avatar')
+      , log          = require('bows.min')('Models:Avatar')
 
     return Backbone.Model.extend({
 

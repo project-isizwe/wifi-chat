@@ -3,7 +3,7 @@ define(function(require) {
     'use strict';
   
     var Backbone = require('backbone')
-      , log      = require('app/utils/bows.min')('Models:MediaServer')
+      , log      = require('bows.min')('Models:MediaServer')
       , socket   = require('app/utils/socket')
 
     return Backbone.Model.extend({

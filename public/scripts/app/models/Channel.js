@@ -4,7 +4,7 @@ define(function(require) {
   
     var Backbone = require('backbone')
       , _        = require('underscore')
-      , log      = require('app/utils/bows.min')('Models:Channel')
+      , log      = require('bows.min')('Models:Channel')
       , socket   = require('app/utils/socket')
 
     return Backbone.Model.extend({

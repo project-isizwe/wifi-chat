@@ -3,7 +3,7 @@ define(function(require) {
     'use strict';
   
     var Backbone = require('backbone')
-      , log      = require('app/utils/bows.min')('Models:Account')
+      , log      = require('bows.min')('Models:Account')
 
     return Backbone.Model.extend({
       

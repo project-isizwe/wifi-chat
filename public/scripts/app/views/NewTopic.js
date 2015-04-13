@@ -6,7 +6,7 @@ define(function(require) {
       , autosize      = require('autosize')
       , Base          = require('app/views/Base')
       , subscriptions = require('app/store/Subscriptions')
-      , log           = require('app/utils/bows.min')('Views:NewTopic')
+      , log           = require('bows.min')('Views:NewTopic')
       , Avatar        = require('app/models/Avatar')
     require('jquery.scrollparent')
 

@@ -4,7 +4,7 @@ define(function(require) {
 
     var _      = require('underscore')
       , Base   = require('app/views/Base')
-      , log    = require('app/utils/bows.min')('Views:Channel:Header')
+      , log    = require('bows.min')('Views:Channel:Header')
       , Avatar = require('app/models/Avatar')
 
     return Base.extend({

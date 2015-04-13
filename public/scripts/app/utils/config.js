@@ -1,6 +1,6 @@
 define(function(require) {
 
-    var log = require('app/utils/bows.min')('Utils:Config')
+    var log = require('bows.min')('Utils:Config')
 
     'use strict';
 

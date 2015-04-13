@@ -5,7 +5,7 @@ define(function(require) {
     var _           = require('underscore')
       , Base        = require('app/views/Base')
       , Rules       = require('app/models/Rules')
-      , log         = require('app/utils/bows.min')('Views:Rules')
+      , log         = require('bows.min')('Views:Rules')
 
     return Base.extend({
 

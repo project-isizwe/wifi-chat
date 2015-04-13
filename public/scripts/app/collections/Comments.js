@@ -4,7 +4,7 @@ define(function(require) {
   
   var Backbone = require('backbone')
     , Post     = require('app/models/Post')
-    , log      = require('app/utils/bows.min')('Collections:Comments')
+    , log      = require('bows.min')('Collections:Comments')
     , socket   = require('app/utils/socket')
     , pusher   = require('app/store/Pusher')
     

@@ -4,7 +4,7 @@ define(function(require) {
   
     var Backbone = require('backbone')
       , _        = require('underscore')
-      , log      = require('app/utils/bows.min')('Utils:Pusher')
+      , log      = require('bows.min')('Utils:Pusher')
       , socket   = require('app/utils/socket')
       , Post     = require('app/models/Post')
 

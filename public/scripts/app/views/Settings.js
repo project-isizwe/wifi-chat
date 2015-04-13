@@ -7,7 +7,7 @@ define(function(require) {
       , socket  = require('app/utils/socket')
       , Avatar  = require('app/models/Avatar')
       , user    = require('app/store/User')
-      , log     = require('app/utils/bows.min')('Views:Settings')
+      , log     = require('bows.min')('Views:Settings')
 
     return Base.extend({
 

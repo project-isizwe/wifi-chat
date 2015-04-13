@@ -6,7 +6,7 @@ define(function(require) {
       , Base                = require('app/views/Base')
       , subscriptions       = require('app/store/Subscriptions')
       , ChannelListItemView = require('app/views/ChannelListItem')
-      , log                 = require('app/utils/bows.min')('Views:ChannelList')
+      , log                 = require('bows.min')('Views:ChannelList')
 
     return Base.extend({
 

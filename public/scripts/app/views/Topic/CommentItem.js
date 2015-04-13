@@ -7,7 +7,7 @@ define(function(require) {
       , Base    = require('app/views/Base')
       , user    = require('app/store/User')
       , config  = require('app/utils/config')
-      , log     = require('app/utils/bows.min')('Views:Topic/CommentList')
+      , log     = require('bows.min')('Views:Topic/CommentList')
     require('jquery.timeago')
 
     return Base.extend({

@@ -6,7 +6,7 @@ define(function(require) {
       , Backbone   = require('backbone')
       , _          = require('underscore')
       , socket     = require('app/utils/socket')
-      , log        = require('app/utils/bows.min')('Views:Modal')
+      , log        = require('bows.min')('Views:Modal')
 
     return Backbone.View.extend({
 

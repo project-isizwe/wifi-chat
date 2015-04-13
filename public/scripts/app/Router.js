@@ -17,7 +17,7 @@ define(function (require) {
     , ProfileView       = require('app/views/Profile')
     , TopicView         = require('app/views/Topic/Index')
     , user              = require('app/store/User')
-    , log               = require('app/utils/bows.min')('Router')
+    , log               = require('bows.min')('Router')
         
     return Backbone.Router.extend({
 

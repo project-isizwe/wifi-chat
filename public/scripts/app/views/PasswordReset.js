@@ -6,7 +6,7 @@ define(function(require) {
       , _          = require('underscore')
       , Base       = require('app/views/Base')
       , socket     = require('app/utils/socket')
-      , log        = require('app/utils/bows.min')('Views:PasswordReset')
+      , log        = require('bows.min')('Views:PasswordReset')
       , Account    = require('app/models/PasswordReset')
 
     return Base.extend({

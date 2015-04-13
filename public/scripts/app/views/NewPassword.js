@@ -5,7 +5,7 @@ define(function(require) {
     var $           = require('jquery')
       , _           = require('underscore')
       , Base        = require('app/views/Base')
-      , log         = require('app/utils/bows.min')('Views:NewPassword')
+      , log         = require('bows.min')('Views:NewPassword')
       , NewPassword = require('app/models/NewPassword')
 
     return Base.extend({

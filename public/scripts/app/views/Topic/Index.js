@@ -8,7 +8,7 @@ define(function(require) {
       , NewCommentView = require('app/views/Topic/NewComment')
       , CommentsList   = require('app/views/Topic/CommentList')
       , subscriptions  = require('app/store/Subscriptions')
-      , log            = require('app/utils/bows.min')('Views:Topic:Index')
+      , log            = require('bows.min')('Views:Topic:Index')
 
     return Base.extend({
 

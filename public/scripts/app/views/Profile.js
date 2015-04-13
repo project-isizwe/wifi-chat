@@ -6,7 +6,7 @@ define(function(require) {
       , Base                = require('app/views/Base')
       , Avatar              = require('app/models/Avatar')
       , ChannelModel        = require('app/models/Channel')
-      , log                 = require('app/utils/bows.min')('Views:Profile')
+      , log                 = require('bows.min')('Views:Profile')
 
     require('jquery.timeago')
 

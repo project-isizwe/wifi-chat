@@ -6,7 +6,7 @@ define(function(require) {
       , Base            = require('app/views/Base')
       , Comments        = require('app/collections/Comments')
       , CommentItemView = require('app/views/Topic/CommentItem')
-      , log             = require('app/utils/bows.min')('Views:Topic:CommentList')
+      , log             = require('bows.min')('Views:Topic:CommentList')
 
     return Base.extend({
 

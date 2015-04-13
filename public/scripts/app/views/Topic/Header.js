@@ -6,7 +6,7 @@ define(function(require) {
       , Avatar  = require('app/models/Avatar')
       , Base    = require('app/views/Base')
       , Post    = require('app/models/Post')
-      , log     = require('app/utils/bows.min')('Views:Channel:Header')
+      , log     = require('bows.min')('Views:Channel:Header')
 
     return Base.extend({
 

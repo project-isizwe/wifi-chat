@@ -3,7 +3,7 @@ define(function(require) {
     'use strict';
   
     var Channel  = require('app/models/Channel')
-      , log      = require('app/utils/bows.min')('Models:User')
+      , log      = require('bows.min')('Models:User')
       , socket   = require('app/utils/socket')
 
     return Channel.extend({

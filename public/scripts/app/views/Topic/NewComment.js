@@ -6,7 +6,7 @@ define(function(require) {
       , autosize = require('autosize')
       , Base     = require('app/views/Base')
       , Post     = require('app/models/Post')
-      , log      = require('app/utils/bows.min')('Views:Topic:NewComment')
+      , log      = require('bows.min')('Views:Topic:NewComment')
       require('jquery.scrollparent')
 
     return Base.extend({

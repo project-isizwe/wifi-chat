@@ -7,7 +7,7 @@ define(function(require) {
       , HeaderView    = require('app/views/Channel/Header')
       , TopicListView = require('app/views/Channel/TopicList')
       , subscriptions = require('app/store/Subscriptions')
-      , log           = require('app/utils/bows.min')('Views:Channel:Index')
+      , log           = require('bows.min')('Views:Channel:Index')
 
     return Base.extend({
 
