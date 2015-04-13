@@ -21,7 +21,7 @@ define(function(require) {
         title: 'Home',
 
         events: {
-          'click .tabs-item':      'onTabClick',
+          'click .tabs-item': 'onTabClick',
         },
       
         className: 'home screen screen--hasTabViews',
@@ -162,7 +162,6 @@ define(function(require) {
           this.adaptViewsHeight()
 
           this.moveIt(this.xPos * this.viewWidth)
-          console.log(this.xPos, this.viewWidth, viewName)
         },
 
         onTransitionEnd: function() {

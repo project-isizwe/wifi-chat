@@ -66,19 +66,17 @@ define(function(require) {
         if ((data.results || []).length > 0) {
           log(data.results)
           data.results.forEach(function(result) {
-            self.add(new Post(result))
+            self.add(new Post(result), { silent: true })
           })
-          //self.add(data.results)
           ++self.rsmPageNumber
         } else {
           self.allItemsAreLoaded = true
         }
-        self.trigger('loaded:user-posts', data.results.length)
+        self.trigger('loaded:activities', data.results.length)
       })
     },
 
     pushedItem: function(post) {
-      log('Received push', model)
       if (post.get('username') !== this.model.get('jid')) {
         return
       }

@@ -5,6 +5,7 @@ define(function(require) {
     var _                = require('underscore')
       , Base             = require('app/views/Base')
       , ActivityItemView = require('app/views/Activity/ActivityItem')
+      , UserPosts        = require('app/collections/UserPosts')
       , log              = require('bows.min')('Views:Activity:Index')
     require('jquery.scrollparent')
 
@@ -31,18 +32,15 @@ define(function(require) {
         this.options = options
         this.router = options.router
 
-        // this.collection = new Topics(null, {
-        //   channelJid: this.options.channelJid,
-        //   comparator: false,
-        // })
-        // this.collection.on('loaded:activities', this.addActivityItems, this)
+        this.collection = new UserPosts()
+        this.collection.on('loaded:activities', this.addActivityItems, this)
 
 
         // if (0 !== this.collection.length) {
         //   return this.addActivityItems(0)
         // }
 
-        // this.collection.sync()
+        this.collection.sync()
       },
 
       unbindGlobalListeners: function() {
