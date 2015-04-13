@@ -43,8 +43,22 @@ define(function(require) {
           this.model.set('canUploadFiles', false)
         }
 
+        log(JSON.stringify(this.model.attributes, false, 2))
+
         this.model.once('loaded:meta', this.render, this)
         this.model.once('loaded:meta', this.loadAvatar, this)
+      },
+
+      render: function() {
+        this.$el.html(this.template(_.extend(this.model.attributes, {
+          avatarUrl: this.avatar && this.avatar.get('url')
+        })))
+        
+        if(this.model.isLoaded()) {
+          this.loadAvatar()
+        }
+
+        return this
       },
 
       logout: function(event) {
@@ -67,7 +81,11 @@ define(function(require) {
       },
 
       loadAvatar: function() {
-        this.avatar = new Avatar({ jid: this.model.get('channelJid') })
+        this.avatar = new Avatar({ 
+          jid: this.model.get('channelJid'),
+          width: 128,
+          height: 128
+        })
         this.avatar.once('loaded:avatar', this.showAvatar, this)
       },
 
@@ -77,7 +95,6 @@ define(function(require) {
       },
 
       showAvatar: function() {
-        log(this.$el.find('.avatar'))
         this.$el.find('.avatar')
           .css('background-image', 'url("' + this.avatar.get('url') + '")')      
       }
