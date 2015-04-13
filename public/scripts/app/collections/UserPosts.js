@@ -7,6 +7,7 @@ define(function(require) {
     , log      = require('bows.min')('Collections:UserPosts')
     , socket   = require('app/utils/socket')
     , pusher   = require('app/store/Pusher')
+    , user     = require('app/store/User')
     
   return Backbone.Collection.extend({
     
@@ -15,12 +16,14 @@ define(function(require) {
     postsPerRequest: 5,
     rsmPageNumber: 1,
 
+    allItemsAreLoaded: false,
+
     event: 'xmpp.buddycloud.search.do',
 
     initialize: function(models, options) {
       this.options = options
+      this.model = user
       pusher.on('new-post', this.pushedItem, this)
-      log(models, options)
     },
     
     sync: function(method, collection, options) {
@@ -38,38 +41,49 @@ define(function(require) {
     },
 
     allItemsLoaded: function() {
-      return (this.topicCount && this.topicCount == 0 || (this.models.length === this.topicCount))
+      return this.allItemsAreLoaded
     },
     
     getPosts: function() {
       var options = {
         form: [{
           var: 'author',
-          value: this.getOption('jid')
+          value: this.model.get('channelJid')
         }]
       }
 
       options.form.push({ var: 'page', value: this.rsmPageNumber })
       options.form.push({ var: 'rpp',  value: this.postsPerRequest })
 
+      var self = this
+
       socket.send(this.event, options, function(error, data, rsm) {
+        log('Received search results')
         if (error) {
           return self.trigger('error', error)
         }
-
-        self.add(data)
-        ++self.rsmPageNumber
-        self.trigger('loaded:user-posts', data.length)
+        
+        if ((data.results || []).length > 0) {
+          log(data.results)
+          data.results.forEach(function(result) {
+            self.add(new Post(result))
+          })
+          //self.add(data.results)
+          ++self.rsmPageNumber
+        } else {
+          self.allItemsAreLoaded = true
+        }
+        self.trigger('loaded:user-posts', data.results.length)
       })
     },
 
-    pushedItem: function(model) {
+    pushedItem: function(post) {
       log('Received push', model)
-      if (model.get('author') !== this.options.router.getJid()) {
+      if (post.get('username') !== this.model.get('jid')) {
         return
       }
       
-      this.add(model)
+      this.add(post)
     }
 
   })
