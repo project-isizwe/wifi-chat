@@ -69,13 +69,14 @@ define(function(require) {
         getReportedPostContent: function() {
           var subject = 'Reported post from wifi chat'
           var body = [
+            'Reported by: ' + user.get('channelJid'),
+            'Reason: \n\n*** Please add a reason here ***\n\n',
             'Post ID: ' + this.model.get('id'),
             'Post content:\n\n' + this.model.get('content') + '\n\n',
-            'Reason: <Please add a reason here>',
-            'Reported by: ' + user.get('channelJid')
+
           ]
           return encodeURI(
-            'mailto:' + config.getReportingEmail() +
+            'mailto:' + config.reportingAddress +
             '?subject=' + subject +
             '&body=' + body.join('\n')
           )

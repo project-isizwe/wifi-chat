@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <meta name="viewport"  content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+        <link rel="manifest" href="manifest.json">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <link rel="icon" sizes="192x192" href="images/app_icons/icon-4x.png">
+        <link rel="icon" sizes="128x128" href="images/app_icons/icon-3x.png">
+        <link rel="icon" sizes="96x96" href="images/app_icons/icon-2x.png">
+        <link rel="icon" sizes="72x72" href="images/app_icons/icon-1-5x.png">
+
+        <link rel="apple-touch-icon" sizes="29x29" href="images/app_icons/icon_29x29.png">
+        <link rel="apple-touch-icon" sizes="40x40" href="images/app_icons/icon_40x40.png">
+        <link rel="apple-touch-icon" sizes="58x58" href="images/app_icons/icon_58x58.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="images/app_icons/icon_76x76.png">
+        <link rel="apple-touch-icon" sizes="80x80" href="images/app_icons/icon_80x80.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="images/app_icons/icon_120x120.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="images/app_icons/icon_152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/app_icons/icon_180x180.png">
+        
+        <title>WiFi Chat</title>
+
+        <link rel="stylesheet" type="text/css" href="/css/app.min.css" />
+        <script type="text/javascript">
+        %config%
+        </script>
+        <script src="/scripts/primus.js"></script>
+        <script data-main="/scripts/app" src="/scripts/require.js"></script>
+        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+    </head>
+    <body>
+        <div class="splash screen">
+            <script>if(localStorage.getItem('jid')){ document.write('<header class="screen-header"></header>')}</script>
+        </div>
+    </body>
+</html>

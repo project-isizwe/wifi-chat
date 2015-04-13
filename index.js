@@ -6,8 +6,7 @@ var express      = require('express')
   , xmpp         = require('xmpp-ftw')
   , Buddycloud   = require('xmpp-ftw-buddycloud')
   , helmet       = require('helmet')
-  , getAvatar    = require('./src/routes/avatar-get')
-  , getIndex     = require('./src/routes/index-get')
+  , index        = require('./src/routes/index-get')
   , account      = require('./src/routes/account')
   , debug        = require('debug')('wifi-chat:index')
   , bodyParser   = require('body-parser')
@@ -24,6 +23,7 @@ try {
 }
 
 account.setConfig(config)
+index.setConfig(config)
 
 var app = express()
 
@@ -42,13 +42,12 @@ app.use(bodyParser.json())
 app.set('strict routing', false)
 
 var router = express.Router()
-router.get('/avatar/:channel', getAvatar)
 
 router.post('/account', account.createAccount)
 router.post('/account/reset', account.generateResetPasswordToken)
 router.post('/account/reset/:token', account.resetPassword)
 
-router.get('/*', getIndex)
+router.get('/*', index.route)
 app.use('/', router)
 
 var options = {
