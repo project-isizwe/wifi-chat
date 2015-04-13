@@ -17,7 +17,52 @@ define(function(require) {
       requiresLogin: true,
 
       className: 'topic screen',
-      
+
+      postingAffiliations: [
+        'publisher',
+        'moderator',
+        'owner'
+      ],
+
+
+      initialize: function(options) {
+        this.router = options.router
+        this.options = options
+
+        _.bindAll(this, 'render')
+        this.determineCommentAbility()
+      },
+
+      determineCommentAbility: function() {
+        this.subscription = subscriptions
+          .findWhere({ node: '/user/' + this.options.channelJid + '/posts' })
+        if (!this.subscription) {
+          subscriptions.on('change', this.affiliationsUpdated, this)
+        } else {
+          this.updateCanComment()
+        }
+      },
+
+      affiliationsUpdated: function() {
+        log('Affiliations updated, checking ability to comment')
+        this.subscription = subscriptions
+          .findWhere({ node: '/user/' + this.options.channelJid + '/posts' })
+        var isCommentor = this.canComment
+        this.updateCanComment()
+        if (this.canComment !== isCommentor) {
+          this.render()
+        }
+      },
+
+      updateCanComment: function() {
+        var canComment = true
+        var affilition = this.subscription.get('affiliation')
+        if (-1 === this.postingAffiliations.indexOf(affilition)) {
+          canComment = false
+        }
+        this.canComment = canComment
+      },
+
       beforeRender: function() {
         if (this.header) {
           return
@@ -27,11 +72,14 @@ define(function(require) {
           '/posts'
         this.header = new HeaderView(this.options)
         this.commentList = new CommentsList(this.options)
+
         this.newComment = new NewCommentView(this.options)
         this.newComment.on('publish:error', this.showPublishError, this)
 
         this.commentList.once('loaded:comments', function() {
-          this.newComment.trigger('loaded:comments')
+          if (this.canComment) {
+            this.newComment.trigger('loaded:comments')
+          }
         }, this)
       },
 
@@ -50,7 +98,9 @@ define(function(require) {
         this.$el.html(this.template())
         this.$el.find('div[data-role="header"]').html(this.header.render().el)
         this.$el.find('main').html(this.commentList.render().el)
-        this.$el.find('.js-newComment').html(this.newComment.render().el)
+        if (this.canComment) {
+          this.$el.find('.js-newComment').html(this.newComment.render().el)
+        }
         this.trigger('render')
         return this
       }

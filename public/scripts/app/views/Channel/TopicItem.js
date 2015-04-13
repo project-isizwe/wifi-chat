@@ -35,6 +35,10 @@ define(function(require) {
           this.options = options
           this.model.bind('change', this.render)
 
+          this.determineCommentAbility()
+        },
+
+        determineCommentAbility: function() {
           var subscription = subscriptions.findWhere({ node: this.model.get('node')})
           var canComment = true
           if (-1 === this.postingAffiliations.indexOf(subscription.get('affiliation'))) {
