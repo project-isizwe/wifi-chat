@@ -40,7 +40,7 @@ define(function(require) {
     },
 
     allItemsLoaded: function() {
-      return (this.topicCount && this.topicCount == 0 || (this.models.length === this.topicCount))
+      return (this.topicCount != null && (this.models.length === this.topicCount))
     },
     
     getThreads: function() {

@@ -42,8 +42,7 @@ define(function(require) {
     },
 
     allItemsLoaded: function() {
-      log('allItemsLoaded?', this.itemCount, this.models.length)
-      return (this.itemCount && (this.models.length === this.itemCount))
+      return (this.itemCount != null && (this.models.length === this.itemCount))
     },
     
     getComments: function() {
