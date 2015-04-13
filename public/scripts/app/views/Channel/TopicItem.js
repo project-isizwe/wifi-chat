@@ -5,6 +5,7 @@ define(function(require) {
     var _              = require('underscore')
       , Base           = require('app/views/Base')
       , Avatar         = require('app/models/Avatar')
+      , subscriptions  = require('app/store/Subscriptions')
       , log            = require('app/utils/bows.min')('Views:TopicItem')
     require('jquery.timeago')
 
@@ -23,10 +24,23 @@ define(function(require) {
           'click .js-comment': 'addComment',
         },
 
+        postingAffiliations: [
+          'publisher',
+          'moderator',
+          'owner'
+        ],
+
         initialize: function(options) {
           _.bindAll(this, 'render')
           this.options = options
           this.model.bind('change', this.render)
+
+          var subscription = subscriptions.findWhere({ node: this.model.get('node')})
+          var canComment = true
+          if (-1 === this.postingAffiliations.indexOf(subscription.get('affiliation'))) {
+            canComment = false
+          }
+          this.model.set('canComment', canComment, { silent: true })
         },
 
         render: function(){
