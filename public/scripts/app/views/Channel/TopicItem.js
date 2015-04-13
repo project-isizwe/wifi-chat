@@ -25,12 +25,20 @@ define(function(require) {
 
         initialize: function(options) {
           _.bindAll(this, 'render')
+          this.options = options
           this.model.bind('change', this.render)
         },
-      
-        afterRender: function() {
+
+        render: function(){
+          this.$el.html(this.template(_.extend(this.model.attributes, {
+            avatarUrl: this.avatar && this.avatar.get('url')
+          })))
           this.$el.find('time').timeago()
-          this.loadAvatar()
+
+          if(!this.avatar)
+            this.loadAvatar()
+
+          return this
         },
 
         addComment: function() {

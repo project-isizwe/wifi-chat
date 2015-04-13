@@ -25,36 +25,34 @@ define(function(require) {
 
           this.router = options.router
           this.model.bind('change', this.render, this)
-          this.model.bind('change:channelJid', this.loadAvatar, this)
 
-          _.bindAll(this, 'render')
-          this.on('render', this.afterRender, this)
+          if (this.model.get('channelJid')) {
+            this.loadAvatar()
+          } else {
+            this.model.once('change:channelJid', this.loadAvatar, this)
+          }
         },
 
         open: function(){
           this.router.showChannel(this.model.get('channelJid'))
         },
 
+        render: function(){
+          this.$el.html(this.template(_.extend(this.model.attributes, {
+            avatarUrl: this.avatar && this.avatar.get('url')
+          })))
+          return this
+        },
+
         loadAvatar: function() {
           if (!this.model.get('channelJid')) {
             return
           }
-          this.avatar = new Avatar({
-            jid: this.model.get('channelJid'),
-            height: 44,
-            width: 44
-          })
-          this.avatar.once('loaded:avatar', this.render, this)
+          this.avatar = new Avatar({ jid: this.model.get('channelJid') })
+          this.avatar.once('loaded:avatar', this.showAvatar, this)
         },
 
-        afterRender: function() {
-          if (!this.avatar) {
-            this.loadAvatar()
-            return
-          }
-          if (!this.avatar.get('url')) {
-            return
-          }
+        showAvatar: function() {
           this.$el.find('.channelIcon')
             .css('background-image', 'url("' + this.avatar.get('url') + '")')
         }

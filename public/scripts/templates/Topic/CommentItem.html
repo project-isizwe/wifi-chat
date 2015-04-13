@@ -1,4 +1,4 @@
-<div class="avatar avatar--small js-seeAuthor"></div>
+<div class="avatar avatar--small js-seeAuthor"<% if(avatarUrl) { print(' style="background-image: url('+ avatarUrl +')"') } %>></div>
 <div class="comment-content">
   <div class="post-author js-seeAuthor">
     <% if(displayName) { %>
