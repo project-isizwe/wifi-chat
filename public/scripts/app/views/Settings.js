@@ -49,7 +49,7 @@ define(function(require) {
 
       render: function() {
         this.$el.html(this.template(_.extend(this.model.attributes, {
-          avatarUrl: this.avatar && this.avatar.get('url')
+          avatarUrl: this.avatar && this.avatar.get('url') + '&' + Date.now()
         })))
         
         if(this.model.isMetaLoaded) {

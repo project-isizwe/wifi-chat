@@ -26,7 +26,11 @@ define(function(require) {
       },
 
       loadAvatar: function() {
-        this.avatar = new Avatar({ jid: this.options.channelJid })
+        this.avatar = new Avatar({ 
+          jid: this.options.channelJid,
+          height: 160,
+          width: 'auto'
+         })
         this.avatar.once('loaded:avatar', this.render, this)
       },
 
