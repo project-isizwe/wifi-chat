@@ -101,6 +101,8 @@ define(function(require) {
           }
           this.closeSpinner()
           this.showError(message)
+          this.$el.find('input[name="username"]')
+            .val(this.model.get('local'))
           this.enableRegisterButton()
           log('Account creation fail', error)
         }
