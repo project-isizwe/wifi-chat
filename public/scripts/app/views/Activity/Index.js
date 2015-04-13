@@ -54,7 +54,7 @@ define(function(require) {
 
       addActivityItems: function(count) {
         // for each post, append post item
-        var newItems = this.collection.models.slice(-length)
+        var newItems = this.collection.models.slice(-count)
         var fragment = document.createDocumentFragment()
         var self = this
 

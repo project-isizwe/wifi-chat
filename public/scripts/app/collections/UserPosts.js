@@ -13,6 +13,7 @@ define(function(require) {
     
     model: Post,
     idAttribute: 'id',
+    comparator: false,
 
     postsPerRequest: 5,
     rsmPageNumber: 1,
@@ -45,6 +46,7 @@ define(function(require) {
     },
     
     getPosts: function() {
+
       var options = {
         form: [{
           var: 'author',
