@@ -48,6 +48,14 @@ p {
   line-height: 1.45;
 }
 
+.p--small {
+  font-size: 12px; 
+}
+
+input + p {
+  margin-top: 14px;
+}
+
 hr {
   margin: 10px 0;
   width: 100%;
@@ -169,6 +177,7 @@ hr {
   border-radius: 3px;
   padding: 0;
   list-style-position: inside;
+  font-weight: bold;
 }
 
 .ruleList li {
@@ -179,6 +188,10 @@ hr {
 
 .ruleList li:first-child {
   border: none;
+}
+
+.ruleList p:not(:first-child) {
+  font-weight: normal;
 }
 
 .screen {
