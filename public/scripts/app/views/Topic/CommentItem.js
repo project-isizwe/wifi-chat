@@ -60,10 +60,7 @@ define(function(require) {
         reportPost: function() {
           var location = this.getReportedPostContent()
           log(location)
-          window.open(
-            location,
-            '_blank'
-          )
+          window.open(location)
         },
 
         getReportedPostContent: function() {

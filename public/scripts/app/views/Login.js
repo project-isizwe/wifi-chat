@@ -8,6 +8,7 @@ define(function(require) {
       , socket        = require('app/utils/socket')
       , log           = require('app/utils/bows.min')('Views:Login')
       , subscriptions = require('app/store/Subscriptions')
+      , config        = require('app/utils/config')
 
     return Base.extend({
 
@@ -82,6 +83,14 @@ define(function(require) {
         enableLoginButton: function() {
           this.$el.find('button').attr('disabled', false)
         },
+
+        addDomainIfRequired: function(jid) {
+          var username = this.$el.find('input[name="username"]')
+          if (-1 === username.val().indexOf('@')) {
+            jid = jid + '@' + config.domain
+          }
+          return jid
+        },
        
         performDiscovery: function() {
           log('Performing discovery')
@@ -125,7 +134,9 @@ define(function(require) {
         login: function(event) {
           if (event) event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
-          this.jid = this.$el.find('input[name="username"]').val()
+          this.jid = this.addDomainIfRequired(
+            this.$el.find('input[name="username"]').val()
+          )
           this.password = this.$el.find('input[name="password"]').val()
           var credentials = { jid: this.jid, password: this.password }
           if (localStorage.getItem('host')) {

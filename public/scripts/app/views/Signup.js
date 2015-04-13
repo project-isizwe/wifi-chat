@@ -7,6 +7,7 @@ define(function(require) {
       , Base        = require('app/views/Base')
       , log         = require('app/utils/bows.min')('Views:Register')
       , Account     = require('app/models/Account')
+      , config      = require('app/utils/config')
 
     return Base.extend({
 
@@ -33,10 +34,20 @@ define(function(require) {
           this.$el.find('button').attr('disabled', false)
         },
 
+        addDomainIfRequired: function(jid) {
+          var username = this.$el.find('input[name="username"]')
+          if (-1 === username.val().indexOf('@')) {
+            jid = jid + '@' + config.domain
+          }
+          return jid
+        },
+
         register: function(event) {
           event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
-          var local = this.$el.find('input[name="username"]').val()
+          var local = this.addDomainIfRequired(
+            this.$el.find('input[name="username"]').val()
+          )
           var password = this.$el.find('input[name="password"]').val()
           var email = this.$el.find('input[name="email"]').val()
           this.showSpinner('Registering')
