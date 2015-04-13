@@ -27,7 +27,7 @@ define(function(require) {
         className: 'home screen screen--hasTabViews',
       
         initialize: function(options) {
-          _.bindAll(this, 'onResize', 'onPanStart', 'onPanMove', 'onPanEnd')
+          _.bindAll(this, 'onResize', 'onPanStart', 'onPanMove', 'onPanEnd', 'onTransitionEnd')
 
           this.options = options
         },
@@ -72,6 +72,8 @@ define(function(require) {
           this.navItems = this.$el.find('.tabs-item')
           this.viewItems = this.$el.find('.tab-views-item')
           this.xMax = this.viewItems.size() - 1
+
+          this.scroller.on('transitionend', this.onTransitionEnd)
 
           this.hammertime = new Hammer(this.scroller.get(0))
 
@@ -129,21 +131,6 @@ define(function(require) {
           this.moveIt(newX)
         },
 
-        slowOnEdges: function(x) {
-          var position = this.xPos * this.viewWidth + x
-          var min = 0
-          var max = this.xMax * this.viewWidth
-          if(position < min) {
-            var excess = min - position;
-            x *= (1 - excess / (this.viewWidth * 0.98)) * 0.98
-          }
-          if(position > max) {
-            var excess = position - max;
-            x *= (1 - excess / (this.viewWidth * 0.98)) * 0.98
-          }
-          return x
-        },
-
         onPanEnd: function(event) {
 
           // re-enable transitions on the scroller
@@ -157,10 +144,7 @@ define(function(require) {
             this.xPos -= 1
           }
 
-          this.visibleTabView = this.viewItems.eq(this.xPos)
-
-          this.adaptViewsHeight()
-          this.moveIt(this.xPos * this.viewWidth)
+          this.navigateTo(this.viewItems.eq(this.xPos).attr('data-view'))
         },
 
         onTabClick: function(event) {
@@ -171,10 +155,17 @@ define(function(require) {
           this.visibleTabView = this.viewItems.filter('[data-view='+ viewName +']')
           this.xPos = this.visibleTabView.index()
 
-          
+          this.visibleTabView.addClass('is-visible')
+
           // adjust height
           this.adaptViewsHeight()
+
           this.moveIt(this.xPos * this.viewWidth)
+          console.log(this.xPos, this.viewWidth, viewName)
+        },
+
+        onTransitionEnd: function() {
+          this.viewItems.filter('.is-visible').not(this.visibleTabView).removeClass('is-visible')
         },
 
         adaptViewsHeight: function() {
