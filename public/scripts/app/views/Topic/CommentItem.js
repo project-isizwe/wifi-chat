@@ -2,10 +2,12 @@ define(function(require) {
 
     'use strict';
 
-    var _              = require('underscore')
-      , Avatar         = require('app/models/Avatar')
-      , Base           = require('app/views/Base')
-      , log            = require('app/utils/bows.min')('Views:Topic/CommentList')
+    var _       = require('underscore')
+      , Avatar  = require('app/models/Avatar')
+      , Base    = require('app/views/Base')
+      , user    = require('app/store/User')
+      , config  = require('app/utils/config')
+      , log     = require('app/utils/bows.min')('Views:Topic/CommentList')
     require('jquery.timeago')
 
     return Base.extend({
@@ -20,6 +22,7 @@ define(function(require) {
 
         events: {
           'click .js-seeAuthor': 'seeAuthor',
+          'click .js-report-post': 'reportPost'
         },
 
         initialize: function(options){
@@ -53,6 +56,31 @@ define(function(require) {
           this.$el.find('.avatar')
             .css('background-image', 'url("' + this.avatar.get('url') + '")')      
         },
+
+        reportPost: function() {
+          var location = this.getReportedPostContent()
+          log(location)
+          window.open(
+            location,
+            '_blank'
+          )
+        },
+
+        getReportedPostContent: function() {
+          var subject = 'Reported post from wifi chat'
+          var body = [
+            'Post ID: ' + this.model.get('id'),
+            'Post content:\n\n' + this.model.get('content') + '\n\n',
+            'Reason: <Please add a reason here>',
+            'Reported by: ' + user.get('channelJid')
+          ]
+          return encodeURI(
+            'mailto:' + config.getReportingEmail() +
+            '?subject=' + subject +
+            '&body=' + body.join('\n')
+          )
+
+        }
       
     })
 
