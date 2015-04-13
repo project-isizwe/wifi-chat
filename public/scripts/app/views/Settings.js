@@ -43,8 +43,6 @@ define(function(require) {
           this.model.set('canUploadFiles', false)
         }
 
-        log(JSON.stringify(this.model.attributes, false, 2))
-
         this.model.once('loaded:meta', this.render, this)
         this.model.once('loaded:meta', this.loadAvatar, this)
       },
