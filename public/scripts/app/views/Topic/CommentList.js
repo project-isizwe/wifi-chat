@@ -6,6 +6,7 @@ define(function(require) {
       , Base            = require('app/views/Base')
       , Comments        = require('app/collections/Comments')
       , CommentItemView = require('app/views/Topic/CommentItem')
+      , Post            = require('app/models/Post')
       , log             = require('bows.min')('Views:Topic:CommentList')
       require('jquery.scrollparent')
 
@@ -29,9 +30,24 @@ define(function(require) {
         this.router = options.router
         this.collection = new Comments(null, {
           node: this.options.node,
-          id: this.options.id
+          id: this.options.id,
+          after: options.highlightPost
         })
+        if (this.options.highlightPost) {
+          this.loadHighlightedPost()
+        }
         this.loadComments()
+      },
+
+      loadHighlightedPost: function() {
+        var post = new Post({
+          id: this.options.highlightPost,
+          node: this.options.node
+        })
+        post.once('loaded:post', function() {
+          this.collection.add(post)
+        }, this)
+        post.sync()
       },
 
       afterRender: function() {

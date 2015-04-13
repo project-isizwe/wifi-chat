@@ -56,7 +56,8 @@ define(function(require) {
       }
       if (this.lastPostId) {
         options.rsm.before = this.lastPostId
-        options.rsm.max = this.itemsPerRequest
+      } else if (this.options.after) {
+        options.rsm.after = this.options.after
       }
       socket.send(this.event, options, function(error, data, rsm) {
         if (error) {
