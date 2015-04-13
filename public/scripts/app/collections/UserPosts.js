@@ -12,16 +12,15 @@ define(function(require) {
     
     model: Post,
 
-    lastTopicId: null,
-    topicsPerRequest: 5,
-    topicCount: null,
-    
+    postsPerRequest: 5,
+    rsmPageNumber: 1,
+
     event: 'xmpp.buddycloud.search.do',
 
     initialize: function(models, options) {
       this.options = options
       pusher.on('new-post', this.pushedItem, this)
-      pusher.on('delete-post', this.retractItem, this)
+      log(models, options)
     },
     
     sync: function(method, collection, options) {
@@ -43,55 +42,36 @@ define(function(require) {
     },
     
     getPosts: function() {
-      var self = this
       var options = {
-        node: this.options.node,
-        parentOnly: true,
-        rsm: {
-          max: this.topicsPerRequest
-        }
+        form: [{
+          var: 'author',
+          value: this.getOption('jid')
+        }]
       }
-      if (this.lastTopicId) {
-        options.rsm.after = this.lastTopicId
-        options.rsm.max = this.topicsPerRequest
-      }
+
+      options.form.push({ var: 'page', value: this.rsmPageNumber })
+      options.form.push({ var: 'rpp',  value: this.postsPerRequest })
+
       socket.send(this.event, options, function(error, data, rsm) {
         if (error) {
           return self.trigger('error', error)
         }
-        log('Received topics')
-        self.topicCount = rsm.count
+
         self.add(data)
-        if (0 !== data.length) {
-          self.lastTopicId = rsm.last
-        }
-        self.trigger('loaded:topics', data.length)
+        ++self.rsmPageNumber
+        self.trigger('loaded:user-posts', data.length)
       })
     },
 
     pushedItem: function(model) {
+      log('Received push', model)
       if (model.get('author') !== this.options.router.getJid()) {
         return
       }
-
-      // If post is a reply, update the comment count
-      var parentPost = this.findWhere({ localId: inReplyTo })
-      if (parentPost) {
-        parentPost.addComment()
-      }
-    },
-
-    retractItem: function(data) {
-      if (data.node !== this.options.node) {
-        return
-      }
-      // If post is a new thread drop into the collection
-      var model = this.findWhere({ node: data.node, localId: data.id })
-      if (model) {
-        this.remove(model)
-      }
+      
+      this.add(model)
     }
-    
+
   })
     
 })
