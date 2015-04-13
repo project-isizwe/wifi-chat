@@ -31,6 +31,10 @@ define(function(require) {
         seeContext: function() {
 
         },
+
+        afterRender: function() {
+          this.$el.find('time').timeago()
+        }
       
     })
 
