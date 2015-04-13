@@ -88,7 +88,6 @@ define(function(require) {
           request: data.request,
           type: data.type
         }
-
       },
 
       uploadAvatar: function(event) {
@@ -115,7 +114,7 @@ define(function(require) {
             contentType: false,
             processData: false,
             success: function(data, status, jqXHR) {
-              self.set('cachebust', +new Date)
+              self.set('cachebust', Date.now())
               self.trigger('updated:avatar')
             },
             error: function(jqXHR, status, error) {

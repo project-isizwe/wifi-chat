@@ -315,6 +315,7 @@ hr {
 
 .logo {
   align-self: center;
+  margin-bottom: 34px;
 }
 
 .bottom-controls {
@@ -373,6 +374,7 @@ hr {
   padding: 0 6px;
   color: hsl(232,5%,70%);
   background: hsl(240,11%,95%);
+  display: none;
 }
 
 .private-count {
@@ -399,13 +401,12 @@ hr {
 }
 
 .channel-banner {
-  height: 166px;
+  height: 160px;
   background-color: hsl(240,12%,93%);
   background-image:
     url(../images/icons/channel_placeholder.svg);
   background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .channel-banner[style] {

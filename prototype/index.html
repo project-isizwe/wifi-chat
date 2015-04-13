@@ -61,8 +61,7 @@
 
 <div class="welcome screen">
   <div class="screen-textContent screen-textContent--centered screen-textContent--stretched">
-    <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
-    <h1>WiFi Chat</h1>
+    <img class="logo" src="../public/images/wifi-chat-logo.svg" width="126" height="123">
     <div class="btngroup btngroup--vertical">
       <a href="/signup" class="btn btn--callToAction">Join WiFi Chat</a>
       <hr>
@@ -73,8 +72,7 @@
 
 <div class="login screen">
   <div class="screen-textContent">
-    <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
-    <h1>WiFi Chat</h1>
+    <img class="logo" src="../public/images/wifi-chat-logo.svg" width="126" height="123">
     <form>
       <input type="text" id="login-username" placeholder="Wifi Chat Username" required>
       <input type="password" id="login-password" placeholder="Password" required>
@@ -99,8 +97,7 @@
   </div>
   <div data-symbol="filled-login">
     <div class="screen-textContent">
-      <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
-      <h1>WiFi Chat</h1>
+      <img class="logo" src="../public/images/wifi-chat-logo.svg" width="126" height="123">
       <form>
         <input type="text" id="login-username" placeholder="WiFi Chat Username" value="mattheu_matshaya" required>
         <input type="password" id="login-password" placeholder="Password" value="mattheu_matshaya" required>
@@ -294,44 +291,44 @@
       <div class="tab-views-item channelList" data-view="channelList">
         <div data-symbol="channelList">
           <div class="channelList-item">
-            <div class="channelIcon" style="background-image: url(tshwane.jpg)"></div>
+            <div class="channelIcon" style="background-image: url(../public/images/channels/cityoftshwane.jpg)"></div>
             <div class="channelList-title">City of Tshwane</div>
             <div class="channelList-unreadCount">5</div>
             <div class="arrow right icon"></div>
           </div>
           <div class="channelList-item">
-            <div class="channelIcon"></div>
+            <div class="channelIcon" style="background-image: url(../public/images/channels/wifidrivein.jpg)"></div>
             <div class="channelList-title">WiFi Drive-in</div>
             <div class="channelList-unreadCount">0</div>
             <div class="arrow right icon"></div>
           </div>
           <div class="channelList-item">
-            <div class="channelIcon"></div>
+            <div class="channelIcon" style="background-image: url(../public/images/channels/wifitv.jpg)"></div>
             <div class="channelList-title">WiFi TV</div>
             <div class="channelList-unreadCount">5</div>
             <div class="arrow right icon"></div>
           </div>
           <div class="channelList-item">
-            <div class="channelIcon"></div>
+            <div class="channelIcon" style="background-image: url(../public/images/channels/wifisupport.jpg)"></div>
             <div class="channelList-title">WiFi Support</div>
             <div class="channelList-unreadCount">12</div>
             <div class="arrow right icon"></div>
           </div>
           <div class="channelList-item">
             <div class="channelIcon"></div>
-            <div class="channelList-title">WiFi Drive-in</div>
+            <div class="channelList-title">Braai Friends</div>
             <div class="channelList-unreadCount">0</div>
             <div class="arrow right icon"></div>
           </div>
           <div class="channelList-item">
             <div class="channelIcon"></div>
-            <div class="channelList-title">WiFi TV</div>
+            <div class="channelList-title">Namboi Neighbourhood</div>
             <div class="channelList-unreadCount">5</div>
             <div class="arrow right icon"></div>
           </div>
           <div class="channelList-item">
             <div class="channelIcon"></div>
-            <div class="channelList-title">WiFi Support</div>
+            <div class="channelList-title">Pretoria to Johannesburg</div>
             <div class="channelList-unreadCount">0</div>
             <div class="arrow right icon"></div>
           </div>
@@ -422,14 +419,15 @@
           Edit
         </div>
       </div>
-      <div class="channel-banner" style="background-image: url(tshwane.jpg)"></div>
+      <div class="channel-banner" style="background-image: url(../public/images/channels/cityoftshwane.jpg)"></div>
       <p class="channel-description">
-        The City of Tshwane is the second largest municipality in Gauteng and is among the six biggest metropolitan municipalities in South Africa. Fourteen towns and townships form part of the Municipality.
+        Connect with your City and engage with fellow citizens on a real-time discussion platform for service delivery priorities and City issues.
       </p>
       <!-- <div class="channel-actions">
         <div class="btn btn--primary js-newTopic">Write new post</div>
       </div> -->
     </header>
+    <div data-symbol="topics">
     <section class="posts">
       <article>
         <section class="post post--topic">
@@ -489,7 +487,48 @@
         <div class="silent spinner spinner--small"></div>
       </div>
     </section>
+    </div>
   </div>
+</div>
+
+<div class="channel screen">
+  <header class="channel-header">
+    <div class="screen-header">
+      <div class="btn btn--text js-back">
+        <div class="arrow left icon"></div>
+        Close
+      </div>
+      <div class="screen-title">WiFi Support</div>
+      <div class="btn btn--text js-edit">
+        Edit
+      </div>
+    </div>
+    <div class="channel-banner" style="background-image: url(../public/images/channels/wifisupport.jpg)"></div>
+    <p class="channel-description">
+      Connect directly with the Project Isizwe team and let them know about any issues you’re having while using Tshwane Free WiFi.
+    </p>
+  </header>
+  <div data-use-symbol="topics"></div>
+</div>
+
+<div class="channel screen">
+  <header class="channel-header">
+    <div class="screen-header">
+      <div class="btn btn--text js-back">
+        <div class="arrow left icon"></div>
+        Close
+      </div>
+      <div class="screen-title">WiFi TV</div>
+      <div class="btn btn--text js-edit">
+        Edit
+      </div>
+    </div>
+    <div class="channel-banner" style="background-image: url(../public/images/channels/wifitv.jpg)"></div>
+    <p class="channel-description">
+      Have your say on WiFi TV, what you think of the videos and what you want to see broadcast on your local community channel.
+    </p>
+  </header>
+  <div data-use-symbol="topics"></div>
 </div>
 
 <!-- <div class="newTopic screen">
@@ -834,8 +873,7 @@
 
 <div class="login screen">
   <div class="screen-textContent">
-    <img class="logo" src="../public/images/wifi-chat-logo.png" height="88" width="113">
-    <h1>WiFi Chat</h1>
+    <img class="logo" src="../public/images/wifi-chat-logo.svg" width="126" height="123">
     <p>
       Your browser is not supported.
       Please try a different browser.
@@ -1033,8 +1071,8 @@
       var indicatorPos = x/this.viewWidth * this.tabWidth
       // limit indicator to view boundaries
       indicatorPos = Math.max(0, Math.min(this.xMax * this.tabWidth, indicatorPos))
-      this.activeIndicator.style.transform = 'translateX('+ indicatorPos +'px) translateZ(0)'
-      this.scroller.style.transform = 'translateX('+ (-x) +'px) translateZ(0)'
+      this.activeIndicator.style.transform = 'translateX('+ indicatorPos +'px)'
+      this.scroller.style.transform = 'translateX('+ (-x) +'px)'
     },
 
     getTabViewIndex: function(view) {
