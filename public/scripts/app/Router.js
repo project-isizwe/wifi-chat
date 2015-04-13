@@ -113,7 +113,7 @@ define(function (require) {
         this.showView(channelView, '/channel/' + jid)
       },
 
-      showTopic: function(jid, id, goToNewComment) {
+      showTopic: function(jid, id, goToNewComment, highlightPost) {
         if (!id) {
           return this.showChannel(jid)
         }

@@ -62,13 +62,13 @@ define(function(require) {
         var fragment = document.createDocumentFragment()
         var self = this
 
-        for(var i=0, l=newItems.length; i<l; i++){
+        newItems.forEach(function(newItem) {
           var item = new ActivityItemView({
-            model: newItems[i],
+            model: newItem,
             router: self.router
           })
           fragment.appendChild(item.render().el)
-        }
+        }, this)
         this.$el.append(fragment)
 
         this.isInfiniteScrollLoading = false
@@ -90,7 +90,7 @@ define(function(require) {
       },
 
       onScroll: function() {
-        if(this.isInfiniteScrollLoading) {
+        if (this.isInfiniteScrollLoading) {
           return
         }
 

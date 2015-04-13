@@ -25,11 +25,17 @@ define(function(require) {
           _.bindAll(this, 'render')
 
           this.options = options
+          this.router = options.router
           this.model.bind('change', this.render)
         },
 
         seeContext: function() {
-
+          this.router.showTopic(
+            this.model.get('channelJid'),
+            this.model.get('inReplyTo'), 
+            null,
+            this.model.get('id')
+          )
         },
 
         afterRender: function() {
