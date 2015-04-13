@@ -58,9 +58,7 @@ define(function(require) {
         },
 
         reportPost: function() {
-          var location = this.getReportedPostContent()
-          log(location)
-          window.open(location)
+          document.location.href = this.getReportedPostContent()
         },
 
         getReportedPostContent: function() {
