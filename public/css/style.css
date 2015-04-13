@@ -806,6 +806,7 @@ hr {
   position: relative;
   top: 9px;
   display: inline-block;
+  display: none;
 }
 
 .post--topic .admin.icon {
