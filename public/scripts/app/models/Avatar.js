@@ -37,7 +37,6 @@ define(function(require) {
 
       setAvatar: function() {
         var url = this.getAvatarUrl() + this.getImageParameters()
-          var self = this
         var image = new Image()
         var self = this
         image.onload = function() {
