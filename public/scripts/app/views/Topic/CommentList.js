@@ -50,10 +50,6 @@ define(function(require) {
         post.sync()
       },
 
-      afterRender: function() {
-        this.scrollParent = this.$el.scrollParent()
-      },
-
       loadComments: function() {
         this.collection.on('all', function(event) { log('TopicList', event) })
         this.collection.on('loaded:comments', this.addComments, this)
@@ -93,10 +89,11 @@ define(function(require) {
         }
         var comments = document.createDocumentFragment()
         var self = this
+        var scrollParent = this.$el.scrollParent()
 
-        var scrollHeight = (this.scrollParent.get(0) == document ? $('body') : this.scrollParent).prop('scrollHeight')
-        var viewHeight = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).height()
-        var isScrolledToBottom = 0 == this.scrollParent.scrollTop() - scrollHeight - viewHeight
+        var scrollHeight = (scrollParent.get(0) == document ? $('body') : scrollParent).prop('scrollHeight')
+        var viewHeight = (scrollParent.get(0) == document ? $(window) : scrollParent).outerHeight()
+        var isScrolledToBottom = Math.abs(scrollHeight - scrollParent.scrollTop() - viewHeight) < 5
 
         newComments.forEach(function(newComment) {
           var comment = new CommentItemView({
@@ -117,10 +114,10 @@ define(function(require) {
         }
 
         this.isFetchingComments = false
-        this.$el.find('.js-showMore').removeClass('is-loading')
+        this.$el.find('.js-showMore').removeClass('is-loading')    
 
         if(isScrolledToBottom){
-          this.scrollParent.scrollTop(999999)
+          scrollParent.scrollTop(999999)
         }
       },
 
