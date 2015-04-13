@@ -14,7 +14,8 @@ define(function(require) {
       defaults: {
         url: null,
         height: 44,
-        width: 44
+        width: 44,
+        cachebust: ''
       },
 
       uploadToken: null,
@@ -56,10 +57,10 @@ define(function(require) {
       getImageParameters: function() {
         var parameters = []
         if (this.get('height')) {
-          parameters.push('height=' + this.get('height'))
+          parameters.push('maxheight=' + this.get('height'))
         }
         if (this.get('width')) {
-          parameters.push('width=' + this.get('width'))
+          parameters.push('maxwidth=' + this.get('width'))
         }
         if (0 === parameters.length) {
           return ''
@@ -68,7 +69,6 @@ define(function(require) {
       },
 
       verifyFileUpload: function(data) {
-        log('Incoming file upload verification request', data)
         var event = 'xmpp.buddycloud.http.confirm'
         if (this.uploadToken !== data.request.id) {
           event = 'xmpp.buddycloud.http.deny'
@@ -98,6 +98,7 @@ define(function(require) {
         var file =  event.target.files[0]
         var reader = new FileReader()
         var self = this
+
         reader.onload = function(event) {
           var fileData = event.target.result
           formData.append('data', file)
@@ -114,10 +115,11 @@ define(function(require) {
             contentType: false,
             processData: false,
             success: function(data, status, jqXHR) {
-                log('success', null, data, status, jqXHR)
-                self.trigger('updated:avatar')
+              self.set('cachebust', +new Date)
+              self.trigger('updated:avatar')
             },
             error: function(jqXHR, status, error) {
+              self.trigger('error:avatar', 'Something went wrong. Please try again later.')
               log('error', {
                   status: status,
                   error: error,

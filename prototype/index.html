@@ -138,8 +138,9 @@
     <div class="screen-title">Reset Password</div>
   </header>
   <form class="screen-textContent">
-    <p>Enter your email address so that we can send you a link to reset your password</p>
+    <p>Don't worry, we'll help you out!</p>
     <input type="email" id="signup-email" placeholder="E-Mail" required>
+    <p>Enter your email address here and receive password reset instructions. Just follow the prompts and you'll be back on WiFi Chat in no time.</p>
     <div class="btn btn--primary js-signup">Send reset link</div>
   </form>
 </div>
@@ -174,25 +175,34 @@
       <div class="back arrow icon"></div>
       Back
     </div>
-    <div class="screen-title">Rules</div>
+    <div class="screen-title">WiFi Chat Rules</div>
   </header>
   <div class="screen-textContent">
-    <p>By clicking "Start using WiFi Chat" you're accepting the following set of rules:</p>
+    <p>By clicking "Start using WiFi Chat" you're accepting the following set of rules.</p>
+    <p>Failure to abide by these rules could result in your profile being disabled.</p>
     <ol class="ruleList">
       <li>
         <p>Respect others.</p>
-        <p>You might not always agree with others comments. But please respect their right to have an opinion and treat them with respect.</p>
-      <li>
-        <p>Don't spam.</p>
-        <p>Don't post the same comment repeatedly in multiple chats.</p>
-      <li>
-        <p>Don't post personal information.</p>
-        <p>Don't post the full name, employer, or other real-life details of another person.</p>
-      <li>
+        <p>You might not always agree with others comments, but please respect their right to have an opinion.</p>
         <p>No pornography or sexually suggestive content.</p>
+        <p>No abusive language or name-calling will be tolerated.</p>
       <li>
+        <p>Use WiFi Chat safely.</p>
+        <p>Don't share any personal information about you or anyone else (passwords, identity numbers, banking details or contact details).</p>
+        <p>Do not arrange to meet with strangers you meet on this platform.</p>
+        <p>Beware of scams and report any suspicious behavior.</p>
+      <li>
+        <p>Do not spam.</p>
+        <p>Don't post the same comment repeatedly in multiple chats.</p>
+        <p>Don't post advertisements or product promotions.</p>
+      <li>
+        <p>Do not share illegal content.</p>
+        <p>Don't share links to illegal downloading sites or pirated copies of items.</p>
+      <li>
+        <p>Don't break the site.</p>
         <p>Don't break the site or do anything that interferes with normal use of the site.</p>
     </ol>
+    <p class="p--small">WiFi Chat administrators, Project Isizwe and the City of Tshwane take no responsibility for the any consequence of broken rules, personal injury or the loss of privacy or personal items. <i>WiFi Chat</i> is public and administrators of reserve the right to disable a user account in the event of one or more of the above mentions rules are broken.</p>
     <div class="btn btn--primary js-start">Start using WiFi Chat</div>
   </div>
 </div>
@@ -215,8 +225,8 @@
       <textarea rows="3" placeholder="Tell the world about yourself..."></textarea>
     </div>
     <div class="form-controls">
-      <div class="btn btn--text form-cancel js-discard">Maybe Later</div>
-      <button type="submit" class="btn btn--primary btn--small">Save</button>
+      <div class="btn btn--text form-cancel js-continue">Maybe Later</div>
+      <button type="submit" class="btn btn--primary btn--small js-continue">Continue</button>
     </div>
   </form>
 </div>
@@ -416,9 +426,9 @@
       <p class="channel-description">
         The City of Tshwane is the second largest municipality in Gauteng and is among the six biggest metropolitan municipalities in South Africa. Fourteen towns and townships form part of the Municipality.
       </p>
-      <div class="channel-actions">
+      <!-- <div class="channel-actions">
         <div class="btn btn--primary js-newTopic">Write new post</div>
-      </div>
+      </div> -->
     </header>
     <section class="posts">
       <article>
@@ -482,7 +492,7 @@
   </div>
 </div>
 
-<div class="newTopic screen">
+<!-- <div class="newTopic screen">
   <div data-symbol="newTopic">
     <header class="screen-header">
       <div class="btn btn--text js-cancel">
@@ -512,7 +522,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 
@@ -747,7 +757,25 @@
   </form>
 </div>
 
-<div class="profile screen">
+<div class="profile profile--edit screen">
+  <header class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="left arrow icon"></div>
+      Back
+    </div>
+    <div class="screen-title">mattheu_matshaya</div>
+    <div class="btn btn--text js-done">Done</div>
+  </header>
+  <form class="screen-textContent">
+    <div class="avatar avatar--big avatar--uploadMode is-uploading" style="background-image: none">
+      <div class="spinner"></div>
+    </div>
+    <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name">
+    <textarea rows="4" name="description" placeholder="Tell the world about yourself...">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
+  </form>
+</div>
+
+<!-- <div class="profile screen">
   <div class="modal">
     <div class="modal-background js-close"></div>
     <div class="modal-body">
@@ -782,7 +810,7 @@
       <button type="submit" class="btn btn--primary btn--small">Save</button>
     </div>
   </form>
-</div>
+</div> -->
 
 
 
@@ -823,7 +851,7 @@
       <div class="back arrow icon"></div>
       Back
     </div>
-    <div class="screen-title">Safety</div>
+    <div class="screen-title">Text</div>
   </header>
   <div class="screen-textContent screen-textContent--isFull">
     <p>

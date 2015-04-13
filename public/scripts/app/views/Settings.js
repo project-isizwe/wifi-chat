@@ -52,7 +52,7 @@ define(function(require) {
           avatarUrl: this.avatar && this.avatar.get('url')
         })))
         
-        if(this.model.isLoaded()) {
+        if(this.model.isMetaLoaded) {
           this.loadAvatar()
         }
 
@@ -84,17 +84,33 @@ define(function(require) {
           width: 128,
           height: 128
         })
-        this.avatar.once('loaded:avatar', this.showAvatar, this)
+        this.avatar.once('loaded:avatar', this.onAvatarLoaded, this)
+        this.avatar.once('error:avatar', this.onAvatarError, this)
       },
 
       uploadAvatar: function(event) {
-        this.avatar.uploadAvatar(event)
-        this.avatar.once('updated:avatar', this.showAvatar, this)
+        if(event.target.files.length){
+          this.$el.find('.avatar').css('background-image', 'none').addClass('is-uploading')
+          this.avatar.uploadAvatar(event)
+          this.avatar.once('updated:avatar', this.showAvatar, this)
+        }
+      },
+
+      onAvatarLoaded: function() {
+        this.showAvatar()
+        this.avatar.off('error:avatar')
+      },
+
+      onAvatarError: function(message) {
+        this.trigger('error', message)
+        this.showAvatar()
+        this.avatar.off('loaded:avatar')
       },
 
       showAvatar: function() {
         this.$el.find('.avatar')
-          .css('background-image', 'url("' + this.avatar.get('url') + '")')      
+          .removeClass('is-uploading')
+          .css('background-image', 'url("' + this.avatar.get('url') + '&' + this.avatar.get('cachebust') + '")')   
       }
 
     })

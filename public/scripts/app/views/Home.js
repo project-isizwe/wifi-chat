@@ -40,6 +40,8 @@ define(function(require) {
           this.activityView = new ActivityView(this.options)
           this.settingsView = new SettingsView(this.options)
 
+          this.settingsView.on('error', this.showError, this)
+
           this.tabViews = [
             this.channelListView,
             // this.activityView,
