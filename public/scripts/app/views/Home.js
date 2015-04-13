@@ -4,6 +4,7 @@ define(function(require) {
 
     var $               = require('jquery')
       , _               = require('underscore')
+      , Hammer          = require('hammer.min')
       , Base            = require('app/views/Base')
       , socket          = require('app/utils/socket')
       , ChannelListView = require('app/views/ChannelList')
@@ -21,13 +22,12 @@ define(function(require) {
 
         events: {
           'click .tabs-item':      'onTabClick',
-          'touchstart .tab-views': 'onInputDown'
         },
       
         className: 'home screen screen--hasTabViews',
       
         initialize: function(options) {
-          _.bindAll(this, 'onResize', 'onInputMove', 'onInputUp')
+          _.bindAll(this, 'onResize', 'onPanStart', 'onPanMove', 'onPanEnd')
 
           this.options = options
         },
@@ -73,28 +73,29 @@ define(function(require) {
           this.viewItems = this.$el.find('.tab-views-item')
           this.xMax = this.viewItems.size() - 1
 
+          this.hammertime = new Hammer(this.scroller.get(0))
+
+          this.hammertime.on('panstart', this.onPanStart)
+          this.hammertime.on('panmove', this.onPanMove)
+          this.hammertime.on('panend', this.onPanEnd)
+
           // stores the current xPos  
           this.xPos = 0
-
-          // distance after which a touchmove is seen as a slide attempt
-          this.tolerance = {
-            x: 5,
-            y: 10
-          }
 
           // adapt view height when channelList got filled
           this.channelListView.on('loaded:channel', this.adaptViewsHeight, this)
 
           // update dimensions
           this.onResize()
-          $(window).on('resize', this.onResize)
+          $(window).on('resize.home', this.onResize)
 
           // go to first item
           this.navigateTo(this.viewItems.first().attr('data-view'))
         },
 
         onDestroy: function() {
-          $(window).off('resize', this.onResize)
+          $(window).off('resize.home', this.onResize)
+          this.hammertime.destroy()
         },
 
         onResize: function() {
@@ -117,27 +118,15 @@ define(function(require) {
             this.navigateTo(this.visibleTabView.attr('data-view'))
         },
 
-        onInputDown: function(event) {
-          this.startX = event.originalEvent.touches[0].pageX
-          this.startY = event.originalEvent.touches[0].pageY
-          $(document).on('touchmove', this.onInputMove)
-          $(document).one('touchend', this.onInputUp)
-
+        onPanStart: function() {
           // disable transitions on the scroller so that we can move it
           this.scroller.addClass('no-transition')
           this.activeIndicator.addClass('no-transition')
         },
 
-        onInputMove: function(event) {
-          var x = this.startX - event.originalEvent.touches[0].pageX
-          var y = this.startY - event.originalEvent.touches[0].pageY
-
-          if(Math.abs(x) > this.tolerance.x && Math.abs(y) < this.tolerance.y){
-            event.preventDefault()
-            this.xMove = x //this.slowOnEdges(x)
-            var newX = this.xPos * this.viewWidth + this.xMove
-            this.moveIt(newX)
-          }
+        onPanMove: function(event) {
+          var newX = this.xPos * this.viewWidth - event.deltaX
+          this.moveIt(newX)
         },
 
         slowOnEdges: function(x) {
@@ -155,33 +144,23 @@ define(function(require) {
           return x
         },
 
-        onInputUp: function(event) {
-          $(document).off('inputmove', this.onInputMove)
+        onPanEnd: function(event) {
 
           // re-enable transitions on the scroller
           this.scroller.removeClass('no-transition')
           this.activeIndicator.removeClass('no-transition')
 
-          // did something happen that needs us to move the
-          // scroller either back to its neutral position
-          // or towards another slide then let's do this
-          if(this.xMove){
-            event.preventDefault()
-
-            if(this.xMove >= this.viewWidth/2 && this.xPos < this.xMax) {
-              this.xPos += 1
-            }
-            else if(this.xMove <= -this.viewWidth/2 && this.xPos > 0) {
-              this.xPos -= 1
-            }
-
-            this.visibleTabView = this.viewItems.index(this.xPos)
-
-            this.adaptViewsHeight()
-            this.moveIt(this.xPos * this.viewWidth)
-
-            this.xMove = null
+          if(event.deltaX < -this.viewWidth/2 && this.xPos < this.xMax) {
+            this.xPos += 1
           }
+          else if(event.deltaX > this.viewWidth/2 && this.xPos > 0) {
+            this.xPos -= 1
+          }
+
+          this.visibleTabView = this.viewItems.eq(this.xPos)
+
+          this.adaptViewsHeight()
+          this.moveIt(this.xPos * this.viewWidth)
         },
 
         onTabClick: function(event) {
