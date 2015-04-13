@@ -1,6 +1,6 @@
 <div class="section edit-profile">
 
-  <div class="avatar avatar--big avatar--uploadMode">
+  <div class="avatar avatar--big avatar--uploadMode"<% if(avatarUrl) { print(' style="background-image: url('+ avatarUrl +')"') } %>>
     <% if (canUploadFiles) { %>
     <div class="btn btn--primary">Change</div>
     <input type="file" name="avatar" accept="image/*" />

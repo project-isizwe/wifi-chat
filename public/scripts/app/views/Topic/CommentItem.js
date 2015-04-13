@@ -26,12 +26,18 @@ define(function(require) {
           _.bindAll(this, 'render')
 
           this.model.bind('change', this.render)
-          this.on('render', this.afterRender, this)
         },
-      
-        afterRender: function() {
+
+        render: function(){
+          this.$el.html(this.template(_.extend(this.model.attributes, {
+            avatarUrl: this.avatar && this.avatar.get('url')
+          })))
           this.$el.find('time').timeago()
-          this.loadAvatar()
+
+          if(!this.avatar)
+            this.loadAvatar()
+
+          return this
         },
 
         seeAuthor: function() {

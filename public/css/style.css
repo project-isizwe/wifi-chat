@@ -435,10 +435,6 @@ hr {
   margin-bottom: 12px;
 }
 
-.post-avatar {
-  cursor: pointer;
-}
-
 .post-meta {
   margin-left: 9px;
 }
@@ -708,6 +704,7 @@ hr {
   background-size: cover;
   position: relative;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .channelIcon {
@@ -717,6 +714,7 @@ hr {
 .avatar--small {
   width: 33px;
   height: 33px;
+  cursor: pointer;
 }
 
 .channelIcon--big,
@@ -726,6 +724,7 @@ hr {
   display: block;
   border-radius: 6px;
   margin: 0 auto 28px;
+  cursor: default;
 }
 
 .avatar--uploadMode {

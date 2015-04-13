@@ -24,8 +24,9 @@ define(function(require) {
 
         className: 'newComment',
 
-        initialize: function() {
+        initialize: function(options) {
           _.bindAll(this, 'scrollToBottom')
+          this.options = options
           this.once('loaded:comments', this.onCommentsLoaded, this)
         },
 
