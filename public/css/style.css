@@ -592,7 +592,7 @@ hr {
 .post--activity {
   padding-bottom: 9px;
   margin-bottom: 14px;
-  border-bottom: 1px solid hsl(240,12%,97%);
+  border-bottom: 1px solid hsl(240,12%,95%);
 }
 
 .post--activity:not(:first-child) {
@@ -852,6 +852,7 @@ hr {
   display: flex;
   width: 100%;
   position: relative;
+  user-select: none;
 }
 
 .tabs-activeIndicator {
