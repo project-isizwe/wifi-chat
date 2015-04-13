@@ -9,6 +9,8 @@ define(function(require) {
 
     return Base.extend({
 
+      template: _.template(require('text!tpl/Activity/Index.html')),
+
       requiresLogin: true,
 
       title: 'My Posts',
@@ -24,9 +26,13 @@ define(function(require) {
       },
       
       render: function() {
-        // for each post, append post item
+        this.$el.html(this.template())
         return this
-      }
+      },
+
+      appendPosts: function() {
+        // for each post, append post item
+      },
 
     })
 
