@@ -70,9 +70,15 @@ define(function(require) {
             } else if ('unknown' === error.condition) {
               message = 'Oh no! Bad username, please check!'
             }
+            self.resetUsername()
             self.showError(message)
             self.enableLoginButton()
           })
+        },
+
+        resetUsername: function() {
+          this.$el.find('input[name="username"]')
+            .val(this.removeDomainIfPresent(this.jid))
         },
 
         onDestroy: function() {
@@ -91,6 +97,13 @@ define(function(require) {
           }
           return jid
         },
+
+        removeDomainIfPresent: function(jid) {
+          if (-1 !== jid.indexOf('@')) {
+            return jid.split('@')[0]
+          }
+          return jid
+        },
        
         performDiscovery: function() {
           log('Performing discovery')
@@ -104,6 +117,7 @@ define(function(require) {
             if (error) {
               self.enableLoginButton()
               localStorage.removeItem('channel-server')
+              self.resetUsername()
               return self.showError('We\'re sorry but the system is down!')
             }
             subscriptions.sync()
