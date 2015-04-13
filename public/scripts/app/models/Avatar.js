@@ -12,7 +12,9 @@ define(function(require) {
     return Backbone.Model.extend({
 
       defaults: {
-        url: null
+        url: null,
+        height: 44,
+        width: 44
       },
 
       uploadToken: null,
