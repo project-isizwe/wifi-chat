@@ -2,10 +2,10 @@ define(function(require) {
 
     'use strict';
 
-    var _             = require('underscore')
-      , Base          = require('app/views/Base')
-      , PostItemView  = require('app/views/Activity/PostItem')
-      , log           = require('bows.min')('Views:Activity:Index')
+    var _                = require('underscore')
+      , Base             = require('app/views/Base')
+      , ActivityItemView = require('app/views/Activity/ActivityItem')
+      , log              = require('bows.min')('Views:Activity:Index')
 
     return Base.extend({
 

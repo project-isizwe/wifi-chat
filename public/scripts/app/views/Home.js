@@ -175,6 +175,9 @@ define(function(require) {
               this.xPos -= 1
             }
 
+            this.visibleTabView = this.viewItems.index(this.xPos)
+
+            this.adaptViewsHeight()
             this.moveIt(this.xPos * this.viewWidth)
 
             this.xMove = null
@@ -189,15 +192,15 @@ define(function(require) {
           this.visibleTabView = this.viewItems.filter('[data-view='+ viewName +']')
           this.xPos = this.visibleTabView.index()
 
-          // reset height
-          this.viewsHolder.css('height', '')
           
           // adjust height
-          this.viewsHolder.css('height', this.visibleTabView.height())
+          this.adaptViewsHeight()
           this.moveIt(this.xPos * this.viewWidth)
         },
 
         adaptViewsHeight: function() {
+          // reset height
+          this.viewsHolder.css('height', '')
           var height = Math.max(this.visibleTabView.height(), this.contentHeight)
           this.viewsHolder.css('height', height)
         },

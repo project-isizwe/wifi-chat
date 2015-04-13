@@ -9,23 +9,28 @@ define(function(require) {
 
     return Base.extend({
 
-        template: _.template(require('text!tpl/Channel/PostItem.html')),
+        template: _.template(require('text!tpl/Activity/ActivityItem.html')),
       
         requiresLogin: true,
 
-        tagName: 'section',
+        tagName: 'article',
 
-        className: 'post post--topic',
+        className: 'post post--comment',
 
         events: {
-          'click .js-see-thread': 'seeThread',
+          'click .js-context': 'seeContext',
         },
 
         initialize: function(options) {
           _.bindAll(this, 'render')
+
           this.options = options
           this.model.bind('change', this.render)
-        }
+        },
+
+        seeContext: function() {
+
+        },
       
     })
 
