@@ -12,8 +12,6 @@ define(function(require) {
 
     return Base.extend({
 
-      template: _.template(require('text!tpl/Topic/Index.html')),
-
       requiresLogin: true,
 
       className: 'topic screen',
@@ -95,11 +93,10 @@ define(function(require) {
       
       render: function() {
         this.beforeRender()
-        this.$el.html(this.template())
-        this.$el.find('div[data-role="header"]').html(this.header.render().el)
-        this.$el.find('main').html(this.commentList.render().el)
+        this.$el.append(this.header.render().el)
+        this.$el.append(this.commentList.render().el)
         if (this.canComment) {
-          this.$el.find('.js-newComment').html(this.newComment.render().el)
+          this.$el.append(this.newComment.render().el)
         }
         this.trigger('render')
         return this

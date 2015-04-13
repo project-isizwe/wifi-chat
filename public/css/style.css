@@ -433,7 +433,7 @@ hr {
   margin-bottom: 14px;
 }
 
-.topic.screen .post--topic {
+.topic.screen .post.post--topic {
   border-top: none;
   margin-bottom: 0;
 }
@@ -491,6 +491,10 @@ hr {
   vertical-align: top;
   padding: 5px 3px;
   margin-top: -5px;
+}
+
+.post-footer .btn:first-child {
+  padding-left: 0;
 }
 
 .post--comment {
@@ -590,6 +594,11 @@ hr {
   align-items: flex-start;
   border-top: 1px solid hsl(240,12%,95%);
 }
+
+.posts:empty + .newComment {
+  border-top: none;
+}
+
 .newComment [name=comment] {
   flex: 1;
   margin-right: 7px;

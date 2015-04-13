@@ -14,6 +14,10 @@ define(function(require) {
 
       requiresLogin: true,
 
+      className: 'posts',
+
+      tagName: 'section',
+
       events: {
         'click .js-showMore': 'loadMoreComments'
       },
@@ -76,7 +80,12 @@ define(function(require) {
           })
           comments.appendChild(comment.render().el)
         }, this)
-        this.$el.find('[data-role=posts-container]')[addMethod](comments)
+
+        if (addMethod == 'prepend') {
+          this.$el.find('.js-showMore').after(comments)
+        } else {
+          this.$el.append(comments)
+        }
 
         if (this.collection.allItemsLoaded()) {
           return this.$el.find('.js-showMore').remove()
