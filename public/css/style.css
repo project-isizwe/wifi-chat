@@ -436,6 +436,7 @@ hr {
 .topic.screen .post.post--topic {
   border-top: none;
   margin-bottom: 0;
+  padding-bottom: 4px;
 }
 
 .post--loader .spinner {
@@ -591,7 +592,7 @@ hr {
 .post--activity {
   padding-bottom: 9px;
   margin-bottom: 14px;
-  border-bottom: 1px solid hsl(240,12%,95%);
+  border-bottom: 1px solid hsl(240,12%,97%);
 }
 
 .post--activity:not(:first-child) {
