@@ -13,7 +13,7 @@ define(function(require) {
     model: Post,
 
     lastPostId: null,
-    itemsPerRequest: 5,
+    itemsPerRequest: 20,
     itemCount: null,
     
     event: 'xmpp.buddycloud.items.replies',
@@ -42,8 +42,7 @@ define(function(require) {
     },
 
     allItemsLoaded: function() {
-      log('allItemsLoaded?', this.itemCount, this.models.length)
-      return (this.itemCount && (this.models.length === this.itemCount))
+      return (this.itemCount != null && (this.models.length === this.itemCount))
     },
     
     getComments: function() {

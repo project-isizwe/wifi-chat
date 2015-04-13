@@ -52,6 +52,7 @@
     <li><a href="#home">Home</a>
     <li><a href="#channel">Channel</a>
     <li><a href="#topic">Topic</a>
+    <li><a href="#activity">Activity</a>
     <li><a href="#profile">Profile</a>
     <li><a href="#misc">Misc</a>
   </ol>
@@ -244,7 +245,7 @@
       </div>
       <div class="tabs-item" data-target="activity">
         <span class="tabs-item-label">Activity</span>
-        <div class="private-count">2</div>
+        <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="settings">
         <span class="tabs-item-label">Settings</span>
@@ -278,7 +279,7 @@
       </div>
       <div class="tabs-item" data-target="activity">
         <span class="tabs-item-label">Activity</span>
-        <div class="private-count">2</div>
+        <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="settings">
         <span class="tabs-item-label">Settings</span>
@@ -595,13 +596,13 @@
       <div class="post-content">We have a new video for you guys. Let us know what you think of it:
     http://connectuptv.pockittv.mobi/v/850</div>
     </section>
-    <div class="section section--showMore js-showMore">
-      <div class="btn btn--secondary btn--small btn--fullWidth ">
-        <div class="spinner spinner--light spinner--mini"></div>
-        Load older comments
-      </div>
-    </div>
     <section class="posts">
+      <div class="section section--showMore js-showMore">
+        <div class="btn btn--secondary btn--small btn--fullWidth ">
+          <div class="spinner spinner--light spinner--mini"></div>
+          Load older comments
+        </div>
+      </div>
       <article class="post post--comment">
         <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-3.jpg)"></div>
         <div class="comment-content">
@@ -612,7 +613,8 @@
           <div class="post-content">I've seen A and B. Both sucked!. But C. Please please please!</div>
         </div>
         <div class="post-footer">
-          <time class="post-time">4 hours ago</time>
+          <time class="post-time">4 hours ago</time>&#183;
+          <span class="btn btn--text">report</span>
         </div>
       </article>
       <article class="post post--comment">
@@ -627,7 +629,8 @@
         <div class="post-content">I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</div>
         </div>
         <div class="post-footer">
-          <time class="post-time">3 hours ago</time>
+          <time class="post-time">3 hours ago</time>&#183;
+          <span class="btn btn--text">report</span>
         </div>
       </article>
     </section>
@@ -674,10 +677,10 @@
 
 
 
-<!-- <h1 id="activity">Activity Stream</h1>
+<h1 id="activity">Activity Stream</h1>
 
 
-<div class="activity screen">
+<div class="home screen">
   <header class="screen-header screen-header--hasTabs">
     <div class="tabs">
       <div class="tabs-activeIndicator"></div>
@@ -687,7 +690,7 @@
       </div>
       <div class="tabs-item is-active" data-target="activity">
         <span class="tabs-item-label">Activity</span>
-        <div class="private-count">2</div>
+        <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="settings">
         <span class="tabs-item-label">Settings</span>
@@ -702,42 +705,53 @@
       </div>
       <div class="tab-views-item activity" data-view="activity">
         <div data-symbol="activity">
-          <div class="post post--comment">
-            <div class="post-meta post-meta--interaction">
-              <span class="post-author btn btn--text js-seeAuthor">letsiemogorosi3</span> mentioned you in <span class="btn btn--text js-channel">City of Tshwane</span>:
-            </div>
-            <div class="post-meta">
-              <div class="post-author btn btn--text js-seeAuthor">letsiemogorosi3</div>
-              <time class="post-time">3 hours ago</time>
-            </div>
-            <p>I agree with <b>@mattheu_matshaya</b>. C is a good film. Especially with Brad Pit!!!</p>
-          </div>
-          <div class="post post--comment">
-            <div class="post-meta post-meta--interaction">
-              You wrote in <span class="btn btn--text js-channel">City of Tshwane</span>:
-            </div>
-            <div class="post-meta">
-              <div class="post-author btn btn--text js-seeAuthor">mattheu_matshaya</div>
-              <time class="post-time">4 hours ago</time>
-            </div>
-            <p>I've seen A and B. Both sucked!. But C. Please please please!</p>
-            <div class="post-footer">
-              <div class="btn btn--text js-threat">Threat</div>
-            </div>
-          </div>
-          <div class="post post--comment">
-            <div class="post-meta post-meta--interaction">
-              You wrote in <span class="btn btn--text js-channel">City of Tshwane</span>:
-            </div>
-            <div class="post-meta">
-              <div class="post-author btn btn--text js-seeAuthor">mattheu_matshaya</div>
-              <time class="post-time">1 day ago</time>
-            </div>
-            <p>Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</p>
-            <div class="post-footer">
-              <div class="btn btn--text js-seeThreat">Threat</div>
-            </div>
-          </div>
+          <section class="posts">
+            <article class="post post--comment">
+              <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-5.jpg)">
+              </div>
+              <div class="comment-content">
+                <div class="post-author js-seeAuthor">
+                  <div class="displayName">Anna Babich</div>
+                  <div class="username">annababich</div>
+                </div>
+              <div class="post-content">I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</div>
+              </div>
+              <div class="post-footer">
+                <time class="post-time">3 hours ago</time>&#183;
+                <span class="btn btn--text js-context">context</span>
+              </div>
+            </article>
+            <article class="post post--comment">
+              <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-5.jpg)">
+              </div>
+              <div class="comment-content">
+                <div class="post-author js-seeAuthor">
+                  <div class="displayName">Anna Babich</div>
+                  <div class="username">annababich</div>
+                </div>
+              <div class="post-content">I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</div>
+              </div>
+              <div class="post-footer">
+                <time class="post-time">5 hours ago</time>&#183;
+                <span class="btn btn--text js-context">context</span>
+              </div>
+            </article>
+            <article class="post post--comment">
+              <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-5.jpg)">
+              </div>
+              <div class="comment-content">
+                <div class="post-author js-seeAuthor">
+                  <div class="displayName">Anna Babich</div>
+                  <div class="username">annababich</div>
+                </div>
+              <div class="post-content">I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</div>
+              </div>
+              <div class="post-footer">
+                <time class="post-time">5 days ago</time>&#183;
+                <span class="btn btn--text js-context">context</span>
+              </div>
+            </article>
+          </section>
         </div>
       </div>
       <div class="tab-views-item settings" data-view="settings">
@@ -745,8 +759,7 @@
       </div>
     </div>
   </div>
-</div> -->
-
+</div>
 
 
 
@@ -777,7 +790,7 @@
   </div>
 </div>
 
-<div class="profile profile--edit screen">
+<!-- <div class="profile profile--edit screen">
   <header class="screen-header">
     <div class="btn btn--text js-back">
       <div class="left arrow icon"></div>
@@ -812,7 +825,7 @@
     <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name">
     <textarea rows="4" name="description" placeholder="Tell the world about yourself...">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
   </form>
-</div>
+</div> -->
 
 <!-- <div class="profile screen">
   <div class="modal">
@@ -903,15 +916,6 @@
 
 <script src="../public/scripts/lib/jquery.js"></script>
 <script>
-  var activityViews = document.querySelectorAll('.activity')
-
-  for(var i=0; i<activityViews.length; i++)
-    activityViews[i].remove()
-
-  var activityTabs = document.querySelectorAll('[data-target=activity]')
-  
-  for(var i=0; i<activityTabs.length; i++)
-    activityTabs[i].remove()
 
   /*
 
