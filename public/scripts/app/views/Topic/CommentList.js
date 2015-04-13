@@ -34,7 +34,7 @@ define(function(require) {
           after: options.highlightPost
         })
         if (this.options.highlightPost) {
-          this.loadHighlightedPost()
+          this.collection.once('loaded:comments', this.loadHighlightedPost, this)
         }
         this.loadComments()
       },
@@ -45,7 +45,9 @@ define(function(require) {
           node: this.options.node
         })
         post.once('loaded:post', function() {
-          this.collection.add(post)
+          this.collection.add(post, { silent: true })
+          this.addComments(post, true)
+          this.collection.lastItemId 
         }, this)
         post.sync()
       },
@@ -77,16 +79,17 @@ define(function(require) {
       },
 
       pushedItem: function(model) {
-        log(arguments, model)
         this.addComments(model)
       },
 
-      addComments: function(length) {
+      addComments: function(length, prepend) {
         var newComments =  null
         var addMethod = 'prepend'
         if (length instanceof Backbone.Model) {
           newComments = [ length ]
-          addMethod = 'append'
+          if (!prepend) {
+            addMethod = 'append'
+          }
         } else {
           newComments = this.collection.models.slice(0, length)
           log(length + ' new comments')

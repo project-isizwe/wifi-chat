@@ -11,6 +11,7 @@ define(function(require) {
   return Backbone.Collection.extend({
     
     model: Post,
+    idAttribute: 'id',
 
     lastPostId: null,
     itemsPerRequest: 20,
@@ -57,7 +58,9 @@ define(function(require) {
       if (this.lastPostId) {
         options.rsm.before = this.lastPostId
       } else if (this.options.after) {
+        log('Loading posts after ' + this.options.after)
         options.rsm.after = this.options.after
+        delete this.options.after
       }
       socket.send(this.event, options, function(error, data, rsm) {
         if (error) {
@@ -66,7 +69,11 @@ define(function(require) {
         self.itemCount = rsm.count
         self.add(data, { silent: true })
         if (0 !== data.length) {
-          self.lastPostId = rsm.first
+          if (options.rsm.after) {
+            self.lastPostId = rsm.first
+          } else if (options.rsm.before) {
+            self.firstPostId = rsm.last
+          }
         }
         self.trigger('loaded:comments', data.length)
       })

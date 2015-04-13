@@ -11,6 +11,7 @@ define(function(require) {
   return Backbone.Collection.extend({
     
     model: Post,
+    idAttribute: 'id',
 
     lastTopicId: null,
     topicsPerRequest: 5,

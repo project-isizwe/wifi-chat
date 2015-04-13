@@ -12,6 +12,7 @@ define(function(require) {
   return Backbone.Collection.extend({
     
     model: Post,
+    idAttribute: 'id',
 
     postsPerRequest: 5,
     rsmPageNumber: 1,

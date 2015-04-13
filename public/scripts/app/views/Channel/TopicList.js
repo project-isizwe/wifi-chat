@@ -54,13 +54,13 @@ define(function(require) {
         var topics = document.createDocumentFragment()
         var self = this
 
-        for(var i=0, l=newTopics.length; i<l; i++){
+        newTopics.forEach(function(newTopic) {
           var topic = new TopicItemView({
-            model: newTopics[i],
+            model: newTopic,
             router: self.router
           })
           topics.appendChild(topic.render().el)
-        }
+        }, this)
         this.$el.find('.js-topicPosts').append(topics)
 
         this.isInfiniteScrollLoading = false
@@ -82,13 +82,13 @@ define(function(require) {
       },
 
       onScroll: function() {
-        if(this.isInfiniteScrollLoading) {
+        if (this.isInfiniteScrollLoading) {
           return
         }
 
         var viewBottomEdge = this.scrollParent.scrollTop() + this.height
 
-        if(viewBottomEdge > this.triggerPos) {
+        if (viewBottomEdge > this.triggerPos) {
           this.loadMoreTopics()
         }
       },
