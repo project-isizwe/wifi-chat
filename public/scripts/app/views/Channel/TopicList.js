@@ -32,18 +32,21 @@ define(function(require) {
         this.collection.on('loaded:topics', this.addTopics, this)
 
         this.collection.on('error', function() {
-          this.renderTopics()
           this.showError('Oh no! Could not load topics')
         }, this)
 
         if (0 !== this.collection.length) {
-          return this.once('render', this.renderTopics, this)
+          return
         }
         this.collection.sync()
       },
 
-      onDestroy: function() {
+      unbindGlobalListeners: function() {
         this.scrollParent.off('scroll.topicList')
+      },
+
+      reactivateGlobalListeners: function() {
+        this.scrollParent.on('scroll.topicList', this.onScroll)
       },
 
       addTopics: function(length) {
@@ -91,7 +94,6 @@ define(function(require) {
       },
 
       loadMoreTopics: function() {
-        log('Loading more topics')
         this.isInfiniteScrollLoading = true
         this.collection.sync()
       }

@@ -39,8 +39,13 @@ define(function(require) {
       beforeRender: function() {},
 
       onDestroy: function() {},
+
+      unbindGlobalListeners: function() {},
+
+      reactivateGlobalListeners: function() {},
       
       closeView: function() {
+        this.unbindGlobalListeners()
         this.onDestroy()
         Object.keys(this.subViews || {}).forEach(function(subView) {
           this.subViews[subView].closeView()

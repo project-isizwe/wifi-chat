@@ -917,6 +917,10 @@ hr {
   position: absolute;
 }
 
+.tab-views-item:not(.is-visible) .spinner {
+  animation: none;
+}
+
 .tab-views-item--message {
   display: flex;
   flex-direction: column;
