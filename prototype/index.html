@@ -1067,6 +1067,8 @@
       this.visibleTabView = this.view.querySelector('[data-view='+ viewName +']')
       this.xPos = this.getTabViewIndex(this.visibleTabView)
       var minHeight = this.view.parentNode.clientHeight - this.view.previousElementSibling.clientHeight;
+
+      this.view.style.height = ""
       this.view.style.height = Math.max(minHeight, this.visibleTabView.clientHeight) + 'px'
       this.moveIt(this.xPos * this.viewWidth)
     },
