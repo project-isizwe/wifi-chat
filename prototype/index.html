@@ -215,8 +215,8 @@
       <textarea rows="3" placeholder="Tell the world about yourself..."></textarea>
     </div>
     <div class="form-controls">
-      <div class="btn btn--text form-cancel js-discard">Maybe Later</div>
-      <button type="submit" class="btn btn--primary btn--small">Save</button>
+      <div class="btn btn--text form-cancel js-continue">Maybe Later</div>
+      <button type="submit" class="btn btn--primary btn--small js-continue">Continue</button>
     </div>
   </form>
 </div>
@@ -416,9 +416,9 @@
       <p class="channel-description">
         The City of Tshwane is the second largest municipality in Gauteng and is among the six biggest metropolitan municipalities in South Africa. Fourteen towns and townships form part of the Municipality.
       </p>
-      <div class="channel-actions">
+      <!-- <div class="channel-actions">
         <div class="btn btn--primary js-newTopic">Write new post</div>
-      </div>
+      </div> -->
     </header>
     <section class="posts">
       <article>
@@ -482,7 +482,7 @@
   </div>
 </div>
 
-<div class="newTopic screen">
+<!-- <div class="newTopic screen">
   <div data-symbol="newTopic">
     <header class="screen-header">
       <div class="btn btn--text js-cancel">
@@ -512,7 +512,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 
@@ -747,7 +747,25 @@
   </form>
 </div>
 
-<div class="profile screen">
+<div class="profile profile--edit screen">
+  <header class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="left arrow icon"></div>
+      Back
+    </div>
+    <div class="screen-title">mattheu_matshaya</div>
+    <div class="btn btn--text js-done">Done</div>
+  </header>
+  <form class="screen-textContent">
+    <div class="avatar avatar--big avatar--uploadMode is-uploading" style="background-image: none">
+      <div class="spinner"></div>
+    </div>
+    <input type="text" name="name" value="Mattheu Matshaya" placeholder="Name">
+    <textarea rows="4" name="description" placeholder="Tell the world about yourself...">A humble down to earth guy who's crazy about music, loves fast cars and pool/snooker, grew up in Port Shepstone now residing in Pretoria. Now parking off.</textarea>
+  </form>
+</div>
+
+<!-- <div class="profile screen">
   <div class="modal">
     <div class="modal-background js-close"></div>
     <div class="modal-body">
@@ -782,7 +800,7 @@
       <button type="submit" class="btn btn--primary btn--small">Save</button>
     </div>
   </form>
-</div>
+</div> -->
 
 
 
@@ -823,7 +841,7 @@
       <div class="back arrow icon"></div>
       Back
     </div>
-    <div class="screen-title">Safety</div>
+    <div class="screen-title">Text</div>
   </header>
   <div class="screen-textContent screen-textContent--isFull">
     <p>
