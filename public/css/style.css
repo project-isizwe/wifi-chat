@@ -1197,9 +1197,6 @@ input + .btn {
     position: static;
     min-height: 100vh;
   }
-  .screen-header {
-    position: fixed;
-  }
   .screen.screen--hasTabViews {
     position: relative;
   }
