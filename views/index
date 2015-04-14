@@ -30,10 +30,10 @@
     
     <title>WiFi Chat</title>
 
-    <script src="/scripts/lib/modernizr.custom.53337.js"></script>
+    <script src="/scripts/lib/modernizr.custom.18754.js"></script>
     <script>
       // if the browser lacks support for one of the following features:
-      if(!((Modernizr.flexboxlegacy || Modernizr.flexbox) && Modernizr.canvas && Modernizr.localstorage)){
+      if(!(Modernizr.flexboxlegacy || Modernizr.flexbox) && !Modernizr.localstorage){
         // forward to unsupported.html
         window.location = 'unsupported.html'
       }
