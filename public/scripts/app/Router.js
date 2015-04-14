@@ -83,6 +83,7 @@ define(function (require) {
           lastRoute: this.lastRoute,
           showRules: options.showRules
         })
+        loginView.registerEvents()
         this.showView(loginView, '/login')
       },
       
