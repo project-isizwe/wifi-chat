@@ -215,6 +215,10 @@ hr {
   box-shadow: 0 1px 10px hsl(232,8%,80%);
 }
 
+.screen.is-cached {
+  display: none;
+}
+
 .screen-header {
   position: absolute;
   z-index: 1;
@@ -1260,6 +1264,9 @@ input + .btn {
     overflow: visible;
     position: static;
     min-height: 100vh;
+  }
+  .screen-header {
+    position: fixed;
   }
   .screen.screen--hasTabViews {
     position: relative;
