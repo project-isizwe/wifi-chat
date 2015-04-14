@@ -74,11 +74,10 @@ define(function(require) {
         accountCreated: function(model, response) {
           log('New account created successfully')
           this.closeSpinner()
-          this.router.showLogin({
-            jid: this.model.get('local') + '@' + this.model.get('domain'),
-            password: this.model.get('password'),
-            showRules: true
-          })
+          var jid = this.model.get('local') + '@' + this.model.get('domain')
+          localStorage.setItem('jid', jid)
+          localStorage.setItem('password', this.model.get('password'))
+          this.router.showRules()
         },
       
         accountCreateFail: function(model, response) {

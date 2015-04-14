@@ -33,12 +33,16 @@
         %config%
         </script>
         <script src="/scripts/primus.js"></script>
-        <script data-main="/scripts/app" src="/scripts/require.js"></script>
+        <script %javascript-src%></script>
         %developer-setup%
     </head>
     <body>
         <div class="splash screen">
-            <script>if(localStorage.getItem('jid')){ document.write('<header class="screen-header"></header>')}</script>
+            <script type="text/javscript">
+            if (localStorage.getItem('jid')) {
+                document.write('<header class="screen-header"></header>')
+            }
+            </script>
         </div>
     </body>
 </html>
