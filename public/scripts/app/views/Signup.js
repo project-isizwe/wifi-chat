@@ -79,10 +79,8 @@ define(function(require) {
           localStorage.setItem('jid', jid)
           localStorage.setItem('password', this.model.get('password'))
 
-          setTimeout(function() {
-            self.closeSpinner()
-            self.router.setLastRoute('showRules').showRules()
-          }, 500)
+          this.closeSpinner()
+          this.router.setLastRoute('showRules').showRules()
         },
       
         accountCreateFail: function(model, response) {
