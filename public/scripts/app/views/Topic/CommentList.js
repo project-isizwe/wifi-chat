@@ -30,7 +30,7 @@ define(function(require) {
         this.router = options.router
         this.collection = new Comments(null, {
           node: this.options.node,
-          id: this.options.id,
+          localId: this.options.localId,
           after: options.highlightPost
         })
         if (this.options.highlightPost) {
@@ -41,7 +41,7 @@ define(function(require) {
 
       loadHighlightedPost: function() {
         var post = new Post({
-          id: this.options.highlightPost,
+          localId: this.options.highlightPost,
           node: this.options.node
         })
         post.once('loaded:post', function() {

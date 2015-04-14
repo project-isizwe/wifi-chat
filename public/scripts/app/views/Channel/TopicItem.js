@@ -70,7 +70,7 @@ define(function(require) {
 
         addComment: function() {
           // view topic and focus on new comment input
-          this.options.router.showTopic(this.model.get('channelJid'), this.model.get('id'), true)
+          this.options.router.showTopic(this.model.get('channelJid'), this.model.get('localId'), true)
         },
 
         seeAuthor: function() {

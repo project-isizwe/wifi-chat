@@ -26,7 +26,7 @@ define(function(require) {
         	this.router = options.router
         	this.model = new Post({
         		node: this.options.node,
-        		id: this.options.id
+        		localId: this.options.localId
         	})
         	this.model.once('loaded:post', this.renderPost, this)
         	this.model.sync()
