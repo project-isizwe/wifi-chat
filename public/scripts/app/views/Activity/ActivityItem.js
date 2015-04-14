@@ -14,12 +14,18 @@ define(function(require) {
 
         template: _.template(require('text!tpl/Activity/ActivityItem.html')),
         postedInTemplate: _.template(require('text!tpl/Activity/ActivityItem-postedIn.html')),
+        seeMoreTemplate: _.template(require('text!tpl/SeeMore.html')),
       
         requiresLogin: true,
 
         tagName: 'article',
 
         className: 'post post--activity',
+
+        seeMoreCutoff: {
+          height: 300,
+          tolerance: 50
+        },
 
         events: {
           'click .js-seeAuthor': 'seeAuthor',
@@ -41,7 +47,8 @@ define(function(require) {
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
             userAvatarUrl: this.userAvatar && this.userAvatar.get('url'),
-            postedIn: this.channel.isLoaded() ? this.getPostedInTemplate() : null
+            postedIn: this.channel.isLoaded() ? this.getPostedInTemplate() : null,
+            maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
           })))
           this.$el.find('time').timeago()
 
@@ -50,6 +57,8 @@ define(function(require) {
 
           if(this.channel.isLoaded() && !this.channelAvatar)
             this.loadChannelAvatar()
+
+          this.limitHeight()
 
           return this
         },
@@ -102,6 +111,25 @@ define(function(require) {
         showUserAvatar: function() {
           this.$el.find('.js-userAvatar')
             .css('background-image', 'url("' + this.userAvatar.get('url') + '")')      
+        },
+
+        limitHeight: function() {
+          var target = this.$el.find('.js-limitHeight')
+
+          if (target.height() !== this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance) {
+            return
+          }
+
+          target
+            .height(this.seeMoreCutoff.height)
+            .append(this.seeMoreTemplate())
+            .find('.js-seeMore').one('click', function(){
+              target.css({
+                height: '',
+                maxHeight: ''
+              })
+              this.remove()
+            })
         },
     })
 

@@ -48,6 +48,10 @@ p {
   line-height: 1.45;
 }
 
+.p--centered {
+  text-align: center; 
+}
+
 .p--small {
   font-size: 12px; 
 }
