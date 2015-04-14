@@ -41,7 +41,7 @@ define(function (require) {
       },
       
       initialize: function() {
-        log('Application initialized', '1.0.5')
+        log('Application initialized', '1.0.6')
         this.on('all', function(route, parameters) {
           if (0 !== route.indexOf('route:')) {
             return

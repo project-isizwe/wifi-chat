@@ -121,28 +121,28 @@ define(function(require) {
               self.resetUsername()
               return self.showError('We\'re sorry but the system is down!')
             }
-            subscriptions.sync()
+            localStorage.setItem('channel-server', server)
             /* Register to register with channels */
             socket.send('xmpp.buddycloud.register', {}, _.bind(self.completeLogin, self))
           })
         },
 
         completeLogin: function() {
-            /* Tell the server that we are online */
-            socket.send('xmpp.buddycloud.presence', {})
+          log('Registered with server')
+          /* Tell the server that we are online */
+          socket.send('xmpp.buddycloud.presence', {})
+          subscriptions.sync()
 
-            localStorage.setItem('channel-server', server)
-            
-            this.router.setLoggedIn(self.connectedJid)
-            
-            if (this.router.lastRoute) {
-              return this.router[self.router.lastRoute.method]
-                .apply(this.router, this.router.lastRoute.parameters)
-            }
-            if (this.options.showRules) {
-              return this.router.showRules(options)
-            }
-            this.router.showHome()
+          this.router.setLoggedIn(this.connectedJid)
+          
+          if (this.router.lastRoute) {
+            return this.router[this.router.lastRoute.method]
+              .apply(this.router, this.router.lastRoute.parameters)
+          }
+          if (this.options.showRules) {
+            return this.router.showRules(options)
+          }
+          this.router.showHome()
         },
       
         signup: function() {
