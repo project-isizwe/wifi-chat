@@ -16,6 +16,8 @@
         <link rel="icon" sizes="128x128" href="images/app_icons/icon-3x.png">
         <link rel="icon" sizes="96x96" href="images/app_icons/icon-2x.png">
         <link rel="icon" sizes="72x72" href="images/app_icons/icon-1-5x.png">
+        <link rel="icon" sizes="32x32" href="images/app_icons/icon-32x32.png">
+        <link rel="icon" sizes="16x16" href="images/app_icons/icon-16x16.png">
 
         <link rel="apple-touch-icon" sizes="29x29" href="images/app_icons/icon_29x29.png">
         <link rel="apple-touch-icon" sizes="40x40" href="images/app_icons/icon_40x40.png">
@@ -43,6 +45,17 @@
                 document.write('<header class="screen-header"></header>')
             }
             </script>
+            <noscript>
+                <div class="screen-textContent screen-textContent--centered">
+                    <img class="logo" src="/images/wifi-chat-logo.svg" width="126" height="123">
+                    <p class="p--centered">
+                       Your browser is not supported.
+                       Please try a different browser.
+
+                       <a href="http://projectisizwe.org/wifi-chat-browsers">Learn More</a>
+                    </p>
+                </div>
+            </noscript>
         </div>
     </body>
 </html>
