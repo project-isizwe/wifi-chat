@@ -130,7 +130,7 @@ define(function(require) {
         }
 
         this.isFetchingComments = true
-        this.$el.find('.js-showMoreHolder').addClass('is-loading')
+        this.$el.find('.js-showMore').addClass('is-loading')
         this.collection.sync()
       }
     })

@@ -65,6 +65,7 @@ define(function(require) {
         },
 
         initializeTabViews: function() {
+          var self = this
           this.viewsHolder = this.$el.find('.tab-views')
           this.activeIndicator = this.$el.find('.tabs-activeIndicator')
           this.navItems = this.$el.find('.tabs-item')
@@ -90,6 +91,7 @@ define(function(require) {
 
           // adapt view height when activities got rendered
           this.activityView.on('rendered:activities', this.adaptViewsHeight, this)
+          this.on('resizeTabViews', function(){ self.activityView.trigger('resizeTabViews') })
 
           // update dimensions
           this.onResize()
@@ -177,6 +179,7 @@ define(function(require) {
           this.viewsHolder.css('height', '')
           var height = Math.max(this.visibleTabView.height(), this.contentHeight)
           this.viewsHolder.css('height', height)
+          this.trigger('resizeTabViews')
         },
 
         moveIt: function(x) {
