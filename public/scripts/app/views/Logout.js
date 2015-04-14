@@ -18,6 +18,7 @@ define(function(require) {
           localStorage.removeItem('password')
           localStorage.removeItem('channel-server')
           this.router.showLogin()
+          window.location.reload()
           return this
         }
 
