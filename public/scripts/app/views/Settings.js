@@ -52,7 +52,7 @@ define(function(require) {
           avatarUrl: this.avatar && this.avatar.get('url') + '&' + Date.now()
         })))
         
-        if(this.model.isMetaLoaded) {
+        if(!this.model.isLoaded()) {
           this.loadAvatar()
         }
 

@@ -2,15 +2,18 @@ define(function(require) {
 
     'use strict';
 
-    var _       = require('underscore')
-      , Avatar  = require('app/models/Avatar')
-      , Base    = require('app/views/Base')
-      , log     = require('bows.min')('Views:ActivityItem')
+    var _             = require('underscore')
+      , Avatar        = require('app/models/Avatar')
+      , Channel       = require('app/models/Channel')
+      , subscriptions = require('app/store/Subscriptions')
+      , Base          = require('app/views/Base')
+      , log           = require('bows.min')('Views:ActivityItem')
     require('jquery.timeago')
 
     return Base.extend({
 
         template: _.template(require('text!tpl/Activity/ActivityItem.html')),
+        postedInTemplate: _.template(require('text!tpl/Activity/ActivityItem-postedIn.html')),
       
         requiresLogin: true,
 
@@ -30,18 +33,39 @@ define(function(require) {
           this.options = options
           this.router = options.router
           this.model.bind('change', this.render)
+
+          this.channel = new Channel({ node: this.model.get('node') })
+          this.channel.once('loaded:meta', this.showPostedIn, this)
         },
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
-            userAvatarUrl: this.avatar && this.avatar.get('url'),
+            userAvatarUrl: this.userAvatar && this.userAvatar.get('url'),
+            postedIn: this.channel.isLoaded() ? this.getPostedInTemplate() : null
           })))
           this.$el.find('time').timeago()
 
-          if(!this.avatar)
-            this.loadAvatar()
+          if(!this.userAvatar)
+            this.loadUserAvatar()
+
+          if(this.channel.isLoaded() && !this.channelAvatar)
+            this.loadChannelAvatar()
 
           return this
+        },
+
+        showPostedIn: function() {
+          this.$el.find('.js-postHeader').append(this.getPostedInTemplate())
+
+          if(!this.channelAvatar)
+            this.loadChannelAvatar()
+        },
+
+        getPostedInTemplate: function() {
+          return this.postedInTemplate({
+            channelAvatarUrl: this.channelAvatar && this.channelAvatar.get('url'),
+            channelTitle: this.channel.get('title')
+          })
         },
 
         seeContext: function() {
@@ -57,17 +81,27 @@ define(function(require) {
         },
 
         seeChannel: function() {
-          
+          this.router.showChannel(this.channel.get('channelJid'))
         },
 
-        loadAvatar: function() {
-          this.avatar = new Avatar({ jid: this.model.get('username') })
-          this.avatar.once('loaded:avatar', this.showAvatar, this)
+        loadChannelAvatar: function() {
+          this.channelAvatar = new Avatar({ jid: this.channel.get('channelJid') })
+          this.channelAvatar.once('loaded:avatar', this.showChannelAvatar, this)
         },
 
-        showAvatar: function() {
+        showChannelAvatar: function() {
+          this.$el.find('.js-channelAvatar')
+            .css('background-image', 'url("' + this.channelAvatar.get('url') + '")')      
+        },
+
+        loadUserAvatar: function() {
+          this.userAvatar = new Avatar({ jid: this.model.get('username') })
+          this.userAvatar.once('loaded:avatar', this.showUserAvatar, this)
+        },
+
+        showUserAvatar: function() {
           this.$el.find('.js-userAvatar')
-            .css('background-image', 'url("' + this.avatar.get('url') + '")')      
+            .css('background-image', 'url("' + this.userAvatar.get('url') + '")')      
         },
     })
 
