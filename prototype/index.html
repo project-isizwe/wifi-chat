@@ -444,7 +444,7 @@
               <time class="post-time">5 hours ago</time>
             </div>
           </div>
-          <div class="post-content">
+          <div class="post-content js-limitHeight">
             We have a new video for you guys. Let us know what you think of it:
             http://connectuptv.pockittv.mobi/v/850
             Lorem ipsum Consectetur Duis qui mollit commodo est pariatur cupidatat Ut sint sunt ad cillum qui quis mollit officia ut mollit ut nisi ad eiusmod magna commodo dolor dolor eu non nostrud laboris culpa sit ut sint culpa est elit fugiat aute adipisicing Duis sed cupidatat nulla Duis exercitation in do cillum sit in Duis non Ut commodo consectetur adipisicing proident in esse incididunt mollit sit Excepteur in in dolor culpa pariatur do mollit deserunt laboris dolore qui Excepteur mollit est sint aliqua proident eiusmod dolor mollit est culpa Excepteur fugiat sit proident incididunt deserunt in voluptate aliqua non nisi sit sunt exercitation ut nostrud in nostrud anim eiusmod in eu cupidatat Excepteur sed ea enim nostrud id incididunt Excepteur in dolor Excepteur Excepteur officia nisi consectetur incididunt enim ut Excepteur Duis laborum culpa ut voluptate est non nisi consequat mollit consectetur est enim irure aute cillum anim reprehenderit deserunt aute aute id aliqua esse incididunt sit sunt mollit eu est officia deserunt irure dolore ex commodo sunt nisi in aute cillum Ut eu et dolore officia mollit qui consequat eiusmod proident deserunt magna est pariatur mollit cillum aute pariatur deserunt nulla est incididunt eiusmod dolor elit dolore officia.
@@ -473,7 +473,7 @@
               <time class="post-time">yesterday</time>
             </div>
           </div>
-          <div class="post-content">Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</div>
+          <div class="post-content js-limitHeight">Problems with playback: My phone wasn't working properly last weekend when I was trying to play films. What player do others use?</div>
           <div class="post-footer">
             <div class="btn btn--text js-readComments">35 comments</div>
           </div>
@@ -593,7 +593,7 @@
           <time class="post-time">5 hours ago</time>
         </div>
       </div>
-      <div class="post-content">We have a new video for you guys. Let us know what you think of it:
+      <div class="post-content js-limitHeight">We have a new video for you guys. Let us know what you think of it:
     http://connectuptv.pockittv.mobi/v/850</div>
     </section>
     <section class="posts">
@@ -605,12 +605,12 @@
       </div>
       <article class="post post--comment">
         <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-3.jpg)"></div>
-        <div class="comment-content">
+        <div class="comment-content js-limitHeight">
           <div class="post-author js-seeAuthor">
             <div class="displayName">Mattheu Matshaya</div>
             <div class="username">mattheu_matshaya</div>
           </div>
-          <div class="post-content">I've seen A and B. Both sucked!. But C. Please please please!</div>
+          <div class="post-content">Lorem ipsum Tempor officia nisi pariatur laboris in ea aute proident Excepteur cillum Duis velit ex mollit ad est exercitation dolor nostrud fugiat laborum ut labore commodo qui adipisicing laboris ut cillum amet fugiat in ad dolor ad anim dolore consectetur in magna sed occaecat nostrud reprehenderit anim ea ex esse elit sit fugiat officia occaecat cupidatat ex tempor labore sed anim minim occaecat consequat ex aute sunt nulla amet exercitation in dolore Duis officia in consequat eiusmod adipisicing cillum mollit proident occaecat nostrud ut laborum do veniam ex incididunt amet voluptate dolore esse sint eu cillum ea sit ut id in nostrud dolore labore qui ut Ut labore non aliquip eu aliquip quis reprehenderit laboris anim labore ullamco incididunt consequat proident laborum consequat Duis adipisicing ex tempor dolor Ut nulla in dolor deserunt irure in ullamco magna mollit nisi ullamco culpa tempor velit ex sint aliqua culpa labore in cupidatat laboris.</div>
         </div>
         <div class="post-footer">
           <time class="post-time">4 hours ago</time>&#183;
@@ -620,7 +620,7 @@
       <article class="post post--comment">
         <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-5.jpg)">
         </div>
-        <div class="comment-content">
+        <div class="comment-content js-limitHeight">
           <div class="post-author js-seeAuthor">
             <span class="admin icon"></span>
             <div class="displayName">Sarah Kombera</div>
@@ -1102,11 +1102,12 @@
 
 
   */
-  var maxHeight = 400;
+  var maxHeight = 300; // 500 comment, 600 topic chars on a 320px screen
   var tolerance = 50;
+  var limitedHeightTargets = document.querySelectorAll('.js-limitHeight')
 
-  for(var i=0; i<postContents.length; i++)
-    limitHeight(postContents[i])
+  for(var i=0; i<limitedHeightTargets.length; i++)
+    limitHeight(limitedHeightTargets[i])
 
   function limitHeight(element) {
     if(element.clientHeight > maxHeight + tolerance){

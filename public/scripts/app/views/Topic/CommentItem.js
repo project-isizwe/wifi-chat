@@ -13,10 +13,16 @@ define(function(require) {
     return Base.extend({
 
         template: _.template(require('text!tpl/Topic/CommentItem.html')),
+        seeMoreTemplate: _.template(require('text!tpl/SeeMore.html')),
       
         requiresLogin: true,
 
         tagName: 'article',
+
+        seeMoreCutoff: {
+          height: 300,
+          tolerance: 50
+        },
 
         className: 'post post--comment',
 
@@ -33,12 +39,15 @@ define(function(require) {
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
-            avatarUrl: this.avatar && this.avatar.get('url')
+            avatarUrl: this.avatar && this.avatar.get('url'),
+            maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
           })))
           this.$el.find('time').timeago()
 
           if(!this.avatar)
             this.loadAvatar()
+
+          this.limitHeight()
 
           return this
         },
@@ -76,7 +85,26 @@ define(function(require) {
             '&body=' + body.join('\n')
           )
 
-        }
+        },
+
+        limitHeight: function() {
+          var target = this.$el.find('.js-limitHeight')
+
+          if (target.height() !== this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance) {
+            return
+          }
+
+          target
+            .height(this.seeMoreCutoff.height)
+            .append(this.seeMoreTemplate())
+            .find('.js-seeMore').one('click', function(){
+              target.css({
+                height: '',
+                maxHeight: ''
+              })
+              this.remove()
+            })
+        },
       
     })
 

@@ -475,7 +475,6 @@ hr {
 }
 
 .post-time {
-  margin-top: 2px;
   margin-right: 5px;
   display: inline;
   font-size: 12px;
@@ -539,6 +538,10 @@ hr {
   text-overflow: ellipsis;
 }
 
+.comment-content {
+  overflow: hidden;
+}
+
 .post--comment .post-content {
   display: inline;
   margin: 0;
@@ -576,9 +579,13 @@ hr {
   bottom: 0;
   left: 14px;
   right: 14px;
-  padding: 42px 0 10px;
+  padding: 32px 0 15px;
   background: linear-gradient(rgba(255,255,255,0), white 28px);
   cursor: pointer;
+}
+
+.comment-content .post-more {
+  left: 56px;
 }
 
 .post--comment + .post--comment {
