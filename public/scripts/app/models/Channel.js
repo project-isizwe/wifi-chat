@@ -45,11 +45,6 @@ define(function(require) {
         if (!this.get('node') || this.get('title')) return
         var options = { node: this.get('node') }
         socket.send('xmpp.buddycloud.config.get', options, _.bind(this.populateDetails, this))
-
-        // get mediaServer endpoint from cache
-        
-        var domain = /@(.*)\//.exec(this.get('node'))[1]
-        // this.cache.getMediaServer(domain)).then(this.renderAvatar)
       },
       
       populateDetails: function(error, data) {
@@ -73,8 +68,8 @@ define(function(require) {
         }
         this.isMetaLoaded = true
         config.username = config.channelJid
+        
         if (config.channelJid.split('@')[1] === localStorage.getItem('jid').split('@')[1]) {
-          
           config.username = config.channelJid.split('@')[0]
           
         }
