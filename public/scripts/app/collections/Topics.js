@@ -94,7 +94,7 @@ define(function(require) {
         return
       }
       // If post is a new thread drop into the collection
-      var model = this.findWhere({ node: data.node, localId: data.id })
+      var model = this.findWhere({ node: data.node, localId: data.localId })
       if (model) {
         this.remove(model)
       }

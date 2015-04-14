@@ -71,11 +71,19 @@ define(function(require) {
         },
 
         getReportedPostContent: function() {
-          var subject = 'Reported post from wifi chat'
+          var subject = 'Reported post from WiFi Chat'
+          var name
+
+          if (user.get('displayName')) {
+            name = user.get('displayName') + "-" + user.get('channelJid')
+          } else {
+            name = user.get('channelJid')
+          }
+
           var body = [
-            'Reported by: ' + user.get('channelJid'),
+            'Reported by: '+ name,
             'Reason: \n\n*** Please add a reason here ***\n\n',
-            'Post ID: ' + this.model.get('id'),
+            'Post ID: ' + this.model.get('globalId'),
             'Post content:\n\n' + this.model.get('content') + '\n\n',
 
           ]

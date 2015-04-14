@@ -35,7 +35,7 @@ define(function (require) {
         'rules': 'showRules',
         'profile/:jid': 'showProfile',
         'channel/:jid': 'showChannel',
-        'channel/:jid/*id': 'showTopic',
+        'channel/:jid/:localId': 'showTopic',
         'logout': 'showLogout'
       },
       
@@ -113,18 +113,18 @@ define(function (require) {
         this.showView(channelView, '/channel/' + jid)
       },
 
-      showTopic: function(jid, id, goToNewComment, highlightPost) {
-        if (!id) {
+      showTopic: function(jid, localId, goToNewComment, highlightPost) {
+        if (!localId) {
           return this.showChannel(jid)
         }
         var topicView = new TopicView({
           router: this,
           channelJid: jid,
-          id: id, 
+          localId: localId, 
           goToNewComment: goToNewComment,
           highlightPost: highlightPost
         })
-        this.showView(topicView, '/channel/' + jid + '/' + id)
+        this.showView(topicView, '/channel/' + jid + '/' + localId)
       },
 
       showProfile: function(jid) {

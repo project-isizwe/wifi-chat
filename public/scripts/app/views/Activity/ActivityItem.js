@@ -36,7 +36,7 @@ define(function(require) {
             this.model.get('channelJid'),
             this.model.get('inReplyTo'), 
             null,
-            this.model.get('id')
+            this.model.get('globalId')
           )
         },
 

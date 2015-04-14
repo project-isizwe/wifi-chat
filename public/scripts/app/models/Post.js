@@ -25,7 +25,7 @@ define(function(require) {
         {
           name: 'WiFi TV',
           regex: /.*connectuptv.pockittv.mobi\/v\/(\w*)/g,
-          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="http://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
+          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="https://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
         }
         // {
         //   name: 'Images',
@@ -55,7 +55,7 @@ define(function(require) {
         var self = this
         var options = {
           node: this.get('node'),
-          id: this.get('id'),
+          id: this.get('localId'),
           rsm: { max: 1 }
         }
 
@@ -89,7 +89,7 @@ define(function(require) {
         var self = this
         var options = {
           node: this.get('node'),
-          id: this.get('id')
+          id: this.get('localId')
         }
         socket.send(event, options, function(error, post) {
           if (error) {
@@ -128,7 +128,7 @@ define(function(require) {
           content: this.parseContent(post.entry.atom.content.content),
           node: post.node,
           channelJid: post.node.split('/')[2],
-          id: post.entry.atom.id,
+          globalId: post.entry.atom.id,
           localId: post.entry.atom.id.split(',')[2] || post.entry.atom.id,
           canComment: true,
           isReply: ('comment' === post.entry.activity),

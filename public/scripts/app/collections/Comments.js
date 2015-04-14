@@ -47,7 +47,7 @@ define(function(require) {
       var self = this
       var options = {
         node: this.options.node,
-        id: this.options.id,
+        id: this.options.localId,
         rsm: {
           max: this.itemsPerRequest
         }
@@ -71,14 +71,14 @@ define(function(require) {
 
     pushedItem: function(model) {
       if ((model.get('node') !== this.options.node) ||
-        (model.get('inReplyTo') !== this.options.id.split(',')[2])) {
+        (model.get('inReplyTo') !== this.options.localId)) {
         return
       }
       this.add(model)
     },
 
     retractItem: function(details) {
-      var post = this.findWhere({ node: details.node, localId: details.id })
+      var post = this.findWhere({ node: details.node, localId: details.localId })
       if (post) {
         this.remove(post)
       }
