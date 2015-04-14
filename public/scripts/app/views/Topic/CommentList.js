@@ -87,7 +87,7 @@ define(function(require) {
             addMethod = 'append'
           }
         } else {
-          newComments = this.collection.models.slice(0, length)
+          newComments = this.collection.models.slice(-length)
           log(length + ' new comments')
         }
         var comments = document.createDocumentFragment()
@@ -119,7 +119,7 @@ define(function(require) {
         this.isFetchingComments = false
         this.$el.find('.js-showMore').removeClass('is-loading')    
 
-        if(isScrolledToBottom){
+        if (isScrolledToBottom) {
           scrollParent.scrollTop(999999)
         }
       },
