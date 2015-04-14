@@ -580,16 +580,35 @@ hr {
   left: 14px;
   right: 14px;
   padding: 32px 0 15px;
-  background: linear-gradient(rgba(255,255,255,0), white 28px);
+  background: linear-gradient(rgba(255,255,255,0), white 30px);
   cursor: pointer;
+}
+
+.post.is-highlighted {
+  background: hsl(60,100%,90%);
+  border-bottom: 1px solid hsl(60,100%,48%);
+  border-top:    1px solid hsl(60,100%,48%);
+}
+
+.post.is-highlighted:last-child {
+  border-bottom: none;
+}
+
+.post.is-highlighted:first-child {
+  border-top: none;
+}
+
+.post.is-highlighted .post-more {
+  background: linear-gradient(hsla(60,100%,90%,0), hsl(60,100%,90%) 30px);
 }
 
 .comment-content .post-more {
   left: 56px;
 }
 
-.post--comment + .post--comment {
-  padding-top: 0;
+.post--comment {
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .btngroup.btngroup--post {
@@ -1021,7 +1040,7 @@ hr {
   display: block;
   font-size: inherit;
   padding: 12px 28px 11px;
-  background: hsl(221,3%,75%);
+  background: hsla(221,10%,15%,.25);
   color: white;
   border: none;
   border-radius: 3px;
@@ -1036,11 +1055,11 @@ hr {
 }
 
 form :invalid ~ .btn:not(.btn--text) {
-  background: hsl(221,3%,85%);
+  background: hsla(221,10%,15%,.15);
 }
 
 .btn:active {
-  background: hsl(221,3%,68%);
+  background: hsla(221,10%,15%,.35);
 }
 
 .btn--primary {
