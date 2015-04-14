@@ -86,10 +86,12 @@ define(function(require) {
       finishInfiniteScroll: function() {
         log('All search results loaded, closing infinite scroll')
         this.$el.find('.js-infiniteLoader').addClass('is-hidden')
-        if (this.scrollParent) {
-          this.scrollParent.off('scroll.activityList')
+        if (!this.scrollParent) {
+          return
         }
+        this.scrollParent.off('scroll.activityList')
         this.renderedActivities()
+        
       },
 
       renderedActivities: function() {
