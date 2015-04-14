@@ -85,7 +85,7 @@ define(function (require) {
           showRules: options.showRules,
           autoLogin: options.autoLogin
         })
-        this.showView(loginView, '/login')
+        this.showView(loginView, !options.autoLogin ?'/login' : null)
       },
       
       showRules: function(options) {
@@ -167,7 +167,9 @@ define(function (require) {
           return this.sendToLogin(options)
         }
         window.document.title = 'WiFi Chat - ' + view.title
-        this.navigate(url, { trigger: false })
+        if (url) {
+          this.navigate(url, { trigger: false })
+        }
         this.currentView = view
 
         this.el.html(view.el)
