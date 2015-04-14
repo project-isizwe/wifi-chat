@@ -19,11 +19,23 @@ define(function(require) {
       },
       
       render: function() {
+        _.bindAll(this, 'onKeypress')
         if (!this.model.has('message')) {
           this.model.set('message', 'Error')
         }
         this.$el.html(this.template(this.model.toJSON()))
+        $(document).on('keypress.modal', this.onKeypress)
         return this
+      },
+
+      onDestroy: function() {
+        $(document).off('keypress.modal')
+      },
+
+      onKeypress: function(event) {
+        if (event.keyCode == 13) {
+          this.close(event)
+        }
       },
 
       close: function(event) {
