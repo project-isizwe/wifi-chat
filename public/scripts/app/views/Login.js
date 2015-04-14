@@ -161,7 +161,13 @@ define(function(require) {
             credentials.host = localStorage.getItem('host')
           }
           socket.send('xmpp.login', credentials)
-          this.showSpinner('Connecting')
+          var options = {}
+
+          if (this.options.autoLogin) {
+            options.opaque = true
+            delete this.options.autoLogin
+          }
+          this.showSpinner('Connecting', options)
         },
 
         password: function() {

@@ -69,7 +69,8 @@ define(function (require) {
 
       showWelcome: function(options) {
         var welcomeView = new WelcomeView()
-        this.showView(welcomeView, '/welcome') 
+        this.showView(welcomeView, '/welcome')
+        localStorage.setItem('wasLoggedInOnce', true)
       },
       
       showLogin: function(options) {
@@ -81,7 +82,8 @@ define(function (require) {
           jid: options.jid,
           password: options.password,
           lastRoute: this.lastRoute,
-          showRules: options.showRules
+          showRules: options.showRules,
+          autoLogin: options.autoLogin
         })
         this.showView(loginView, '/login')
       },
@@ -158,7 +160,11 @@ define(function (require) {
         view.delegateEvents()
 
         if (view.requiresLogin && !this.loggedIn) {
-          return this.sendToLogin()
+          var options = {}
+          if (localStorage.getItem('jid')) {
+            options.autoLogin = true
+          }
+          return this.sendToLogin(options)
         }
         window.document.title = 'WiFi Chat - ' + view.title
         this.navigate(url, { trigger: false })
@@ -193,9 +199,9 @@ define(function (require) {
         return this.loggedIn
       }, 
 
-      sendToLogin: function() {
+      sendToLogin: function(options) {
         if (localStorage.getItem('wasLoggedInOnce')) {
-          return this.showLogin()
+          return this.showLogin(options)
         }
         this.showWelcome()
       },     

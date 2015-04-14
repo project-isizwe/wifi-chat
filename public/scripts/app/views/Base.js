@@ -92,13 +92,14 @@ define(function(require) {
         return this.showMessage(message)
       },
 
-      showSpinner: function(message) {
+      showSpinner: function(message, options) {
         this.closeSubView('modal')
         var modal = new ModalView()
         modal.model = new ModalModel({
           type: 'spinner',
           message: message,
-          showClose: false
+          showClose: options.showClose || false,
+          opaque: options.opaque
         })
         this.showSubView('modal', modal)
         modal.once('close', function() {
