@@ -150,6 +150,10 @@ hr {
   cursor: default;
 }
 
+.modal-background.modal-background--opaque {
+  background: white;
+}
+
 .modal-body {
   max-width: 320px;
   max-height: 100%;
