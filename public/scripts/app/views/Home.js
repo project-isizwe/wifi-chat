@@ -11,6 +11,7 @@ define(function(require) {
       , ActivityView    = require('app/views/Activity/Index')
       , SettingsView    = require('app/views/Settings')
       , log             = require('bows.min')('Views:Home')
+    require('modernizr.custom.18754')
 
     return Base.extend({
 
@@ -74,11 +75,9 @@ define(function(require) {
 
           this.scroller.on('transitionend', this.onTransitionEnd)
 
-          this.hammertime = new Hammer(this.scroller.get(0))
-
-          this.hammertime.on('panstart', this.onPanStart)
-          this.hammertime.on('panmove', this.onPanMove)
-          this.hammertime.on('panend', this.onPanEnd)
+          if (Modernizr.touch) {
+            this.bindTouchControls()
+          }
 
           // stores the current xPos  
           this.xPos = 0
@@ -101,10 +100,21 @@ define(function(require) {
           this.navigateTo(this.viewItems.first().attr('data-view'))
         },
 
+        bindTouchControls: function() {
+          this.hammertime = new Hammer(this.scroller.get(0))
+
+          this.hammertime.on('panstart', this.onPanStart)
+          this.hammertime.on('panmove', this.onPanMove)
+          this.hammertime.on('panend', this.onPanEnd)
+        },
+
         onDestroy: function() {
           this.scroller.off('transitionend', this.onTransitionEnd)
           $(window).off('resize.home', this.onResize)
-          this.hammertime.destroy()
+
+          if (Modernizr.touch) {
+            this.hammertime.destroy()
+          }
         },
 
         onResize: function() {
