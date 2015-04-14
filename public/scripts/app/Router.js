@@ -36,6 +36,7 @@ define(function (require) {
         'profile/:jid': 'showProfile',
         'channel/:jid': 'showChannel',
         'channel/:jid/:localId': 'showTopic',
+        'channel/:jid/:localId/:childId': 'showTopicContext',
         'logout': 'showLogout'
       },
       
@@ -113,7 +114,7 @@ define(function (require) {
         this.showView(channelView, '/channel/' + jid)
       },
 
-      showTopic: function(jid, localId, goToNewComment, highlightPost) {
+      showTopic: function(jid, localId, goToNewComment) {
         if (!localId) {
           return this.showChannel(jid)
         }
@@ -125,6 +126,16 @@ define(function (require) {
           highlightPost: highlightPost
         })
         this.showView(topicView, '/channel/' + jid + '/' + localId)
+      },
+
+      showTopicContext: function(jid, localId, commentId) {
+        var topicView = new TopicView({
+          router: this,
+          channelJid: jid,
+          localId: localId, 
+          commentId: commentId
+        })
+        this.showView(topicView, '/channel/' + jid + '/' + localId + '/' + commentId)
       },
 
       showProfile: function(jid) {

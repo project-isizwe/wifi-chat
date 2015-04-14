@@ -32,11 +32,10 @@ define(function(require) {
         },
 
         seeContext: function() {
-          this.router.showTopic(
+          this.router.showTopicContext(
             this.model.get('channelJid'),
             this.model.get('inReplyTo'), 
-            null,
-            this.model.get('globalId')
+            this.model.get('localId')
           )
         },
 
