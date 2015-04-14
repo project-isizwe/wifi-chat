@@ -150,6 +150,10 @@ hr {
   cursor: default;
 }
 
+.modal-background.modal-background--opaque {
+  background: white;
+}
+
 .modal-body {
   max-width: 320px;
   max-height: 100%;
@@ -410,11 +414,12 @@ hr {
   background-image:
     url(../images/icons/channel_placeholder.svg);
   background-position: center;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .channel-banner[style] {
-  background-color: none;
+  background-color: white;
 }
 
 .channel-description {

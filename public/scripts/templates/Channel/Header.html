@@ -5,5 +5,5 @@
   </a>
   <div class="screen-title"><%- title %></div>
 </div>
-<div class="channel-banner"></div>
+<div class="channel-banner"<% if(avatarUrl){ %> style="backgroundColor: <%- bannerBackground %>; background-image: url(<%- userAvatarUrl %>)"<% } %>></div>
 <p class="channel-description"><%- description %></p>

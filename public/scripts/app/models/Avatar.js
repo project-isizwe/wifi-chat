@@ -38,13 +38,14 @@ define(function(require) {
 
       setAvatar: function() {
         var url = this.getAvatarUrl() + this.getImageParameters()
-        var image = new Image()
+        this.image = new Image()
+        this.image.crossOrigin = "Anonymous";
         var self = this
-        image.onload = function() {
+        this.image.onload = function() {
           self.set('url', url, { silent: true })
           self.trigger('loaded:avatar')
         }
-        image.src = url
+        this.image.src = url
       },
 
       getAvatarUrl: function() {
