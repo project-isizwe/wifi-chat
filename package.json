@@ -4,7 +4,8 @@
   "description": "Wifi Chat from Project Isizwe",
   "main": "index.js",
   "scripts": {
-    "start": "grunt build --force && node index"
+    "start": "node index",
+    "build": "grunt build"
   },
   "repository": {
     "type": "git",
