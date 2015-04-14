@@ -40,6 +40,9 @@ define(function(require) {
 
         initialize: function(options) {
           _.bindAll(this, 'render')
+
+          this.options = options
+          this.router = options.router
           this.model.bind('change', this.render)
         },
 
@@ -59,7 +62,7 @@ define(function(require) {
         },
 
         seeAuthor: function() {
-          this.options.router.showProfile(this.model.get('username'))
+          this.router.showProfile(this.model.get('username'))
         },
         
         loadAvatar: function() {
