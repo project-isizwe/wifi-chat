@@ -25,7 +25,7 @@ define(function(require) {
         {
           name: 'WiFi TV',
           regex: /.*connectuptv.pockittv.mobi\/v\/(\w*)/g,
-          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="http://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
+          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="https://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
         }
         // {
         //   name: 'Images',
