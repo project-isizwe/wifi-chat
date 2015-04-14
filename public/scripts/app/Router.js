@@ -34,9 +34,9 @@ define(function (require) {
         'password/reset/:token': 'showNewPassword',
         'rules': 'showRules',
         'profile/:jid': 'showProfile',
-        'channel/:jid': 'showChannel',
-        'channel/:jid/:localId': 'showTopic',
         'channel/:jid/:localId/:childId': 'showTopicContext',
+        'channel/:jid/:localId': 'showTopic',
+        'channel/:jid': 'showChannel',
         'logout': 'showLogout'
       },
       
