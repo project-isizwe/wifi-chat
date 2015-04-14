@@ -51,11 +51,15 @@ define(function (require) {
             return this.lastRoute = null
           }
           var parameters = Array.prototype.slice.call(arguments, 1)
-          this.lastRoute = {
-            method: route.split(':')[1],
-            parameters: parameters
-          }
+          this.setLastRoute(route.split(':')[1], parameters)
         }, this)
+      },
+
+      setLastRoute: function(method, parameters) {
+        this.lastRoute = {
+          method: method, parameters: parameters
+        }
+        return this
       },
       
       showModal: function() {

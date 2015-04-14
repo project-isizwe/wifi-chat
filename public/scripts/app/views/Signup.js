@@ -78,7 +78,7 @@ define(function(require) {
           localStorage.setItem('wasLoggedInOnce', true)
           localStorage.setItem('jid', jid)
           localStorage.setItem('password', this.model.get('password'))
-          this.router.showRules()
+          this.router.setLastRoute('showRules').showRules()
         },
       
         accountCreateFail: function(model, response) {
