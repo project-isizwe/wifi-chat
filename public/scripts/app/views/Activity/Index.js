@@ -35,6 +35,7 @@ define(function(require) {
 
         this.collection = new UserPosts()
         this.collection.on('loaded:activities', this.addActivityItems, this)
+        this.collection.on('completed:activities', this.finishInfiniteScroll, this)
         this.on('resizeTabViews', this.onResizeTabViews, this)
 
         this.collection.sync()
@@ -77,13 +78,20 @@ define(function(require) {
         }
 
         if (this.collection.allItemsLoaded()) {
-          this.$el.find('.js-infiniteLoader').addClass('is-hidden')
-          this.scrollParent.off('scroll.activityList')
+          this.finishInfiniteScroll()
         }
+        this.renderedActivities()
+      },
 
+      finishInfiniteScroll: function() {
+        log('All search results loaded, closing infinite scroll')
+        this.$el.find('.js-infiniteLoader').addClass('is-hidden')
+        this.scrollParent.off('scroll.activityList')
+        this.renderedActivities()
+      },
+
+      renderedActivities: function() {
         this.scrollTopBackup = this.scrollParent.scrollTop()
-
-        // resize tab view height
         this.trigger('rendered:activities')
       },
 
@@ -104,7 +112,7 @@ define(function(require) {
         var visibleHeight = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).outerHeight()
         var viewBottomEdge = this.scrollParent.scrollTop() + visibleHeight
 
-        if(viewBottomEdge > triggerPos) {
+        if (viewBottomEdge > triggerPos) {
           this.loadMoreItems()
         }
       },
