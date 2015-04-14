@@ -41,7 +41,7 @@ define(function (require) {
       },
       
       initialize: function() {
-        log('Application initialized', '1.0.1')
+        log('Application initialized', '1.0.2')
         this.on('all', function(route, parameters) {
           if (0 !== route.indexOf('route:')) {
             return
@@ -83,7 +83,7 @@ define(function (require) {
           lastRoute: this.lastRoute,
           showRules: options.showRules
         })
-        if (!loginvView.eventsRegistered) {
+        if (!loginView.eventsRegistered) {
           loginView.registerEvents()
         }
         this.showView(loginView, '/login')
