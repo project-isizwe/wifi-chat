@@ -26,7 +26,7 @@ define(function(require) {
           // add a nonEmpty class when the input is non-empty
           $(event.currentTarget).toggleClass(
             'nonEmpty',
-            event.currentTarget.value !== ""
+            (event.currentTarget.value !== '')
           )
         },
 
@@ -80,7 +80,7 @@ define(function(require) {
           localStorage.setItem('password', this.model.get('password'))
 
           this.closeSpinner()
-          this.router.setLastRoute('showRules').showRules()
+          this.router.setLastRoute('showRules').showLogin()
         },
       
         accountCreateFail: function(model, response) {

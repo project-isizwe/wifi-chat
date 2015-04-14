@@ -56,7 +56,6 @@ define(function(require) {
         registerEvents: function() {
           log('Registered login events')
           var self = this
-          this.eventsRegistered = true
           socket.on('xmpp.connection', function(data) {
             log('Connected as', data.jid)
             localStorage.setItem('jid', self.jid)
