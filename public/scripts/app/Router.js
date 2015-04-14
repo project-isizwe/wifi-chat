@@ -50,6 +50,7 @@ define(function (require) {
           if ('showLogin' === method) {
             return this.lastRoute = null
           }
+          var parameters = Array.prototype.slice.call(arguments, 1)
           this.lastRoute = {
             method: route.split(':')[1],
             parameters: parameters
@@ -122,8 +123,7 @@ define(function (require) {
           router: this,
           channelJid: jid,
           localId: localId, 
-          goToNewComment: goToNewComment,
-          highlightPost: highlightPost
+          goToNewComment: goToNewComment
         })
         this.showView(topicView, '/channel/' + jid + '/' + localId)
       },
@@ -163,8 +163,9 @@ define(function (require) {
         this.el.html(view.el)
         view.delegateEvents()
 
-        if(!view.noAutoRender)
+        if (!view.noAutoRender) {
           view.render()
+        }
       },
       
       closeView: function() {

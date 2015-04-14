@@ -132,7 +132,7 @@ define(function(require) {
             
             if (self.router.lastRoute) {
               return self.router[self.router.lastRoute.method]
-                .apply(self.router, [ self.router.lastRoute.parameters ])
+                .apply(self.router, self.router.lastRoute.parameters)
             }
             if (self.options.showRules) {
               return self.router.showRules(options)
