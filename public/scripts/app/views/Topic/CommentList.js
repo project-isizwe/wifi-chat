@@ -33,9 +33,9 @@ define(function(require) {
           id: this.options.id,
           after: options.highlightPost
         })
-        if (this.options.highlightPost) {
-          this.collection.once('loaded:comments', this.loadHighlightedPost, this)
-        }
+        //if (this.options.highlightPost) {
+        //  this.collection.once('loaded:comments', this.loadHighlightedPost, this)
+        //}
         this.loadComments()
       },
 
