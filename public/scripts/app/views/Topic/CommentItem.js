@@ -24,16 +24,22 @@ define(function(require) {
           tolerance: 50
         },
 
-        className: 'post post--comment',
+        attributes: function() {
+          log('this.options', this.model.get('highlight'))
+          return {
+            'data-id': this.model.get('localId'),
+            'class': 'post post--comment' +
+              (this.model.get('highlight') ? ' is-highlighted' : '')
+          }
+        },
 
         events: {
           'click .js-seeAuthor': 'seeAuthor',
           'click .js-report-post': 'reportPost'
         },
 
-        initialize: function(options){
+        initialize: function(options) {
           _.bindAll(this, 'render')
-
           this.model.bind('change', this.render)
         },
 
