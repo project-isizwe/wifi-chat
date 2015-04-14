@@ -6,7 +6,7 @@
     <% } %>
     <span class="username"><%- username %></span>
   </div>
-  <div class="post-content"><%- content %></div>
+  <div class="post-content"><%= content %></div>
 </div>
 <div class="post-footer">
   <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>&#183;
