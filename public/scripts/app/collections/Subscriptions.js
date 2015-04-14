@@ -10,6 +10,8 @@ define(function(require) {
   return Backbone.Collection.extend({
     
     model: Channel,
+
+    hasLoaded: false,
     
     event: 'xmpp.buddycloud.subscriptions',
     affiliationsEvent: 'xmpp.buddycloud.affiliations',
@@ -26,6 +28,10 @@ define(function(require) {
         default:
           throw new Error('Unhandled method')
       }
+    },
+
+    isLoaded: function() {
+      return this.hasLoaded
     },
     
     getSubscriptions: function() {
@@ -59,6 +65,8 @@ define(function(require) {
           }
           channel.set('affiliation', affiliation.affiliation)
         })
+        self.hasLoaded = true
+        self.trigger('loaded:subscriptions')
       })
     }
     
