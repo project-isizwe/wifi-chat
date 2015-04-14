@@ -12,12 +12,18 @@ define(function(require) {
     return Base.extend({
 
         template: _.template(require('text!tpl/Channel/TopicItem.html')),
+        seeMoreTemplate: _.template(require('text!tpl/SeeMore.html')),
       
         requiresLogin: true,
 
         tagName: 'section',
 
         className: 'post post--topic',
+
+        seeMoreCutoff: {
+          height: 300,
+          tolerance: 50
+        },
 
         events: {
           'click .js-seeAuthor': 'seeAuthor',
@@ -49,12 +55,15 @@ define(function(require) {
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
-            avatarUrl: this.avatar && this.avatar.get('url')
+            avatarUrl: this.avatar && this.avatar.get('url'),
+            maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
           })))
           this.$el.find('time').timeago()
 
           if(!this.avatar)
             this.loadAvatar()
+
+          this.limitHeight()
 
           return this
         },
@@ -76,6 +85,25 @@ define(function(require) {
         showAvatar: function() {
           this.$el.find('.avatar')
             .css('background-image', 'url("' + this.avatar.get('url') + '")')      
+        },
+
+        limitHeight: function() {
+          var target = this.$el.find('.js-limitHeight')
+
+          if (target.height() !== this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance) {
+            return
+          }
+
+          target
+            .height(this.seeMoreCutoff.height)
+            .append(this.seeMoreTemplate())
+            .find('.js-seeMore').one('click', function(){
+              target.css({
+                height: '',
+                maxHeight: ''
+              })
+              this.remove()
+            })
         },
       
     })
