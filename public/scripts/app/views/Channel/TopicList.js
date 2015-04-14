@@ -36,7 +36,7 @@ define(function(require) {
         }, this)
 
         if (0 !== this.collection.length) {
-          return
+          return this.addTopics(this.collection.length)
         }
         this.collection.sync()
       },
