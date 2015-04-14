@@ -162,10 +162,10 @@ define(function(require) {
           }
           socket.send('xmpp.login', credentials)
           var options = {}
-
           if (this.options.autoLogin) {
             options.opaque = true
             delete this.options.autoLogin
+
           }
           this.showSpinner('Connecting', options)
         },

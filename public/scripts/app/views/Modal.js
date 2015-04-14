@@ -20,7 +20,7 @@ define(function(require) {
       
       render: function() {
         _.bindAll(this, 'onKeypress')
-        this.model.set(this.options)
+
         if (!this.model.has('message')) {
           this.model.set('message', 'Error')
         }

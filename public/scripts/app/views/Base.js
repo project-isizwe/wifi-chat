@@ -99,7 +99,7 @@ define(function(require) {
           type: 'spinner',
           message: message,
           showClose: options.showClose || false,
-          opaque: options.opaque
+          opaque: options.opaque || false
         })
         this.showSubView('modal', modal)
         modal.once('close', function() {
