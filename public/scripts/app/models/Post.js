@@ -26,7 +26,7 @@ define(function(require) {
           name: 'WiFi TV',
           regex: /.*connectuptv.pockittv.mobi\/v\/(\w*)/g,
           substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="http://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
-        },
+        }
         // {
         //   name: 'Images',
         //   regex: /[a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|svg)/g,
@@ -143,6 +143,7 @@ define(function(require) {
           .replace(/\{/g, '&#123;')
           .replace(/&#x2F;/g, '/')
           .replace(/\}/g, '&#125;')
+          .replace(/\n/g, '<br/>')
 
         this.embedReceipts.forEach(function(receipt) {
           content = content
