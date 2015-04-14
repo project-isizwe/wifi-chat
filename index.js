@@ -81,6 +81,32 @@ Buddycloud.prototype.publishItem = function(data, callback) {
     this.publish(data, callback)
 }
 
+Buddycloud.prototype._events = {
+    'xmpp.buddycloud.discover': 'discover',
+    'xmpp.buddycloud.register': 'setRegister',
+    'xmpp.buddycloud.presence': 'setPresence',
+    'xmpp.buddycloud.publish': 'publishItem',
+    'xmpp.buddycloud.retrieve': 'retrieve',
+    'xmpp.buddycloud.items.recent': 'recentItems',
+    'xmpp.buddycloud.items.feed': 'userFeedItems',
+    'xmpp.buddycloud.items.replies': 'getReplies',
+    'xmpp.buddycloud.items.thread': 'getThread',
+    'xmpp.buddycloud.config.set': 'setConfiguration',
+    'xmpp.buddycloud.config.get': 'getConfiguration',
+    'xmpp.buddycloud.subscriptions': 'getNodeSubscriptions',
+    'xmpp.buddycloud.affiliations': 'getNodeAffiliations',
+    'xmpp.buddycloud.discover.items': 'discoverItems',
+    'xmpp.buddycloud.discover.info': 'discoverFeatures',
+    'xmpp.buddycloud.discover.media-server': 'discoverMediaServer',
+    'xmpp.buddycloud.search.get': 'searchGet',
+    'xmpp.buddycloud.search.do': 'performSearch',
+    'xmpp.buddycloud.register.get': 'getRegister',
+    'xmpp.buddycloud.register.set': 'setRegister',
+    'xmpp.buddycloud.register.password': 'changePassword',
+    'xmpp.buddycloud.http.confirm': 'approveRequest',
+    'xmpp.buddycloud.http.deny': 'denyRequest'
+}
+
 var buddycloudCache = {}
 
 primus.on('connection', function(socket) {
