@@ -75,6 +75,7 @@ define(function(require) {
           log('New account created successfully')
           this.closeSpinner()
           var jid = this.model.get('local') + '@' + this.model.get('domain')
+          localStorage.setItem('wasLoggedInOnce', true)
           localStorage.setItem('jid', jid)
           localStorage.setItem('password', this.model.get('password'))
           this.router.showRules()
