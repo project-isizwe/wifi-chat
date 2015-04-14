@@ -68,6 +68,9 @@ define(function(require) {
         if (config['title'] === config['channelJid']) {
           config['title'] = null
         }
+        if (config['description'] === config['channelJid']) {
+          config['description'] = null
+        }
         this.isMetaLoaded = true
         config.username = config.channelJid
         if (config.channelJid.split('@')[1] === localStorage.getItem('jid').split('@')[1]) {

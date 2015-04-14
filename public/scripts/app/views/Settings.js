@@ -52,7 +52,7 @@ define(function(require) {
           avatarUrl: this.avatar && this.avatar.get('url') + '&' + Date.now()
         })))
         
-        if(!this.model.isLoaded()) {
+        if (!this.model.isLoaded()) {
           this.loadAvatar()
         }
 
@@ -89,7 +89,10 @@ define(function(require) {
       },
 
       uploadAvatar: function(event) {
-        if(event.target.files.length){
+        if (!this.avatar) {
+          this.loadAvatar()
+        }
+        if (event.target.files.length) {
           this.$el.find('.avatar').css('background-image', 'none').addClass('is-uploading')
           this.avatar.uploadAvatar(event)
           this.avatar.once('updated:avatar', this.showAvatar, this)
