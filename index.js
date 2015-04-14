@@ -17,6 +17,7 @@ var environment = process.env.NODE_ENV || 'production'
 
 try {
   var config = require('./config.' + environment + '.js')
+  config.environment = environment
 } catch (e) {
   console.log(('Config file config.' + environment + '.js not found').red)
   process.exit(1)
