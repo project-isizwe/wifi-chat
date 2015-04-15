@@ -20,6 +20,7 @@ define(function(require) {
         events: {
           'submit': 'register',
           'blur input': 'inidicateValidation',
+          'keyup input': 'lowerCase'
         },
 
         inidicateValidation: function(event) {
@@ -46,10 +47,14 @@ define(function(require) {
           event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
           var local = this.addDomainIfRequired(
-            this.$el.find('input[name="username"]').val()
+            this.$el.find('input[name="username"]')
+              .val()
+              .toLowerCase()
           )
           var password = this.$el.find('input[name="password"]').val()
-          var email = this.$el.find('input[name="email"]').val()
+          var email = this.$el.find('input[name="email"]')
+            .val()
+            .toLowerCase()
           this.showSpinner('Registering')
           var domain = document.location.domain
           if (-1 !== local.indexOf('@')) {
@@ -69,6 +74,11 @@ define(function(require) {
             error: _.bind(this.accountCreateFail, this)
           })
         
+        },
+
+        lowerCase: function(event) {
+          log('lowecase', event)
+          $(event.target).val($(event.target).val().toLowerCase())
         },
       
         accountCreated: function(model, response) {
