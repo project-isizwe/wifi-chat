@@ -46,7 +46,8 @@ require(['jquery', 'backbone', 'app/Router', 'fastclick'], function ($, Backbone
     }
   })
 
-  $('body').addClass('loaded')
+  // clear body, add list to change background
+  $('body').empty().addClass('loaded')
   
   Backbone.history.start({ pushState: true })
 
