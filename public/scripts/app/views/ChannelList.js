@@ -43,6 +43,12 @@ define(function(require) {
           if (0 !== this.collection.length) {
             this.once('render', this.renderChannels, this)
           }
+          
+          this.on('visibilitychange', this.onVisibilityChange, this)
+        },
+
+        onVisibilityChange: function(isVisible) {
+          this.$el.toggleClass('is-visible', isVisible)
         },
 
         renderChannels: function() {

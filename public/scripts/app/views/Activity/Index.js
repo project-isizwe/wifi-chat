@@ -46,6 +46,12 @@ define(function(require) {
 
         this.options.parent.on('cache', this.unbindGlobalListeners, this)
         this.options.parent.on('retrieve', this.bindGlobalListeners, this)
+        this.options.parent.on('resizeTabViews', this.onResizeTabViews, this)
+        this.on('visibilitychange', this.onVisibilityChange, this)
+      },
+
+      onVisibilityChange: function(isVisible) {
+        this.$el.toggleClass('is-visible', isVisible)
       },
 
       unbindGlobalListeners: function() {
