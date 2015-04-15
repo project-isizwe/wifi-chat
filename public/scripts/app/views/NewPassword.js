@@ -55,7 +55,7 @@ define(function(require) {
           )
           localStorage.setItem(this.model.get('password'))
           modal.once('close', function() {
-            this.router.showHome()
+            this.router.setLastRoute('showHome').showHome()
           }, this)
           this.$el.find('button').attr('disabled', false)
         },
