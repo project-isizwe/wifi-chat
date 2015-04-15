@@ -137,8 +137,11 @@ define(function(require) {
             left: function(i) { return i * self.viewWidth }
           })
 
-          if(this.visibleTabView)
+          if (this.visibleTabView) {
+            var resizeScrollTopBackup = this.$el.scrollParent().scrollTop()
             this.navigateTo(this.visibleTabView.attr('data-view'))
+            this.$el.scrollParent().scrollTop(resizeScrollTopBackup)
+          }
         },
 
         onPanStart: function() {
