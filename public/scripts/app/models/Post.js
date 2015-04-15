@@ -133,6 +133,7 @@ define(function(require) {
           authorJid: author,
           published: Date.parse(post.entry.atom.published),
           content: this.parseContent(post.entry.atom.content.content),
+          unparsedContent: post.entry.atom.content.content,
           node: post.node,
           channelJid: post.node.split('/')[2],
           globalId: post.entry.atom.id,
