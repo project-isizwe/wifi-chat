@@ -177,7 +177,7 @@ var resetPassword = function(req, res) {
            client.end()
            return res.status(404).send({ error: 'token-not-found' })
          }
-         var params = [ password, result.rows[0].user, result.rows[0].host ]
+         var params = [ password, result.rows[0].local, result.rows[0].host ]
          client.query(UPDATE_PASSWORD, params, function(error) {
            if (error) return returnServerError(client, res, 'Error updating password')
            res.status(200).send({ error: null, message: 'password-updated' })
