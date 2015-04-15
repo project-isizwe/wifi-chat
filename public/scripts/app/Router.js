@@ -25,6 +25,8 @@ define(function (require) {
       el: $('body'),
     
       loggedIn: false, 
+
+      cache: {},
       
       routes: {
         '': 'showHome',
@@ -113,12 +115,12 @@ define(function (require) {
       },
       
       showHome: function() {
-        var homeView = new HomeView({ router: this })
+        var homeView = this.cache['homescreen'] || new HomeView({ router: this })
         this.showView(homeView, '')
       },
 
       showChannel: function(jid) {
-        var channelView = new ChannelView({ router: this, channelJid: jid })
+        var channelView = this.cache[jid] || new ChannelView({ router: this, channelJid: jid })
         this.showView(channelView, '/channel/' + jid)
       },
 
@@ -126,7 +128,7 @@ define(function (require) {
         if (!localId) {
           return this.showChannel(jid)
         }
-        var topicView = new TopicView({
+        var topicView = this.cache[localId] || new TopicView({
           router: this,
           channelJid: jid,
           localId: localId, 
@@ -158,7 +160,6 @@ define(function (require) {
       
       showView: function(view, url) {
         this.closeView()
-        view.delegateEvents()
 
         if (view.requiresLogin && !this.loggedIn) {
           var options = {}
@@ -171,9 +172,13 @@ define(function (require) {
         if (url) {
           this.navigate(url, { trigger: false })
         }
+
         this.currentView = view
 
-        this.el.html(view.el)
+        if (view.isCached) {
+          return this.retreiveView(view)
+        }
+        this.el.append(view.el)
         view.delegateEvents()
 
         if (!view.noAutoRender) {
@@ -183,7 +188,59 @@ define(function (require) {
       
       closeView: function() {
         if (!this.currentView) return
-        this.currentView.closeView()
+        if (this.currentView.cacheable && !this.currentView.isCached) {
+          this.cacheView(this.currentView)
+        } else {
+          this.currentView.closeView()
+        }
+      },
+
+      retreiveView: function(view) {
+        switch (view.type) {
+          case 'channel':
+            this.clearAllCached('topic')
+            break
+          case 'homescreen':
+            this.clearAllCached('channel')
+            break
+        }
+
+        view.retrieve()
+      },
+
+      clearAllCached: function(type) {
+        for (var viewIdentifier in this.cache) {
+          if (this.cache[viewIdentifier].type == type) {
+            this.removeCachedView(this.cache[viewIdentifier], viewIdentifier)
+          }
+        }
+      },
+
+      removeCachedView: function(view, identifier) {
+        view.closeView()
+        delete this.cache[identifier]
+      },
+
+      destroyCache: function() {
+        this.cache = {}
+      },
+
+      cacheView: function(view) {
+        var key;
+
+        switch (view.type) {
+          case 'channel':
+            key = view.options.channelJid
+            break
+          case 'topic':
+            key = view.options.localId
+            break
+          default:
+            key = view.type
+        }
+
+        this.cache[key] = view
+        view.cache()
       },
       
       setLoggedIn: function(jid) {

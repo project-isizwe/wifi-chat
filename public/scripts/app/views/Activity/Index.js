@@ -39,14 +39,17 @@ define(function(require) {
         this.on('resizeTabViews', this.onResizeTabViews, this)
 
         this.collection.sync()
+
+        this.options.parent.on('cache', this.unbindGlobalListeners, this)
+        this.options.parent.on('retrieve', this.bindGlobalListeners, this)
       },
 
       unbindGlobalListeners: function() {
-        this.scrollParent.off('scroll.activityList')
+        this.$el.scrollParent().off('scroll.activityList')
       },
 
-      reactivateGlobalListeners: function() {
-        this.scrollParent.on('scroll.activityList', this.onScroll)
+      bindGlobalListeners: function() {
+        this.$el.scrollParent().on('scroll.activityList', this.onScroll)
       },
       
       render: function() {
@@ -73,7 +76,7 @@ define(function(require) {
 
         if (this.untouched) {
           this.scrollParent = this.$el.scrollParent()
-          this.scrollParent.on('scroll.activityList', this.onScroll)
+          this.bindGlobalListeners()
           this.untouched = false
         }
 

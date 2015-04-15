@@ -6,6 +6,7 @@ define(function(require) {
       , ModalView   = require('app/views/Modal')
       , ModalModel  = require('app/models/Modal')
     require('jquery.html5-placeholder-shim')
+    require('jquery.scrollparent')
 
     return Backbone.View.extend({
 
@@ -42,7 +43,22 @@ define(function(require) {
 
       unbindGlobalListeners: function() {},
 
-      reactivateGlobalListeners: function() {},
+      cache: function() {
+        this.trigger('cache')
+        this.scrollTop = this.$el.scrollParent().scrollTop()
+        this.$el.addClass('is-cached')
+        this.isCached = true
+      },
+
+      retrieve: function() {
+        this.$el.removeClass('is-cached')
+        this.isCached = false
+
+        if (this.scrollTop) {
+          this.$el.scrollParent().scrollTop(this.scrollTop)
+        }
+        this.trigger('retrieve')
+      },
       
       closeView: function() {
         this.unbindGlobalListeners()

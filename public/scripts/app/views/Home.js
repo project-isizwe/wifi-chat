@@ -19,6 +19,10 @@ define(function(require) {
       
         requiresLogin: true,
 
+        cacheable: true,
+
+        type: 'homescreen',
+
         title: 'Home',
 
         events: {
@@ -38,7 +42,7 @@ define(function(require) {
             return
           }
           this.channelListView = new ChannelListView(this.options)
-          this.activityView = new ActivityView(this.options)
+          this.activityView = new ActivityView(_.extend(this.options, { parent: this }))
           this.settingsView = new SettingsView(this.options)
 
           this.tabViews = [

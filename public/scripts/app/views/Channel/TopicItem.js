@@ -95,12 +95,14 @@ define(function(require) {
           }
 
           target
-            .height(this.seeMoreCutoff.height)
+            .css({
+              height: this.seeMoreCutoff.height,
+              maxHeight: ''
+            })
             .append(this.seeMoreTemplate())
             .find('.js-seeMore').one('click', function(){
               target.css({
-                height: '',
-                maxHeight: ''
+                height: ''
               })
               this.remove()
             })
