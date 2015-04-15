@@ -181,7 +181,7 @@ var resetPassword = function(req, res) {
          client.query(UPDATE_PASSWORD, params, function(error) {
            if (error) return returnServerError(client, res, 'Error updating password')
            res.status(200).send({ error: null, message: 'password-updated' })
-           params = [ result.rows[0].host, result.rows[0].user ]
+           params = [ result.rows[0].host, result.rows[0].local ]
            client.query(CLEAN_USER_TOKENS, params, function(error) {
              debug('Error cleaning user tokens', error)
              client.end()
