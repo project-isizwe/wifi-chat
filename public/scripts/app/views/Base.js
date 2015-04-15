@@ -94,6 +94,9 @@ define(function(require) {
 
       showSpinner: function(message, options) {
         this.closeSubView('modal')
+        if (!options) {
+          options = {}
+        }
         var modal = new ModalView()
         modal.model = new ModalModel({
           type: 'spinner',
