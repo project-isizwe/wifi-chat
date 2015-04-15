@@ -506,8 +506,8 @@ hr {
 .post-footer .btn {
   color: inherit;
   vertical-align: top;
-  padding: 5px 3px;
-  margin-top: -5px;
+  padding: 10px 3px;
+  margin: -10px 0 -5px;
 }
 
 .post-footer .btn:first-child {
