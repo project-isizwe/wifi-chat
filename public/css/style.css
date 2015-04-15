@@ -594,9 +594,9 @@ hr {
 .post-more {
   position: absolute;
   bottom: 0;
-  left: 14px;
-  right: 14px;
-  padding: 32px 0 15px;
+  left: 0;
+  right: 0;
+  padding: 32px 14px 15px;
   background: linear-gradient(rgba(255,255,255,0), white 30px);
   cursor: pointer;
   line-height: initial;
@@ -1088,7 +1088,7 @@ form :invalid ~ .btn:not(.btn--text) {
 }
 
 .btn--callToAction {
-  background: hsl(201,100%,55%);
+  background: hsl(122,51%,45%);
 }
 
 .btn--callToAction:active {
