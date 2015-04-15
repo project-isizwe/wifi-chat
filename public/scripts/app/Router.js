@@ -17,6 +17,7 @@ define(function (require) {
     , ProfileView       = require('app/views/Profile')
     , TopicView         = require('app/views/Topic/Index')
     , user              = require('app/store/User')
+    , config            = require('app/utils/config')
     , log               = require('bows.min')('Router')
         
     return Backbone.Router.extend({
@@ -41,7 +42,7 @@ define(function (require) {
       },
       
       initialize: function() {
-        log('Application initialized', '1.0.6')
+        log('Application initialized', config.version)
         this.on('all', function(route, parameters) {
           if (0 !== route.indexOf('route:')) {
             return

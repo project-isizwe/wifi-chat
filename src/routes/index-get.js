@@ -8,7 +8,8 @@ var setConfig = function(configuration) {
   config = configuration
   frontendConfig = 'var config = \'' + JSON.stringify({
     reportingAddress: config.email.reportingAddress,
-    domain: config.domain
+    domain: config.domain,
+    version: require(process.cwd() + '/package.json').version
   }) + '\''
 
   var developerSetup = ''
