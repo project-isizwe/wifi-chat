@@ -25,7 +25,6 @@ define(function(require) {
         },
 
         attributes: function() {
-          log('this.options', this.model.get('highlight'))
           return {
             'data-id': this.model.get('localId'),
             'class': 'post post--comment' +

@@ -65,7 +65,7 @@ define(function(require) {
           return self.trigger('error', error)
         }
         
-        if (0 ===(data.results || []).length ) {
+        if (0 === (data.results || []).length ) {
           self.allItemsAreLoaded = true
           self.trigger('completed:activities', data.results.length)
           return
@@ -78,10 +78,11 @@ define(function(require) {
     },
 
     pushedItem: function(post) {
-      if (post.get('username') !== user.get('jid')) {
+      if (post.get('authorJid') !== user.get('channelJid')) {
         return
       }
-      this.add(post)
+      this.add(post, { silent: true })
+      this.trigger('pushed:activities', post)
     }
 
   })

@@ -77,7 +77,6 @@ define(function(require) {
         },
 
         lowerCase: function(event) {
-          log('lowecase', event)
           $(event.target).val($(event.target).val().toLowerCase())
         },
       
