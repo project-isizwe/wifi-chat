@@ -569,6 +569,10 @@ hr {
   margin: 2px -14px 4px;
 }
 
+.post-media--image img {
+  width: 100%;
+}
+
 .post-media--video video {
   width: 100%;
   height: auto;
