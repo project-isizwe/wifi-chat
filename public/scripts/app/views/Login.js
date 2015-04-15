@@ -23,6 +23,7 @@ define(function(require) {
           'click .js-signup': 'signup',
           'click .js-forgotPassword': 'password',
           'blur input': 'inidicateValidation',
+          'keyup input[name="username"]': 'lowerCase'
         },
 
         inidicateValidation: function(event) {
@@ -51,6 +52,10 @@ define(function(require) {
               this.login()
             }
           }, this)
+        },
+        
+        lowerCase: function(event) {
+          $(event.target).val($(event.target).val().toLowerCase())
         },
       
         registerEvents: function() {
@@ -153,7 +158,7 @@ define(function(require) {
           if (event) event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
           this.jid = this.addDomainIfRequired(
-            this.$el.find('input[name="username"]').val()
+            this.$el.find('input[name="username"]').val().toLowerCase()
           )
           this.password = this.$el.find('input[name="password"]').val()
           var credentials = { jid: this.jid, password: this.password }
