@@ -148,7 +148,7 @@ var generateResetPasswordToken = function(req, res) {
             email,
             'Password reset request',
             passwordResetTemplate,
-            { token: token },
+            { token: token, username: record.user },
             mailSent
           )
         })
