@@ -13,6 +13,10 @@ define(function(require) {
 	  
 	    requiresLogin: true,
 
+      tagName: 'header',
+
+      className: 'channel-header',
+
       events: {
         'click .js-newTopic': 'showNewTopicScreen',
       },
