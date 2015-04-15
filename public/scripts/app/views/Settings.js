@@ -45,6 +45,12 @@ define(function(require) {
 
         this.model.once('loaded:meta', this.render, this)
         this.model.once('loaded:meta', this.loadAvatar, this)
+
+        this.on('visibilitychange', this.onVisibilityChange, this)
+      },
+
+      onVisibilityChange: function(isVisible) {
+        this.$el.toggleClass('is-visible', isVisible)
       },
 
       render: function() {

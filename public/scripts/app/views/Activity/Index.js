@@ -36,12 +36,17 @@ define(function(require) {
         this.collection = new UserPosts()
         this.collection.on('loaded:activities', this.addActivityItems, this)
         this.collection.on('completed:activities', this.finishInfiniteScroll, this)
-        this.on('resizeTabViews', this.onResizeTabViews, this)
 
         this.collection.sync()
 
         this.options.parent.on('cache', this.unbindGlobalListeners, this)
         this.options.parent.on('retrieve', this.bindGlobalListeners, this)
+        this.options.parent.on('resizeTabViews', this.onResizeTabViews, this)
+        this.on('visibilitychange', this.onVisibilityChange, this)
+      },
+
+      onVisibilityChange: function(isVisible) {
+        this.$el.toggleClass('is-visible', isVisible)
       },
 
       unbindGlobalListeners: function() {
