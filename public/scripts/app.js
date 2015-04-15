@@ -46,8 +46,7 @@ require(['jquery', 'backbone', 'app/Router', 'fastclick'], function ($, Backbone
     }
   })
 
-  // remove splash screen
-  $('body').empty()
+  $('body').addClass('loaded')
   
   Backbone.history.start({ pushState: true })
 

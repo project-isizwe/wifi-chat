@@ -28,7 +28,7 @@ html {
 
 body {
   font: 14px Roboto, Helvetica, Arial, Verdana, sans-serif;
-  background: hsl(220,9%,87%);
+  background: white;
   color: hsl(220,9%,20%);
   height: 100%;
   margin: 0;
@@ -36,6 +36,10 @@ body {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+body.loaded {
+  background: hsl(220,9%,87%);
 }
 
 h1 {
@@ -1252,6 +1256,8 @@ input + .btn {
   }
   body {
     display: initial;
+  }
+  body.loaded {
     background: white;
   }
   .screen {
