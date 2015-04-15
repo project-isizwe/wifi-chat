@@ -48,11 +48,11 @@ define(function(require) {
         },
 
         seeAuthor: function() {
-          this.options.router.showProfile(this.model.get('username'))
+          this.options.router.showProfile(this.model.get('authorJid'))
         },
         
         loadAvatar: function() {
-          this.avatar = new Avatar({ jid: this.model.get('username') })
+          this.avatar = new Avatar({ jid: this.model.get('authorJid') })
           this.avatar.once('loaded:avatar', this.showAvatar, this)
         },
 

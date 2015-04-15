@@ -3,7 +3,7 @@
     <div class="left arrow icon"></div>
     Back
   </div>
-  <div class="screen-title"><%- channelJid %></div>
+  <div class="screen-title"><% if ('topic' === channelType) { %><%- channelJid %><% } else { %><%- username %><% } %></div>
 </header>
 <div class="screen-textContent">
   <div class="avatar avatar--big"></div>

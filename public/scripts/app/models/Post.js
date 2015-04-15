@@ -121,14 +121,16 @@ define(function(require) {
       },
 
       _mapPost: function(post) {
-        var username = post.entry.atom.author.uri.substr(5)
-        var usernameParts = username.split('@')
+        var author = post.entry.atom.author.uri.substr(5)
+        var username = author
+        var usernameParts = author.split('@')
         if (usernameParts[1] === localStorage.getItem('jid').split('@')[1]) {
           username = usernameParts[0]
         }
         return {
           displayName: null,
           username: username,
+          authorJid: author,
           published: Date.parse(post.entry.atom.published),
           content: this.parseContent(post.entry.atom.content.content),
           node: post.node,
