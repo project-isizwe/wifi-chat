@@ -52,11 +52,13 @@ define(function(require) {
           })))
           this.$el.find('time').timeago()
 
-          if(!this.userAvatar)
+          if (!this.userAvatar) {
             this.loadUserAvatar()
+          }
 
-          if(this.channel.isLoaded() && !this.channelAvatar)
+          if (this.channel.isLoaded() && !this.channelAvatar) {
             this.loadChannelAvatar()
+          }
 
           this.limitHeight()
 
@@ -104,7 +106,7 @@ define(function(require) {
         },
 
         loadUserAvatar: function() {
-          this.userAvatar = new Avatar({ jid: this.model.get('username') })
+          this.userAvatar = new Avatar({ jid: this.model.get('authorJid') })
           this.userAvatar.once('loaded:avatar', this.showUserAvatar, this)
         },
 
