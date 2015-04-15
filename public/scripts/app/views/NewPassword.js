@@ -53,7 +53,7 @@ define(function(require) {
           var modal = this.showMessage(
             'Success! Your password has been reset'
           )
-          localStorage.setItem(this.model.get('password'))
+          localStorage.setItem('password', this.model.get('password'))
           modal.once('close', function() {
             this.router.setLastRoute('showHome').showHome()
           }, this)
