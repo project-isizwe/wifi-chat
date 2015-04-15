@@ -1,6 +1,6 @@
 {
   "name": "isizwe-wifi-chat",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Wifi Chat from Project Isizwe",
   "main": "index.js",
   "scripts": {
