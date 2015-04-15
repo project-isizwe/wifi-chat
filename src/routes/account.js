@@ -73,8 +73,8 @@ var createAccount = function(req, res) {
   var local = stringPrep.prepare((req.body.local || '').trim())
   var domain = (req.body.domain || '').trim()
   var password = (req.body.password || '').trim()
-  var email = (req.body.email || '').trim()
-  
+  var email = (req.body.email || '').trim().toLowerCase()
+
   /* Let's not give specific error responses here, we'll make the client send 
    * valid things, we'll just check it is valid
    */
@@ -118,7 +118,7 @@ var createAccount = function(req, res) {
 
 var generateResetPasswordToken = function(req, res) {
   debug('Incoming password reset request', req.body)
-  var email = (req.body.email || '').trim()
+  var email = (req.body.email || '').trim().toLowerCase()
   
   /* Let's not give specific error responses here, we'll make the client send 
    * valid things, we'll just check it is valid
