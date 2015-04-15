@@ -3,6 +3,9 @@ var pg = require('pg')
   , debug = require('debug')('wifi-chat:routes:account')
   , mailer = require('../mailer')
   , fs = require('fs')
+  , StringPrep = require('node-stringprep').StringPrep
+
+var stringPrep = new StringPrep('nameprep')
 
 var passwordResetTemplate = fs.readFileSync(
   process.cwd() + '/src/templates/password-reset',
@@ -67,7 +70,7 @@ var createAccount = function(req, res) {
   // Check for required parameters:
   // local, domain, password, email
   debug('incoming create account request', req.body)
-  var local = (req.body.local || '').trim()
+  var local = stringPrep.prepare((req.body.local || '').trim())
   var domain = (req.body.domain || '').trim()
   var password = (req.body.password || '').trim()
   var email = (req.body.email || '').trim()
@@ -78,7 +81,7 @@ var createAccount = function(req, res) {
   if (!local || (local.length < 1) || !domain || (domain.length < 6) ||
       (domain !== config.domain) ||
     !email || !EMAIL_REGEX.test(email) || !password || (password.length < 6)) {
-    return res.status(400).send({ error: 'bad-parameters' }) 
+    return res.status(400).send({ error: 'bad-parameters' })
   }
   getClient(function(error, client, done) {
     if (error) return returnServerError(client, res, 'Failed to get DB connection')
