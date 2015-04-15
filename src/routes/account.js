@@ -34,7 +34,7 @@ var INSERT_TOKEN = 'INSERT INTO "password-tokens" ' +
 var CLEAN_TOKENS = 'DELETE FROM "password-tokens" WHERE "expires" < NOW();'
 
 var CLEAN_USER_TOKENS = 'DELETE FROM "password-tokens" ' +
-    'WHERE "host" = $1 AND "user" = $2;'
+    'WHERE "host" = $1 AND "local" = $2;'
 
 var GET_TOKEN = 'SELECT * FROM "password-tokens" WHERE "token" = $1 LIMIT 1;'
 
