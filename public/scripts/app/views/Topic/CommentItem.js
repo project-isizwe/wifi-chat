@@ -2,12 +2,14 @@ define(function(require) {
 
     'use strict';
 
-    var _       = require('underscore')
-      , Avatar  = require('app/models/Avatar')
-      , Base    = require('app/views/Base')
-      , user    = require('app/store/User')
-      , config  = require('app/utils/config')
-      , log     = require('bows.min')('Views:Topic/CommentList')
+    var _        = require('underscore')
+      , Avatar   = require('app/models/Avatar')
+      , Base     = require('app/views/Base')
+      , user     = require('app/store/User')
+      , config   = require('app/utils/config')
+      , log      = require('bows.min')('Views:Topic/CommentList')
+      , channels = require('app/store/Channels')
+      , Channel  = require('app/models/Channel')
     require('jquery.timeago')
 
     return Base.extend({
@@ -52,12 +54,32 @@ define(function(require) {
           })))
           this.$el.find('time').timeago()
 
+          this.loadDisplayName()
+
           if(!this.avatar)
             this.loadAvatar()
 
           this.limitHeight()
 
           return this
+        },
+
+        loadDisplayName: function() {
+          if (this.model.get('displayName')) {
+            return
+          }
+          var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
+          var channel = channels.findWhere({ node: authorNode })
+          if (!channel) {
+            channel = new Channel({ node: authorNode })
+            channels.add(channel)
+            channel.once('loaded:meta', this.loadDisplayName, this)
+            return
+          }
+          if (channel.get('displayName')) {
+            return this.model.set('displayName', channel.get('displayName'))
+          }
+          channel.once('change:displayName', this.loadDisplayName, this)
         },
 
         seeAuthor: function() {

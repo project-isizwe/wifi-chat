@@ -8,6 +8,7 @@ define(function(require) {
       , subscriptions  = require('app/store/Subscriptions')
       , log            = require('bows.min')('Views:TopicItem')
       , channels       = require('app/store/Channels')
+      , Channel        = require('app/models/Channel')
     require('jquery.timeago')
 
     return Base.extend({
@@ -71,14 +72,16 @@ define(function(require) {
 
           return this
         },
+
         loadDisplayName: function() {
           if (this.model.get('displayName')) {
             return
           }
-          var channel = channels.findWhere({ node: this.model.get('node') })
+          var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
+          var channel = channels.findWhere({ node: authorNode })
           if (!channel) {
-            // Create a model
-            channel = new Channel({ node: this.model.get('node') })
+            channel = new Channel({ node: authorNode })
+            channels.add(channel)
             channel.once('loaded:meta', this.loadDisplayName, this)
             return
           }
