@@ -7,6 +7,7 @@ define(function(require) {
       , Avatar         = require('app/models/Avatar')
       , subscriptions  = require('app/store/Subscriptions')
       , log            = require('bows.min')('Views:TopicItem')
+      , channels       = require('app/store/Channels')
     require('jquery.timeago')
 
     return Base.extend({
@@ -58,14 +59,33 @@ define(function(require) {
             avatarUrl: this.avatar && this.avatar.get('url'),
             maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
           })))
+
+          this.loadDisplayName()
           this.$el.find('time').timeago()
 
-          if(!this.avatar)
+          if (!this.avatar) {
             this.loadAvatar()
+          }
 
           this.limitHeight()
 
           return this
+        },
+        loadDisplayName: function() {
+          if (this.model.get('displayName')) {
+            return
+          }
+          var channel = channels.findWhere({ node: this.model.get('node') })
+          if (!channel) {
+            // Create a model
+            channel = new Channel({ node: this.model.get('node') })
+            channel.once('loaded:meta', this.loadDisplayName, this)
+            return
+          }
+          if (channel.get('displayName')) {
+            return this.model.set('displayName', channel.get('displayName'))
+          }
+          channel.once('change:displayName', this.loadDisplayName, this)
         },
 
         addComment: function() {

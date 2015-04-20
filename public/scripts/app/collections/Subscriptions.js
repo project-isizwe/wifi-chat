@@ -2,7 +2,7 @@ define(function(require) {
 
   'use strict';
   
-  var Channels = require('app/collections/Channels')
+  var channels = require('app/store/Channels')
     , Channel  = require('app/models/Channel')
     , log      = require('bows.min')('Collections:Subscriptions')
     , socket   = require('app/utils/socket')
@@ -64,7 +64,8 @@ define(function(require) {
             return
           }
           channel.set('affiliation', affiliation.affiliation)
-        })
+          channels.add(channel)
+        }, this)
         self.hasLoaded = true
         self.trigger('loaded:subscriptions')
       })

@@ -6,6 +6,7 @@ define(function(require) {
       , _        = require('underscore')
       , log      = require('bows.min')('Models:Post')
       , socket   = require('app/utils/socket')
+      , channels = require('app/store/Channels')
 
     return Backbone.Model.extend({
       

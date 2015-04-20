@@ -62,6 +62,8 @@ define(function(require) {
 
         if (config['title'] === config['channelJid']) {
           config['title'] = null
+        } else {
+          config['displayName'] = config['title']
         }
         if (config['description'] === config['channelJid']) {
           config['description'] = null
@@ -71,7 +73,6 @@ define(function(require) {
         
         if (config.channelJid.split('@')[1] === localStorage.getItem('jid').split('@')[1]) {
           config.username = config.channelJid.split('@')[0]
-          
         }
         this.set(config)
         this.trigger('loaded:meta', this)
