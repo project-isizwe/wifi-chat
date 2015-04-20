@@ -83,16 +83,16 @@ define(function(require) {
           var name
 
           if (user.get('displayName')) {
-            name = user.get('displayName') + "-" + user.get('channelJid')
+            name = user.get('displayName') + "-" + user.get('username')
           } else {
-            name = user.get('channelJid')
+            name = user.get('username')
           }
 
           var body = [
-            'Reported by: '+ name,
-            'Reason: \n\n*** Please add a reason here ***\n\n',
             'Post ID: ' + this.model.get('globalId'),
-            'Post content:\n\n' + this.model.get('content') + '\n\n',
+            'Post content: ' + this.model.get('content') + '\n\n',
+            'Reported by: '+ name,
+            'Reason: ',
 
           ]
           return encodeURI(
