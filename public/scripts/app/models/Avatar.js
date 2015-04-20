@@ -13,12 +13,11 @@ define(function(require) {
 
       defaults: {
         url: null,
-        height: 44,
-        width: 44,
         cachebust: ''
       },
 
       uploadToken: null,
+      complete: false,
 
       xmppVerifyEvent: 'xmpp.buddycloud.http.verify',
 
@@ -37,36 +36,46 @@ define(function(require) {
       },
 
       setAvatar: function() {
-        var url = this.getAvatarUrl() + this.getImageParameters()
+        var url = this.getBaseUrl() + this.get('cachebust')
         this.image = new Image()
         this.image.crossOrigin = "Anonymous";
         var self = this
         this.image.onload = function() {
-          self.set('url', url, { silent: true })
-          self.trigger('loaded:avatar')
+          self.set('url', url)
+          self.complete = true
         }
         this.image.src = url
       },
 
-      getAvatarUrl: function() {
+      isLoaded: function() {
+        return this.complete
+      },
+
+      getBaseUrl: function() {
         return this.mediaServer.get('url') +
           '/' +
           this.get('jid') +
           '/avatar'
       },
 
-      getImageParameters: function() {
-        var parameters = []
-        if (this.get('height')) {
-          parameters.push('maxheight=' + this.get('height'))
-        }
-        if (this.get('width')) {
-          parameters.push('maxwidth=' + this.get('width'))
-        }
-        if (0 === parameters.length) {
+      getUrl: function(width, height) {
+        if (!this.get('url')) {
           return ''
         }
-        return '?' + parameters.join('&')
+
+        if (!width) {
+          width = 44
+        }
+        // height can be ommitted for a square size avatar
+        if (!height) {
+          height = width
+        }
+
+        var parameters = [
+          'maxheight='+ width,
+          'maxwidth='+ height
+        ]
+        return this.getBaseUrl() + '?' + parameters.join('&') + this.get('cachebust')
       },
 
       verifyFileUpload: function(data) {
@@ -106,7 +115,7 @@ define(function(require) {
           formData.append('filename', file.name)
 
           var ajaxOpts = {
-            url: self.getAvatarUrl(),
+            url: self.getBaseUrl(),
             type: 'PUT',
             headers: {
               'Authorization':'Basic ' + self.getAuthorizationToken(),
@@ -115,8 +124,8 @@ define(function(require) {
             contentType: false,
             processData: false,
             success: function(data, status, jqXHR) {
-              self.set('cachebust', Date.now())
-              self.trigger('updated:avatar')
+              self.set('cachebust', '&'+ Date.now())
+              self.setAvatar()
             },
             error: function(jqXHR, status, error) {
               self.trigger('error:avatar', 'Something went wrong. Please try again later.')
@@ -141,7 +150,7 @@ define(function(require) {
       generateUploadToken: function() {
         this.uploadToken = Math.random().toString(36).substring(7)
         return this.uploadToken
-      }
+      },
       
     })
 

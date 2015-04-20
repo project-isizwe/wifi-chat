@@ -49,7 +49,7 @@ define(function(require) {
       },
 
       loadComments: function() {
-        this.collection.on('all', function(event) { log('TopicList', event) })
+        // this.collection.on('all', function(event) { log('TopicList', event) })
         this.collection.on('loaded:comments', this.addComments, this)
 
         /* focus on newComment has to wait for this */

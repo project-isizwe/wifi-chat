@@ -3,7 +3,7 @@ define(function(require) {
     'use strict';
 
     var _        = require('underscore')
-      , Avatar   = require('app/models/Avatar')
+      , Avatars  = require('app/store/Avatars')
       , Base     = require('app/views/Base')
       , user     = require('app/store/User')
       , config   = require('app/utils/config')
@@ -45,19 +45,18 @@ define(function(require) {
           this.options = options
           this.router = options.router
           this.model.bind('change', this.render)
+          this.avatar = Avatars.getAvatar({ jid: this.model.get('authorJid') })
+          this.avatar.on('change:url', this.renderAvatar, this)
         },
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
-            avatarUrl: this.avatar && this.avatar.get('url'),
+            avatarUrl: this.avatar.getUrl(),
             maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
           })))
           this.$el.find('time').timeago()
 
           this.loadDisplayName()
-
-          if(!this.avatar)
-            this.loadAvatar()
 
           this.limitHeight()
 
@@ -85,15 +84,10 @@ define(function(require) {
         seeAuthor: function() {
           this.router.showProfile(this.model.get('authorJid'))
         },
-        
-        loadAvatar: function() {
-          this.avatar = new Avatar({ jid: this.model.get('authorJid') })
-          this.avatar.once('loaded:avatar', this.showAvatar, this)
-        },
 
-        showAvatar: function() {
+        renderAvatar: function() {
           this.$el.find('.avatar')
-            .css('background-image', 'url("' + this.avatar.get('url') + '")')      
+            .css('background-image', 'url("' + this.avatar.getUrl() + '")')      
         },
 
         reportPost: function() {

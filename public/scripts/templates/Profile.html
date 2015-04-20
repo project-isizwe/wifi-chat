@@ -3,14 +3,14 @@
     <div class="left arrow icon"></div>
     Back
   </div>
-  <div class="screen-title"><% if ('topic' === channelType) { %><%- channelJid %><% } else { %><%- username %><% } %></div>
+  <div class="screen-title"><%- username %></div>
 </header>
 <div class="screen-textContent">
-  <div class="avatar avatar--big"></div>
+  <div class="avatar avatar--big"<% if(avatarUrl) { print(' style="background-image: url('+ avatarUrl +')"') } %>></div>
   <% if(title) { %>
   <div class="displayName"><%- title %></div>
   <% } %>
-  <div class="username" data-jid="<%- channelJid %>"><% if ('topic' === channelType) { %><%- channelJid %><% } else { %><%- username %><% } %></div>
+  <div class="username"><%- username %></div>
   <% if (description) { %>
   <div class="profile-description"><%- description %></div>
   <% } %>

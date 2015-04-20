@@ -2,12 +2,12 @@ define(function(require) {
 
     'use strict';
 
-    var _       = require('underscore')
-      , Base    = require('app/views/Base')
-      , socket  = require('app/utils/socket')
-      , Avatar  = require('app/models/Avatar')
-      , user    = require('app/store/User')
-      , log     = require('bows.min')('Views:Settings')
+    var _        = require('underscore')
+      , Base     = require('app/views/Base')
+      , socket   = require('app/utils/socket')
+      , Avatars  = require('app/store/Avatars')
+      , user     = require('app/store/User')
+      , log      = require('bows.min')('Views:Settings')
 
     return Base.extend({
 
@@ -43,8 +43,12 @@ define(function(require) {
           this.model.set('canUploadFiles', false)
         }
 
-        this.model.once('loaded:meta', this.render, this)
         this.model.once('loaded:meta', this.loadAvatar, this)
+        this.model.once('loaded:meta', this.render, this)
+        
+        if (this.model.isLoaded()) {
+          this.loadAvatar()
+        }
 
         this.on('visibilitychange', this.onVisibilityChange, this)
       },
@@ -55,12 +59,8 @@ define(function(require) {
 
       render: function() {
         this.$el.html(this.template(_.extend(this.model.attributes, {
-          avatarUrl: this.avatar && this.avatar.get('url') + '&' + Date.now()
+          avatarUrl: this.avatar && this.avatar.getUrl(128)
         })))
-        
-        if (!this.model.isLoaded()) {
-          this.loadAvatar()
-        }
 
         return this
       },
@@ -85,41 +85,29 @@ define(function(require) {
       },
 
       loadAvatar: function() {
-        this.avatar = new Avatar({ 
-          jid: this.model.get('channelJid'),
-          width: 128,
-          height: 128
-        })
-        this.avatar.once('loaded:avatar', this.onAvatarLoaded, this)
-        this.avatar.once('error:avatar', this.onAvatarError, this)
+        this.avatar = Avatars.getAvatar({ jid: this.model.get('channelJid') })
+        this.avatar.on('change:url', this.renderAvatar, this)
+        this.avatar.on('error:avatar', this.onAvatarError, this)
       },
 
       uploadAvatar: function(event) {
         if (!this.avatar) {
-          this.loadAvatar()
+          return
         }
         if (event.target.files.length) {
           this.$el.find('.avatar').css('background-image', 'none').addClass('is-uploading')
           this.avatar.uploadAvatar(event)
-          this.avatar.once('updated:avatar', this.showAvatar, this)
         }
-      },
-
-      onAvatarLoaded: function() {
-        this.showAvatar()
-        this.avatar.off('error:avatar')
       },
 
       onAvatarError: function(message) {
         this.trigger('error', message)
-        this.showAvatar()
-        this.avatar.off('loaded:avatar')
       },
 
-      showAvatar: function() {
+      renderAvatar: function() {
         this.$el.find('.avatar')
           .removeClass('is-uploading')
-          .css('background-image', 'url("' + this.avatar.get('url') + '&' + this.avatar.get('cachebust') + '")')   
+          .css('background-image', 'url("' + this.avatar.getUrl(128) + '")')   
       }
 
     })

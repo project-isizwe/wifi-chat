@@ -2,10 +2,10 @@ define(function(require) {
 
     'use strict';
 
-    var _      = require('underscore')
-      , Base   = require('app/views/Base')
-      , log    = require('bows.min')('Views:Channel:Header')
-      , Avatar = require('app/models/Avatar')
+    var _       = require('underscore')
+      , Base    = require('app/views/Base')
+      , log     = require('bows.min')('Views:Channel:Header')
+      , Avatars = require('app/store/Avatars')
 
     return Base.extend({
 
@@ -21,43 +21,42 @@ define(function(require) {
         'click .js-newTopic': 'showNewTopicScreen',
       },
 
+      avatarSize: 160,
+
 	    initialize: function(options) {
         _.bindAll(this, 'render')
 
         this.router = options.router
         this.options = options
+        this.avatar = Avatars.getAvatar({ jid: this.options.channelJid })
+        this.avatar.on('change:url', this.renderAvatar, this)
       },
 
       render: function() {
         this.$el.html(this.template(_.extend(this.model.attributes, {
-          avatarUrl: this.avatar && this.avatar.get('url'),
-          bannerBackground: this.avatar && this.detectBackgroundColor()
+          avatarUrl: this.avatar.getUrl(this.avatarSize),
+          bannerBackground: this.detectBackgroundColor()
         })))
 
-        if(!this.avatar)
-          this.loadAvatar()
+        log(this.avatar)
 
         return this
       },
 
-      loadAvatar: function() {
-        this.avatar = new Avatar({ 
-          jid: this.options.channelJid,
-          height: 160,
-          width: 'auto'
-         })
-        this.avatar.once('loaded:avatar', this.showAvatar, this)
-      },
-
-      showAvatar: function() {
+      renderAvatar: function() {
+        log(this.avatar.getUrl(this.avatarSize))
         this.$el.find('.channel-banner')
           .css({
-            backgroundImage: 'url("' + this.avatar.get('url') + '")',
+            backgroundImage: 'url("' + this.avatar.getUrl(this.avatarSize) + '")',
             backgroundColor: this.detectBackgroundColor()
           })       
       },
 
       detectBackgroundColor: function() {
+        if (!this.avatar.isLoaded()) {
+          return
+        }
+
         var canvas = document.createElement('canvas')
         var ctx = canvas.getContext('2d')
         canvas.width = this.avatar.image.width

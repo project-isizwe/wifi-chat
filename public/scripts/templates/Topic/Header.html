@@ -8,7 +8,7 @@
 <article>
   <section class="post post--topic">
     <div class="post-header">
-      <div class="avatar js-seeAuthor"></div>
+      <div class="avatar js-seeAuthor"<% if(avatarUrl) { print(' style="background-image: url('+ avatarUrl +')"') } %>></div>
       <div class="post-meta">
         <div class="post-author js-seeAuthor">
           <% if(displayName) { %>

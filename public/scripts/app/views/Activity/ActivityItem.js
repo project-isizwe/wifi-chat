@@ -3,7 +3,7 @@ define(function(require) {
     'use strict';
 
     var _             = require('underscore')
-      , Avatar        = require('app/models/Avatar')
+      , Avatars       = require('app/store/Avatars')
       , Channel       = require('app/models/Channel')
       , subscriptions = require('app/store/Subscriptions')
       , Base          = require('app/views/Base')
@@ -42,23 +42,18 @@ define(function(require) {
 
           this.channel = new Channel({ node: this.model.get('node') })
           this.channel.once('loaded:meta', this.showPostedIn, this)
+
+          this.userAvatar = Avatars.getAvatar({ jid: this.model.get('authorJid') })
+          this.userAvatar.on('change:url', this.renderUserAvatar, this)
         },
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
-            userAvatarUrl: this.userAvatar && this.userAvatar.get('url'),
+            userAvatarUrl: this.userAvatar.getUrl(),
             postedIn: this.channel.isLoaded() ? this.getPostedInTemplate() : null,
             maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
           })))
           this.$el.find('time').timeago()
-
-          if (!this.userAvatar) {
-            this.loadUserAvatar()
-          }
-
-          if (this.channel.isLoaded() && !this.channelAvatar) {
-            this.loadChannelAvatar()
-          }
 
           this.limitHeight()
 
@@ -73,8 +68,11 @@ define(function(require) {
         },
 
         getPostedInTemplate: function() {
+          this.channelAvatar = Avatars.getAvatar({ jid: this.channel.get('channelJid') })
+          this.channelAvatar.on('change:url', this.renderChannelAvatar, this)
+
           return this.postedInTemplate({
-            channelAvatarUrl: this.channelAvatar && this.channelAvatar.get('url'),
+            channelAvatarUrl: this.channelAvatar.getUrl(),
             channelTitle: this.channel.get('title')
           })
         },
@@ -95,24 +93,14 @@ define(function(require) {
           this.router.showChannel(this.channel.get('channelJid'))
         },
 
-        loadChannelAvatar: function() {
-          this.channelAvatar = new Avatar({ jid: this.channel.get('channelJid') })
-          this.channelAvatar.once('loaded:avatar', this.showChannelAvatar, this)
-        },
-
-        showChannelAvatar: function() {
+        renderChannelAvatar: function() {
           this.$el.find('.js-channelAvatar')
-            .css('background-image', 'url("' + this.channelAvatar.get('url') + '")')      
+            .css('background-image', 'url("' + this.channelAvatar.getUrl() + '")')      
         },
 
-        loadUserAvatar: function() {
-          this.userAvatar = new Avatar({ jid: this.model.get('authorJid') })
-          this.userAvatar.once('loaded:avatar', this.showUserAvatar, this)
-        },
-
-        showUserAvatar: function() {
+        renderUserAvatar: function() {
           this.$el.find('.js-userAvatar')
-            .css('background-image', 'url("' + this.userAvatar.get('url') + '")')      
+            .css('background-image', 'url("' + this.userAvatar.getUrl() + '")')      
         },
 
         limitHeight: function() {

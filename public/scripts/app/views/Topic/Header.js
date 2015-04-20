@@ -2,11 +2,11 @@ define(function(require) {
 
     'use strict';
 
-    var _       = require('underscore')
-      , Avatar  = require('app/models/Avatar')
-      , Base    = require('app/views/Base')
-      , Post    = require('app/models/Post')
-      , log     = require('bows.min')('Views:Channel:Header')
+    var _        = require('underscore')
+      , Avatars  = require('app/store/Avatars')
+      , Base     = require('app/views/Base')
+      , Post     = require('app/models/Post')
+      , log      = require('bows.min')('Views:Channel:Header')
 
     return Base.extend({
 
@@ -34,14 +34,15 @@ define(function(require) {
 
         renderPost: function() {
           this.template = this.postTemplate
-        	this.render()
           this.loadAvatar()
+        	this.render()
         },
 
         render: function() {
         	this.beforeRender()
-	        var data = this.model ? this.model.attributes : null
-	        this.$el.html(this.template(data))
+          this.$el.html(this.template(_.extend(this.model.attributes, {
+            avatarUrl: this.avatar && this.avatar.getUrl(),
+          })))
           this.$el.find('time').timeago()
 	        this.trigger('render')
 	        return this
@@ -52,13 +53,13 @@ define(function(require) {
         },
         
         loadAvatar: function() {
-          this.avatar = new Avatar({ jid: this.model.get('authorJid') })
-          this.avatar.once('loaded:avatar', this.showAvatar, this)
+          this.avatar = Avatars.getAvatar({ jid: this.model.get('authorJid') })
+          this.avatar.on('change:url', this.renderAvatar, this)
         },
 
-        showAvatar: function() {
+        renderAvatar: function() {
           this.$el.find('.avatar')
-            .css('background-image', 'url("' + this.avatar.get('url') + '")')      
+            .css('background-image', 'url("' + this.avatar.getUrl() + '")')      
         },
 
     })
