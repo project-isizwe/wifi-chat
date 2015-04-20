@@ -90,7 +90,7 @@ define(function(require) {
 
           var body = [
             'Post ID: ' + this.model.get('globalId'),
-            'Post content: ' + this.model.get('content') + '\n\n',
+            'Post content: ' + this.model.get('content'),
             'Reported by: '+ name,
             'Reason: ',
 
