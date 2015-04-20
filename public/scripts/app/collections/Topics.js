@@ -15,7 +15,7 @@ define(function(require) {
     comparator: false,
 
     lastTopicId: null,
-    topicsPerRequest: 5,
+    topicsPerRequest: 30,
     topicCount: null,
     
     event: 'xmpp.buddycloud.retrieve',

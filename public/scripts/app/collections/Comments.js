@@ -13,7 +13,7 @@ define(function(require) {
     model: Post,
 
     lastPostId: null,
-    itemsPerRequest: 5,
+    itemsPerRequest: 30,
     itemCount: null,
 
     comparator: false,
