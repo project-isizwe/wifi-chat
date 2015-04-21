@@ -1,7 +1,7 @@
 <div class="post-header post-header--activity js-postHeader">
-  <div class="avatar avatar--tiny js-userAvatar js-seeAuthor"<% if(userAvatarUrl) { print(' style="background-image: url('+ userAvatarUrl +')"') } %>></div>
+  <div class="avatar avatar--tiny js-userAvatar js-seeAuthor"<% if (userAvatarUrl) { print(' style="background-image: url(' + userAvatarUrl + ')"') } %>></div>
   <div class="displayName js-seeAuthor">You</div>
-  <% if(postedIn) { print(postedIn) } %>
+  <% if (postedIn) { print(postedIn) } %>
 </div>
 <div class="post-content js-limitHeight" style="max-height: <%- maxHeight %>px;"><%= content %></div>
 <div class="post-footer">

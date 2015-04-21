@@ -86,7 +86,7 @@ define(function(require) {
         },
 
         seeAuthor: function() {
-          this.router.showProfile(this.model.get('username'))
+          this.router.showProfile(this.model.get('authorJid'))
         },
 
         seeChannel: function() {
