@@ -6,6 +6,7 @@ define(function(require) {
       , Avatars  = require('app/store/Avatars')
       , Base     = require('app/views/Base')
       , Post     = require('app/models/Post')
+      , channels = require('app/store/Channels')
       , log      = require('bows.min')('Views:Channel:Header')
 
     return Base.extend({
@@ -35,7 +36,16 @@ define(function(require) {
         renderPost: function() {
           this.template = this.postTemplate
           this.loadAvatar()
+          this.loadDisplayName()
         	this.render()
+        },
+
+        loadDisplayName: function() {
+          if (this.model.get('displayName')) {
+            return
+          }
+          var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
+          channels.getChannel(authorNode, this, 'loadDisplayName')
         },
 
         render: function() {

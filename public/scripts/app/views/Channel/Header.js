@@ -2,10 +2,11 @@ define(function(require) {
 
     'use strict';
 
-    var _       = require('underscore')
-      , Base    = require('app/views/Base')
-      , log     = require('bows.min')('Views:Channel:Header')
-      , Avatars = require('app/store/Avatars')
+    var _        = require('underscore')
+      , Base     = require('app/views/Base')
+      , log      = require('bows.min')('Views:Channel:Header')
+      , Avatars  = require('app/store/Avatars')
+      , channels = require('app/store/Channels')
 
     return Base.extend({
 
@@ -38,9 +39,17 @@ define(function(require) {
           bannerBackground: this.detectBackgroundColor()
         })))
 
-        log(this.avatar)
+        this.loadDisplayName()
 
         return this
+      },
+
+      loadDisplayName: function() {
+        if (this.model.get('displayName')) {
+          return
+        }
+        var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
+        channels.getChannel(authorNode, this, 'loadDisplayName')
       },
 
       renderAvatar: function() {
