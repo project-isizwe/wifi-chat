@@ -76,17 +76,7 @@ define(function(require) {
             return
           }
           var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
-          var channel = channels.findWhere({ node: authorNode })
-          if (!channel) {
-            channel = new Channel({ node: authorNode })
-            channels.add(channel)
-            channel.once('loaded:meta', this.loadDisplayName, this)
-            return
-          }
-          if (channel.get('displayName')) {
-            return this.model.set('displayName', channel.get('displayName'))
-          }
-          channel.once('change:displayName', this.loadDisplayName, this)
+          channels.getChannel(authorNode, this, 'loadDisplayName')
         },
 
         addComment: function() {
