@@ -123,11 +123,10 @@ primus.on('connection', function(socket) {
   buddycloud.setCache(buddycloudCache)
   xmppFtw.addListener(buddycloud)
   socket.xmppFtw = xmppFtw
-  xmppFtw.on('client:online', function(data) {
-    config.jid = data.jid
-    setConfigs()
+  socket.on('message.report', function(data, callback) {
+    data.reporter = xmppFtw.getJidType('bare')
+    report.sendReport(data, callback)
   })
-  socket.on('message.report', report.sendReport)
 })
 
 primus.on('disconnection', function(socket) {
