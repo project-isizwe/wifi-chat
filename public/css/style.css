@@ -214,7 +214,7 @@ hr {
   margin-bottom: 10px;
   position: relative;
   padding-top: 47px;
-  margin: 0 10px 10px 0;
+  margin: 0;
   float: left;
   box-shadow: 0 1px 10px hsl(232,8%,80%);
 }
