@@ -9,7 +9,6 @@ define(function(require) {
       , config     = require('app/utils/config')
       , log        = require('bows.min')('Views:Topic/CommentList')
       , channels   = require('app/store/Channels')
-      , Channel    = require('app/models/Channel')
       , ReportView = require('app/views/Topic/Report')
     require('jquery.timeago')
 
@@ -52,6 +51,7 @@ define(function(require) {
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
+            showControls: true,
             avatarUrl: this.avatar.getUrl(),
             maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
           })))
@@ -87,9 +87,9 @@ define(function(require) {
 
         showReportModal: function() {
           this.closeSubView('modal')
-          var modal = new ReportView()
-          modal.model = this.model
+          var modal = new ReportView({ model: this.model })
           this.showSubView('modal', modal)
+          modal.onAttachedToDom()
           modal.once('close', function() {
             this.closeSubView('modal')
           }, this)

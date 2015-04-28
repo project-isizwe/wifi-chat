@@ -142,7 +142,8 @@ hr {
   align-items: center;
   justify-content: center;
   z-index: 2;
-  padding: 28px;
+  padding: 14px;
+  overflow: auto;
 }
 
 .modal-background {
@@ -160,7 +161,6 @@ hr {
 
 .modal-body {
   max-width: 320px;
-  max-height: 100%;
   background: white;
   position: relative;
   border-radius: 3px;
@@ -170,7 +170,11 @@ hr {
 
 .modal-content {
   padding: 14px;
-  overflow: auto;
+}
+
+.modal-content article {
+  margin: 0 -14px 14px;
+  border-bottom: 1px solid hsl(240, 3%, 89%);
 }
 
 .btngroup--modal {
@@ -492,7 +496,7 @@ hr {
 }
 
 .post-time {
-  margin-right: 5px;
+  margin-right: 4px;
   display: inline;
   font-size: 12px;
   color: #afb0bb;
@@ -507,7 +511,7 @@ hr {
   color: inherit;
   vertical-align: top;
   padding: 10px 3px;
-  margin: -10px 0 -5px;
+  margin: -10px 0 -10px 3px;
 }
 
 .post-footer .btn:first-child {
@@ -630,7 +634,7 @@ hr {
 
 .post--comment {
   padding-top: 7px;
-  padding-bottom: 7px;
+  padding-bottom: 12px;
 }
 
 .btngroup.btngroup--post {
