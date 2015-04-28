@@ -577,73 +577,104 @@
 <h1 id="topic">Topic</h1>
 
 <div class="topic screen">
-  <header class="screen-header">
-    <div class="btn btn--text js-back">
-      <div class="arrow left icon"></div>
-      Close
+  <div data-symbol="topic">
+    <header class="screen-header">
+      <div class="btn btn--text js-back">
+        <div class="arrow left icon"></div>
+        Close
+      </div>
+      <div class="screen-title">We have a new video for you guys</div>
+    </header>
+    <article>
+      <section class="post post--topic">
+        <div class="post-header">
+          <div class="avatar avatar--admin js-seeAuthor" style="background-image: url(avatar-1.jpg)">
+          </div>
+          <div class="post-meta">
+            <div class="post-author js-seeAuthor">
+              <span class="admin icon"></span>
+              <div class="displayName">Daniele Francis</div>
+              <div class="username">daniele54</div>
+            </div>
+            <time class="post-time">5 hours ago</time>
+          </div>
+        </div>
+        <div class="post-content js-limitHeight">We have a new video for you guys. Let us know what you think of it:
+      http://connectuptv.pockittv.mobi/v/850</div>
+      </section>
+      <section class="posts">
+        <div class="section section--showMore js-showMore">
+          <div class="btn btn--secondary btn--small btn--fullWidth ">
+            <div class="spinner spinner--light spinner--mini"></div>
+            Load older comments
+          </div>
+        </div>
+        <article class="post post--comment">
+          <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-3.jpg)"></div>
+          <div class="comment-content js-limitHeight">
+            <div class="post-author js-seeAuthor">
+              <div class="displayName">Mattheu Matshaya</div>
+              <div class="username">mattheu_matshaya</div>
+            </div>
+            <div class="post-content">Lorem ipsum Tempor officia nisi pariatur laboris in ea aute proident Excepteur cillum Duis velit ex mollit ad est exercitation dolor nostrud fugiat laborum ut labore commodo qui adipisicing laboris ut cillum amet fugiat in ad dolor ad anim dolore consectetur in magna sed occaecat nostrud reprehenderit anim ea ex esse elit sit fugiat officia occaecat cupidatat ex tempor labore sed anim minim occaecat consequat ex aute sunt nulla amet exercitation in dolore Duis officia in consequat eiusmod adipisicing cillum mollit proident occaecat nostrud ut laborum do veniam ex incididunt amet voluptate dolore esse sint eu cillum ea sit ut id in nostrud dolore labore qui ut Ut labore non aliquip eu aliquip quis reprehenderit laboris anim labore ullamco incididunt consequat proident laborum consequat Duis adipisicing ex tempor dolor Ut nulla in dolor deserunt irure in ullamco magna mollit nisi ullamco culpa tempor velit ex sint aliqua culpa labore in cupidatat laboris.</div>
+          </div>
+          <div class="post-footer">
+            <time class="post-time">4 hours ago</time>&#183;
+            <span class="btn btn--text">report</span>
+          </div>
+        </article>
+        <article class="post post--comment is-highlighted">
+          <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-5.jpg)">
+          </div>
+          <div class="comment-content js-limitHeight">
+            <div class="post-author js-seeAuthor">
+              <span class="admin icon"></span>
+              <div class="displayName">Sarah Kombera</div>
+              <div class="username">sara_kombera</div>
+            </div>
+          <div class="post-content">I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</div>
+          </div>
+          <div class="post-footer">
+            <time class="post-time">3 hours ago</time>&#183;
+            <span class="btn btn--text">report</span>
+          </div>
+        </article>
+      </section>
+    </article>
+    <form class="newComment">
+      <textarea name="comment" placeholder="Write a comment..." rows="1" required></textarea>
+      <button type="submit" class="btn btn--primary btn--small js-comment">Send</button>
+    </form>
+  </div>
+</div>
+
+<div class="topic screen">
+  <div class="modal">
+    <div class="modal-background js-close"></div>
+    <div class="modal-body">
+      <div class="modal-content">
+        <article class="post post--comment">
+          <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-3.jpg)"></div>
+          <div class="comment-content js-limitHeight">
+            <div class="post-author js-seeAuthor">
+              <div class="displayName">Mattheu Matshaya</div>
+              <div class="username">mattheu_matshaya</div>
+            </div>
+            <div class="post-content">Lorem ipsum Tempor officia nisi pariatur laboris in ea aute proident Excepteur cillum Duis velit ex mollit ad est exercitation dolor nostrud fugiat laborum ut labore commodo qui adipisicing laboris ut cillum amet fugiat in ad dolor ad anim dolore consectetur in magna sed occaecat nostrud reprehenderit anim ea ex esse elit sit fugiat officia occaecat cupidatat ex tempor labore sed anim minim occaecat consequat ex aute sunt nulla amet exercitation in dolore Duis officia in consequat eiusmod adipisicing cillum mollit proident occaecat nostrud ut laborum do veniam ex incididunt amet voluptate dolore esse sint eu cillum ea sit ut id in nostrud dolore labore qui ut Ut labore non aliquip eu aliquip quis reprehenderit laboris anim labore ullamco incididunt consequat proident laborum consequat Duis adipisicing ex tempor dolor Ut nulla in dolor deserunt irure in ullamco magna mollit nisi ullamco culpa tempor velit ex sint aliqua culpa labore in cupidatat laboris.</div>
+          </div>
+          <div class="post-footer">
+            <time class="post-time">4 hours ago</time>
+          </div>
+        </article>
+        <textarea rows="3" name="reason" class="js-report-reason" placeholder="Please enter a reason here..." maxlength="1024"></textarea>
+      </div>
+      <div class="btngroup btngroup--modal">
+        <div class="btn btn--small js-close">Cancel</div>
+        <button type="button" class="btn btn--primary btn--small js-report-send">Report Post</button>
+      </div>
     </div>
-    <div class="screen-title">We have a new video for you guys</div>
-  </header>
-  <article>
-    <section class="post post--topic">
-      <div class="post-header">
-        <div class="avatar avatar--admin js-seeAuthor" style="background-image: url(avatar-1.jpg)">
-        </div>
-        <div class="post-meta">
-          <div class="post-author js-seeAuthor">
-            <span class="admin icon"></span>
-            <div class="displayName">Daniele Francis</div>
-            <div class="username">daniele54</div>
-          </div>
-          <time class="post-time">5 hours ago</time>
-        </div>
-      </div>
-      <div class="post-content js-limitHeight">We have a new video for you guys. Let us know what you think of it:
-    http://connectuptv.pockittv.mobi/v/850</div>
-    </section>
-    <section class="posts">
-      <div class="section section--showMore js-showMore">
-        <div class="btn btn--secondary btn--small btn--fullWidth ">
-          <div class="spinner spinner--light spinner--mini"></div>
-          Load older comments
-        </div>
-      </div>
-      <article class="post post--comment">
-        <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-3.jpg)"></div>
-        <div class="comment-content js-limitHeight">
-          <div class="post-author js-seeAuthor">
-            <div class="displayName">Mattheu Matshaya</div>
-            <div class="username">mattheu_matshaya</div>
-          </div>
-          <div class="post-content">Lorem ipsum Tempor officia nisi pariatur laboris in ea aute proident Excepteur cillum Duis velit ex mollit ad est exercitation dolor nostrud fugiat laborum ut labore commodo qui adipisicing laboris ut cillum amet fugiat in ad dolor ad anim dolore consectetur in magna sed occaecat nostrud reprehenderit anim ea ex esse elit sit fugiat officia occaecat cupidatat ex tempor labore sed anim minim occaecat consequat ex aute sunt nulla amet exercitation in dolore Duis officia in consequat eiusmod adipisicing cillum mollit proident occaecat nostrud ut laborum do veniam ex incididunt amet voluptate dolore esse sint eu cillum ea sit ut id in nostrud dolore labore qui ut Ut labore non aliquip eu aliquip quis reprehenderit laboris anim labore ullamco incididunt consequat proident laborum consequat Duis adipisicing ex tempor dolor Ut nulla in dolor deserunt irure in ullamco magna mollit nisi ullamco culpa tempor velit ex sint aliqua culpa labore in cupidatat laboris.</div>
-        </div>
-        <div class="post-footer">
-          <time class="post-time">4 hours ago</time>&#183;
-          <span class="btn btn--text">report</span>
-        </div>
-      </article>
-      <article class="post post--comment is-highlighted">
-        <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-5.jpg)">
-        </div>
-        <div class="comment-content js-limitHeight">
-          <div class="post-author js-seeAuthor">
-            <span class="admin icon"></span>
-            <div class="displayName">Sarah Kombera</div>
-            <div class="username">sara_kombera</div>
-          </div>
-        <div class="post-content">I agree with @mattheu_matshaya. C is a good film. Especially with Brad Pit!!!</div>
-        </div>
-        <div class="post-footer">
-          <time class="post-time">3 hours ago</time>&#183;
-          <span class="btn btn--text">report</span>
-        </div>
-      </article>
-    </section>
-  </article>
-  <form class="newComment">
-    <textarea name="comment" placeholder="Write a comment..." rows="1" required></textarea>
-    <button type="submit" class="btn btn--primary btn--small js-comment">Send</button>
-  </form>
+  </div>
+  <div data-use-symbol="topic"></div>
 </div>
 
 
@@ -1107,7 +1138,7 @@
 
 
   */
-  var maxHeight = 300; // 500 comment, 600 topic chars on a 320px screen
+  var maxHeight = 100; // 500 comment, 600 topic chars on a 320px screen
   var tolerance = 50;
   var limitedHeightTargets = document.querySelectorAll('.js-limitHeight')
 
