@@ -18,8 +18,7 @@ var sendReport = function(data, callback) {
     !data.content ||
     !data.postId ||
     !data.channel ||
-    !data.author ||
-    !data.reporter
+    !data.author
   ) {
     /* We'll just ignore errors */
     return callback()
