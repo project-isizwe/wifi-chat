@@ -123,7 +123,7 @@ primus.on('connection', function(socket) {
   buddycloud.setCache(buddycloudCache)
   xmppFtw.addListener(buddycloud)
   socket.xmppFtw = xmppFtw
-  xmppFtw.on('online', function(data) {
+  xmppFtw.on('client:online', function(data) {
     config.jid = data.jid
     setConfigs()
   })

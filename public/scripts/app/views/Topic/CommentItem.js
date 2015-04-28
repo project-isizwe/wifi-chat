@@ -2,14 +2,15 @@ define(function(require) {
 
     'use strict';
 
-    var _        = require('underscore')
-      , Avatars  = require('app/store/Avatars')
-      , Base     = require('app/views/Base')
-      , user     = require('app/store/User')
-      , config   = require('app/utils/config')
-      , log      = require('bows.min')('Views:Topic/CommentList')
-      , channels = require('app/store/Channels')
-      , Channel  = require('app/models/Channel')
+    var _          = require('underscore')
+      , Avatars    = require('app/store/Avatars')
+      , Base       = require('app/views/Base')
+      , user       = require('app/store/User')
+      , config     = require('app/utils/config')
+      , log        = require('bows.min')('Views:Topic/CommentList')
+      , channels   = require('app/store/Channels')
+      , Channel    = require('app/models/Channel')
+      , ReportView = require('app/views/Topic/Report')
     require('jquery.timeago')
 
     return Base.extend({
@@ -81,7 +82,18 @@ define(function(require) {
         },
 
         reportPost: function() {
-          document.location.href = this.getReportedPostContent()
+          this.showReportModal()
+        },
+
+        showReportModal: function() {
+          this.closeSubView('modal')
+          var modal = new ReportView()
+          modal.model = this.model
+          this.showSubView('modal', modal)
+          modal.once('close', function() {
+            this.closeSubView('modal')
+          }, this)
+          return modal
         },
 
         getReportedPostContent: function() {
