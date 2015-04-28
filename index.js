@@ -127,7 +127,7 @@ primus.on('connection', function(socket) {
     config.jid = data.jid
     setConfigs()
   })
-  socket.on('message.report', sendMailReport)
+  socket.on('message.report', report.sendReport)
 })
 
 primus.on('disconnection', function(socket) {
