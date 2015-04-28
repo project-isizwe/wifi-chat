@@ -27,7 +27,7 @@ var sendReport = function(data, callback) {
     postId: data.postId,
     channel: data.channel,
     author: data.author,
-    reportedBy: config.jid.local + '@' + config.jid.domain,
+    reportedBy: data.reportedBy,
     reason: data.reason || '...None provided...',
     content: data.content
   }
