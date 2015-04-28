@@ -1,15 +1,16 @@
-var express      = require('express')
-  , serveStatic  = require('serve-static')
-  , errorHandler = require('errorhandler')
-  , Emitter      = require('primus-emitter')
-  , Primus       = require('primus')
-  , xmpp         = require('xmpp-ftw')
-  , Buddycloud   = require('xmpp-ftw-buddycloud')
-  , helmet       = require('helmet')
-  , index        = require('./src/routes/index-get')
-  , account      = require('./src/routes/account')
-  , debug        = require('debug')('wifi-chat:index')
-  , bodyParser   = require('body-parser')
+var express        = require('express')
+  , serveStatic    = require('serve-static')
+  , errorHandler   = require('errorhandler')
+  , Emitter        = require('primus-emitter')
+  , Primus         = require('primus')
+  , xmpp           = require('xmpp-ftw')
+  , Buddycloud     = require('xmpp-ftw-buddycloud')
+  , helmet         = require('helmet')
+  , index          = require('./src/routes/index-get')
+  , account        = require('./src/routes/account')
+  , debug          = require('debug')('wifi-chat:index')
+  , bodyParser     = require('body-parser')
+  , report         = require('./src/report')
 
 require('colors')
 
@@ -23,8 +24,12 @@ try {
   process.exit(1)
 }
 
-account.setConfig(config)
-index.setConfig(config)
+var setConfigs = function() {
+  account.setConfig(config)
+  index.setConfig(config)
+  report.setConfig(config)
+}
+setConfigs()
 
 var app = express()
 
@@ -118,6 +123,11 @@ primus.on('connection', function(socket) {
   buddycloud.setCache(buddycloudCache)
   xmppFtw.addListener(buddycloud)
   socket.xmppFtw = xmppFtw
+  xmppFtw.on('online', function(data) {
+    config.jid = data.jid
+    setConfigs()
+  })
+  socket.on('message.report', sendMailReport)
 })
 
 primus.on('disconnection', function(socket) {
