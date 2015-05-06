@@ -569,6 +569,11 @@ hr {
   padding: 0;
 }
 
+.post--comment .post-media {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .post-media {
   margin: 2px -14px 4px;
 }

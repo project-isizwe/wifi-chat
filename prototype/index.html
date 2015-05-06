@@ -451,7 +451,7 @@
           </div>
           <div class="post-content js-limitHeight">
             We have a new video for you guys. Let us know what you think of it:
-            http://connectuptv.pockittv.mobi/v/850
+            https://www.connectuptv.pockittv.mobi/v/850
             Lorem ipsum Consectetur Duis qui mollit commodo est pariatur cupidatat Ut sint sunt ad cillum qui quis mollit officia ut mollit ut nisi ad eiusmod magna commodo dolor dolor eu non nostrud laboris culpa sit ut sint culpa est elit fugiat aute adipisicing Duis sed cupidatat nulla Duis exercitation in do cillum sit in Duis non Ut commodo consectetur adipisicing proident in esse incididunt mollit sit Excepteur in in dolor culpa pariatur do mollit deserunt laboris dolore qui Excepteur mollit est sint aliqua proident eiusmod dolor mollit est culpa Excepteur fugiat sit proident incididunt deserunt in voluptate aliqua non nisi sit sunt exercitation ut nostrud in nostrud anim eiusmod in eu cupidatat Excepteur sed ea enim nostrud id incididunt Excepteur in dolor Excepteur Excepteur officia nisi consectetur incididunt enim ut Excepteur Duis laborum culpa ut voluptate est non nisi consequat mollit consectetur est enim irure aute cillum anim reprehenderit deserunt aute aute id aliqua esse incididunt sit sunt mollit eu est officia deserunt irure dolore ex commodo sunt nisi in aute cillum Ut eu et dolore officia mollit qui consequat eiusmod proident deserunt magna est pariatur mollit cillum aute pariatur deserunt nulla est incididunt eiusmod dolor elit dolore officia.
           </div>
           <div class="post-footer">
@@ -600,7 +600,7 @@
           </div>
         </div>
         <div class="post-content js-limitHeight">We have a new video for you guys. Let us know what you think of it:
-      http://connectuptv.pockittv.mobi/v/850</div>
+      https://www.connectuptv.pockittv.mobi/v/850</div>
       </section>
       <section class="posts">
         <div class="section section--showMore js-showMore">
@@ -609,6 +609,22 @@
             Load older comments
           </div>
         </div>
+        <article class="post post--comment">
+          <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-6.jpg)">
+          </div>
+          <div class="comment-content js-limitHeight">
+            <div class="post-author js-seeAuthor">
+              <span class="admin icon"></span>
+              <div class="displayName">Ben Niklas</div>
+              <div class="username">ben_niklas</div>
+            </div>
+          <div class="post-content">Trying video posts https://www.connectuptv.pockittv.mobi/v/919 combined with links https://vid.me/CGqW</div>
+          </div>
+          <div class="post-footer">
+            <time class="post-time">3 hours ago</time>&#183;
+            <span class="btn btn--text">report</span>
+          </div>
+        </article>
         <article class="post post--comment">
           <div class="avatar avatar--small js-seeAuthor" style="background-image: url(avatar-3.jpg)"></div>
           <div class="comment-content js-limitHeight">
@@ -1113,8 +1129,21 @@
 
   var embedReceipts = [
     {
-      regex: /.*connectuptv.pockittv.mobi\/v\/(\w*)/g,
-      substitution: '<div class="post-media post-media--video"><video width="320" height="240" poster="http://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
+      name: 'WiFi TV',
+      regex: /https:\/\/www.connectuptv.pockittv.mobi\/v\/(\d*)/g,
+      substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="https://www.connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&" /></video></div>'
+    },
+    {
+      name: 'Images',
+      regex: /[a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|svg)/g,
+      substitution: '<div class="post-media post-media--image"><img src="$&" /></div>'
+    },
+    {
+      name: 'Link',
+      // regex for http and https links with a negative lookahead
+      // that ignores links inside html tags (e.g. previously parsed links)
+      regex: /(https?):\/\/[^\s\/$.?#].[^\s]*(?![^<>]*>)/g,
+      substitution: '<a rel="nofollow" target="_blank" href="$&">$&</a>'
     }
   ]
 
@@ -1127,8 +1156,8 @@
 
   var postContents = document.querySelectorAll('.post-content')
 
-  // for(var i=0; i<postContents.length; i++)
-  //   postContents[i].innerHTML = embed(postContents[i].innerHTML)
+  for(var i=0; i<postContents.length; i++)
+    postContents[i].innerHTML = embed(postContents[i].innerHTML)
 
 
   /*

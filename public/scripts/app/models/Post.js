@@ -25,14 +25,21 @@ define(function(require) {
       embedReceipts: [
         {
           name: 'WiFi TV',
-          regex: /.*connectuptv.pockittv.mobi\/v\/(\w*)/g,
-          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="https://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
+          regex: /https:\/\/www.connectuptv.pockittv.mobi\/v\/(\d*)/g,
+          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="https://www.connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&" /></video></div>'
         },
         {
           name: 'Images',
           regex: /[a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|svg)/g,
-          substitution: '<div class="post-media post-media--image"><img src="$&"></img></div>'
+          substitution: '<div class="post-media post-media--image"><img src="$&" /></div>'
         },
+        {
+          name: 'Link',
+          // regex for http and https links with a negative lookahead
+          // that ignores links inside html tags (e.g. previously parsed links)
+          regex: /(https?):\/\/[^\s\/$.?#].[^\s]*(?![^<>]*>)/g,
+          substitution: '<a rel="nofollow" target="_blank" href="$&">$&</a>'
+        }
         // {
         //   name: 'Youtube',
         //   regex: /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/g,
@@ -155,8 +162,7 @@ define(function(require) {
           .replace(/\n/g, '<br/>')
 
         this.embedReceipts.forEach(function(receipt) {
-          content = content
-            .replace(receipt.regex, receipt.substitution)
+          content = content.replace(receipt.regex, receipt.substitution)
         }, this)
         return content
       },
