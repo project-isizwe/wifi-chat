@@ -129,6 +129,7 @@ define(function(require) {
       },
 
       _mapPost: function(post) {
+        var isComment = ('comment' === post.entry.activity.object['object-type'])
         var author = post.entry.atom.author.uri.substr(5)
         var username = author
         var usernameParts = author.split('@')
@@ -140,30 +141,33 @@ define(function(require) {
           username: username,
           authorJid: author,
           published: Date.parse(post.entry.atom.published),
-          content: this.parseContent(post.entry.atom.content.content),
+          content: this.parseContent(post.entry.atom.content.content, isComment),
           unparsedContent: post.entry.atom.content.content,
           node: post.node,
           channelJid: post.node.split('/')[2],
           globalId: post.entry.atom.id,
           localId: post.entry.atom.id.split(',')[2] || post.entry.atom.id,
           canComment: true,
-          isReply: ('comment' === post.entry.activity),
+          isComment: isComment,
           inReplyTo: (post.entry['in-reply-to'] || {}).ref,
           likes: 1,
           commentCount: null
         }
       },
 
-      parseContent: function(content) {
+      parseContent: function(content, isComment) {
         content = _.escape(content)
           .replace(/\{/g, '&#123;')
           .replace(/&#x2F;/g, '/')
           .replace(/\}/g, '&#125;')
-          .replace(/\n/g, '<br/>')
+          .replace(/\n/g, '<br>')
 
-        this.embedReceipts.forEach(function(receipt) {
-          content = content.replace(receipt.regex, receipt.substitution)
-        }, this)
+        if (!isComment) {
+          this.embedReceipts.forEach(function(receipt) {
+            content = content.replace(receipt.regex, receipt.substitution)
+          }, this)
+        }
+
         return content
       },
 
