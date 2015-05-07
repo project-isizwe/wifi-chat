@@ -36,12 +36,13 @@ define(function(require) {
       },
 
       setAvatar: function() {
-        var url = this.getBaseUrl() + this.get('cachebust')
+        // check if avatar is there
+        var url = this.getUrl()
         this.image = new Image()
         this.image.crossOrigin = "Anonymous";
         var self = this
         this.image.onload = function() {
-          self.set('url', url)
+          self.set('url', this.getBaseUrl())
           self.complete = true
         }
         this.image.src = url
