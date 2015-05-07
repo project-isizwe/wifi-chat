@@ -124,6 +124,7 @@ define(function(require) {
             contentType: false,
             processData: false,
             success: function(data, status, jqXHR) {
+              log("success", data, status, jqXHR)
               self.set('cachebust', '&'+ Date.now())
               self.setAvatar()
             },
