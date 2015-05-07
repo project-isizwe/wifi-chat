@@ -37,12 +37,13 @@ define(function(require) {
 
       setAvatar: function() {
         // check if avatar is there
-        var url = this.getUrl()
+        // by requesting a default sized one
+        var url = this.getBaseUrl() + '?maxwidth=44&maxheight=44' + this.get('cachebust')
         this.image = new Image()
         this.image.crossOrigin = "Anonymous";
         var self = this
         this.image.onload = function() {
-          self.set('url', this.getBaseUrl())
+          self.set('url', self.getBaseUrl())
           self.complete = true
         }
         this.image.src = url
