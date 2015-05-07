@@ -30,7 +30,7 @@ define(function(require) {
         },
         {
           name: 'Images',
-          regex: /[a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|svg)/g,
+          regex: /(https?):\/\/[^\s\/$.?#].+(jpg|jpeg|png|gif|svg)/g,
           substitution: '<div class="post-media post-media--image"><img src="$&" /></div>'
         },
         {
