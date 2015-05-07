@@ -101,6 +101,7 @@ define(function(require) {
       },
 
       onAvatarError: function(message) {
+        this.renderAvatar()
         this.trigger('error', message)
       },
 

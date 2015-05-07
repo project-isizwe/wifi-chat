@@ -132,7 +132,6 @@ define(function(require) {
             },
             error: function(jqXHR, status, error) {
               self.trigger('error:avatar', 'Something went wrong. Please try again later.')
-              self.trigger('change:url', self, self.get('url'))
               log('error', {
                   status: status,
                   error: error,
