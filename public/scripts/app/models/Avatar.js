@@ -128,10 +128,11 @@ define(function(require) {
             success: function(data, status, jqXHR) {
               log("success", data, status, jqXHR)
               self.set('cachebust', '&'+ Date.now())
-              self.trigger('change:url', self, this.get('url'))
+              self.trigger('change:url', self, self.get('url'))
             },
             error: function(jqXHR, status, error) {
               self.trigger('error:avatar', 'Something went wrong. Please try again later.')
+              self.trigger('change:url', self, self.get('url'))
               log('error', {
                   status: status,
                   error: error,
