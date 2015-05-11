@@ -78,7 +78,8 @@ var createAccount = function(req, res) {
   /* Let's not give specific error responses here, we'll make the client send 
    * valid things, we'll just check it is valid
    */
-  if (!local || (local.length < 1) || !domain || (domain.length < 6) ||
+  var pattern = /^[a-z0-9\-\.]{3,}$/
+  if (!local || !pattern.test(local) || !domain || (domain.length < 6) ||
       (domain !== config.domain) ||
     !email || !EMAIL_REGEX.test(email) || !password || (password.length < 6)) {
     return res.status(400).send({ error: 'bad-parameters' })

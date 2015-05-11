@@ -355,6 +355,11 @@ hr {
   margin-bottom: 14px;
 }
 
+.signup .instructions {
+  font-style: italic;
+  padding: 0 20px;
+}
+
 .loading.screen {
   display: flex;
   align-items: center;
