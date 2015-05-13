@@ -53,6 +53,10 @@ define(function(require) {
       },
 
       addTopics: function(length) {
+
+        if (0 === length) {
+          return
+        }
         var newTopics = this.collection.models.slice(-length)
         var topics = document.createDocumentFragment()
         var self = this
