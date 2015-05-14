@@ -22,11 +22,6 @@ define(function(require) {
 
         className: 'post post--topic',
 
-        seeMoreCutoff: {
-          height: 300,
-          tolerance: 50
-        },
-
         events: {
           'click .js-seeAuthor': 'seeAuthor',
           'click .js-comment': 'addComment',
@@ -59,14 +54,11 @@ define(function(require) {
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
-            avatarUrl: this.avatar.getUrl(),
-            maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
+            avatarUrl: this.avatar.getUrl()
           })))
 
           this.loadDisplayName()
           this.$el.find('time').timeago()
-
-          this.limitHeight()
 
           return this
         },
@@ -91,27 +83,6 @@ define(function(require) {
         renderAvatar: function() {
           this.$el.find('.avatar')
             .css('background-image', 'url("' + this.avatar.getUrl() + '")')      
-        },
-
-        limitHeight: function() {
-          var target = this.$el.find('.js-limitHeight')
-
-          if (target.height() !== this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance) {
-            return
-          }
-
-          target
-            .css({
-              height: this.seeMoreCutoff.height,
-              maxHeight: ''
-            })
-            .append(this.seeMoreTemplate())
-            .find('.js-seeMore').one('click', function(){
-              target.css({
-                height: ''
-              })
-              this.remove()
-            })
         },
       
     })

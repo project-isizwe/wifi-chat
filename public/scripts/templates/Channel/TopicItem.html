@@ -10,7 +10,7 @@
     <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
   </div>
 </div>
-<div class="post-content js-limitHeight" style="max-height: <%- maxHeight %>px;"><%= content %></div>
+<div class="post-content"><%= content %></div>
 <div class="post-footer">
   <% if(commentCount > 0) { %>
   <a class="btn btn--text" href="channel/<%- channelJid %>/<%- id %>">
