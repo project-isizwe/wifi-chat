@@ -1,9 +1,7 @@
 <div class="avatar avatar--small js-seeAuthor"<% if(avatarUrl) { print(' style="background-image: url('+ avatarUrl +')"') } %>></div>
 <div class="comment-content js-limitHeight" style="max-height: <%- maxHeight %>px;">
   <div class="post-author js-seeAuthor">
-    <% if(displayName) { %>
     <span class="displayName"><%- displayName %></span>
-    <% } %>
     <span class="username"><%- username %></span>
   </div>
   <div class="post-content"><%= content %></div>

@@ -14,7 +14,6 @@ define(function(require) {
     return Base.extend({
 
         template: _.template(require('text!tpl/Channel/TopicItem.html')),
-        seeMoreTemplate: _.template(require('text!tpl/SeeMore.html')),
       
         requiresLogin: true,
 
@@ -34,9 +33,9 @@ define(function(require) {
         ],
 
         initialize: function(options) {
-          _.bindAll(this, 'render')
           this.options = options
-          this.model.bind('change', this.render)
+          this.model.bind('change:displayName', this.renderDisplayName, this)
+          this.model.bind('change:commentCount', this.renderCommentCount, this)
 
           this.determineCommentAbility()
           this.avatar = Avatars.getAvatar({ jid: this.model.get('authorJid') })
@@ -69,6 +68,14 @@ define(function(require) {
           }
           var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
           channels.getChannel(authorNode, this, 'loadDisplayName')
+        },
+
+        renderDisplayName: function() {
+          this.$el.find('.js-displayName').text( this.model.get('displayName') )
+        },
+
+        renderCommentCount: function() {
+          this.$el.find('.js-commentCount').text( this.model.get('commentCount') )
         },
 
         addComment: function() {

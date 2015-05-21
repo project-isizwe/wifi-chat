@@ -19,14 +19,14 @@ define(function(require) {
         content: null,
         author: {},
         published: null,
-        commentCount: 0
+        commentCount: '∞'
       },
 
       embedReceipts: [
         {
           name: 'WiFi TV',
           regex: /https:\/\/www.connectuptv.pockittv.mobi\/v\/(\d*)/g,
-          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="https://www.connectuptv.pockittv.mobi/video/image/$1" controls preload="metadata"><source src="$&" /></video></div>'
+          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="https://www.connectuptv.pockittv.mobi/video/image/$1" controls preload="none"><source src="$&" /></video></div>'
         },
         {
           name: 'Images',

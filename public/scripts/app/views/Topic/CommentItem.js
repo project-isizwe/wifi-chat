@@ -40,11 +40,9 @@ define(function(require) {
         },
 
         initialize: function(options) {
-          _.bindAll(this, 'render')
-
           this.options = options
           this.router = options.router
-          this.model.bind('change', this.render)
+          this.model.bind('change:displayName', this.render, this)
           this.avatar = Avatars.getAvatar({ jid: this.model.get('authorJid') })
           this.avatar.on('change:url', this.renderAvatar, this)
         },
@@ -70,6 +68,10 @@ define(function(require) {
           }
           var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
           channels.getChannel(authorNode, this, 'loadDisplayName')
+        },
+
+        renderDisplayName: function() {
+          this.$el.find('.js-displayName').text( this.model.get('displayName') )
         },
 
         seeAuthor: function() {

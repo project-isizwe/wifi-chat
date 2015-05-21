@@ -491,7 +491,7 @@ hr {
   font-size: 14px;
 }
 
-.post-author .displayName + .username {
+.post-author .displayName:not(:empty) + .username {
   font-size: 12px;
   color: #afb0bb;
 }
@@ -533,7 +533,7 @@ hr {
   left: 14px;
 }
 
-.post--comment .displayName,
+.post--comment .displayName:not(:empty),
 .post--comment .username {
   display: inline;
   word-break: break-all;
@@ -542,7 +542,7 @@ hr {
   padding-right: 0;
 }
 
-.post--comment .displayName + .username {
+.post--comment .displayName:not(:empty) + .username {
   display: none;
 }
 
@@ -580,7 +580,7 @@ hr {
 }
 
 .post-media {
-  margin: 2px -14px 4px;
+  margin: 5px -14px 7px;
 }
 
 .post-media--image img {
@@ -717,7 +717,7 @@ hr {
   padding-right: 0;
 }
 
-.profile .displayName + .username {
+.profile .displayName:not(:empty) + .username {
   font-size: 14px;
   margin-top: 2px;
   color: hsl(232,8%,75%);
@@ -750,17 +750,17 @@ hr {
   white-space: nowrap;
 }
 
-.displayName {
+.displayName:not(:empty) {
   padding-right: 6px;
 }
 
 /* in case there is a displayName */
-.displayName + .username {
+.displayName:not(:empty) + .username {
   font-weight: normal;
   color: #afb0bb;
 }
 
-.displayName + .username:before {
+.displayName:not(:empty) + .username:before {
   content: '@';
 }
 
