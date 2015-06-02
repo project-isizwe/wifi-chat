@@ -7,6 +7,7 @@ define(function(require) {
       , log      = require('bows.min')('Models:Post')
       , socket   = require('app/utils/socket')
       , channels = require('app/store/Channels')
+      , config   = require('app/utils/config')
 
     return Backbone.Model.extend({
       
@@ -136,12 +137,14 @@ define(function(require) {
         if (usernameParts[1] === localStorage.getItem('jid').split('@')[1]) {
           username = usernameParts[0]
         }
+        var isModerator = config.admins.indexOf(username) >= 0
+
         return {
           displayName: null,
           username: username,
           authorJid: author,
           published: Date.parse(post.entry.atom.published),
-          content: this.parseContent(post.entry.atom.content.content, isComment),
+          content: this.parseContent(post.entry.atom.content.content, isComment, isModerator),
           unparsedContent: post.entry.atom.content.content,
           node: post.node,
           channelJid: post.node.split('/')[2],
@@ -149,20 +152,21 @@ define(function(require) {
           localId: post.entry.atom.id.split(',')[2] || post.entry.atom.id,
           canComment: true,
           isComment: isComment,
-          inReplyTo: (post.entry['in-reply-to'] || {}).ref,
+          inReplyTo: isModerator,
           likes: 1,
+          isModerator: config.admins.indexOf(username) >= 0,
           commentCount: null
         }
       },
 
-      parseContent: function(content, isComment) {
+      parseContent: function(content, isComment, isModerator) {
         content = _.escape(content)
           .replace(/\{/g, '&#123;')
           .replace(/&#x2F;/g, '/')
           .replace(/\}/g, '&#125;')
           .replace(/\n/g, '<br>')
 
-        if (!isComment) {
+        if (!isComment || (isComment && isModerator)) {
           this.embedReceipts.forEach(function(receipt) {
             content = content.replace(receipt.regex, receipt.substitution)
           }, this)
