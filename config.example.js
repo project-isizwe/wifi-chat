@@ -9,7 +9,8 @@ module.exports = {
   email: {
     /* Which address to send emails from */
     sendAddress: 'noreply@buddycloud.dev',
-    reportingAddress: 'report@buddycloud.dev',
+    postReportingAddress: 'report@buddycloud.dev',
+    cityFaultReportingAddress: 'city-fault@buddycloud.dev',
     /* Connection details */
     connection: {
       user: 'user',
