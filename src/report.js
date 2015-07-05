@@ -5,6 +5,10 @@ var postReportTemplate = fs.readFileSync(
   process.cwd() + '/src/templates/post-report',
   'utf8'
 )
+var sendFaultReportTemplate = fs.readFileSync(
+  process.cwd() + '/src/templates/fault-report',
+  'utf8'
+)
 
 var config = null
 
@@ -12,8 +16,30 @@ var setConfig = function(configuration) {
   config = configuration
 }
 
-var sendPostReport = function(data, callback) {
+var sendFaultReport = function(data, callback) {
 	
+  if (
+    !data.content ||
+    !data.location
+  ) {
+    /* We'll just ignore errors */
+    return callback()
+  }
+  var replacements = {
+    reportedBy: data.reportedBy,
+    description: data.description,
+    location: data.location
+  }
+  mailer.sendMail(
+    config.email.cityFaultReportingAddress,
+    'City fault report',
+    sendFaultReportTemplate, 
+    replacements,
+    function() { callback() }
+  )
+}
+
+var sendPostReport = function(data, callback) {
   if (
     !data.content ||
     !data.postId ||
@@ -32,7 +58,7 @@ var sendPostReport = function(data, callback) {
     content: data.content
   }
   mailer.sendMail(
-    config.email.reportingAddress,
+    config.email.postReportingAddress,
     'Post on wifi chat being reported',
     postReportTemplate, 
     replacements,
@@ -42,5 +68,6 @@ var sendPostReport = function(data, callback) {
 
 module.exports = {
   sendPostReport: sendPostReport,
+  sendFaultReport: sendFaultReport,
   setConfig: setConfig
 }

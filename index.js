@@ -128,7 +128,16 @@ primus.on('connection', function(socket) {
       data.reportedBy = xmppFtw.getJidType('bare')
       report.sendPostReport(data, callback)
     } catch(e) {
-      debug('Error with report email, likely client is not connected')
+      debug('Error with post report email, likely client is not connected')
+      debug(e)
+    }
+  })
+  socket.on('report.fault', function(data, callback) {
+    try {
+      data.reportedBy = xmppFtw.getJidType('bare')
+      report.sendFaultReport(data, callback)
+    } catch(e) {
+      debug('Error with fault report email, likely client is not connected')
       debug(e)
     }
   })
