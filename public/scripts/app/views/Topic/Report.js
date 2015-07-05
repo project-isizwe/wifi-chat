@@ -117,7 +117,7 @@ define(function(require) {
         }
         log('Sending report data', data)
         socket.send(
-          'message.report',
+          'report.post',
           data,
           function() {
             self.close(event)

@@ -12,7 +12,7 @@ var setConfig = function(configuration) {
   config = configuration
 }
 
-var sendReport = function(data, callback) {
+var sendPostReport = function(data, callback) {
 	
   if (
     !data.content ||
@@ -41,6 +41,6 @@ var sendReport = function(data, callback) {
 }
 
 module.exports = {
-  sendReport: sendReport,
+  sendPostReport: sendPostReport,
   setConfig: setConfig
 }

@@ -123,10 +123,10 @@ primus.on('connection', function(socket) {
   buddycloud.setCache(buddycloudCache)
   xmppFtw.addListener(buddycloud)
   socket.xmppFtw = xmppFtw
-  socket.on('message.report', function(data, callback) {
+  socket.on('report.post', function(data, callback) {
     try {
       data.reportedBy = xmppFtw.getJidType('bare')
-      report.sendReport(data, callback)
+      report.sendPostReport(data, callback)
     } catch(e) {
       debug('Error with report email, likely client is not connected')
       debug(e)
