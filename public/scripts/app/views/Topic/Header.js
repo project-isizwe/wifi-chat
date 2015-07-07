@@ -2,11 +2,12 @@ define(function(require) {
 
     'use strict';
 
-    var _       = require('underscore')
-      , Avatar  = require('app/models/Avatar')
-      , Base    = require('app/views/Base')
-      , Post    = require('app/models/Post')
-      , log     = require('bows.min')('Views:Channel:Header')
+    var _        = require('underscore')
+      , Avatars  = require('app/store/Avatars')
+      , Base     = require('app/views/Base')
+      , Post     = require('app/models/Post')
+      , channels = require('app/store/Channels')
+      , log      = require('bows.min')('Views:Channel:Header')
 
     return Base.extend({
 
@@ -26,7 +27,7 @@ define(function(require) {
         	this.router = options.router
         	this.model = new Post({
         		node: this.options.node,
-        		id: this.options.id
+        		localId: this.options.localId
         	})
         	this.model.once('loaded:post', this.renderPost, this)
         	this.model.sync()
@@ -34,31 +35,41 @@ define(function(require) {
 
         renderPost: function() {
           this.template = this.postTemplate
-        	this.render()
           this.loadAvatar()
+          this.loadDisplayName()
+        	this.render()
+        },
+
+        loadDisplayName: function() {
+          if (this.model.get('displayName')) {
+            return
+          }
+          var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
+          channels.getChannel(authorNode, this, 'loadDisplayName')
         },
 
         render: function() {
         	this.beforeRender()
-	        var data = this.model ? this.model.attributes : null
-	        this.$el.html(this.template(data))
+          this.$el.html(this.template(_.extend(this.model.attributes, {
+            avatarUrl: this.avatar && this.avatar.getUrl(),
+          })))
           this.$el.find('time').timeago()
 	        this.trigger('render')
 	        return this
         },
 
         seeAuthor: function() {
-          this.options.router.showProfile(this.model.get('username'))
+          this.options.router.showProfile(this.model.get('authorJid'))
         },
         
         loadAvatar: function() {
-          this.avatar = new Avatar({ jid: this.model.get('username') })
-          this.avatar.once('loaded:avatar', this.showAvatar, this)
+          this.avatar = Avatars.getAvatar({ jid: this.model.get('authorJid') })
+          this.avatar.on('change:url', this.renderAvatar, this)
         },
 
-        showAvatar: function() {
+        renderAvatar: function() {
           this.$el.find('.avatar')
-            .css('background-image', 'url("' + this.avatar.get('url') + '")')      
+            .css('background-image', 'url("' + this.avatar.getUrl() + '")')      
         },
 
     })

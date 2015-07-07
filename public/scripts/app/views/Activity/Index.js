@@ -12,6 +12,7 @@ define(function(require) {
     return Base.extend({
 
       template: _.template(require('text!tpl/Activity/Index.html')),
+      emptyTemplate: _.template(require('text!tpl/Activity/Empty.html')),
 
       requiresLogin: true,
 
@@ -21,6 +22,8 @@ define(function(require) {
       untouched: true,
 
       title: 'My Posts',
+
+      hasRendered: false,
 
       className: 'tab-views-item activity',
 
@@ -35,30 +38,68 @@ define(function(require) {
 
         this.collection = new UserPosts()
         this.collection.on('loaded:activities', this.addActivityItems, this)
+        this.collection.on('completed:activities', this.allActivitiesLoaded, this)
+        this.collection.on('pushed:activities', this.addActivityItems, this)
         this.on('resizeTabViews', this.onResizeTabViews, this)
 
         this.collection.sync()
+
+        this.options.parent.on('cache', this.unbindGlobalListeners, this)
+        this.options.parent.on('retrieve', this.bindGlobalListeners, this)
+        this.options.parent.on('resizeTabViews', this.onResizeTabViews, this)
+        this.on('visibilitychange', this.onVisibilityChange, this)
+      },
+
+      onVisibilityChange: function(isVisible) {
+        this.$el.toggleClass('is-visible', isVisible)
       },
 
       unbindGlobalListeners: function() {
-        this.scrollParent.off('scroll.activityList')
+        this.$el.scrollParent().off('scroll.activityList')
       },
 
-      reactivateGlobalListeners: function() {
-        this.scrollParent.on('scroll.activityList', this.onScroll)
+      bindGlobalListeners: function() {
+        this.$el.scrollParent().on('scroll.activityList', this.onScroll)
       },
       
       render: function() {
-        this.$el.html(this.template())
+        if (0 === this.collection.length) {
+          log('Using empty activities template')
+          this.$el.html(this.emptyTemplate())
+        } else {
+          log('Using populated activities template')
+          this.$el.html(this.template())
+        }
         return this
       },
 
+      allActivitiesLoaded: function() {
+        if (0 === this.collection.length) {
+          this.template = this.emptyTemplate
+        }
+        this.finishInfiniteScroll()
+      },
+
       addActivityItems: function(count) {
+        log('Adding activities')
         // for each post, append post item
-        var newItems = this.collection.models.slice(-count)
+        var newItems =  null
+        if (count instanceof Backbone.Model) {
+          newItems = [ count ]
+          if (1 === this.collection.length) {
+            this.render()
+          }
+        } else {
+          newItems = this.collection.models.slice(-count)
+          log(length + ' new comments')
+        }
         var fragment = document.createDocumentFragment()
         var self = this
 
+        if (!this.hasRendered) {
+          this.hasRendered = true
+          this.render()
+        }
         newItems.forEach(function(newItem) {
           var item = new ActivityItemView({
             model: newItem,
@@ -66,24 +107,41 @@ define(function(require) {
           })
           fragment.appendChild(item.render().el)
         }, this)
-        this.$el.find('.js-infiniteLoader').before(fragment)
+
+        if (count instanceof Backbone.Model) {
+          this.$el.prepend(fragment)
+          this.$el.find('.js-no-activities').remove()
+        } else {
+          this.$el.find('.js-infiniteLoader').before(fragment)
+        }
 
         this.isInfiniteScrollLoading = false
 
         if (this.untouched) {
           this.scrollParent = this.$el.scrollParent()
-          this.scrollParent.on('scroll.activityList', this.onScroll)
+          this.bindGlobalListeners()
           this.untouched = false
         }
 
         if (this.collection.allItemsLoaded()) {
-          this.$el.find('.js-infiniteLoader').addClass('is-hidden')
-          this.scrollParent.off('scroll.activityList')
+          this.finishInfiniteScroll()
         }
+        this.renderedActivities()
+      },
 
+      finishInfiniteScroll: function() {
+        log('All search results loaded, closing infinite scroll')
+        this.$el.find('.js-infiniteLoader').addClass('is-hidden')
+        if (!this.scrollParent) {
+          return
+        }
+        this.scrollParent.off('scroll.activityList')
+        this.renderedActivities()
+        
+      },
+
+      renderedActivities: function() {
         this.scrollTopBackup = this.scrollParent.scrollTop()
-
-        // resize tab view height
         this.trigger('rendered:activities')
       },
 
@@ -104,7 +162,7 @@ define(function(require) {
         var visibleHeight = (this.scrollParent.get(0) == document ? $(window) : this.scrollParent).outerHeight()
         var viewBottomEdge = this.scrollParent.scrollTop() + visibleHeight
 
-        if(viewBottomEdge > triggerPos) {
+        if (viewBottomEdge > triggerPos) {
           this.loadMoreItems()
         }
       },

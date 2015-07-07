@@ -2,21 +2,17 @@
   <div class="avatar js-seeAuthor"<% if(avatarUrl) { print(' style="background-image: url('+ avatarUrl +')"') } %>></div>
   <div class="post-meta">
     <div class="post-author js-seeAuthor">
-      <% if(displayName) { %>
-      <span class="displayName"><%- displayName %></span>
-      <% } %>
+      <span class="displayName js-displayName"><%- displayName %></span>
       <span class="username"><%- username %></span>
     </div>
     <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>
   </div>
 </div>
-<div class="post-content js-limitHeight" style="max-height: <%- maxHeight %>px;"><%= content %></div>
+<div class="post-content"><%= content %></div>
 <div class="post-footer">
-  <% if(commentCount > 0) { %>
   <a class="btn btn--text" href="channel/<%- channelJid %>/<%- id %>">
-    <%- commentCount %> comments
+    <span class="js-commentCount"><%- commentCount %></span> comments
   </a>
-  <% } %>
 </div>
 <% if (canComment) { %>
 <div class="btngroup btngroup--topic">

@@ -71,7 +71,7 @@ define(function(require) {
           var post = new Post({
           	content: content,
           	node: this.options.node,
-          	inReplyTo: this.options.id
+          	inReplyTo: this.options.localId
           })
           post.once('publish:success', this.success, this)
           post.once('publish:error', this.publishError, this)

@@ -41,6 +41,20 @@ define(function(require) {
           return /@topics\..*\/posts$/.exec(channel.node)
         }))
       })
+    },
+
+    getChannel: function(authorNode, context, method) {
+      var channel = this.findWhere({ node: authorNode })
+      if (!channel) {
+          channel = new Channel({ node: authorNode })
+          this.add(channel)
+          channel.once('loaded:meta', context[method], context)
+          return
+        }
+        if (channel.get('displayName')) {
+          return context.model.set('displayName', channel.get('displayName'))
+        }
+        channel.once('change:displayName', context[method], context)
     }
     
   })

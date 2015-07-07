@@ -1,15 +1,16 @@
-var express      = require('express')
-  , serveStatic  = require('serve-static')
-  , errorHandler = require('errorhandler')
-  , Emitter      = require('primus-emitter')
-  , Primus       = require('primus')
-  , xmpp         = require('xmpp-ftw')
-  , Buddycloud   = require('xmpp-ftw-buddycloud')
-  , helmet       = require('helmet')
-  , index        = require('./src/routes/index-get')
-  , account      = require('./src/routes/account')
-  , debug        = require('debug')('wifi-chat:index')
-  , bodyParser   = require('body-parser')
+var express        = require('express')
+  , serveStatic    = require('serve-static')
+  , errorHandler   = require('errorhandler')
+  , Emitter        = require('primus-emitter')
+  , Primus         = require('primus')
+  , xmpp           = require('xmpp-ftw')
+  , Buddycloud     = require('xmpp-ftw-buddycloud')
+  , helmet         = require('helmet')
+  , index          = require('./src/routes/index-get')
+  , account        = require('./src/routes/account')
+  , debug          = require('debug')('wifi-chat:index')
+  , bodyParser     = require('body-parser')
+  , report         = require('./src/report')
 
 require('colors')
 
@@ -23,8 +24,12 @@ try {
   process.exit(1)
 }
 
-account.setConfig(config)
-index.setConfig(config)
+var setConfigs = function() {
+  account.setConfig(config)
+  index.setConfig(config)
+  report.setConfig(config)
+}
+setConfigs()
 
 var app = express()
 
@@ -81,6 +86,32 @@ Buddycloud.prototype.publishItem = function(data, callback) {
     this.publish(data, callback)
 }
 
+Buddycloud.prototype._events = {
+    'xmpp.buddycloud.discover': 'discover',
+    'xmpp.buddycloud.register': 'setRegister',
+    'xmpp.buddycloud.presence': 'setPresence',
+    'xmpp.buddycloud.publish': 'publishItem',
+    'xmpp.buddycloud.retrieve': 'retrieve',
+    'xmpp.buddycloud.items.recent': 'recentItems',
+    'xmpp.buddycloud.items.feed': 'userFeedItems',
+    'xmpp.buddycloud.items.replies': 'getReplies',
+    'xmpp.buddycloud.items.thread': 'getThread',
+    'xmpp.buddycloud.config.set': 'setConfiguration',
+    'xmpp.buddycloud.config.get': 'getConfiguration',
+    'xmpp.buddycloud.subscriptions': 'getNodeSubscriptions',
+    'xmpp.buddycloud.affiliations': 'getNodeAffiliations',
+    'xmpp.buddycloud.discover.items': 'discoverItems',
+    'xmpp.buddycloud.discover.info': 'discoverFeatures',
+    'xmpp.buddycloud.discover.media-server': 'discoverMediaServer',
+    'xmpp.buddycloud.search.get': 'searchGet',
+    'xmpp.buddycloud.search.do': 'performSearch',
+    'xmpp.buddycloud.register.get': 'getRegister',
+    'xmpp.buddycloud.register.set': 'setRegister',
+    'xmpp.buddycloud.register.password': 'changePassword',
+    'xmpp.buddycloud.http.confirm': 'approveRequest',
+    'xmpp.buddycloud.http.deny': 'denyRequest'
+}
+
 var buddycloudCache = {}
 
 primus.on('connection', function(socket) {
@@ -92,6 +123,15 @@ primus.on('connection', function(socket) {
   buddycloud.setCache(buddycloudCache)
   xmppFtw.addListener(buddycloud)
   socket.xmppFtw = xmppFtw
+  socket.on('message.report', function(data, callback) {
+    try {
+      data.reportedBy = xmppFtw.getJidType('bare')
+      report.sendReport(data, callback)
+    } catch(e) {
+      debug('Error with report email, likely client is not connected')
+      debug(e)
+    }
+  })
 })
 
 primus.on('disconnection', function(socket) {
