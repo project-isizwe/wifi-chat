@@ -31,4 +31,11 @@ Both setups will kick off a server at [http://localhost:3000](http://localhost:3
 
 Fixes:
 ------
-Pull requests welcomed
+All pull requests welcomed
+
+Contributors
+------------
+@lloydwatkin
+@mrflix
+@imaginator
+@retrobunny
