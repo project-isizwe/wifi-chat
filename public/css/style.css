@@ -300,6 +300,10 @@ hr {
   min-height: 100%;
 }
 
+.screen-textContent--thinPadding {
+  padding: 14px 28px;
+}
+
 .screen-headline {
   margin: 0 28px 14px;
 }
@@ -1318,7 +1322,7 @@ textarea + .btn {
 .map-view {
   flex: 1;
   position: relative;
-  margin: -29px -28px 14px;
+  margin: -15px -28px 14px;
 }
 
 .map-view:after {

@@ -251,16 +251,16 @@
     <div class="tabs">
       <div class="tabs-activeIndicator"></div>
       <div class="tabs-item is-active" data-target="channelList">
-        <span class="tabs-item-label">Chat Rooms</span>
-        <div class="private-count"></div>
+        <span class="tabs-item-label">Chats</span>
+      </div>
+      <div class="tabs-item" data-target="report">
+        <span class="tabs-item-label">Report</span>
       </div>
       <div class="tabs-item" data-target="activity">
         <span class="tabs-item-label">Activity</span>
-        <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="settings">
-        <span class="tabs-item-label">My Profile</span>
-        <div class="private-count"></div>
+        <span class="tabs-item-label">Profile</span>
       </div>
     </div>
   </header>
@@ -269,6 +269,9 @@
       <div class="tab-views-item tab-views-item--message" data-view="channelList">
         <div class="silent spinner"></div>
         <div class="system">Loading Channels</div>
+      </div>
+      <div class="tab-views-item report" data-view="report">
+        <div data-use-symbol="report-grid"></div>
       </div>
       <div class="tab-views-item activity" data-view="activity">
         <div data-use-symbol="activity"></div>
@@ -285,16 +288,16 @@
     <div class="tabs">
       <div class="tabs-activeIndicator"></div>
       <div class="tabs-item is-active" data-target="channelList">
-        <span class="tabs-item-label">Chat Rooms</span>
-        <div class="private-count"></div>
+        <span class="tabs-item-label">Chats</span>
+      </div>
+      <div class="tabs-item" data-target="report">
+        <span class="tabs-item-label">Report</span>
       </div>
       <div class="tabs-item" data-target="activity">
         <span class="tabs-item-label">Activity</span>
-        <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="settings">
-        <span class="tabs-item-label">My Profile</span>
-        <div class="private-count"></div>
+        <span class="tabs-item-label">Profile</span>
       </div>
     </div>
   </header>
@@ -349,6 +352,9 @@
           </div>
         </div>
       </div>
+      <div class="tab-views-item report" data-view="report">
+        <div data-use-symbol="report-grid"></div>
+      </div>
       <div class="tab-views-item activity" data-view="activity">
         <div data-use-symbol="activity"></div>
       </div>
@@ -364,14 +370,17 @@
     <div class="tabs">
       <div class="tabs-activeIndicator"></div>
       <div class="tabs-item" data-target="channelList">
-        <span class="tabs-item-label">Chat Rooms</span>
+        <span class="tabs-item-label">Chats</span>
+      </div>
+      <div class="tabs-item" data-target="report">
+        <span class="tabs-item-label">Report</span>
       </div>
       <div class="tabs-item" data-target="activity">
         <span class="tabs-item-label">Activity</span>
         <div class="private-count"></div>
       </div>
       <div class="tabs-item is-active" data-target="settings">
-        <span class="tabs-item-label">My Profile</span>
+        <span class="tabs-item-label">Profile</span>
       </div>
     </div>
   </header>
@@ -379,6 +388,9 @@
     <div class="tab-scroller">
       <div class="tab-views-item channels" data-view="channelList">
         <div data-use-symbol="channelList"></div>
+      </div>
+      <div class="tab-views-item report" data-view="report">
+        <div data-use-symbol="report-grid"></div>
       </div>
       <div class="tab-views-item activity" data-view="activity">
         <div data-use-symbol="activity"></div>
@@ -435,9 +447,9 @@
       <p class="channel-description">
         Connect with your City and engage with fellow citizens on a real-time discussion platform for service delivery priorities and City issues.
       </p>
-      <div class="channel-actions">
-        <div class="btn btn--callToAction js-report">Report Incident</div>
-      </div>
+      <!-- <div class="channel-actions">
+        <div class="btn btn--primary js-report">Write new post</div>
+      </div> -->
     </header>
     <div data-symbol="topics">
     <section class="posts">
@@ -743,16 +755,16 @@
     <div class="tabs">
       <div class="tabs-activeIndicator"></div>
       <div class="tabs-item" data-target="channelList">
-        <span class="tabs-item-label">Chat Rooms</span>
-        <div class="private-count"></div>
+        <span class="tabs-item-label">Chats</span>
+      </div>
+      <div class="tabs-item" data-target="report">
+        <span class="tabs-item-label">Report</span>
       </div>
       <div class="tabs-item is-active" data-target="activity">
         <span class="tabs-item-label">Activity</span>
-        <div class="private-count"></div>
       </div>
       <div class="tabs-item" data-target="settings">
-        <span class="tabs-item-label">My Profile</span>
-        <div class="private-count"></div>
+        <span class="tabs-item-label">Profile</span>
       </div>
     </div>
   </header>
@@ -760,6 +772,9 @@
     <div class="tab-scroller">
       <div class="tab-views-item channels" data-view="channelList">
         <div data-use-symbol="channelList"></div>
+      </div>
+      <div class="tab-views-item report" data-view="report">
+        <div data-use-symbol="report-grid"></div>
       </div>
       <div class="tab-views-item activity" data-view="activity">
         <div data-symbol="activity">
@@ -947,65 +962,92 @@
 
 <h1 id="reporting">Incident Reporting</h1>
 
+<div class="home screen">
+  <header class="screen-header screen-header--hasTabs">
+    <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
+      <div class="tabs-item" data-target="channelList">
+        <span class="tabs-item-label">Chats</span>
+      </div>
+      <div class="tabs-item is-active" data-target="report">
+        <span class="tabs-item-label">Report</span>
+      </div>
+      <div class="tabs-item" data-target="activity">
+        <span class="tabs-item-label">Activity</span>
+      </div>
+      <div class="tabs-item" data-target="settings">
+        <span class="tabs-item-label">Profile</span>
+      </div>
+    </div>
+  </header>
+  <div class="tab-views">
+    <div class="tab-scroller">
+      <div class="tab-views-item channels" data-view="channelList">
+        <div data-use-symbol="channelList"></div>
+      </div>
+      <div class="tab-views-item report" data-view="report">
+        <div data-symbol="report-grid">
+          <div class="screen-textContent">
+            <div class="quad-grid">
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/trash.png" height="48" width="48">
+                <span class="quad-label">Rubbish</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/lightning.png" height="48" width="48">
+                <span class="quad-label">Lightning</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/robot.png" height="48" width="48">
+                <span class="quad-label">Robots</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/bench.png" height="48" width="48">
+                <span class="quad-label">Street Furniture</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/road.png" height="48" width="48">
+                <span class="quad-label">Road</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/signs.png" height="48" width="48">
+                <span class="quad-label">Signs</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/park.png" height="48" width="48">
+                <span class="quad-label">Park</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/emergency.png" height="48" width="48">
+                <span class="quad-label">Emergency</span>
+              </div>
+              <div class="quad">
+                <span class="quad-label">Other</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-views-item activity" data-view="activity">
+        <div data-use-symbol="activity"></div>
+      </div>
+      <div class="tab-views-item settings" data-view="settings">
+        <div data-use-symbol="settings"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="report screen">
   <div class="screen-header">
     <div class="btn btn--text js-back">
       <div class="arrow left icon"></div>
       Back
     </div>
-    <div class="screen-title">City of Tshwane</div>
-  </div>
-  <div class="screen-textContent">
-    <div class="quad-grid">
-      <div class="quad">
-        <img class="quad-icon" src="../public/images/icons/trash.png" height="48" width="48">
-        <span class="quad-label">Rubbish</span>
-      </div>
-      <div class="quad">
-        <img class="quad-icon" src="../public/images/icons/lightning.png" height="48" width="48">
-        <span class="quad-label">Lightning</span>
-      </div>
-      <div class="quad">
-        <img class="quad-icon" src="../public/images/icons/robot.png" height="48" width="48">
-        <span class="quad-label">Robots</span>
-      </div>
-      <div class="quad">
-        <img class="quad-icon" src="../public/images/icons/bench.png" height="48" width="48">
-        <span class="quad-label">Street Furniture</span>
-      </div>
-      <div class="quad">
-        <img class="quad-icon" src="../public/images/icons/road.png" height="48" width="48">
-        <span class="quad-label">Road</span>
-      </div>
-      <div class="quad">
-        <img class="quad-icon" src="../public/images/icons/signs.png" height="48" width="48">
-        <span class="quad-label">Signs</span>
-      </div>
-      <div class="quad">
-        <img class="quad-icon" src="../public/images/icons/park.png" height="48" width="48">
-        <span class="quad-label">Park</span>
-      </div>
-      <div class="quad">
-        <img class="quad-icon" src="../public/images/icons/emergency.png" height="48" width="48">
-        <span class="quad-label">Emergency</span>
-      </div>
-      <div class="quad">
-        <span class="quad-label">Other</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="map report screen">
-  <div class="screen-header">
-    <div class="btn btn--text js-back">
-      <div class="arrow left icon"></div>
-      Back
-    </div>
-    <div class="screen-title">City of Tshwane</div>
+    <div class="screen-title">Report Incident</div>
     <div class="btn btn--text js-skip">Skip</div>
   </div>
-  <div class="screen-textContent screen-textContent--isFull">
+  <div class="screen-textContent screen-textContent--isFull screen-textContent--thinPadding">
     <div class="map-view js-map"></div>
     <div class="btn btn--primary js-confirm">Confirm Location</div>
   </div>
@@ -1017,7 +1059,7 @@
       <div class="arrow left icon"></div>
       Back
     </div>
-    <div class="screen-title">City of Tshwane</div>
+    <div class="screen-title">Report Incident</div>
   </div>
   <div class="screen-textContent screen-textContent--isFull">
     <textarea rows="5" placeholder="Describe the incident..." maxlength="1024"></textarea>
