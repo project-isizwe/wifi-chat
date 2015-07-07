@@ -722,6 +722,7 @@ hr {
 
 .newComment .btn {
   width: auto;
+  margin-top: 0;
 }
 
 .profile .displayName,
