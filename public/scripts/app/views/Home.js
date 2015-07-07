@@ -11,17 +11,12 @@ define(function(require) {
       , ActivityView    = require('app/views/Activity/Index')
       , SettingsView    = require('app/views/Settings')
       , log             = require('bows.min')('Views:Home')
-    require('modernizr')
 
     return Base.extend({
 
         template: _.template(require('text!tpl/Home.html')),
       
         requiresLogin: true,
-
-        cacheable: true,
-
-        type: 'homescreen',
 
         title: 'Home',
 
@@ -35,13 +30,6 @@ define(function(require) {
           _.bindAll(this, 'onResize', 'onPanStart', 'onPanMove', 'onPanEnd', 'onTransitionEnd')
 
           this.options = options
-
-          var transEndEventNames = {
-            'WebkitTransition' : 'webkitTransitionEnd',// Saf 6, Android Browser
-            'MozTransition'    : 'transitionend',      // only for FF < 15
-            'transition'       : 'transitionend'       // IE10, Opera, Chrome, FF 15+, Saf 7+
-          }
-          this.transEndEventName = transEndEventNames[ Modernizr.prefixed('transition') ]
         },
       
         beforeRender: function() {
@@ -49,7 +37,7 @@ define(function(require) {
             return
           }
           this.channelListView = new ChannelListView(this.options)
-          this.activityView = new ActivityView(_.extend(this.options, { parent: this }))
+          this.activityView = new ActivityView(this.options)
           this.settingsView = new SettingsView(this.options)
 
           this.tabViews = [
@@ -84,14 +72,16 @@ define(function(require) {
           this.viewItems = this.$el.find('.tab-views-item')
           this.xMax = this.viewItems.size() - 1
 
-          this.scroller.on(this.transEndEventName, this.onTransitionEnd)
+          this.scroller.on('transitionend', this.onTransitionEnd)
 
-          if (Modernizr.touch) {
-            this.bindTouchControls()
-          }
+          this.hammertime = new Hammer(this.scroller.get(0))
+
+          this.hammertime.on('panstart', this.onPanStart)
+          this.hammertime.on('panmove', this.onPanMove)
+          this.hammertime.on('panend', this.onPanEnd)
 
           // stores the current xPos  
-          this.xPos = null
+          this.xPos = 0
 
           // adapt view height when channelList got filled
           this.channelListView.on('loaded:channel', this.adaptViewsHeight, this)
@@ -101,6 +91,7 @@ define(function(require) {
 
           // adapt view height when activities got rendered
           this.activityView.on('rendered:activities', this.adaptViewsHeight, this)
+          this.on('resizeTabViews', function(){ self.activityView.trigger('resizeTabViews') })
 
           // update dimensions
           this.onResize()
@@ -110,21 +101,10 @@ define(function(require) {
           this.navigateTo(this.viewItems.first().attr('data-view'))
         },
 
-        bindTouchControls: function() {
-          this.hammertime = new Hammer(this.scroller.get(0))
-
-          this.hammertime.on('panstart', this.onPanStart)
-          this.hammertime.on('panmove', this.onPanMove)
-          this.hammertime.on('panend', this.onPanEnd)
-        },
-
         onDestroy: function() {
           this.scroller.off('transitionend', this.onTransitionEnd)
           $(window).off('resize.home', this.onResize)
-
-          if (this.hammertime) {
-            this.hammertime.destroy()
-          }
+          this.hammertime.destroy()
         },
 
         onResize: function() {
@@ -143,11 +123,8 @@ define(function(require) {
             left: function(i) { return i * self.viewWidth }
           })
 
-          if (this.visibleTabView) {
-            var resizeScrollTopBackup = this.$el.scrollParent().scrollTop()
+          if(this.visibleTabView)
             this.navigateTo(this.visibleTabView.attr('data-view'))
-            this.$el.scrollParent().scrollTop(resizeScrollTopBackup)
-          }
         },
 
         onPanStart: function() {
@@ -162,7 +139,6 @@ define(function(require) {
         },
 
         onPanEnd: function(event) {
-          var viewChange = false
 
           // re-enable transitions on the scroller
           this.scroller.removeClass('no-transition')
@@ -170,19 +146,12 @@ define(function(require) {
 
           if(event.deltaX < -this.viewWidth/2 && this.xPos < this.xMax) {
             this.xPos += 1
-            viewChange = true
           }
           else if(event.deltaX > this.viewWidth/2 && this.xPos > 0) {
             this.xPos -= 1
-            viewChange = true
-
           }
 
-          if (viewChange) {
-            this.navigateTo(this.viewItems.eq(this.xPos).attr('data-view'))
-          } else {
-            this.moveIt(this.xPos * this.viewWidth)
-          }
+          this.navigateTo(this.viewItems.eq(this.xPos).attr('data-view'))
         },
 
         onTabClick: function(event) {
@@ -191,12 +160,9 @@ define(function(require) {
 
         navigateTo: function(viewName) {
           this.visibleTabView = this.viewItems.filter('[data-view='+ viewName +']')
-          this.lastxPos = this.xPos
           this.xPos = this.visibleTabView.index()
 
-
-          // trigger visibilitychange on view
-          this.tabViews[this.xPos].trigger('visibilitychange', true)
+          this.visibleTabView.addClass('is-visible')
 
           // adjust height
           this.adaptViewsHeight()
@@ -205,9 +171,7 @@ define(function(require) {
         },
 
         onTransitionEnd: function() {
-          if (this.lastxPos != null) {
-            this.tabViews[this.lastxPos].trigger('visibilitychange', false)
-          }
+          this.viewItems.filter('.is-visible').not(this.visibleTabView).removeClass('is-visible')
         },
 
         adaptViewsHeight: function() {

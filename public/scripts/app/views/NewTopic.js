@@ -7,7 +7,7 @@ define(function(require) {
       , Base          = require('app/views/Base')
       , subscriptions = require('app/store/Subscriptions')
       , log           = require('bows.min')('Views:NewTopic')
-      , Avatars       = require('app/store/Avatars')
+      , Avatar        = require('app/models/Avatar')
     require('jquery.scrollparent')
 
     return Base.extend({

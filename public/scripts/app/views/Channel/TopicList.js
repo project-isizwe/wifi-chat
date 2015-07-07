@@ -36,27 +36,20 @@ define(function(require) {
         }, this)
 
         if (0 !== this.collection.length) {
-          return this.addTopics(this.collection.length)
+          return
         }
         this.collection.sync()
-
-        this.options.parent.on('cache', this.unbindGlobalListeners, this)
-        this.options.parent.on('retrieve', this.bindGlobalListeners, this)
       },
 
       unbindGlobalListeners: function() {
-        this.$el.scrollParent().off('scroll.topicList')
+        this.scrollParent.off('scroll.topicList')
       },
 
-      bindGlobalListeners: function() {
-        this.$el.scrollParent().on('scroll.topicList', this.onScroll)
+      reactivateGlobalListeners: function() {
+        this.scrollParent.on('scroll.topicList', this.onScroll)
       },
 
       addTopics: function(length) {
-
-        if (0 === length) {
-          return
-        }
         var newTopics = this.collection.models.slice(-length)
         var topics = document.createDocumentFragment()
         var self = this
@@ -74,7 +67,7 @@ define(function(require) {
 
         if (this.untouched) {
           this.scrollParent = this.$el.scrollParent()
-          this.bindGlobalListeners()
+          this.scrollParent.on('scroll.topicList', this.onScroll)
           this.untouched = false
         }
 

@@ -53,9 +53,8 @@ define(function(require) {
           var modal = this.showMessage(
             'Success! Your password has been reset'
           )
-          localStorage.setItem('password', this.model.get('password'))
           modal.once('close', function() {
-            document.location.href = document.location.origin
+            this.router.showLogin()
           }, this)
           this.$el.find('button').attr('disabled', false)
         },

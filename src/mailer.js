@@ -25,7 +25,7 @@ var sendMail = function(to, subject, template, substitutions, callback) {
     to: to,
     subject: subject
   }
-  debug('Sending email', message)
+  debug('Sending password reset email', message)
   server.send(message, callback)
 }
 

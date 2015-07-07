@@ -1,10 +1,12 @@
-<div class="post-header post-header--activity js-postHeader">
-  <div class="avatar avatar--tiny js-userAvatar js-seeAuthor"<% if (userAvatarUrl) { print(' style="background-image: url(' + userAvatarUrl + ')"') } %>></div>
+<div class="post-header post-header--activity">
+  <div class="avatar avatar--tiny js-seeAuthor"></div>
   <div class="displayName js-seeAuthor">You</div>
-  <% if (postedIn) { print(postedIn) } %>
+  <div class="activity-verb">posted in</div>
+  <div class="avatar avatar--tiny js-seeChannel" style="background-image: url../images/channels/cityoftshwane.jpg)"></div>
+  <div class="displayName displayName--channel js-seeChannel">City of Tshwane</div>
 </div>
-<div class="post-content js-limitHeight" style="max-height: <%- maxHeight %>px;"><%= content %></div>
+<div class="post-content"><%- content %></div>
 <div class="post-footer">
   <time class="post-time" datetime="<%- new Date(published).toISOString() %>"><%- new Date(published).toISOString() %></time>&#183;
-  <span class="btn btn--text js-context">Show Conversation</span>
+  <span class="btn btn--text js-context">context</span>
 </div>

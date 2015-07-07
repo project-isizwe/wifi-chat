@@ -23,7 +23,6 @@ define(function(require) {
           'click .js-signup': 'signup',
           'click .js-forgotPassword': 'password',
           'blur input': 'inidicateValidation',
-          'input input[name=username]': 'lowerCase',
         },
 
         inidicateValidation: function(event) {
@@ -53,13 +52,8 @@ define(function(require) {
             }
           }, this)
         },
-        
-        lowerCase: function(event) {
-          event.target.value = event.target.value.toLowerCase()
-        },
       
         registerEvents: function() {
-          log('Registered login events')
           var self = this
           socket.on('xmpp.connection', function(data) {
             log('Connected as', data.jid)
@@ -126,28 +120,25 @@ define(function(require) {
               self.resetUsername()
               return self.showError('We\'re sorry but the system is down!')
             }
-            localStorage.setItem('channel-server', server)
+            subscriptions.sync()
             /* Register to register with channels */
-            socket.send('xmpp.buddycloud.register', {}, _.bind(self.completeLogin, self))
+            socket.send('xmpp.buddycloud.register', {}, function() {})
+            /* Tell the server that we are online */
+            socket.send('xmpp.buddycloud.presence', {})
+
+            localStorage.setItem('channel-server', server)
+            
+            self.router.setLoggedIn(self.connectedJid)
+            
+            if (self.router.lastRoute) {
+              return self.router[self.router.lastRoute.method]
+                .apply(self.router, [ self.router.lastRoute.parameters ])
+            }
+            if (self.options.showRules) {
+              return self.router.showRules(options)
+            }
+            self.router.showHome()
           })
-        },
-
-        completeLogin: function() {
-          log('Registered with server')
-          /* Tell the server that we are online */
-          socket.send('xmpp.buddycloud.presence', {})
-          subscriptions.sync()
-
-          this.router.setLoggedIn(this.connectedJid)
-          
-          if (this.router.lastRoute) {
-            return this.router[this.router.lastRoute.method]
-              .apply(this.router, this.router.lastRoute.parameters)
-          }
-          if (this.options.showRules) {
-            return this.router.showRules(options)
-          }
-          this.router.showHome()
         },
       
         signup: function() {
@@ -158,7 +149,7 @@ define(function(require) {
           if (event) event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
           this.jid = this.addDomainIfRequired(
-            this.$el.find('input[name="username"]').val().toLowerCase()
+            this.$el.find('input[name="username"]').val()
           )
           this.password = this.$el.find('input[name="password"]').val()
           var credentials = { jid: this.jid, password: this.password }
@@ -166,13 +157,7 @@ define(function(require) {
             credentials.host = localStorage.getItem('host')
           }
           socket.send('xmpp.login', credentials)
-          var options = {}
-          if (this.options.autoLogin) {
-            options.opaque = true
-            delete this.options.autoLogin
-
-          }
-          this.showSpinner('Connecting', options)
+          this.showSpinner('Connecting')
         },
 
         password: function() {

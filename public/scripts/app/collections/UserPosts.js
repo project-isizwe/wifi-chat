@@ -65,24 +65,21 @@ define(function(require) {
           return self.trigger('error', error)
         }
         
-        if (0 === (data.results || []).length ) {
+        if ((data.results || []).length > 0) {
+          self.add(data.results, { silent: true })
+          ++self.rsmPageNumber
+        } else {
           self.allItemsAreLoaded = true
-          self.trigger('completed:activities', data.results.length)
-          return
         }
-        self.add(data.results, { silent: true })
-        ++self.rsmPageNumber
-
         self.trigger('loaded:activities', data.results.length)
       })
     },
 
     pushedItem: function(post) {
-      if (post.get('authorJid') !== user.get('channelJid')) {
+      if (post.get('username') !== user.get('jid')) {
         return
       }
-      this.add(post, { silent: true })
-      this.trigger('pushed:activities', post)
+      this.add(post)
     }
 
   })

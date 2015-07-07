@@ -20,7 +20,6 @@ define(function(require) {
       
       render: function() {
         _.bindAll(this, 'onKeypress')
-
         if (!this.model.has('message')) {
           this.model.set('message', 'Error')
         }
@@ -34,7 +33,7 @@ define(function(require) {
       },
 
       onKeypress: function(event) {
-        if (event.keyCode === 13) {
+        if (event.keyCode == 13) {
           this.close(event)
         }
       },

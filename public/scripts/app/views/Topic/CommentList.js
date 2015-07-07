@@ -30,14 +30,18 @@ define(function(require) {
         this.router = options.router
         this.collection = new Comments(null, {
           node: this.options.node,
-          localId: this.options.localId
+          id: this.options.id,
+          after: options.highlightPost
         })
+        if (this.options.highlightPost) {
+          this.collection.once('loaded:comments', this.loadHighlightedPost, this)
+        }
         this.loadComments()
       },
 
       loadHighlightedPost: function() {
         var post = new Post({
-          localId: this.options.highlightPost,
+          id: this.options.highlightPost,
           node: this.options.node
         })
         post.once('loaded:post', function() {
@@ -49,7 +53,7 @@ define(function(require) {
       },
 
       loadComments: function() {
-        // this.collection.on('all', function(event) { log('TopicList', event) })
+        this.collection.on('all', function(event) { log('TopicList', event) })
         this.collection.on('loaded:comments', this.addComments, this)
 
         /* focus on newComment has to wait for this */
@@ -58,14 +62,13 @@ define(function(require) {
         }, this)
 
         this.collection.on('error', function() {
-          this.addComments(0)
+          this.renderComments()
+          this.enableLoadMoreButton()
           this.showError('Oh no! Could not load the comments')
         }, this)
 
         if (0 !== this.collection.length) {
-          return this.once('render', function() {
-            this.addComments(this.collection.length)
-          }, this)
+          return this.once('render', this.renderComments, this)
         }
         this.collection.on('add', this.pushedItem, this)
         this.collection.sync()
@@ -96,14 +99,10 @@ define(function(require) {
         var isScrolledToBottom = Math.abs(scrollHeight - scrollParent.scrollTop() - viewHeight) < 5
 
         newComments.forEach(function(newComment) {
-          var options = {
+          var comment = new CommentItemView({
             model: newComment,
             router: self.router
-          }
-          if (this.options.commentId === newComment.get('localId')) {
-            newComment.set('highlight', true)
-          }
-          var comment = new CommentItemView(options)
+          })
           comments.appendChild(comment.render().el)
         }, this)
 

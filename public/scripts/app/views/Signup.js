@@ -20,14 +20,13 @@ define(function(require) {
         events: {
           'submit': 'register',
           'blur input': 'inidicateValidation',
-          'input input[name=username]': 'lowerCase',
         },
 
         inidicateValidation: function(event) {
           // add a nonEmpty class when the input is non-empty
           $(event.currentTarget).toggleClass(
             'nonEmpty',
-            (event.currentTarget.value !== '')
+            event.currentTarget.value !== ""
           )
         },
 
@@ -47,14 +46,10 @@ define(function(require) {
           event.preventDefault()
           this.$el.find('button').attr('disabled', 'disabled')
           var local = this.addDomainIfRequired(
-            this.$el.find('input[name="username"]')
-              .val()
-              .toLowerCase()
+            this.$el.find('input[name="username"]').val()
           )
           var password = this.$el.find('input[name="password"]').val()
-          var email = this.$el.find('input[name="email"]')
-            .val()
-            .toLowerCase()
+          var email = this.$el.find('input[name="email"]').val()
           this.showSpinner('Registering')
           var domain = document.location.domain
           if (-1 !== local.indexOf('@')) {
@@ -75,21 +70,15 @@ define(function(require) {
           })
         
         },
-        
-        lowerCase: function(event) {
-          event.target.value = event.target.value.toLowerCase()
-        },
       
         accountCreated: function(model, response) {
           log('New account created successfully')
-          var self = this
-          var jid = this.model.get('local') + '@' + this.model.get('domain')
-          localStorage.setItem('wasLoggedInOnce', true)
-          localStorage.setItem('jid', jid)
-          localStorage.setItem('password', this.model.get('password'))
-
           this.closeSpinner()
-          this.router.setLastRoute('showRules').showLogin()
+          this.router.showLogin({
+            jid: this.model.get('local') + '@' + this.model.get('domain'),
+            password: this.model.get('password'),
+            showRules: true
+          })
         },
       
         accountCreateFail: function(model, response) {

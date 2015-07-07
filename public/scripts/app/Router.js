@@ -17,7 +17,6 @@ define(function (require) {
     , ProfileView       = require('app/views/Profile')
     , TopicView         = require('app/views/Topic/Index')
     , user              = require('app/store/User')
-    , config            = require('app/utils/config')
     , log               = require('bows.min')('Router')
         
     return Backbone.Router.extend({
@@ -25,8 +24,6 @@ define(function (require) {
       el: $('body'),
     
       loggedIn: false, 
-
-      cache: {},
       
       routes: {
         '': 'showHome',
@@ -37,14 +34,13 @@ define(function (require) {
         'password/reset/:token': 'showNewPassword',
         'rules': 'showRules',
         'profile/:jid': 'showProfile',
-        'channel/:jid/:localId/:childId': 'showTopicContext',
-        'channel/:jid/:localId': 'showTopic',
         'channel/:jid': 'showChannel',
+        'channel/:jid/*id': 'showTopic',
         'logout': 'showLogout'
       },
       
       initialize: function() {
-        log('Application initialized', config.version)
+        log('Application initialized')
         this.on('all', function(route, parameters) {
           if (0 !== route.indexOf('route:')) {
             return
@@ -53,16 +49,11 @@ define(function (require) {
           if ('showLogin' === method) {
             return this.lastRoute = null
           }
-          var parameters = Array.prototype.slice.call(arguments, 1)
-          this.setLastRoute(route.split(':')[1], parameters)
+          this.lastRoute = {
+            method: route.split(':')[1],
+            parameters: parameters
+          }
         }, this)
-      },
-
-      setLastRoute: function(method, parameters) {
-        this.lastRoute = {
-          method: method, parameters: parameters
-        }
-        return this
       },
       
       showModal: function() {
@@ -72,8 +63,7 @@ define(function (require) {
 
       showWelcome: function(options) {
         var welcomeView = new WelcomeView()
-        this.showView(welcomeView, '/welcome')
-        localStorage.setItem('wasLoggedInOnce', true)
+        this.showView(welcomeView, '/welcome') 
       },
       
       showLogin: function(options) {
@@ -85,10 +75,9 @@ define(function (require) {
           jid: options.jid,
           password: options.password,
           lastRoute: this.lastRoute,
-          showRules: options.showRules,
-          autoLogin: options.autoLogin
+          showRules: options.showRules
         })
-        this.showView(loginView, !options.autoLogin ?'/login' : null)
+        this.showView(loginView, '/login')
       },
       
       showRules: function(options) {
@@ -115,36 +104,27 @@ define(function (require) {
       },
       
       showHome: function() {
-        var homeView = this.cache['homescreen'] || new HomeView({ router: this })
+        var homeView = new HomeView({ router: this })
         this.showView(homeView, '')
       },
 
       showChannel: function(jid) {
-        var channelView = this.cache[jid] || new ChannelView({ router: this, channelJid: jid })
+        var channelView = new ChannelView({ router: this, channelJid: jid })
         this.showView(channelView, '/channel/' + jid)
       },
 
-      showTopic: function(jid, localId, goToNewComment) {
-        if (!localId) {
+      showTopic: function(jid, id, goToNewComment, highlightPost) {
+        if (!id) {
           return this.showChannel(jid)
         }
-        var topicView = this.cache[localId] || new TopicView({
-          router: this,
-          channelJid: jid,
-          localId: localId, 
-          goToNewComment: goToNewComment
-        })
-        this.showView(topicView, '/channel/' + jid + '/' + localId)
-      },
-
-      showTopicContext: function(jid, localId, commentId) {
         var topicView = new TopicView({
           router: this,
           channelJid: jid,
-          localId: localId, 
-          commentId: commentId
+          id: id, 
+          goToNewComment: goToNewComment,
+          highlightPost: highlightPost
         })
-        this.showView(topicView, '/channel/' + jid + '/' + localId + '/' + commentId)
+        this.showView(topicView, '/channel/' + jid + '/' + id)
       },
 
       showProfile: function(jid) {
@@ -160,87 +140,25 @@ define(function (require) {
       
       showView: function(view, url) {
         this.closeView()
-
-        if (view.requiresLogin && !this.loggedIn) {
-          var options = {}
-          if (localStorage.getItem('jid')) {
-            options.autoLogin = true
-          }
-          return this.sendToLogin(options)
-        }
-        window.document.title = 'WiFi Chat - ' + view.title
-        if (url) {
-          this.navigate(url, { trigger: false })
-        }
-
-        this.currentView = view
-
-        if (view.isCached) {
-          return this.retreiveView(view)
-        }
-        this.el.append(view.el)
         view.delegateEvents()
 
-        if (!view.noAutoRender) {
-          view.render()
+        if (view.requiresLogin && !this.loggedIn) {
+          return this.sendToLogin()
         }
+        window.document.title = 'WiFi Chat - ' + view.title
+        this.navigate(url, { trigger: false })
+        this.currentView = view
+
+        this.el.html(view.el)
+        view.delegateEvents()
+
+        if(!view.noAutoRender)
+          view.render()
       },
       
       closeView: function() {
         if (!this.currentView) return
-        if (this.currentView.cacheable && !this.currentView.isCached) {
-          this.cacheView(this.currentView)
-        } else {
-          this.currentView.closeView()
-        }
-      },
-
-      retreiveView: function(view) {
-        switch (view.type) {
-          case 'channel':
-            this.clearAllCached('topic')
-            break
-          case 'homescreen':
-            this.clearAllCached('channel')
-            break
-        }
-
-        view.retrieve()
-      },
-
-      clearAllCached: function(type) {
-        for (var viewIdentifier in this.cache) {
-          if (this.cache[viewIdentifier].type == type) {
-            this.removeCachedView(this.cache[viewIdentifier], viewIdentifier)
-          }
-        }
-      },
-
-      removeCachedView: function(view, identifier) {
-        view.closeView()
-        delete this.cache[identifier]
-      },
-
-      destroyCache: function() {
-        this.cache = {}
-      },
-
-      cacheView: function(view) {
-        var key;
-
-        switch (view.type) {
-          case 'channel':
-            key = view.options.channelJid
-            break
-          case 'topic':
-            key = view.options.localId
-            break
-          default:
-            key = view.type
-        }
-
-        this.cache[key] = view
-        view.cache()
+        this.currentView.closeView()
       },
       
       setLoggedIn: function(jid) {
@@ -259,9 +177,9 @@ define(function (require) {
         return this.loggedIn
       }, 
 
-      sendToLogin: function(options) {
+      sendToLogin: function() {
         if (localStorage.getItem('wasLoggedInOnce')) {
-          return this.showLogin(options)
+          return this.showLogin()
         }
         this.showWelcome()
       },     

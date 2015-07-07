@@ -6,7 +6,7 @@ define(function(require) {
       , Base           = require('app/views/Base')
       , socket         = require('app/utils/socket')
       , log            = require('bows.min')('Views:ChannelList')
-      , Avatars        = require('app/store/Avatars')
+      , Avatar         = require('app/models/Avatar')
 
     return Base.extend({
 
@@ -39,7 +39,7 @@ define(function(require) {
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
-            avatarUrl: this.avatar && this.avatar.getUrl()
+            avatarUrl: this.avatar && this.avatar.get('url')
           })))
           return this
         },
@@ -48,13 +48,13 @@ define(function(require) {
           if (!this.model.get('channelJid')) {
             return
           }
-          this.avatar = Avatars.getAvatar({ jid: this.model.get('channelJid') })
-          this.avatar.on('change:url', this.renderAvatar, this)
+          this.avatar = new Avatar({ jid: this.model.get('channelJid') })
+          this.avatar.once('loaded:avatar', this.showAvatar, this)
         },
 
-        renderAvatar: function() {
+        showAvatar: function() {
           this.$el.find('.channelIcon')
-            .css('background-image', 'url("' + this.avatar.getUrl() + '")')
+            .css('background-image', 'url("' + this.avatar.get('url') + '")')
         }
     })
 
