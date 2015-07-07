@@ -1319,14 +1319,16 @@
   */
 
   var initialLocation;
-  var pretoria = new google.maps.LatLng(-25.75865, 28.219682);
+  var pretoria = new google.maps.LatLng(-25.7461360925002, 28.188482544738818);
+  var map;
 
   function initializeMap() {
     var myOptions = {
       zoom: 17,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      streetViewControl: false
     }
-    var map = new google.maps.Map($('.js-map').get(0), myOptions)
+    map = new google.maps.Map($('.js-map').get(0), myOptions)
 
     // Try W3C Geolocation (Preferred)
     if(navigator.geolocation) {
@@ -1343,6 +1345,7 @@
     }
 
     function handleNoGeolocation() {
+      map.setZoom(15)
       map.setCenter(pretoria)
     }
   }
