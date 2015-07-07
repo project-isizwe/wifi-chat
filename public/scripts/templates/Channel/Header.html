@@ -1,9 +1,9 @@
 <div class="screen-header">
   <a class="btn btn--text" href="/">
     <div class="arrow left icon"></div>
-    Close
+    Back
   </a>
   <div class="screen-title"><%- title %></div>
 </div>
-<div class="channel-banner"></div>
+<div class="channel-banner"<% if (avatarUrl) { %> style="backgroundColor: <%- bannerBackground %>; background-image: url(<%- avatarUrl %>)"<% } %>></div>
 <p class="channel-description"><%- description %></p>

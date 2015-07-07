@@ -3,6 +3,9 @@ var pg = require('pg')
   , debug = require('debug')('wifi-chat:routes:account')
   , mailer = require('../mailer')
   , fs = require('fs')
+  , StringPrep = require('node-stringprep').StringPrep
+
+var stringPrep = new StringPrep('nameprep')
 
 var passwordResetTemplate = fs.readFileSync(
   process.cwd() + '/src/templates/password-reset',
@@ -31,7 +34,7 @@ var INSERT_TOKEN = 'INSERT INTO "password-tokens" ' +
 var CLEAN_TOKENS = 'DELETE FROM "password-tokens" WHERE "expires" < NOW();'
 
 var CLEAN_USER_TOKENS = 'DELETE FROM "password-tokens" ' +
-    'WHERE "host" = $1 AND "user" = $2;'
+    'WHERE "host" = $1 AND "local" = $2;'
 
 var GET_TOKEN = 'SELECT * FROM "password-tokens" WHERE "token" = $1 LIMIT 1;'
 
@@ -67,18 +70,19 @@ var createAccount = function(req, res) {
   // Check for required parameters:
   // local, domain, password, email
   debug('incoming create account request', req.body)
-  var local = (req.body.local || '').trim()
+  var local = stringPrep.prepare((req.body.local || '').trim())
   var domain = (req.body.domain || '').trim()
   var password = (req.body.password || '').trim()
-  var email = (req.body.email || '').trim()
-  
+  var email = (req.body.email || '').trim().toLowerCase()
+
   /* Let's not give specific error responses here, we'll make the client send 
    * valid things, we'll just check it is valid
    */
-  if (!local || (local.length < 1) || !domain || (domain.length < 6) ||
+  var pattern = /^[a-z0-9\-\.]{3,}$/
+  if (!local || !pattern.test(local) || !domain || (domain.length < 6) ||
       (domain !== config.domain) ||
     !email || !EMAIL_REGEX.test(email) || !password || (password.length < 6)) {
-    return res.status(400).send({ error: 'bad-parameters' }) 
+    return res.status(400).send({ error: 'bad-parameters' })
   }
   getClient(function(error, client, done) {
     if (error) return returnServerError(client, res, 'Failed to get DB connection')
@@ -115,7 +119,7 @@ var createAccount = function(req, res) {
 
 var generateResetPasswordToken = function(req, res) {
   debug('Incoming password reset request', req.body)
-  var email = (req.body.email || '').trim()
+  var email = (req.body.email || '').trim().toLowerCase()
   
   /* Let's not give specific error responses here, we'll make the client send 
    * valid things, we'll just check it is valid
@@ -145,7 +149,7 @@ var generateResetPasswordToken = function(req, res) {
             email,
             'Password reset request',
             passwordResetTemplate,
-            { token: token },
+            { token: token, username: record.user },
             mailSent
           )
         })
@@ -174,13 +178,13 @@ var resetPassword = function(req, res) {
            client.end()
            return res.status(404).send({ error: 'token-not-found' })
          }
-         var params = [ password, result.rows[0].user, result.rows[0].host ]
+         var params = [ password, result.rows[0].local, result.rows[0].host ]
          client.query(UPDATE_PASSWORD, params, function(error) {
            if (error) return returnServerError(client, res, 'Error updating password')
            res.status(200).send({ error: null, message: 'password-updated' })
-           params = [ result.rows[0].host, result.rows[0].user ]
+           params = [ result.rows[0].host, result.rows[0].local ]
            client.query(CLEAN_USER_TOKENS, params, function(error) {
-             debug('Error cleaning user tokens')
+             debug('Error cleaning user tokens', error)
              client.end()
            })
            

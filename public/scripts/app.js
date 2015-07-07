@@ -46,8 +46,8 @@ require(['jquery', 'backbone', 'app/Router', 'fastclick'], function ($, Backbone
     }
   })
 
-  // remove splash screen
-  $('body').empty()
+  // clear body, add list to change background
+  $('body').empty().addClass('loaded')
   
   Backbone.history.start({ pushState: true })
 

@@ -2,12 +2,14 @@ define(function(require) {
 
     'use strict';
 
-    var _       = require('underscore')
-      , Avatar  = require('app/models/Avatar')
-      , Base    = require('app/views/Base')
-      , user    = require('app/store/User')
-      , config  = require('app/utils/config')
-      , log     = require('bows.min')('Views:Topic/CommentList')
+    var _          = require('underscore')
+      , Avatars    = require('app/store/Avatars')
+      , Base       = require('app/views/Base')
+      , user       = require('app/store/User')
+      , config     = require('app/utils/config')
+      , log        = require('bows.min')('Views:Topic/CommentList')
+      , channels   = require('app/store/Channels')
+      , ReportView = require('app/views/Topic/Report')
     require('jquery.timeago')
 
     return Base.extend({
@@ -24,59 +26,93 @@ define(function(require) {
           tolerance: 50
         },
 
-        className: 'post post--comment',
+        attributes: function() {
+          return {
+            'data-id': this.model.get('localId'),
+            'class': 'post post--comment' +
+              (this.model.get('highlight') ? ' is-highlighted' : '')
+          }
+        },
 
         events: {
           'click .js-seeAuthor': 'seeAuthor',
           'click .js-report-post': 'reportPost'
         },
 
-        initialize: function(options){
-          _.bindAll(this, 'render')
-
-          this.model.bind('change', this.render)
+        initialize: function(options) {
+          this.options = options
+          this.router = options.router
+          this.model.bind('change:displayName', this.render, this)
+          this.avatar = Avatars.getAvatar({ jid: this.model.get('authorJid') })
+          this.avatar.on('change:url', this.renderAvatar, this)
         },
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
-            avatarUrl: this.avatar && this.avatar.get('url'),
+            showControls: true,
+            avatarUrl: this.avatar.getUrl(),
             maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
           })))
           this.$el.find('time').timeago()
 
-          if(!this.avatar)
-            this.loadAvatar()
+          this.loadDisplayName()
 
           this.limitHeight()
 
           return this
         },
 
-        seeAuthor: function() {
-          this.options.router.showProfile(this.model.get('username'))
-        },
-        
-        loadAvatar: function() {
-          this.avatar = new Avatar({ jid: this.model.get('username') })
-          this.avatar.once('loaded:avatar', this.showAvatar, this)
+        loadDisplayName: function() {
+          if (this.model.get('displayName')) {
+            return
+          }
+          var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
+          channels.getChannel(authorNode, this, 'loadDisplayName')
         },
 
-        showAvatar: function() {
+        renderDisplayName: function() {
+          this.$el.find('.js-displayName').text( this.model.get('displayName') )
+        },
+
+        seeAuthor: function() {
+          this.router.showProfile(this.model.get('authorJid'))
+        },
+
+        renderAvatar: function() {
           this.$el.find('.avatar')
-            .css('background-image', 'url("' + this.avatar.get('url') + '")')      
+            .css('background-image', 'url("' + this.avatar.getUrl() + '")')      
         },
 
         reportPost: function() {
-          document.location.href = this.getReportedPostContent()
+          this.showReportModal()
+        },
+
+        showReportModal: function() {
+          this.closeSubView('modal')
+          var modal = new ReportView({ model: this.model })
+          this.showSubView('modal', modal)
+          modal.onAttachedToDom()
+          modal.once('close', function() {
+            this.closeSubView('modal')
+          }, this)
+          return modal
         },
 
         getReportedPostContent: function() {
-          var subject = 'Reported post from wifi chat'
+          var subject = 'Reported post from WiFi Chat'
+          var name
+
+          if (user.get('displayName')) {
+            name = user.get('displayName') + "-" + user.get('username')
+          } else {
+            name = user.get('username')
+          }
+
           var body = [
-            'Reported by: ' + user.get('channelJid'),
-            'Reason: \n\n*** Please add a reason here ***\n\n',
-            'Post ID: ' + this.model.get('id'),
-            'Post content:\n\n' + this.model.get('content') + '\n\n',
+            'Post ID: ' + this.model.get('globalId'),
+            'Post content: ' + this.model.get('content'),
+            'Reported by: '+ name,
+            'Reason: ',
 
           ]
           return encodeURI(
@@ -95,12 +131,14 @@ define(function(require) {
           }
 
           target
-            .height(this.seeMoreCutoff.height)
+            .css({
+              height: this.seeMoreCutoff.height,
+              maxHeight: ''
+            })
             .append(this.seeMoreTemplate())
             .find('.js-seeMore').one('click', function(){
               target.css({
-                height: '',
-                maxHeight: ''
+                height: ''
               })
               this.remove()
             })

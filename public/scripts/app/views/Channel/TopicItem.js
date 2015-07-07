@@ -4,26 +4,22 @@ define(function(require) {
 
     var _              = require('underscore')
       , Base           = require('app/views/Base')
-      , Avatar         = require('app/models/Avatar')
+      , Avatars        = require('app/store/Avatars')
       , subscriptions  = require('app/store/Subscriptions')
       , log            = require('bows.min')('Views:TopicItem')
+      , channels       = require('app/store/Channels')
+      , Channel        = require('app/models/Channel')
     require('jquery.timeago')
 
     return Base.extend({
 
         template: _.template(require('text!tpl/Channel/TopicItem.html')),
-        seeMoreTemplate: _.template(require('text!tpl/SeeMore.html')),
       
         requiresLogin: true,
 
         tagName: 'section',
 
         className: 'post post--topic',
-
-        seeMoreCutoff: {
-          height: 300,
-          tolerance: 50
-        },
 
         events: {
           'click .js-seeAuthor': 'seeAuthor',
@@ -37,11 +33,13 @@ define(function(require) {
         ],
 
         initialize: function(options) {
-          _.bindAll(this, 'render')
           this.options = options
-          this.model.bind('change', this.render)
+          this.model.bind('change:displayName', this.renderDisplayName, this)
+          this.model.bind('change:commentCount', this.renderCommentCount, this)
 
           this.determineCommentAbility()
+          this.avatar = Avatars.getAvatar({ jid: this.model.get('authorJid') })
+          this.avatar.on('change:url', this.renderAvatar, this)
         },
 
         determineCommentAbility: function() {
@@ -55,55 +53,43 @@ define(function(require) {
 
         render: function(){
           this.$el.html(this.template(_.extend(this.model.attributes, {
-            avatarUrl: this.avatar && this.avatar.get('url'),
-            maxHeight: this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance
+            avatarUrl: this.avatar.getUrl()
           })))
+
+          this.loadDisplayName()
           this.$el.find('time').timeago()
-
-          if(!this.avatar)
-            this.loadAvatar()
-
-          this.limitHeight()
 
           return this
         },
 
+        loadDisplayName: function() {
+          if (this.model.get('displayName')) {
+            return
+          }
+          var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
+          channels.getChannel(authorNode, this, 'loadDisplayName')
+        },
+
+        renderDisplayName: function() {
+          this.$el.find('.js-displayName').text( this.model.get('displayName') )
+        },
+
+        renderCommentCount: function() {
+          this.$el.find('.js-commentCount').text( this.model.get('commentCount') )
+        },
+
         addComment: function() {
           // view topic and focus on new comment input
-          this.options.router.showTopic(this.model.get('channelJid'), this.model.get('id'), true)
+          this.options.router.showTopic(this.model.get('channelJid'), this.model.get('localId'), true)
         },
 
         seeAuthor: function() {
-          this.options.router.showProfile(this.model.get('username'))
+          this.options.router.showProfile(this.model.get('authorJid'))
         },
 
-        loadAvatar: function() {
-          this.avatar = new Avatar({ jid: this.model.get('username') })
-          this.avatar.once('loaded:avatar', this.showAvatar, this)
-        },
-
-        showAvatar: function() {
+        renderAvatar: function() {
           this.$el.find('.avatar')
-            .css('background-image', 'url("' + this.avatar.get('url') + '")')      
-        },
-
-        limitHeight: function() {
-          var target = this.$el.find('.js-limitHeight')
-
-          if (target.height() !== this.seeMoreCutoff.height + this.seeMoreCutoff.tolerance) {
-            return
-          }
-
-          target
-            .height(this.seeMoreCutoff.height)
-            .append(this.seeMoreTemplate())
-            .find('.js-seeMore').one('click', function(){
-              target.css({
-                height: '',
-                maxHeight: ''
-              })
-              this.remove()
-            })
+            .css('background-image', 'url("' + this.avatar.getUrl() + '")')      
         },
       
     })

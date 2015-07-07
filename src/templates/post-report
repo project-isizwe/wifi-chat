@@ -1,0 +1,14 @@
+A user is reporting a post on wifi chat
+
+Post ID: %postId%
+Channel: %channel%
+Author: %author%
+Reported by: %reportedBy%
+
+--- Reason ---
+
+%reason%
+
+--- Original Post Content ---
+
+%content%
