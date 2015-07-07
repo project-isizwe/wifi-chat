@@ -62,6 +62,7 @@
     <li><a href="#activity">Activity</a>
     <li><a href="#profile">Profile</a>
     <li><a href="#misc">Misc</a>
+    <li><a href="#reporting">Incident Reporting</a>
   </ol>
 </header>
 
@@ -434,9 +435,9 @@
       <p class="channel-description">
         Connect with your City and engage with fellow citizens on a real-time discussion platform for service delivery priorities and City issues.
       </p>
-      <!-- <div class="channel-actions">
-        <div class="btn btn--primary js-newTopic">Write new post</div>
-      </div> -->
+      <div class="channel-actions">
+        <div class="btn btn--callToAction js-report">Report Incident</div>
+      </div>
     </header>
     <div data-symbol="topics">
     <section class="posts">
@@ -944,7 +945,89 @@
 
 
 
+<h1 id="reporting">Incident Reporting</h1>
+
+<div class="report screen">
+  <div class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="arrow left icon"></div>
+      Back
+    </div>
+    <div class="screen-title">City of Tshwane</div>
+  </div>
+  <div class="screen-textContent">
+    <div class="quad-grid">
+      <div class="quad">
+        <img class="quad-icon" src="../public/images/icons/trash.png" height="48" width="48">
+        <span class="quad-label">Rubbish</span>
+      </div>
+      <div class="quad">
+        <img class="quad-icon" src="../public/images/icons/lightning.png" height="48" width="48">
+        <span class="quad-label">Lightning</span>
+      </div>
+      <div class="quad">
+        <img class="quad-icon" src="../public/images/icons/robot.png" height="48" width="48">
+        <span class="quad-label">Robots</span>
+      </div>
+      <div class="quad">
+        <img class="quad-icon" src="../public/images/icons/bench.png" height="48" width="48">
+        <span class="quad-label">Street Furniture</span>
+      </div>
+      <div class="quad">
+        <img class="quad-icon" src="../public/images/icons/road.png" height="48" width="48">
+        <span class="quad-label">Road</span>
+      </div>
+      <div class="quad">
+        <img class="quad-icon" src="../public/images/icons/signs.png" height="48" width="48">
+        <span class="quad-label">Signs</span>
+      </div>
+      <div class="quad">
+        <img class="quad-icon" src="../public/images/icons/park.png" height="48" width="48">
+        <span class="quad-label">Park</span>
+      </div>
+      <div class="quad">
+        <img class="quad-icon" src="../public/images/icons/emergency.png" height="48" width="48">
+        <span class="quad-label">Emergency</span>
+      </div>
+      <div class="quad">
+        <span class="quad-label">Other</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="map report screen">
+  <div class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="arrow left icon"></div>
+      Back
+    </div>
+    <div class="screen-title">City of Tshwane</div>
+    <div class="btn btn--text js-skip">Skip</div>
+  </div>
+  <div class="screen-textContent screen-textContent--isFull">
+    <div class="map-view js-map"></div>
+    <div class="btn btn--primary js-confirm">Confirm Location</div>
+  </div>
+</div>
+
+<div class="report screen">
+  <div class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="arrow left icon"></div>
+      Back
+    </div>
+    <div class="screen-title">City of Tshwane</div>
+  </div>
+  <div class="screen-textContent screen-textContent--isFull">
+    <textarea rows="5" placeholder="Describe the incident..." maxlength="1024"></textarea>
+    <div class="btn btn--primary js-send">Send Report</div>
+  </div>
+</div>
+
+
 <script src="../public/scripts/lib/jquery.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOReKYKLlx3ulzdtFC0hf-y9lRmeqPQq4"></script>
 <script>
 
   /*
@@ -1226,6 +1309,45 @@
   $('input').on('blur', function(event){
     $(event.currentTarget).toggleClass('nonEmpty', event.currentTarget.value !== "")
   })
+
+
+
+  /*
+
+    Maps for Incidents
+
+  */
+
+  var initialLocation;
+  var pretoria = new google.maps.LatLng(-25.75865, 28.219682);
+
+  function initializeMap() {
+    var myOptions = {
+      zoom: 17,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map($('.js-map').get(0), myOptions)
+
+    // Try W3C Geolocation (Preferred)
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+        map.setCenter(initialLocation)
+      }, function() {
+        handleNoGeolocation()
+      })
+    }
+    // Browser doesn't support Geolocation
+    else {
+      handleNoGeolocation()
+    }
+
+    function handleNoGeolocation() {
+      map.setCenter(pretoria)
+    }
+  }
+
+  initializeMap()
 
 </script>
 </body>

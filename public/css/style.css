@@ -300,6 +300,23 @@ hr {
   min-height: 100%;
 }
 
+.screen-headline {
+  margin: 0 28px 14px;
+}
+
+.screen-header + .screen-headline {
+  margin-top: 14px;
+}
+
+.screen-textContent .screen-headline {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.screen-textContent .screen-headline:first-child {
+  /*margin-top: -12px;*/
+}
+
 .align-bottom {
   margin-top: auto;
 }
@@ -1168,7 +1185,8 @@ textarea:focus {
   border-color: #496090;
 }
 
-input + .btn {
+input + .btn,
+textarea + .btn {
   margin-top: 7px;
 }
 
@@ -1265,6 +1283,54 @@ input + .btn {
 
 .is-hidden {
   display: none;
+}
+
+.quad-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -7px;
+}
+
+.quad {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1 1 40%;
+  padding: 14px 0;
+  border: 1px solid hsl(240,12%,90%);
+  margin: 7px;
+  border-radius: 3px;
+  cursor: pointer;
+  background: hsl(240,12%,97%);
+}
+
+.quad:hover {
+  background: hsl(240,11%,99%);
+  border-color: hsl(240,12%,95%);
+}
+
+.quad-icon {
+  margin-bottom: 2px;
+}
+
+.map-view {
+  flex: 1;
+  position: relative;
+  margin: -29px -28px 14px;
+}
+
+.map-view:after {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  background: hsl(221,33%,43%);
+  z-index: 1000;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 100%;
 }
 
 @media (max-width: 600px) {
