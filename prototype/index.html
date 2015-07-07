@@ -1310,5 +1310,47 @@
     $(event.currentTarget).toggleClass('nonEmpty', event.currentTarget.value !== "")
   })
 
+
+
+  /*
+
+    Maps for Incidents
+
+  */
+
+  var initialLocation;
+  var pretoria = new google.maps.LatLng(-25.7461360925002, 28.188482544738818);
+  var map;
+
+  function initializeMap() {
+    var myOptions = {
+      zoom: 17,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      streetViewControl: false
+    }
+    map = new google.maps.Map($('.js-map').get(0), myOptions)
+
+    // Try W3C Geolocation (Preferred)
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+        map.setCenter(initialLocation)
+      }, function() {
+        handleNoGeolocation()
+      })
+    }
+    // Browser doesn't support Geolocation
+    else {
+      handleNoGeolocation()
+    }
+
+    function handleNoGeolocation() {
+      map.setZoom(15)
+      map.setCenter(pretoria)
+    }
+  }
+
+  initializeMap()
+
 </script>
 </body>
