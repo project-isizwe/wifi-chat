@@ -25,6 +25,5 @@ module.exports = {
     api: 'https://wifichat.zendesk.com/api/v2/',
     token: 'MSvdPvcl4cQnJD6r8sun4DhhRtaL7VACYG6DCYr4' 
   },
-  /* a nice description */
-  admins: ['admin']
+  admins: ['admin'] /* list of usernames with admin privileges */
 }
