@@ -2,7 +2,7 @@ define(function(require) {
 
   'use strict';
   
-  var channels = require('app/store/Channels')
+  var Channels = require('app/collections/Channels')
     , Channel  = require('app/models/Channel')
     , log      = require('bows.min')('Collections:Subscriptions')
     , socket   = require('app/utils/socket')
@@ -10,8 +10,6 @@ define(function(require) {
   return Backbone.Collection.extend({
     
     model: Channel,
-
-    hasLoaded: false,
     
     event: 'xmpp.buddycloud.subscriptions',
     affiliationsEvent: 'xmpp.buddycloud.affiliations',
@@ -28,10 +26,6 @@ define(function(require) {
         default:
           throw new Error('Unhandled method')
       }
-    },
-
-    isLoaded: function() {
-      return this.hasLoaded
     },
     
     getSubscriptions: function() {
@@ -64,10 +58,7 @@ define(function(require) {
             return
           }
           channel.set('affiliation', affiliation.affiliation)
-          channels.add(channel)
-        }, this)
-        self.hasLoaded = true
-        self.trigger('loaded:subscriptions')
+        })
       })
     }
     

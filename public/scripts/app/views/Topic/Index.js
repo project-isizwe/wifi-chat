@@ -14,10 +14,6 @@ define(function(require) {
 
       requiresLogin: true,
 
-      cacheable: true,
-
-      type: 'topic',
-
       className: 'topic screen',
 
       postingAffiliations: [
@@ -25,6 +21,7 @@ define(function(require) {
         'moderator',
         'owner'
       ],
+
 
       initialize: function(options) {
         this.router = options.router

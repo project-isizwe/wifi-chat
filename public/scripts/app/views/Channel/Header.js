@@ -2,11 +2,10 @@ define(function(require) {
 
     'use strict';
 
-    var _        = require('underscore')
-      , Base     = require('app/views/Base')
-      , log      = require('bows.min')('Views:Channel:Header')
-      , Avatars  = require('app/store/Avatars')
-      , channels = require('app/store/Channels')
+    var _      = require('underscore')
+      , Base   = require('app/views/Base')
+      , log    = require('bows.min')('Views:Channel:Header')
+      , Avatar = require('app/models/Avatar')
 
     return Base.extend({
 
@@ -14,69 +13,32 @@ define(function(require) {
 	  
 	    requiresLogin: true,
 
-      tagName: 'header',
-
-      className: 'channel-header',
-
       events: {
         'click .js-newTopic': 'showNewTopicScreen',
       },
 
-      avatarSize: 160,
-
 	    initialize: function(options) {
-        _.bindAll(this, 'render')
-
         this.router = options.router
         this.options = options
-        this.avatar = Avatars.getAvatar({ jid: this.options.channelJid })
-        this.avatar.on('change:url', this.renderAvatar, this)
+        _.bindAll(this, 'render')
+        this.on('render', this.afterRender, this)
+        this.loadAvatar()
       },
 
-      render: function() {
-        this.$el.html(this.template(_.extend(this.model.attributes, {
-          avatarUrl: this.avatar.getUrl(this.avatarSize),
-          bannerBackground: this.detectBackgroundColor()
-        })))
-
-        this.loadDisplayName()
-
-        return this
+      loadAvatar: function() {
+        this.avatar = new Avatar({ 
+          jid: this.options.channelJid,
+          height: 160,
+          width: 'auto'
+         })
+        this.avatar.once('loaded:avatar', this.render, this)
       },
 
-      loadDisplayName: function() {
-        if (this.model.get('displayName')) {
-          return
-        }
-        var authorNode = '/user/' + this.model.get('authorJid') + '/posts'
-        channels.getChannel(authorNode, this, 'loadDisplayName')
-      },
-
-      renderAvatar: function() {
-        log(this.avatar.getUrl(this.avatarSize))
-        this.$el.find('.channel-banner')
-          .css({
-            backgroundImage: 'url("' + this.avatar.getUrl(this.avatarSize) + '")',
-            backgroundColor: this.detectBackgroundColor()
-          })       
-      },
-
-      detectBackgroundColor: function() {
-        if (!this.avatar.isLoaded()) {
-          return
-        }
-
-        var canvas = document.createElement('canvas')
-        var ctx = canvas.getContext('2d')
-        canvas.width = this.avatar.image.width
-        canvas.height = this.avatar.image.height
-        ctx.drawImage(this.avatar.image, 0, 0)
-        // if it fails, it fails because of cross-origin data. no background color then
-        try {
-          var topLeftPixel = ctx.getImageData(0, 0, 1, 1).data
-          // can't use .join()
-          return 'rgba('+ topLeftPixel[0] +','+ topLeftPixel[1] +','+ topLeftPixel[2] +','+ topLeftPixel[3] +')'
-        } catch(error) {}
+      afterRender: function() {
+        if (this.avatar.get('url')) {
+          this.$el.find('.channel-banner')
+            .css('background-image', 'url("' + this.avatar.get('url') + '")')
+        }          
       },
 
       showNewTopicScreen: function() {

@@ -6,8 +6,6 @@ define(function(require) {
       , _        = require('underscore')
       , log      = require('bows.min')('Models:Post')
       , socket   = require('app/utils/socket')
-      , channels = require('app/store/Channels')
-      , config   = require('app/utils/config')
 
     return Backbone.Model.extend({
       
@@ -20,27 +18,20 @@ define(function(require) {
         content: null,
         author: {},
         published: null,
-        commentCount: '∞'
+        commentCount: 0
       },
 
       embedReceipts: [
         {
           name: 'WiFi TV',
-          regex: /https:\/\/www.connectuptv.pockittv.mobi\/v\/(\d*)/g,
-          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="https://www.connectuptv.pockittv.mobi/video/image/$1" controls preload="none"><source src="$&" /></video></div>'
-        },
-        {
-          name: 'Images',
-          regex: /(https?):\/\/[^\s\/$.?#].+(jpg|jpeg|png|gif|svg)/g,
-          substitution: '<div class="post-media post-media--image"><img src="$&" /></div>'
-        },
-        {
-          name: 'Link',
-          // regex for http and https links with a negative lookahead
-          // that ignores links inside html tags (e.g. previously parsed links)
-          regex: /(https?):\/\/[^\s\/$.?#].[^\s]*(?![^<>]*>)/g,
-          substitution: '<a rel="nofollow" target="_blank" href="$&">$&</a>'
+          regex: /.*connectuptv.pockittv.mobi\/v\/(\w*)/g,
+          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="http://connectuptv.pockittv.mobi/video/image/$1" controls><source src="$&"></video></div>'
         }
+        // {
+        //   name: 'Images',
+        //   regex: /[a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|svg)/g,
+        //   substitution: '<div class="post-media post-media--image"><img src="$&"></img></div>'
+        // },
         // {
         //   name: 'Youtube',
         //   regex: /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/g,
@@ -64,7 +55,7 @@ define(function(require) {
         var self = this
         var options = {
           node: this.get('node'),
-          id: this.get('localId'),
+          id: this.get('id'),
           rsm: { max: 1 }
         }
 
@@ -98,7 +89,7 @@ define(function(require) {
         var self = this
         var options = {
           node: this.get('node'),
-          id: this.get('localId')
+          id: this.get('id')
         }
         socket.send(event, options, function(error, post) {
           if (error) {
@@ -130,48 +121,34 @@ define(function(require) {
       },
 
       _mapPost: function(post) {
-        var isComment = ('comment' === post.entry.activity.object['object-type'])
-        var author = post.entry.atom.author.uri.substr(5)
-        var username = author
-        var usernameParts = author.split('@')
-        if (usernameParts[1] === localStorage.getItem('jid').split('@')[1]) {
-          username = usernameParts[0]
-        }
-        var isModerator = config.admins.indexOf(username) >= 0
-
         return {
           displayName: null,
-          username: username,
-          authorJid: author,
+          username: post.entry.atom.author.uri.substr(5),
           published: Date.parse(post.entry.atom.published),
-          content: this.parseContent(post.entry.atom.content.content, isComment, isModerator),
-          unparsedContent: post.entry.atom.content.content,
+          content: this.parseContent(post.entry.atom.content.content),
           node: post.node,
           channelJid: post.node.split('/')[2],
-          globalId: post.entry.atom.id,
+          id: post.entry.atom.id,
           localId: post.entry.atom.id.split(',')[2] || post.entry.atom.id,
           canComment: true,
-          isComment: isComment,
-          inReplyTo: isModerator,
+          isReply: ('comment' === post.entry.activity),
+          inReplyTo: (post.entry['in-reply-to'] || {}).ref,
           likes: 1,
-          isModerator: config.admins.indexOf(username) >= 0,
           commentCount: null
         }
       },
 
-      parseContent: function(content, isComment, isModerator) {
+      parseContent: function(content) {
         content = _.escape(content)
           .replace(/\{/g, '&#123;')
           .replace(/&#x2F;/g, '/')
           .replace(/\}/g, '&#125;')
-          .replace(/\n/g, '<br>')
+          .replace(/\n/g, '<br/>')
 
-        if (!isComment || (isComment && isModerator)) {
-          this.embedReceipts.forEach(function(receipt) {
-            content = content.replace(receipt.regex, receipt.substitution)
-          }, this)
-        }
-
+        this.embedReceipts.forEach(function(receipt) {
+          content = content
+            .replace(receipt.regex, receipt.substitution)
+        }, this)
         return content
       },
 

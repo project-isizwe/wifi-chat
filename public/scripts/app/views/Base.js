@@ -6,7 +6,6 @@ define(function(require) {
       , ModalView   = require('app/views/Modal')
       , ModalModel  = require('app/models/Modal')
     require('jquery.html5-placeholder-shim')
-    require('jquery.scrollparent')
 
     return Backbone.View.extend({
 
@@ -43,22 +42,7 @@ define(function(require) {
 
       unbindGlobalListeners: function() {},
 
-      cache: function() {
-        this.trigger('cache')
-        this.scrollTop = this.$el.scrollParent().scrollTop()
-        this.$el.addClass('is-cached')
-        this.isCached = true
-      },
-
-      retrieve: function() {
-        this.$el.removeClass('is-cached')
-        this.isCached = false
-
-        if (this.scrollTop) {
-          this.$el.scrollParent().scrollTop(this.scrollTop)
-        }
-        this.trigger('retrieve')
-      },
+      reactivateGlobalListeners: function() {},
       
       closeView: function() {
         this.unbindGlobalListeners()
@@ -108,17 +92,13 @@ define(function(require) {
         return this.showMessage(message)
       },
 
-      showSpinner: function(message, options) {
+      showSpinner: function(message) {
         this.closeSubView('modal')
-        if (!options) {
-          options = {}
-        }
         var modal = new ModalView()
         modal.model = new ModalModel({
           type: 'spinner',
           message: message,
-          showClose: options.showClose || false,
-          opaque: options.opaque || false
+          showClose: false
         })
         this.showSubView('modal', modal)
         modal.once('close', function() {

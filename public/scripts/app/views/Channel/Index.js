@@ -11,13 +11,9 @@ define(function(require) {
 
     return Base.extend({
 
-      template: _.template(require('text!tpl/Empty.html')),
+      template: _.template(require('text!tpl/Channel/Index.html')),
 
       requiresLogin: true,
-
-      cacheable: true,
-
-      type: 'channel',
 
       className: 'channel screen',
 
@@ -32,22 +28,28 @@ define(function(require) {
           subscriptions.on('loaded:meta', function(model) {
             if (model.get('channelJid') === this.options.channelJid) {
               this.options.model = model
-              this.renderFilled()
+              this.render()
             }
           }, this)
-        } else {
-          this.once('render', this.renderFilled, this)
         }
       },
       
-      renderFilled: function() {
-        this.header = new HeaderView(this.options)
-        this.topicList = new TopicListView(_.extend(this.options, { parent: this }))
-
-        // add list to header before adding it to the view
-        // to save one dom access
-        this.$el.html(this.header.render().$el.add(this.topicList.render().el))
-
+      beforeRender: function() {
+        if (this.options.model) {
+          this.header = new HeaderView(this.options)
+          this.topicList = new TopicListView(this.options)
+        }
+      }, 
+      
+      render: function() {
+        this.beforeRender()
+        var data = this.model ? this.options.model.attributes : null
+        this.$el.html(this.template(data))
+        if (this.header) {
+          this.$el.find('header').html(this.header.render().el)
+          this.$el.append(this.topicList.render().el)
+        }
+        this.trigger('render')
         return this
       }
 

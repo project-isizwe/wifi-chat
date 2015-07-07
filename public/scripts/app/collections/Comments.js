@@ -13,7 +13,7 @@ define(function(require) {
     model: Post,
 
     lastPostId: null,
-    itemsPerRequest: 30,
+    itemsPerRequest: 5,
     itemCount: null,
 
     comparator: false,
@@ -47,7 +47,7 @@ define(function(require) {
       var self = this
       var options = {
         node: this.options.node,
-        id: this.options.localId,
+        id: this.options.id,
         rsm: {
           max: this.itemsPerRequest
         }
@@ -71,14 +71,14 @@ define(function(require) {
 
     pushedItem: function(model) {
       if ((model.get('node') !== this.options.node) ||
-        (model.get('inReplyTo') !== this.options.localId)) {
+        (model.get('inReplyTo') !== this.options.id.split(',')[2])) {
         return
       }
       this.add(model)
     },
 
     retractItem: function(details) {
-      var post = this.findWhere({ node: details.node, localId: details.localId })
+      var post = this.findWhere({ node: details.node, localId: details.id })
       if (post) {
         this.remove(post)
       }

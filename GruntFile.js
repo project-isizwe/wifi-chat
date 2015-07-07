@@ -29,11 +29,10 @@ module.exports = function(grunt) {
         requirejs: {
             javascript: {
                 options: {
-                    baseUrl: './public/scripts/lib',
+                    baseUrl: './public/scripts',
                     mainConfigFile: './public/scripts/app.js',
                     out: './public/app.min.js',
-                    name: 'app',
-                    generateSourceMaps: ('development' === process.env.NODE_ENV) ? true : false,
+                    generateSourceMaps: true,
                     preserveLicenseComments: false,
                     paths: {
                         'primus': 'empty:',
