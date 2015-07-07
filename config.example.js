@@ -20,7 +20,7 @@ module.exports = {
       tls: true, /* boolean or object (if true or object, starttls will be initiated) */
       timeout: 5000 /* max number of milliseconds to wait for smtp responses (defaults to 5000) */
     }
-  }
+  },
   zendesk: {
     /* Where to send API requests */
     api: 'https://wifichat.zendesk.com/api/v2/', /* ensure API is enabled at: https://wifichat.zendesk.com/agent/admin/api */
