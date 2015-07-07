@@ -1244,15 +1244,15 @@ textarea + .btn {
   flex-direction: column;
   flex: 1 1 40%;
   padding: 14px 0;
-  border: 1px solid hsl(240,12%,90%);
+  border: 1px solid hsl(210,4%,90%);
   margin: 7px;
   border-radius: 3px;
   cursor: pointer;
-  background: hsl(240,12%,97%);
+  background-image: linear-gradient(to bottom right, hsl(240,11%,98%), hsl(240,12%,93%));
 }
 
 .quad:hover {
-  background: hsl(240,11%,99%);
+  background-image: linear-gradient(to bottom right, hsl(240,11%,100%), hsl(240,12%,96%));
   border-color: hsl(240,12%,95%);
 }
 
