@@ -22,8 +22,7 @@ module.exports = {
     }
   },
   zendesk: {
-    /* Where to send API requests */
-    api: 'https://wifichat.zendesk.com/api/v2/', /* ensure API is enabled at: https://wifichat.zendesk.com/agent/admin/api */
+    api: 'https://wifichat.zendesk.com/api/v2/',
     token: 'MSvdPvcl4cQnJD6r8sun4DhhRtaL7VACYG6DCYr4' 
   }
 }
