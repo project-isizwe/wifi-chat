@@ -16,10 +16,10 @@ define(function(require) {
 
         title: 'Channels',
       
-        className: 'tab-views-item channelList',
+        className: 'tab-views-item chats',
 
         attributes: {
-          'data-view': 'channelList'
+          'data-view': 'chats'
         },
       
         initialize: function(options) {

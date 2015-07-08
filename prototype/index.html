@@ -1048,7 +1048,7 @@
     <div class="btn btn--text js-skip">Skip</div>
   </div>
   <div class="screen-textContent screen-textContent--isFull screen-textContent--thinPadding">
-    <div class="map-view js-map"></div>
+    <div class="map-view is-active js-map"></div>
     <div class="btn btn--primary js-confirm">Confirm Location</div>
   </div>
 </div>
@@ -1061,9 +1061,25 @@
     </div>
     <div class="screen-title">Report Incident</div>
   </div>
-  <div class="screen-textContent screen-textContent--isFull">
-    <textarea rows="5" placeholder="Describe the incident..." maxlength="1024"></textarea>
-    <div class="btn btn--primary js-send">Send Report</div>
+  <form class="screen-textContent">
+    <textarea class="js-description" rows="5" placeholder="Describe the incident..." maxlength="1024" required></textarea>
+    <input type="submit" class="btn btn--primary js-send" value="Send Report">
+  </form>
+</div>
+
+<div class="report screen">
+  <div class="screen-header">
+    <div class="btn btn--text js-back">
+      <div class="arrow left icon"></div>
+      Back
+    </div>
+    <div class="screen-title">Report Incident</div>
+  </div>
+  <div class="screen-textContent screen-textContent--centered">
+    <div class="box box--warning box--centered">
+      <div class="box-label">Emergency</div>
+      Please call <a class="emergency-number" href="tel:+13174562564">317-456-2564</a>
+    </div>
   </div>
 </div>
 

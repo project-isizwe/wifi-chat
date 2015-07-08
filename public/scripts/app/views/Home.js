@@ -26,6 +26,8 @@ define(function(require) {
 
         title: 'Home',
 
+        homepage: 'chats',
+
         events: {
           'click .tabs-item': 'onTabClick',
         },
@@ -118,7 +120,7 @@ define(function(require) {
           $(window).on('resize.home', this.onResize)
 
           // go to item we get from route
-          this.navigateTo(this.options.route)
+          this.navigateTo(this.options.route || this.homepage)
         },
 
         bindTouchControls: function() {
@@ -214,6 +216,9 @@ define(function(require) {
 
           this.moveIt(this.xPos * this.viewWidth)
 
+          if (viewName == this.homepage) {
+            viewName = ''
+          }
           this.router.navigate('/'+ viewName, { trigger: false })
         },
 

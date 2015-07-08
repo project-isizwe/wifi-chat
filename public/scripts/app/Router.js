@@ -16,6 +16,9 @@ define(function (require) {
     , ChannelView       = require('app/views/Channel/Index')
     , ProfileView       = require('app/views/Profile')
     , TopicView         = require('app/views/Topic/Index')
+    , ReportLocation    = require('app/views/Report/Location')
+    , ReportEmergency   = require('app/views/Report/Emergency')
+    , ReportDescription = require('app/views/Report/Description')
     , user              = require('app/store/User')
     , config            = require('app/utils/config')
     , log               = require('bows.min')('Router')
@@ -30,8 +33,11 @@ define(function (require) {
       
       routes: {
         '': 'showHome',
-        'channelList': 'showHome',
+        'chats': 'showHome',
         'report': 'showReport',
+        'report/location': 'showReportLocation',
+        'report/emergency': 'showEmergencyNumber',
+        'report/description': 'showReportDescription',
         'activity': 'showActivity',
         'settings': 'showSettings',
         'welcome': 'showWelcome',
@@ -119,8 +125,8 @@ define(function (require) {
       },
       
       showHome: function() {
-        var homeView = this.cache['homescreen'] || new HomeView({ router: this, route: 'channelList' })
-        this.showView(homeView, 'channelList')
+        var homeView = this.cache['homescreen'] || new HomeView({ router: this, route: '' })
+        this.showView(homeView, '')
       },
       
       showReport: function() {
@@ -136,6 +142,27 @@ define(function (require) {
       showSettings: function() {
         var homeView = this.cache['homescreen'] || new HomeView({ router: this, route: 'settings' })
         this.showView(homeView, 'settings')
+      },
+
+      showReportLocation: function(model) {
+        if (!model) {
+          return this.showReport()
+        }
+        var reportLocationView = new ReportLocation({ router: this, model: model })
+        this.showView(reportLocationView, 'report/location')
+      },
+
+      showReportDescription: function(model) {
+        if (!model) {
+          return this.showReport()
+        }
+        var reportDescriptionView = new ReportDescription({ router: this, model: model })
+        this.showView(reportDescriptionView, 'report/description')
+      },
+
+      showEmergencyNumber: function() {
+        var view = new ReportEmergency()
+        this.showView(view, '/report/emergency')
       },
 
       showChannel: function(jid) {

@@ -111,6 +111,19 @@ hr {
   vertical-align: bottom;
 }
 
+.spinner--centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -30px 0 0 -30px;
+}
+.spinner--small.spinner--centered {
+  margin: -15px 0 0 -15px;
+}
+.spinner--mini.spinner--centered {
+  margin: -7px 0 0 -7px;
+}
+
 .spinner.silent {
   animation: none;
 }
@@ -1323,19 +1336,58 @@ textarea + .btn {
   flex: 1;
   position: relative;
   margin: -15px -28px 14px;
+  background: #e9e5dc;
 }
 
-.map-view:after {
+.map-view.is-active .spinner {
+  display: none;
+}
+
+.map-view.is-active:after {
   position: absolute;
   content: "";
   left: 50%;
   top: 50%;
   background: hsl(221,33%,43%);
-  z-index: 1000;
+  z-index: 2;
   width: 14px;
   height: 14px;
   margin: -7px 0 0 -7px;
   border-radius: 100%;
+}
+
+.box {
+  padding: 28px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.box--centered {
+  text-align: center;
+}
+
+.box--warning {
+  border-color: currentColor;
+  color: red;
+}
+
+.box-label {
+  margin: -28px -28px 28px;
+  padding: 7px 10px;
+  text-align: left;
+  background: gray;
+  color: white;
+}
+
+.box--warning .box-label {
+  background: red;
+}
+
+.emergency-number {
+  color: red;
+  font-size: 20px;
+  display: block;
+  margin-top: 10px;
 }
 
 @media (max-width: 600px) {
