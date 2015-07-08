@@ -4,6 +4,7 @@ define(function(require) {
 
     var _                = require('underscore')
       , Base             = require('app/views/Base')
+      , Thankyou         = require('app/views/Report/Thankyou')
       , log              = require('bows.min')('Views:Report:Description')
 
     return Base.extend({
@@ -26,6 +27,9 @@ define(function(require) {
         this.model.set('description', this.$('.js-description').val())
         log("complete:", this.model.attributes)
         // send stuff
+
+        var thankyouView = new Thankyou(this.options)
+        this.router.showView(thankyouView)
       },
 
       back: function(event) {

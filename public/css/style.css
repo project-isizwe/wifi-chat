@@ -60,6 +60,11 @@ p {
   font-size: 12px; 
 }
 
+.headline {
+  font-size: 16px;
+  margin-bottom: 9px;
+}
+
 input + p {
   margin-top: 14px;
 }
@@ -288,6 +293,10 @@ hr {
 
 .screen-title:last-child {
   margin-right: 25%;
+}
+
+.screen-title:first-child {
+  margin-left: 25%;
 }
 
 .screen-textContent {
