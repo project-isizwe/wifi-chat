@@ -90,7 +90,7 @@ define(function(require) {
         }
       },
       
-      showMessage: function(message) {
+      showMessage: function(message, callback) {
         this.closeSubView('modal')
         var modal = new ModalView()
         modal.model = new ModalModel({
@@ -100,12 +100,15 @@ define(function(require) {
         this.showSubView('modal', modal)
         modal.once('close', function() {
           this.closeSubView('modal')
+          if (callback) {
+            callback()
+          }
         }, this)
         return modal
       },
       
-      showError: function(message) {
-        return this.showMessage(message)
+      showError: function(message, callback) {
+        return this.showMessage(message, callback)
       },
 
       showSpinner: function(message, options) {
