@@ -990,7 +990,7 @@
           <div class="screen-textContent">
             <div class="quad-grid">
               <div class="quad">
-                <img class="quad-icon" src="../public/images/icons/trash.png" height="48" width="48">
+                <img class="quad-icon" src="../public/images/icons/rubbish.png" height="48" width="48">
                 <span class="quad-label">Rubbish</span>
               </div>
               <div class="quad">
@@ -1360,7 +1360,6 @@
 
   */
 
-  var initialLocation;
   var pretoria = new google.maps.LatLng(-25.7461360925002, 28.188482544738818);
   var map;
 
@@ -1375,7 +1374,7 @@
     // Try W3C Geolocation (Preferred)
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
-        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+        var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
         map.setCenter(initialLocation)
       }, function() {
         handleNoGeolocation()

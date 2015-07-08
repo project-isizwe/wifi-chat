@@ -36,8 +36,7 @@ define(function(require) {
           _.bindAll(this, 'onResize', 'onPanStart', 'onPanMove', 'onPanEnd', 'onTransitionEnd')
 
           this.options = options
-
-          console.log(this.model)
+          this.router = options.router
 
           // hidden feature
           this.showFaultLink = localStorage.getItem('showFaultLink')
@@ -118,8 +117,8 @@ define(function(require) {
           this.onResize()
           $(window).on('resize.home', this.onResize)
 
-          // go to first item
-          this.navigateTo(this.viewItems.first().attr('data-view'))
+          // go to item we get from route
+          this.navigateTo(this.options.route)
         },
 
         bindTouchControls: function() {
@@ -214,6 +213,8 @@ define(function(require) {
           this.adaptViewsHeight()
 
           this.moveIt(this.xPos * this.viewWidth)
+
+          this.router.navigate('/'+ viewName, { trigger: false })
         },
 
         onTransitionEnd: function() {

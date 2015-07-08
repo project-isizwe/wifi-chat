@@ -10,7 +10,8 @@ var setConfig = function(configuration) {
     reportingAddress: config.email.reportingAddress,
     domain: config.domain,
     version: require(process.cwd() + '/package.json').version,
-    admins: config.admins
+    admins: config.admins,
+    googleMapsApiKey: config.googleMapsApiKey
   }) + '\''
 
   var developerSetup = ''

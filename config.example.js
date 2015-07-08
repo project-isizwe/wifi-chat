@@ -21,9 +21,13 @@ module.exports = {
       timeout: 5000 /* max number of milliseconds to wait for smtp responses (defaults to 5000) */
     }
   },
+
   zendesk: {
     api: 'https://wifichat.zendesk.com/api/v2/',
     token: 'MSvdPvcl4cQnJD6r8sun4DhhRtaL7VACYG6DCYr4' 
   },
+
+  googleMapsApiKey: 'AIzaSyBOReKYKLlx3ulzdtFC0hf-y9lRmeqPQq4', /* for reports */
+  
   admins: ['admin'] /* list of usernames with admin privileges */
 }

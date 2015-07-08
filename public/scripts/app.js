@@ -2,7 +2,8 @@ require.config({
   baseUrl: '/scripts/lib',
   paths: {
     app: '../app',
-    tpl: '../templates'
+    tpl: '../templates',
+    async:'async'
   },
   shim: {
     backbone: {

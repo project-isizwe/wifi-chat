@@ -30,6 +30,10 @@ define(function (require) {
       
       routes: {
         '': 'showHome',
+        'channelList': 'showHome',
+        'report': 'showReport',
+        'activity': 'showActivity',
+        'settings': 'showSettings',
         'welcome': 'showWelcome',
         'login': 'showLogin',
         'signup': 'showSignup',
@@ -115,8 +119,23 @@ define(function (require) {
       },
       
       showHome: function() {
-        var homeView = this.cache['homescreen'] || new HomeView({ router: this })
-        this.showView(homeView, '')
+        var homeView = this.cache['homescreen'] || new HomeView({ router: this, route: 'channelList' })
+        this.showView(homeView, 'channelList')
+      },
+      
+      showReport: function() {
+        var homeView = this.cache['homescreen'] || new HomeView({ router: this, route: 'report' })
+        this.showView(homeView, 'report')
+      },
+      
+      showActivity: function() {
+        var homeView = this.cache['homescreen'] || new HomeView({ router: this, route: 'activity' })
+        this.showView(homeView, 'activity')
+      },
+      
+      showSettings: function() {
+        var homeView = this.cache['homescreen'] || new HomeView({ router: this, route: 'settings' })
+        this.showView(homeView, 'settings')
       },
 
       showChannel: function(jid) {

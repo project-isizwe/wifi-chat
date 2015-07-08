@@ -5,6 +5,7 @@ define(function(require) {
     var _                = require('underscore')
       , Base             = require('app/views/Base')
       , Report           = require('app/models/Report')
+      , ReportMap        = require('app/views/Report/Map')
       , log              = require('bows.min')('Views:Report:Index')
 
     return Base.extend({
@@ -34,6 +35,8 @@ define(function(require) {
 
       pickCategory: function(event) {
         this.model.set('category', $(event.currentTarget).attr('data-category'))
+        var locationView = new ReportMap({ router: this.router, model: this.model })
+        this.router.showView(locationView, 'report/location')
       }
 
     })
