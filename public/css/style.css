@@ -1363,6 +1363,7 @@ textarea + .btn {
   height: 14px;
   margin: -7px 0 0 -7px;
   border-radius: 100%;
+  pointer-events: none;
 }
 
 .box {
