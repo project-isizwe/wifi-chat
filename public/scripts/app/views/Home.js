@@ -8,6 +8,7 @@ define(function(require) {
       , Base            = require('app/views/Base')
       , socket          = require('app/utils/socket')
       , ChannelListView = require('app/views/ChannelList')
+      , ReportView      = require('app/views/Report/Index')
       , ActivityView    = require('app/views/Activity/Index')
       , SettingsView    = require('app/views/Settings')
       , log             = require('bows.min')('Views:Home')
@@ -36,6 +37,11 @@ define(function(require) {
 
           this.options = options
 
+          console.log(this.model)
+
+          // hidden feature
+          this.showFaultLink = localStorage.getItem('showFaultLink')
+
           var transEndEventNames = {
             'WebkitTransition' : 'webkitTransitionEnd',// Saf 6, Android Browser
             'MozTransition'    : 'transitionend',      // only for FF < 15
@@ -49,14 +55,20 @@ define(function(require) {
             return
           }
           this.channelListView = new ChannelListView(this.options)
+          this.reportView = new ReportView(this.options)
           this.activityView = new ActivityView(_.extend(this.options, { parent: this }))
           this.settingsView = new SettingsView(this.options)
 
           this.tabViews = [
             this.channelListView,
+            //this.reportView,
             this.activityView,
             this.settingsView
           ]
+
+          if (this.showFaultLink) {
+            this.tabViews.splice(1, 0, this.reportView)
+          }
         },
 
         render: function() {
@@ -67,7 +79,7 @@ define(function(require) {
             tabViews.appendChild(view.render().el)
           })
 
-          this.$el.html(this.template())
+          this.$el.html(this.template({ showFaultLink: this.showFaultLink }))
           this.scroller = this.$el.find('.tab-scroller')
           this.scroller.append(tabViews)
           this.trigger('render')
