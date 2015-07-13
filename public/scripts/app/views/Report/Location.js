@@ -63,9 +63,8 @@ define(function(require) {
             }, function() {
               self.handleNoGeolocation()
             })
-          }
-          // Browser doesn't support Geolocation
-          else {
+          } else {
+            /* Browser doesn't support Geolocation */
             this.handleNoGeolocation()
           }
         }

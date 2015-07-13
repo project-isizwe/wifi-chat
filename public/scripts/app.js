@@ -25,9 +25,7 @@ require.config({
   }
 })
 
-// load async google maps library first 
-define([ 'google-maps-loader' ], function(GoogleMapsLoader){
-  GoogleMapsLoader.done(function(){
+require(['async!http://maps.google.com/maps/api/js?sensor=false'], function() {
     require(['jquery', 'backbone', 'app/Router', 'fastclick'], function ($, Backbone, Router, fastclick) {
 
       localStorage.setItem('andlogKey', 'wifiDebug')
@@ -55,6 +53,5 @@ define([ 'google-maps-loader' ], function(GoogleMapsLoader){
       Backbone.history.start({ pushState: true })
 
       fastclick.attach(document.body)
-    })
   })
 })
