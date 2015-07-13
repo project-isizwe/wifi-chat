@@ -47,7 +47,7 @@ var insertToken = function(client, parameters, callback) {
   client.query(INSERT_TOKEN, parameters, callback)
 }
 
-var cleanTokens = function(client, callback) {
+var purgeTokens = function(client, callback) {
   client.query(CLEAN_TOKENS, [], callback)
 }
 
@@ -59,7 +59,7 @@ var updatePassword = function(client, parameters, callback) {
   client.query(UPDATE_PASSWORD, parameters, callback)
 }
 
-var cleanTokens = function(client, parameters, callback) {
+var cleanUserTokens = function(client, parameters, callback) {
   client.query(CLEAN_USER_TOKENS, parameters, callback)
 }
 
@@ -75,10 +75,10 @@ module.exports = {
   findRecord: findRecord,
   getClient: getClient,
   insertToken: insertToken,
-  cleanTokens: cleanTokens,
+  purgeTokens: purgeTokens,
   getToken: getToken,
   updatePassword: updatePassword,
-  cleanTokens: cleanTokens,
+  cleanUserTokens: cleanUserTokens,
   endClient: endClient,
   addAccountRecord: addAccountRecord
 }

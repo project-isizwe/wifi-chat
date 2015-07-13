@@ -128,7 +128,7 @@ var resetPassword = function(req, res) {
   // Clean down expired tokens
   db.getClient(function(error, client, done) {
     if (error) return returnServerError(client, res, 'Failed to get DB connection')
-    db.cleanTokens(client, function(error) {
+    db.purgeTokens(client, function(error) {
       if (error) return returnServerError(client, res, 'Error cleaning expired tokens')
         db.getToken(client, token, function(error, result) {
          if (error) return returnServerError(client, res, 'Failed to load token')
@@ -141,7 +141,7 @@ var resetPassword = function(req, res) {
            if (error) return returnServerError(client, res, 'Error updating password')
            res.status(200).send({ error: null, message: 'password-updated' })
            params = [ result.rows[0].host, result.rows[0].local ]
-           db.cleanTokens(client, params, function(error) {
+           db.cleanUserTokens(client, params, function(error) {
              debug('Error cleaning user tokens', error)
              db.endClient(client)
            })
