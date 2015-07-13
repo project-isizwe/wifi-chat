@@ -8,6 +8,7 @@ var express        = require('express')
   , helmet         = require('helmet')
   , index          = require('./src/routes/index-get')
   , account        = require('./src/routes/account')
+  , fault          = require('./src/fault')
   , debug          = require('debug')('wifi-chat:index')
   , bodyParser     = require('body-parser')
   , report         = require('./src/report')
@@ -28,6 +29,7 @@ var setConfigs = function() {
   account.setConfig(config)
   index.setConfig(config)
   report.setConfig(config)
+  fault.setConfig(config)
 }
 setConfigs()
 
@@ -131,6 +133,10 @@ primus.on('connection', function(socket) {
       debug('Error with report email, likely client is not connected')
       debug(e)
     }
+  })
+  socket.on('ticket.create', function(data, callback) {
+    data.username = xmppFtw.getJidType('bare')
+    fault.sendReport(data, callback)
   })
 })
 

@@ -25,16 +25,26 @@ define(function(require) {
       send: function(event) {
         event.preventDefault()
         this.model.set('description', this.$('.js-description').val())
-        log('complete', this.model.attributes)
-        // send stuff
+        log('Attempting to create a ticket', this.model)
+        this.model.once('ticket:success', _.bind(this.success, this))
+        this.model.once('ticket:error', _.bind(this.error, this))
+        this.model.save()        
+      },
 
+      error: function(error) {
+        alert('Things went wrong!')
+      },
+
+      success: function() {
+        log('Ticket created successfully')
         var thankyouView = new Thankyou(this.options)
         this.router.showView(thankyouView)
       },
 
       back: function(event) {
-        // overwrite the back buttons default behaviour
-        // in order to hand over the report state
+        /* overwrite the back buttons default behaviour
+         * in order to hand over the report state
+         */
         event.stopPropagation()
         this.router.showReportLocation(this.model)
       }

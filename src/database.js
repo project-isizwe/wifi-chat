@@ -29,7 +29,11 @@ var CLEAN_USER_TOKENS = 'DELETE FROM "password-tokens" ' +
 var GET_TOKEN = 'SELECT * FROM "password-tokens" WHERE "token" = $1 LIMIT 1;'
 
 var UPDATE_PASSWORD = 'UPDATE "prosody" SET "value" = $1 ' +
-    'WHERE "user" = $2 AND "host" = $3 AND "key" = \'password\';';
+    'WHERE "user" = $2 AND "host" = $3 AND "key" = \'password\';'
+
+var GET_EMAIL_ADDRESS = 'SELECT * FROM "prosody" ' +
+    'WHERE "user" = $1 AND "host" = $2 AND key = \'email\' ' +
+    'LIMIT 1;'
 
 var EMAIL_REGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 
@@ -64,11 +68,16 @@ var cleanUserTokens = function(client, parameters, callback) {
 }
 
 var endClient = function(client) {
+  if (!client) return
   client.end()
 }
 
 var addAccountRecord = function(client, record, callback) {
   client.query(CREATE_ACCOUNT, record, callback)
+}
+
+var getUserEmail = function(client, jid, callback) {
+  client.query(GET_EMAIL_ADDRESS, jid.split('@'), callback)
 }
 
 module.exports = {
@@ -80,5 +89,6 @@ module.exports = {
   updatePassword: updatePassword,
   cleanUserTokens: cleanUserTokens,
   endClient: endClient,
-  addAccountRecord: addAccountRecord
+  addAccountRecord: addAccountRecord,
+  getUserEmail: getUserEmail
 }

@@ -23,7 +23,9 @@ module.exports = {
   },
 
   zendesk: {
-    api: 'https://wifichat.zendesk.com/api/v2/',
+    username: 'user@example.com',
+    remoteUri: 'https://wifichat.zendesk.com/api/v2/',
+    auth: true,
     token: 'MSvdPvcl4cQnJD6r8sun4DhhRtaL7VACYG6DCYr4' 
   },
 

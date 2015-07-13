@@ -56,7 +56,7 @@ define(function(require) {
         // no location - lets detect the users location
         if (!this.model.get('location')) {
           // Try W3C Geolocation (Preferred)
-          if(navigator.geolocation) {
+          if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
               var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
               self.map.setCenter(initialLocation)
