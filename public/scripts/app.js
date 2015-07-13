@@ -25,7 +25,8 @@ require.config({
   }
 })
 
-require(['async!https://maps.google.com/maps/api/js?sensor=false'], function() {
+require([ 'google-maps-loader' ], function(GoogleMapsLoader){
+  GoogleMapsLoader.done(function(){
     require(['jquery', 'backbone', 'app/Router', 'fastclick'], function ($, Backbone, Router, fastclick) {
 
       localStorage.setItem('andlogKey', 'wifiDebug')
@@ -53,5 +54,6 @@ require(['async!https://maps.google.com/maps/api/js?sensor=false'], function() {
       Backbone.history.start({ pushState: true })
 
       fastclick.attach(document.body)
+    })
   })
 })
