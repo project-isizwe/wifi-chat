@@ -62,7 +62,6 @@ define(function(require) {
 
           this.tabViews = [
             this.channelListView,
-            //this.reportView,
             this.activityView,
             this.settingsView
           ]
