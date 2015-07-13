@@ -40,9 +40,6 @@ define(function(require) {
           this.options = options
           this.router = options.router
 
-          // hidden feature
-          this.showFaultLink = localStorage.getItem('showFaultLink')
-
           var transEndEventNames = {
             'WebkitTransition' : 'webkitTransitionEnd',// Saf 6, Android Browser
             'MozTransition'    : 'transitionend',      // only for FF < 15
@@ -62,13 +59,10 @@ define(function(require) {
 
           this.tabViews = [
             this.channelListView,
+            this.reportView,
             this.activityView,
             this.settingsView
           ]
-
-          if (this.showFaultLink) {
-            this.tabViews.splice(1, 0, this.reportView)
-          }
         },
 
         render: function() {
@@ -79,7 +73,7 @@ define(function(require) {
             tabViews.appendChild(view.render().el)
           })
 
-          this.$el.html(this.template({ showFaultLink: this.showFaultLink }))
+          this.$el.html(this.template())
           this.scroller = this.$el.find('.tab-scroller')
           this.scroller.append(tabViews)
           this.trigger('render')
