@@ -28,10 +28,12 @@ define(function(require) {
         log('Attempting to create a ticket', this.model)
         this.model.once('ticket:success', _.bind(this.success, this))
         this.model.once('ticket:error', _.bind(this.error, this))
-        this.model.save()        
+        this.model.save()
+        this.showSpinner('Sending Report')
       },
 
       error: function(error) {
+        this.closeSpinner()
         this.showError(
           'Unfortunately we couldn\'t post your report. ' +
           'Please try again later.'
@@ -39,6 +41,7 @@ define(function(require) {
       },
 
       success: function() {
+        this.closeSpinner()
         log('Ticket created successfully')
         var thankyouView = new Thankyou(this.options)
         this.router.showView(thankyouView)
