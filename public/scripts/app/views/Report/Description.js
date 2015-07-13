@@ -25,7 +25,7 @@ define(function(require) {
       send: function(event) {
         event.preventDefault()
         this.model.set('description', this.$('.js-description').val())
-        log("complete:", this.model.attributes)
+        log('complete', this.model.attributes)
         // send stuff
 
         var thankyouView = new Thankyou(this.options)

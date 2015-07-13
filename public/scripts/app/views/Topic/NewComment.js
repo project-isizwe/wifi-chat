@@ -43,7 +43,7 @@ define(function(require) {
           autosize(this.input)
           this.input.get(0).addEventListener('autosize.resized', this.scrollToBottom)
 
-          if(this.options.goToNewComment){
+          if (this.options.goToNewComment) {
             this.input.focus()
             this.scrollToBottom()
           }
@@ -54,7 +54,7 @@ define(function(require) {
         },
 
         detectShiftEnter: function(event) {
-          if(event.keyCode == 13 && event.shiftKey){
+          if ((event.keyCode === 13) && event.shiftKey) {
             event.preventDefault()
             this.createPost(event)
             return false
@@ -66,7 +66,8 @@ define(function(require) {
           event.stopPropagation()
           var content = this.input.val()
           if (!content) return
-          this.$el.find('.js-comment').attr('disabled', 'disabled')
+          this.$el.find('.js-comment')
+            .attr('disabled', 'disabled')
 
           var post = new Post({
           	content: content,

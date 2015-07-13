@@ -1,3 +1,5 @@
+'use strict';
+
 var email   = require('emailjs')
   , debug = require('debug')('wifi-chat:mailer')
 

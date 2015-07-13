@@ -1,3 +1,5 @@
+'use strict';
+
 var mailer = require('./mailer')
   , fs = require('fs')
 
