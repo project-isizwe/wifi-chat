@@ -32,7 +32,10 @@ define(function(require) {
       },
 
       error: function(error) {
-        alert('Things went wrong!')
+        this.showError(
+          'Unfortunately we couldn\'t post your report. ' +
+          'Please try again later.'
+        )
       },
 
       success: function() {
