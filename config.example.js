@@ -29,7 +29,7 @@ module.exports = {
     token: 'MSvdPvcl4cQnJD6r8sun4DhhRtaL7VACYG6DCYr4' 
   },
 
-  googleMapsApiKey: 'AIzaSyBOReKYKLlx3ulzdtFC0hf-y9lRmeqPQq4', /* for reports */
+  googleMapsApiKey: '', /* for reports */
   
   admins: ['admin'] /* list of usernames with admin privileges */
 }
