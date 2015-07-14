@@ -1431,4 +1431,7 @@ textarea + .btn {
   .screen-textContent--centered {
     min-height: 100vh;
   }
+  .screen-textContent--isFull {
+    min-height: calc(100vh - 46px);
+  }
 }
