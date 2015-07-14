@@ -68,6 +68,15 @@ define(function(require) {
             this.handleNoGeolocation()
           }
         }
+
+        /*
+         * hide address bar on mobile devices
+         *
+         * http://stackoverflow.com/questions/4117377/how-to-hide-the-address-bar-on-iphone
+        */ 
+        /Mobile/.test(navigator.userAgent) && setTimeout(function () {
+            if (!pageYOffset) window.scrollTo(0, 1);
+        }, 1000);
       },
 
       handleNoGeolocation: function() {
