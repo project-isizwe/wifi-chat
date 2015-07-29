@@ -62,7 +62,7 @@ var createAccount = function(req, res) {
         }
         // Insert record into the database
         var record = [ domain, local, 'accounts', 'password', 'string', password ]
-        db.addAccountRecord(record, function(error, result) {
+        db.addAccountRecord(client, record, function(error, result) {
           if (error) return returnServerError(client, res, 'Failed to add new account')
           record[3] = 'email'
           record[5] = email
