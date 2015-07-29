@@ -35,8 +35,6 @@ var GET_EMAIL_ADDRESS = 'SELECT * FROM "prosody" ' +
     'WHERE "user" = $1 AND "host" = $2 AND key = \'email\' ' +
     'LIMIT 1;'
 
-var EMAIL_REGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-
 var findRecord = function(client, local, domain, field, value, callback) {
   var parameters = [ local, domain, field, value ]
   client.query(FIND_RECORD, parameters, function(error, result) {
