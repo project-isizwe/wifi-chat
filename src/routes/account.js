@@ -4,6 +4,8 @@ var crypto = require('crypto')
   , fs = require('fs')
   , StringPrep = require('node-stringprep').StringPrep
   , db = require('../database')
+  
+var EMAIL_REGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
 
 var stringPrep = new StringPrep('nameprep')
   , config = null
