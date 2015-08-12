@@ -42,7 +42,11 @@ var sendReport = function(data, callback) {
             { /* email */ id: 27192212, value: data.email },
             { /* category */ id: 27191502, value: data.category },
             { /* description */ id: 27185632, value: data.description }
-          ]
+          ],
+          requester: {
+            name: data.username,
+            email: data.email
+          }
         }
       }
       if (typeof data.location != undefined) {
