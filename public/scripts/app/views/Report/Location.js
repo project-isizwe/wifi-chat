@@ -18,7 +18,7 @@ define(function(require) {
       className: 'report screen',
 
       events: {
-        'click .js-confirm': 'confirmLocation'
+        'click .js-confirm:not(.is--disabled)': 'confirmLocation'
       },
 
       // fallback location: pretoria center
@@ -60,6 +60,7 @@ define(function(require) {
             navigator.geolocation.getCurrentPosition(function(position) {
               var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
               self.map.setCenter(initialLocation)
+              self.onReady()
             }, function() {
               self.handleNoGeolocation()
             })
@@ -83,6 +84,11 @@ define(function(require) {
         var fallback = new google.maps.LatLng(this.fallbackLocation.lat, this.fallbackLocation.lon)
         this.map.setZoom(15)
         this.map.setCenter(fallback)
+        this.onReady()
+      },
+
+      onReady: function() {
+        this.$('.js-confirm').removeClass('is-disabled btn--disabled')
       },
 
       confirmLocation: function(event) {

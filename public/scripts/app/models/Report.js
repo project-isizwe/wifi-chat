@@ -7,6 +7,10 @@ define(function(require) {
 
     return Backbone.Model.extend({
 
+      defaults: {
+        "subcategory": ""
+      },
+
       socketEvents: {
         post: 'ticket.create'
       },

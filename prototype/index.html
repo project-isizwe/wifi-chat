@@ -704,7 +704,7 @@
       </div>
       <div class="btngroup btngroup--modal">
         <div class="btn btn--small js-close">Cancel</div>
-        <button type="button" class="btn btn--primary btn--small js-report-send">Report Post</button>
+        <button class="btn btn--primary btn--small js-report-send">Report Post</button>
       </div>
     </div>
   </div>
@@ -989,6 +989,120 @@
         <div data-symbol="report-grid">
           <div class="screen-textContent">
             <div class="quad-grid">
+              <div class="quad quad--select">
+                <img class="quad-icon" src="../public/images/icons/home.png" height="48" width="48">
+                <span class="quad-label">Home</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/refuse.png" height="48" width="48">
+                <span class="quad-label">Refuse</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/lighting.png" height="48" width="48">
+                <span class="quad-label">Lighting</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/robot.png" height="48" width="48">
+                <span class="quad-label">Robots</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/wifi.png" height="48" width="48">
+                <span class="quad-label">Wifi</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/road.png" height="48" width="48">
+                <span class="quad-label">Road</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/signs.png" height="48" width="48">
+                <span class="quad-label">Signs</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/park.png" height="48" width="48">
+                <span class="quad-label">Park</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/emergency.png" height="48" width="48">
+                <span class="quad-label">Emergency</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/street_furniture.png" height="48" width="48">
+                <span class="quad-label">Street Furniture</span>
+              </div>
+              <div class="quad">
+                <img class="quad-icon" src="../public/images/icons/other.png" height="48" width="48">
+                <span class="quad-label">Other</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-views-item activity" data-view="activity">
+        <div data-use-symbol="activity"></div>
+      </div>
+      <div class="tab-views-item settings" data-view="settings">
+        <div data-use-symbol="settings"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="home screen">
+  <header class="screen-header screen-header--hasTabs">
+    <div class="tabs">
+      <div class="tabs-activeIndicator"></div>
+      <div class="tabs-item" data-target="channelList">
+        <span class="tabs-item-label">Chats</span>
+      </div>
+      <div class="tabs-item is-active" data-target="report">
+        <span class="tabs-item-label">Report</span>
+      </div>
+      <div class="tabs-item" data-target="activity">
+        <span class="tabs-item-label">Activity</span>
+      </div>
+      <div class="tabs-item" data-target="settings">
+        <span class="tabs-item-label">Profile</span>
+      </div>
+    </div>
+  </header>
+  <div class="tab-views">
+    <div class="tab-scroller">
+      <div class="tab-views-item channels" data-view="channelList">
+        <div data-use-symbol="channelList"></div>
+      </div>
+      <div class="tab-views-item report" data-view="report">
+        <div data-symbol="report-grid">
+          <div class="screen-textContent">
+            <div class="quad-grid js-grid">
+              <div class="quad-select-overlay">
+                <div class="quad-grid quad-grid--subcategory js-subcategory-grid">
+                  <div class="quad">
+                    <img class="quad-icon" src="../public/images/icons/water.png" height="48" width="48">
+                    <span class="quad-label">Home Water</span>
+                  </div>
+                  <div class="quad">
+                    <img class="quad-icon" src="../public/images/icons/electricity.png" height="48" width="48">
+                    <span class="quad-label">Home Electricity</span>
+                  </div>
+                  <div class="quad">
+                    <img class="quad-icon" src="../public/images/icons/refuse.png" height="48" width="48">
+                    <span class="quad-label">Home Refuse</span>
+                  </div>
+                  <div class="quad">
+                    <img class="quad-icon" src="../public/images/icons/sewage.png" height="48" width="48">
+                    <span class="quad-label">Home Sewage</span>
+                  </div>
+                  <div class="quad">
+                    <img class="quad-icon" src="../public/images/icons/other.png" height="48" width="48">
+                    <span class="quad-label">Other</span>
+                  </div>
+                </div>
+              </div>
+              <div class="quad quad--select is-selected">
+                <img class="quad-icon" src="../public/images/icons/home.png" height="48" width="48">
+                <span class="quad-label">Home</span>
+              </div>
               <div class="quad">
                 <img class="quad-icon" src="../public/images/icons/refuse.png" height="48" width="48">
                 <span class="quad-label">Refuse</span>
@@ -1070,7 +1184,10 @@
     <div class="screen-title">Report Incident</div>
   </div>
   <form class="screen-textContent">
-    <textarea class="js-description" rows="5" placeholder="Describe the incident..." maxlength="1024" required></textarea>
+    <label for="report-description">Describe the incident:</label>
+    <textarea class="js-description" rows="5" maxlength="1024" required></textarea>
+    <label>Photos <span class="label-optional">(optional)</span></label>
+    <input type="file" class="js-photos" accept="image/*" capture="camera" multiple>
     <input type="submit" class="btn btn--primary js-send" value="Send Report">
   </form>
 </div>

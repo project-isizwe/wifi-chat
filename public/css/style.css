@@ -1133,7 +1133,8 @@ hr {
   text-decoration: none;
 }
 
-form :invalid ~ .btn:not(.btn--text) {
+form :invalid ~ .btn:not(.btn--text):not(.btn--file),
+.btn--primary.btn--disabled {
   background: hsla(221,10%,15%,.15);
 }
 
@@ -1154,7 +1155,7 @@ form :invalid ~ .btn:not(.btn--text) {
 }
 
 .btn--callToAction:active {
-  background: hsl(201,100%,45%);
+  background: hsl(122,51%,38%);
 }
 
 .btn--small {
@@ -1183,11 +1184,38 @@ form :invalid ~ .btn:not(.btn--text) {
   background: none;
 }
 
+.btn--text.btn--disabled {
+  color: hsl(221,5%,75%);
+}
+
 .btn--text:active {
   background: none;
 }
 
-input,
+.btn--file {
+  margin: 5px 0 7px;
+  display: inline-block;
+  position: relative;
+  background: hsl(122,51%,45%);
+  width: auto;
+  padding: 9px 14px;
+  font-size: 12px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+.label-optional {
+  font-weight: normal;
+  color: hsl(240,2%,75%); 
+  font-size: 12px;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
 textarea {
   -webkit-appearance: none;
   width: 100%;
@@ -1203,6 +1231,12 @@ textarea {
   resize: none;
   border-radius: 0;
 }
+input[type=submit] {
+  -webkit-appearance: none;
+}
+input[type=file] {
+  margin: 10px 0 13px;
+}
 input.nonEmpty:invalid {
   border-color: red;
 }
@@ -1211,7 +1245,6 @@ textarea:focus {
   outline: none;
   border-color: #496090;
 }
-
 input + .btn,
 textarea + .btn {
   margin-top: 7px;
@@ -1337,8 +1370,64 @@ textarea + .btn {
   border-color: hsl(240,12%,95%);
 }
 
+.quad--select {
+  position: relative;
+}
+
+.quad--select:after {
+  content: "";
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  border: 14px solid white;
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+
+.quad--select.is-selected {
+  z-index: 2;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.21) inset;
+  background-image: linear-gradient(to bottom right, hsl(240,11%,87%), hsl(240,12%,82%));
+  transition: box-shadow 200ms, background-image;
+}
+
+.quad--select.is-selected:after {
+  border-bottom-color: hsl(240,12%,93%);
+  border-right-color: hsl(240,12%,93%);
+  transition: 200ms;
+}
+
 .quad-icon {
   margin-bottom: 2px;
+}
+
+.quad-select-overlay {
+  position: absolute;
+  background: hsla(193,90%,57%,1);
+  z-index: 1;
+  left: 0;
+  top: 0;
+  padding: 28px;
+  animation: fade-in 200ms;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.quad-select-overlay .quad,
+.quad--select.is-selected {
+  border-color: hsl(193,90%,48%);
+}
+
+.quad-grid--subcategory {
+  animation: slide-down 200ms;
+}
+
+@keyframes slide-down {
+  from { transform: translateY(-10px); }
+  to { transform: none; }
 }
 
 .map-view {

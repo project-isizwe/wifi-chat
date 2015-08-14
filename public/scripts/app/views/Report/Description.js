@@ -4,6 +4,7 @@ define(function(require) {
 
     var _                = require('underscore')
       , Base             = require('app/views/Base')
+      , autosize         = require('autosize')
       , Thankyou         = require('app/views/Report/Thankyou')
       , log              = require('bows.min')('Views:Report:Description')
 
@@ -22,9 +23,21 @@ define(function(require) {
         'click .js-back': 'back'
       },
 
+      afterRender: function() {
+        this.input = this.$('.js-description')
+        autosize(this.input)
+      },
+
       send: function(event) {
         event.preventDefault()
         this.model.set('description', this.$('.js-description').val())
+
+        if(this.model.get('category') == 'home'){
+          this.model.set('municipal-account-number', this.$('.js-municipal-account-number').val())
+        }
+
+        // also upload photo(s) from this.$('.js-photos').val()
+
         log('Attempting to create a ticket', this.model)
         this.model.once('ticket:success', _.bind(this.success, this))
         this.model.once('ticket:error', _.bind(this.error, this))
@@ -53,7 +66,17 @@ define(function(require) {
          */
         event.stopPropagation()
         this.router.showReportLocation(this.model)
-      }
+      },
+
+      onDestroy: function() {
+        this.triggerAutosizeEvent('autosize.destroy')
+      },
+
+      triggerAutosizeEvent: function(event) {
+        var evt = document.createEvent('Event');
+        evt.initEvent(event, true, false);
+        this.input.get(0).dispatchEvent(evt);
+      },
 
     })
 

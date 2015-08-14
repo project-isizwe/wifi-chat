@@ -6,6 +6,14 @@
   <div class="screen-title">Report Incident</div>
 </div>
 <form class="screen-textContent">
-  <textarea class="js-description" rows="5" placeholder="Describe the incident..." maxlength="1024" required></textarea>
+  <label for="report-description">Describe the incident:</label>
+  <textarea id="report-description" class="js-description" rows="5" maxlength="1024" required></textarea>
+  <% if(category == 'home'){ %>
+  <label for="report-account-number">Municipal Account Number</label>
+  <input id="report-account-number" type="text" class="js-municipal-account-number" required>
+  <% } else { %>
+  <label>Photos <span class="label-optional">(optional)</span></label>
+  <input type="file" class="js-photos" accept="image/*" capture="camera" multiple>
+  <% } %>
   <input type="submit" class="btn btn--primary js-send" value="Send Report">
 </form>
