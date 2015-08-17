@@ -13,7 +13,7 @@
   <input id="report-account-number" type="text" class="js-municipal-account-number" required>
   <% } else if (canUploadFiles) { %>
   <label>Photo <span class="label-optional">(optional)</span></label>
-  <input type="file" class="js-photos" accept="image/*" capture="camera" multiple>
+  <input type="file" class="js-photos" accept="image/*" />
   <% } %>
   <input type="submit" class="btn btn--primary js-send" value="Send Report">
 </form>
