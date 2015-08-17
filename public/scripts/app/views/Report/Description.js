@@ -32,8 +32,11 @@ define(function(require) {
         event.preventDefault()
         this.model.set('description', this.$('.js-description').val())
 
-        if(this.model.get('category') == 'home'){
-          this.model.set('municipal-account-number', this.$('.js-municipal-account-number').val())
+        if ('home' === this.model.get('category')) {
+          this.model.set(
+            'idNumber',
+            this.$('.js-municipal-account-number').val()
+          )
         }
 
         // also upload photo(s) from this.$('.js-photos').val()

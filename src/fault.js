@@ -32,6 +32,10 @@ var sendReport = function(data, callback) {
       }
       data.email = result.rows[0].value
       done()
+      /**
+       * Find field => ID mapping via source @ 
+       * https://wifichat.zendesk.com/agent/admin/ticket_fields
+       */
       var ticket = {
         ticket: {
           type: 'problem',
@@ -41,7 +45,9 @@ var sendReport = function(data, callback) {
             { /* username */ id: 27161401, value: data.username },
             { /* email */ id: 27192212, value: data.email },
             { /* category */ id: 27191502, value: data.category },
-            { /* description */ id: 27185632, value: data.description }
+            { /* sub-category */ id: 27523441, data.subCategory },
+            { /* description */ id: 27185632, value: data.description },
+            { /* ID number */ id: 27515511, value: data.idNumber }
           ],
           requester: {
             name: data.username,

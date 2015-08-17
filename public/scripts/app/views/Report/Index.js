@@ -37,8 +37,8 @@ define(function(require) {
         var quad = $(event.currentTarget)
         this.model.set('category', quad.attr('data-category'))
 
-        if(quad.hasClass('js-hasSubcategory')){
-          if(quad.hasClass('is-selected')){
+        if (quad.hasClass('js-hasSubcategory')) {
+          if (quad.hasClass('is-selected')) {
             this.hideSubcategories()
           } else {
             this.showSubcategories(quad)

@@ -8,7 +8,7 @@ define(function(require) {
     return Backbone.Model.extend({
 
       defaults: {
-        "subcategory": ""
+        subCategory: ''
       },
 
       socketEvents: {

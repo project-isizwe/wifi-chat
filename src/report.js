@@ -31,7 +31,7 @@ var sendReport = function(data, callback) {
     author: data.author,
     reportedBy: data.reportedBy,
     reason: data.reason || '...None provided...',
-    content: data.content
+    content: data.content,
   }
   mailer.sendMail(
     config.email.reportingAddress,
