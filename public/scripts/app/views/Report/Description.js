@@ -7,6 +7,7 @@ define(function(require) {
       , autosize         = require('autosize')
       , Thankyou         = require('app/views/Report/Thankyou')
       , File             = require('app/models/File')
+      , user             = require('app/store/User')
       , log              = require('bows.min')('Views:Report:Description')
 
     return Base.extend({
@@ -27,8 +28,9 @@ define(function(require) {
       initialize: function(options) {
         this.options = options
         this.router = options.router
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
+        if (localStorage.uploads && window.File && window.FileReader && window.FileList && window.Blob) {
           this.model.set('canUploadFiles', true)
+          this.file = new File({ jid: user.get('channelJid') })
         } else {
           log('The File APIs are not fully supported in this browser.')
           this.model.set('canUploadFiles', false)
@@ -42,6 +44,14 @@ define(function(require) {
 
       send: function(event) {
         event.preventDefault()
+        if (!this.file) {
+          return this.sendReport()
+        }
+        this.file.upload(event, _.bind(this.sendReport, this))
+
+      },
+
+      sendReport: function(event) {
         this.model.set('description', this.$('.js-description').val())
 
         if ('home' === this.model.get('category')) {

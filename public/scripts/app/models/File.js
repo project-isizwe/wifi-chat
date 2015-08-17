@@ -11,6 +11,8 @@ define(function(require) {
 
     return Backbone.Model.extend({
 
+      method: 'POST',
+
       defaults: {
         url: null,
         cachebust: ''
@@ -21,16 +23,19 @@ define(function(require) {
 
       xmppVerifyEvent: 'xmpp.buddycloud.http.verify',
 
-      initialize: function() {
+      initialize: function(attributes) {
+        if (attributes) {
+          this.attributes = attributes
+        }
         this.discoverMediaServer()
       },
 
-      discoverMediaServer: function() {
+      discoverMediaServer: function(callback) {
         this.attributes.domain = this.attributes.jid.split('@')[1]
         this.mediaServer = mediaServers.findWhere({ domain: this.get('domain') })
         if (this.mediaServer) {
           if (this.mediaServer.get('url')) {
-            return this.setAvatar()
+            if (callback) return callback()
           }
         } else {
           this.mediaServer = new MediaServer({ domain: this.get('domain')})
@@ -64,11 +69,35 @@ define(function(require) {
         }
       },
 
-      upload: function(event) {
+      getBaseUrl: function() {
+        if (!this.baseUrl) {
+          var randomId =  Math.random().toString(36).substring(2)
+          this.baseUrl = this.mediaServer.get('url') +
+            '/' +
+            this.get('jid') +
+            '/fixed'// + randomId
+        }
+        return this.baseUrl
+      },
+
+      upload: function(event, callback) {
         socket.once(this.xmppVerifyEvent, this.verifyFileUpload, this)
 
         var formData = new FormData()
-        var file =  event.target.files[0]
+        var file
+        if (event.target.files) {
+          file = event.target.files[0]
+        } else {
+          for (var i = 0; i < event.target.length; i++) {
+            var t = event.target[i]
+            if (t.files && t.files[0]) {
+              file = t.files[0]
+            }
+          }
+        }
+
+        if (!file) return callback()
+
         var reader = new FileReader()
         var self = this
 
@@ -80,7 +109,7 @@ define(function(require) {
 
           var ajaxOpts = {
             url: self.getBaseUrl(),
-            type: 'PUT',
+            type: self.method,
             headers: {
               'Authorization':'Basic ' + self.getAuthorizationToken(),
             },
@@ -88,8 +117,8 @@ define(function(require) {
             contentType: false,
             processData: false,
             success: function(data, status, jqXHR) {
-              log("success", data, status, jqXHR)
-              self.set('cachebust', '&'+ Date.now())
+              log('success', data, status, jqXHR)
+              self.set('cachebust', '&' + Date.now())
               self.trigger('change:url', self, self.get('url'))
             },
             error: function(jqXHR, status, error) {

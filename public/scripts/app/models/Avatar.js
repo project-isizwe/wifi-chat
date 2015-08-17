@@ -2,15 +2,12 @@ define(function(require) {
 
     'use strict';
   
-    var Backbone     = require('backbone')
-      , mediaServers = require('app/store/MediaServers')
-      , MediaServer  = require('app/models/MediaServer')
-      , socket       = require('app/utils/socket')
-      , user         = require('app/store/User')
-      , log          = require('bows.min')('Models:Avatar')
-      , File         = require('app/models/File')
+    var log  = require('bows.min')('Models:Avatar')
+      , File = require('app/models/File')
 
     return File.extend({
+
+      method: 'PUT',
 
       defaults: {
         url: null,
@@ -23,13 +20,14 @@ define(function(require) {
       xmppVerifyEvent: 'xmpp.buddycloud.http.verify',
 
       initialize: function() {
-        this.discoverMediaServer()
+        this.discoverMediaServer(_.bind(this.setAvatar, this))
         this.mediaServer.on('change:url', this.setAvatar, this)
       },
 
       setAvatar: function() {
-        // check if avatar is there
-        // by requesting a default sized one
+        /* check if avatar is there
+         * by requesting a default sized one
+         */
         var url = this.getBaseUrl() + '?maxwidth=44&maxheight=44' + this.get('cachebust')
         this.image = new Image()
         this.image.crossOrigin = "Anonymous";
