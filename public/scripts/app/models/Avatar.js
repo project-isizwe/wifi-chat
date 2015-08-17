@@ -9,16 +9,6 @@ define(function(require) {
 
       method: 'PUT',
 
-      defaults: {
-        url: null,
-        cachebust: ''
-      },
-
-      uploadToken: null,
-      complete: false,
-
-      xmppVerifyEvent: 'xmpp.buddycloud.http.verify',
-
       initialize: function() {
         this.discoverMediaServer(_.bind(this.setAvatar, this))
         this.mediaServer.on('change:url', this.setAvatar, this)

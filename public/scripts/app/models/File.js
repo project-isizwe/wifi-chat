@@ -11,7 +11,7 @@ define(function(require) {
 
     return Backbone.Model.extend({
 
-      method: 'POST',
+      method: 'PUT',
 
       defaults: {
         url: null,
