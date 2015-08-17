@@ -51,15 +51,14 @@ define(function(require) {
         this.file.on('error:file', function(message) {
           this.error(message)
         }, this)
-        this.file.on('change:id', function(url) {
-          log('success', arguments)
-          this.sendReport()
+        this.file.on('change:id', function(details) {
+          this.sendReport(details.url + '/' + details.id)
         }, this)
         this.file.upload(event)
 
       },
 
-      sendReport: function(error) {
+      sendReport: function(imageUrl) {
         this.model.set('description', this.$('.js-description').val())
 
         if ('home' === this.model.get('category')) {
@@ -67,6 +66,14 @@ define(function(require) {
             'idNumber',
             this.$('.js-municipal-account-number').val()
           )
+        }
+        if (imageUrl) {
+          this.model.set(
+            'description',
+            this.model.get('description')
+              + '\n\nThe following image was attached: '
+              + imageUrl
+            )
         }
 
         // also upload photo(s) from this.$('.js-photos').val()
@@ -87,7 +94,6 @@ define(function(require) {
       },
 
       success: function() {
-        console.log(arguments)
         this.closeSpinner()
         log('Ticket created successfully')
         var thankyouView = new Thankyou(this.options)
