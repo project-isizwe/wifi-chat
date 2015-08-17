@@ -96,7 +96,7 @@ define(function(require) {
         }
         if (event.target.files.length) {
           this.$el.find('.avatar').css('background-image', 'none').addClass('is-uploading')
-          this.avatar.upload(event)
+          this.avatar.uploadAvatar(event)
         }
       },
 
