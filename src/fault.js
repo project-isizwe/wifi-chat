@@ -45,7 +45,7 @@ var sendReport = function(data, callback) {
             { /* username */ id: 27161401, value: data.username },
             { /* email */ id: 27192212, value: data.email },
             { /* category */ id: 27191502, value: data.category },
-            { /* sub-category */ id: 27523441, data.subCategory },
+            { /* sub-category */ id: 27523441, value: data.subCategory },
             { /* description */ id: 27185632, value: data.description },
             { /* ID number */ id: 27515511, value: data.idNumber }
           ],

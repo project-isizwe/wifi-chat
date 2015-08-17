@@ -28,6 +28,9 @@ define(function(require) {
       },
 
       initialize: function(options) {
+        if (!localStorage.hasHomeReport) {
+          this.template = _.template(require('text!tpl/Report/Index.old.html'))
+        }
         this.router = options.router
         this.model = new Report()
         this.on('visibilitychange', this.onVisibilityChange, this)
