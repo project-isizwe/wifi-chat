@@ -87,6 +87,7 @@ define(function(require) {
       },
 
       success: function() {
+        console.log(arguments)
         this.closeSpinner()
         log('Ticket created successfully')
         var thankyouView = new Thankyou(this.options)
