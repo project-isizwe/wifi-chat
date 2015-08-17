@@ -41,7 +41,7 @@ define(function(require) {
       pickCategory: function(event) {
         event.stopPropagation()
         this.model.set('subCategory', $(event.currentTarget).attr('data-subcategory'))
-        this.router.showReportLocation(this.model)
+        this.router.showReportDescription(this.model)
         this.trigger('hide')
       }
 

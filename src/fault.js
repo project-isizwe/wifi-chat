@@ -56,7 +56,7 @@ var sendReport = function(data, callback) {
         }
       }
 
-      if (typeof data.location != undefined) {
+      if (data.location && data.location.lat && data.location.lng) {
         ticket.ticket.custom_fields.push({
           /* latitude */
           id:  27191342,
