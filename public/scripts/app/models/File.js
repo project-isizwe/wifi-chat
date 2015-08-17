@@ -71,14 +71,9 @@ define(function(require) {
       },
 
       getBaseUrl: function() {
-        if (!this.baseUrl) {
-          var randomId =  Math.random().toString(36).substring(2)
-          this.baseUrl = this.mediaServer.get('url') +
-            '/' +
-            this.get('jid') +
-            '/fixed'// + randomId
-        }
-        return this.baseUrl
+        return this.baseUrl = this.mediaServer.get('url') +
+          '/' +
+          this.get('jid')
       },
 
       upload: function(event, callback) {
