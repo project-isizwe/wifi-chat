@@ -44,14 +44,22 @@ define(function(require) {
 
       send: function(event) {
         event.preventDefault()
+        this.showSpinner('Sending Report')
         if (!this.file) {
           return this.sendReport()
         }
-        this.file.upload(event, _.bind(this.sendReport, this))
+        this.file.on('error:file', function(message) {
+          this.error(message)
+        }, this)
+        this.file.on('change:id', function(url) {
+          log('success', arguments)
+          this.sendReport()
+        }, this)
+        this.file.upload(event)
 
       },
 
-      sendReport: function(event) {
+      sendReport: function(error) {
         this.model.set('description', this.$('.js-description').val())
 
         if ('home' === this.model.get('category')) {
@@ -67,7 +75,7 @@ define(function(require) {
         this.model.once('ticket:success', _.bind(this.success, this))
         this.model.once('ticket:error', _.bind(this.error, this))
         this.model.save()
-        this.showSpinner('Sending Report')
+        
       },
 
       error: function(error) {

@@ -116,6 +116,7 @@ define(function(require) {
               log('success', data, status, jqXHR)
               self.set('cachebust', '&' + Date.now())
               self.trigger('change:url', self, self.get('url'))
+              self.trigger('change:id', self, { url: self.get('url'), id: data.id })
             },
             error: function(jqXHR, status, error) {
               self.trigger('error:file', 'Something went wrong. Please try again later.')
