@@ -27,11 +27,12 @@ var setConfig = function(configuration) {
 }
 
 var createAccount = function(req, res) {
-  // Check for required parameters:
-  // local, domain, password, email
+  /* Check for required parameters:
+   * local, domain, password, email
+   */
   debug('incoming create account request', req.body)
-  var local = stringPrep.prepare((req.body.local || '').trim())
-  var domain = (req.body.domain || '').trim()
+  var local = stringPrep.prepare((req.body.local || '').trim()).toLowerCase()
+  var domain = (req.body.domain || '').trim().toLowerCase()
   var password = (req.body.password || '').trim()
   var email = (req.body.email || '').trim().toLowerCase()
 

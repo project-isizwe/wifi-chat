@@ -29,7 +29,7 @@ var sendReport = function(data, callback) {
       if (error) {
         debug('Failed to get user email', error)
         return callback({ error: 'server-error' })
-      }
+     }
       data.email = result.rows[0].value
       done()
       /**
@@ -55,6 +55,7 @@ var sendReport = function(data, callback) {
           }
         }
       }
+
       if (typeof data.location != undefined) {
         ticket.ticket.custom_fields.push({
           /* latitude */

@@ -33,7 +33,9 @@ define(function(require) {
       createTicket: function() {
         var payload = {
           description: this.get('description'),
-          category: this.get('category')
+          category: this.get('category'),
+          subCategory: this.get('subCategory'),
+          idNumber: this.get('idNumber')
         }
 
         if (this.has('location')) {

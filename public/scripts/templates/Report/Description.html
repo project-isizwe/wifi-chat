@@ -8,7 +8,7 @@
 <form class="screen-textContent">
   <label for="report-description">Describe the incident:</label>
   <textarea id="report-description" class="js-description" rows="5" maxlength="1024" required></textarea>
-  <% if(category == 'home'){ %>
+  <% if (category === 'home') { %>
   <label for="report-account-number">Municipal Account Number</label>
   <input id="report-account-number" type="text" class="js-municipal-account-number" required>
   <% } else { %>
