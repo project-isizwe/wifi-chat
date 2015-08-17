@@ -28,7 +28,7 @@ define(function(require) {
       initialize: function(options) {
         this.options = options
         this.router = options.router
-        if (localStorage.uploads && window.File && window.FileReader && window.FileList && window.Blob) {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
           this.model.set('canUploadFiles', true)
           this.file = new File({ jid: user.get('channelJid') })
         } else {
@@ -54,7 +54,7 @@ define(function(require) {
         this.file.on('change:id', function(details) {
           this.sendReport(details.url + '/' + details.id)
         }, this)
-        this.file.upload(event)
+        this.file.upload(event, _.bind(this.sendReport, this))
 
       },
 
