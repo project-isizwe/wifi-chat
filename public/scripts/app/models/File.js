@@ -53,6 +53,7 @@ define(function(require) {
           event = 'xmpp.buddycloud.http.deny'
         }
         this.uploadToken = null
+        log('Have file upload token, sending', event)
         socket.send(
           event,
           this.getVerificationPayload(data),
