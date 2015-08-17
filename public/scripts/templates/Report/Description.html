@@ -11,8 +11,8 @@
   <% if (category === 'home') { %>
   <label for="report-account-number">Municipal Account Number</label>
   <input id="report-account-number" type="text" class="js-municipal-account-number" required>
-  <% } else { %>
-  <label>Photos <span class="label-optional">(optional)</span></label>
+  <% } else if (canUploadFiles) { %>
+  <label>Photo <span class="label-optional">(optional)</span></label>
   <input type="file" class="js-photos" accept="image/*" capture="camera" multiple>
   <% } %>
   <input type="submit" class="btn btn--primary js-send" value="Send Report">

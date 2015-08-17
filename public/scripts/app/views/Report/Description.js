@@ -6,6 +6,7 @@ define(function(require) {
       , Base             = require('app/views/Base')
       , autosize         = require('autosize')
       , Thankyou         = require('app/views/Report/Thankyou')
+      , File             = require('app/models/File')
       , log              = require('bows.min')('Views:Report:Description')
 
     return Base.extend({
@@ -21,6 +22,17 @@ define(function(require) {
       events: {
         'submit form': 'send',
         'click .js-back': 'back'
+      },
+
+      initialize: function(options) {
+        this.options = options
+        this.router = options.router
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+          this.model.set('canUploadFiles', true)
+        } else {
+          log('The File APIs are not fully supported in this browser.')
+          this.model.set('canUploadFiles', false)
+        }
       },
 
       afterRender: function() {
