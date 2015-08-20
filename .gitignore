@@ -1,4 +1,5 @@
 npm-debug.log
+v8.log
 node_modules
 public/scripts/primus.js
 public/app.min.*
