@@ -7,6 +7,7 @@
     "start": "node index",
     "build": "grunt build"
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git@github.com:project-isizwe/wifi-chat.git"
