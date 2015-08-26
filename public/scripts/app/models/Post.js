@@ -26,8 +26,8 @@ define(function(require) {
       embedReceipts: [
         {
           name: 'WiFi TV',
-          regex: /https:\/\/www.connectuptv.pockittv.mobi\/v\/(\d*)/g,
-          substitution: '<div class="post-media post-media--video post-media--wifitv"><video width="320" height="240" poster="https://www.connectuptv.pockittv.mobi/video/image/$1" controls preload="none"><source src="$&" /></video></div>'
+          regex: /http:\/\/wifi-tv.co.za\/([a-z0-9-]+)\/[a-z0-9-]+\/([a-z0-9-]+)\//g,
+          substitution: '<div class="post-media post-media--video post-media--wifitv"><div class="iframe-wrapper"><iframe style="border: none; overflow: hidden; height: 196px; width: 330px" src="http://wifi-tv.co.za/$1/clip/$2/embed/?width=320&height=180" scrolling="no" frameborder="0"></div></iframe></div>'
         },
         {
           name: 'Images',
