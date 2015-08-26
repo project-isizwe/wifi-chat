@@ -27,7 +27,7 @@ define(function(require) {
         {
           name: 'WiFi TV',
           regex: /http:\/\/wifi-tv.co.za\/([a-z0-9-]+)\/[a-z0-9-]+\/([a-z0-9-]+)\//g,
-          substitution: '<div class="post-media post-media--video post-media--wifitv"><div class="iframe-wrapper"><iframe style="border: none; overflow: hidden; height: 196px; width: 330px" src="http://wifi-tv.co.za/$1/clip/$2/embed/?width=320&height=180" scrolling="no" frameborder="0"></div></iframe></div>'
+          substitution: '<div class="post-media post-media--video post-media--wifitv"><div class="iframe-wrapper"><iframe style="border: none; overflow: hidden; height: 196px; width: 330px" src="http://wifi-tv.co.za/$1/clip/$2/embed/?width=320&height=180" scrolling="no" frameborder="0"></iframe></div></div>'
         },
         {
           name: 'Images',
