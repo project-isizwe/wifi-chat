@@ -31,7 +31,7 @@
     "emailjs": "^1.0.1",
     "engine.io": "^1.6.3",
     "engine.io-client": "^1.6.3",
-    "errorhandler": "^1.4.2",
+    "errorhandler": "^1.4.3",
     "express": "^4.12.3",
     "helmet": "^0.15.0",
     "node-stringprep": "^0.7.0",
