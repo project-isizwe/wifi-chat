@@ -34,7 +34,7 @@
     "errorhandler": "^1.4.2",
     "express": "^4.12.3",
     "helmet": "^0.15.0",
-    "node-stringprep": "^0.7.0",
+    "node-stringprep": "^0.8.0",
     "node-zendesk": "^1.1.4",
     "pg": "^4.3.0",
     "primus": "~4.0.2",
