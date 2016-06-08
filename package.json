@@ -39,7 +39,7 @@
     "pg": "^4.3.0",
     "primus": "~4.0.2",
     "primus-emitter": "~3.1.1",
-    "serve-static": "^1.9.2",
+    "serve-static": "^1.11.0",
     "xmpp-ftw": "1.x",
     "xmpp-ftw-buddycloud": "1.x"
   },
