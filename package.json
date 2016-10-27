@@ -35,7 +35,7 @@
     "express": "^4.12.3",
     "helmet": "^0.15.0",
     "node-stringprep": "^0.7.0",
-    "node-zendesk": "^1.1.4",
+    "node-zendesk": "^1.1.12",
     "pg": "^4.3.0",
     "primus": "~4.0.2",
     "primus-emitter": "~3.1.1",
