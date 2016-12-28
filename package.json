@@ -40,7 +40,7 @@
     "primus": "~4.0.2",
     "primus-emitter": "~3.1.1",
     "serve-static": "^1.9.2",
-    "xmpp-ftw": "1.x",
+    "xmpp-ftw": "2.0.0",
     "xmpp-ftw-buddycloud": "1.x"
   },
   "devDependencies": {
