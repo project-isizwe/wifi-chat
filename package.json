@@ -37,7 +37,7 @@
     "node-stringprep": "^0.7.0",
     "node-zendesk": "^1.1.4",
     "pg": "^4.3.0",
-    "primus": "~4.0.2",
+    "primus": "~6.1.0",
     "primus-emitter": "~3.1.1",
     "serve-static": "^1.9.2",
     "xmpp-ftw": "1.x",
